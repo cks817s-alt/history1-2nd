@@ -39,6 +39,16 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",s
 .hero h1{font-weight:900;font-size:clamp(32px,6vw,48px);line-height:1.3;margin:14px 0 10px}
 .hero h1 em{font-style:normal;color:#fbbf24}
 .hero p{color:#cbd5e1;margin:0;max-width:34em}
+.hero{display:flex;gap:28px;align-items:center}
+.hero-text{flex:1;min-width:0}
+.qr{flex:none;text-align:center;background:#fff;border-radius:18px;padding:12px 12px 10px;box-shadow:0 8px 24px rgba(0,0,0,.35);border:0;cursor:zoom-in;font:inherit;color:#0f172a}
+.qr img{display:block;width:150px;height:150px}
+.qr span{display:block;font-size:12.5px;font-weight:700;margin-top:6px}
+.qr-big{position:fixed;inset:0;z-index:50;background:rgba(15,23,42,.92);display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:16px;cursor:zoom-out;color:#fff;text-align:center}
+.qr-big.on{display:flex}
+.qr-big img{width:min(78vmin,560px);height:auto;background:#fff;border-radius:20px;padding:14px}
+.qr-big b{font-size:clamp(20px,4vw,30px);font-weight:900}
+.qr-big small{font-size:clamp(14px,2.4vw,18px);color:#cbd5e1;word-break:break-all}
 h2.sec{font-weight:900;font-size:22px;margin:36px 0 4px}
 .sec-sub{color:var(--ink-2);font-size:15px;margin:0 0 18px}
 ol.lessons{list-style:none;margin:0;padding:0;display:grid;gap:14px}
@@ -57,7 +67,8 @@ footer{padding:36px 0 56px;color:var(--ink-2);font-size:13px}
 @media (max-width:520px){
   .lesson{grid-template-columns:1fr;gap:12px;padding:18px}
   .num{width:48px;height:48px;font-size:21px;border-radius:12px}
-  .hero{padding:28px 20px;border-radius:20px}
+  .hero{padding:28px 20px;border-radius:20px;flex-direction:column;align-items:flex-start}
+  .qr{align-self:center}
 }
 </style>
 </head>
@@ -69,9 +80,12 @@ footer{padding:36px 0 56px;color:var(--ink-2);font-size:13px}
 </div></header>
 <div class="wrap">
   <section class="hero">
-    <div class="unit">중2 역사① · 2학기</div>
-    <h1>역사 <em>수업실</em></h1>
-    <p>수업 시간에 함께 볼 자료를 모아 두었습니다. 선생님이 안내한 차시를 눌러 들어가세요.</p>
+    <div class="hero-text">
+      <div class="unit">중2 역사① · 2학기</div>
+      <h1>역사 <em>수업실</em></h1>
+      <p>수업 시간에 함께 볼 자료를 모아 두었습니다. 선생님이 안내한 차시를 눌러 들어가세요.</p>
+    </div>
+    <button class="qr" id="qrBtn" type="button" aria-label="QR코드 크게 보기"><img src="qr.svg" alt="이 사이트로 들어오는 QR코드"><span>📱 찍어서 들어오기 · 크게 보기</span></button>
   </section>
 
   <h2 class="sec">Ⅵ. 세계 대전과 사회 변동</h2>
@@ -144,6 +158,10 @@ footer{padding:36px 0 56px;color:var(--ink-2);font-size:13px}
 
   <footer>수업 속 사진은 위키미디어 공용 등의 공개 자료를 사용했으며, 출처는 각 수업 페이지에 적혀 있습니다.</footer>
 </div>
+<div class="qr-big" id="qrBig" role="dialog" aria-label="QR코드 크게 보기"><b>휴대폰 카메라로 찍어 들어오세요</b><img src="qr.svg" alt="역사 수업실 QR코드"><small>cks817s-alt.github.io/history1-2nd</small><small>화면을 누르면 닫힙니다</small></div>
+<script>
+(function(){var b=document.getElementById("qrBig");document.getElementById("qrBtn").onclick=function(){b.classList.add("on")};b.onclick=function(){b.classList.remove("on")};document.addEventListener("keydown",function(e){if(e.key==="Escape")b.classList.remove("on")});})();
+</script>
 <script>
 (function(){
   var root=document.documentElement, btn=document.getElementById('theme');
