@@ -7,59 +7,70 @@
 <meta name="description" content="중2 역사① 2학기 수업 자료 모음">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@600;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f6f3ee; --surface:#ffffff; --surface-2:#efe9e0; --ink:#1f1d1a; --ink-2:#5b554e; --line:#d9d1c4;
-  --accent:#8a2b2b; --accent-soft:#f3e3df; --shadow:0 1px 2px rgba(0,0,0,.05),0 8px 24px rgba(0,0,0,.07);
+  --bg:#f8fafc; --surface:#ffffff; --surface-2:#f1f5f9; --ink:#0f172a; --ink-2:#475569; --line:#e2e8f0;
+  --accent:#b45309; --amber:#f59e0b; --accent-soft:#fef3c7; --navy:#0f172a;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.07);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#181614; --surface:#221f1c; --surface-2:#2c2824; --ink:#efe9e1; --ink-2:#b4aca2; --line:#3d3731;
-    --accent:#e08a7c; --accent-soft:#3a2522; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+    --bg:#0b1120; --surface:#111a2e; --surface-2:#1e293b; --ink:#f1f5f9; --ink-2:#94a3b8; --line:#243147;
+    --accent:#fbbf24; --accent-soft:rgba(245,158,11,.14); --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
   }
 }
 :root[data-theme="dark"]{
-  --bg:#181614; --surface:#221f1c; --surface-2:#2c2824; --ink:#efe9e1; --ink-2:#b4aca2; --line:#3d3731;
-  --accent:#e08a7c; --accent-soft:#3a2522; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+  --bg:#0b1120; --surface:#111a2e; --surface-2:#1e293b; --ink:#f1f5f9; --ink-2:#94a3b8; --line:#243147;
+  --accent:#fbbf24; --accent-soft:rgba(245,158,11,.14); --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;font-size:17px;line-height:1.7;word-break:keep-all}
-.wrap{max-width:880px;margin:0 auto;padding:0 16px}
-header.top{display:flex;justify-content:flex-end;padding-top:16px}
-.theme{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;height:34px;padding:0 12px;cursor:pointer;font:inherit;font-size:14px}
-.hero{padding:40px 0 36px;border-bottom:1px solid var(--line)}
-.hero .unit{font-size:14px;font-weight:700;color:var(--accent);letter-spacing:.04em}
-.hero h1{font-family:"Noto Serif KR",serif;font-weight:900;font-size:clamp(32px,6vw,52px);line-height:1.3;margin:10px 0 12px}
-.hero p{color:var(--ink-2);margin:0;max-width:34em}
-h2.sec{font-family:"Noto Serif KR",serif;font-size:22px;margin:40px 0 6px}
-.sec-sub{color:var(--ink-2);font-size:15px;margin:0 0 20px}
-ol.lessons{list-style:none;margin:0;padding:0;display:grid;gap:16px}
-.lesson{display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;text-decoration:none;color:inherit;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
-.lesson:hover,.lesson:focus-visible{transform:translateY(-2px);border-color:var(--accent);outline:none}
-.num{width:64px;height:64px;border-radius:14px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-family:"Noto Serif KR",serif;font-weight:900;font-size:26px}
-.lesson .era{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.03em}
-.lesson h3{font-family:"Noto Serif KR",serif;font-size:21px;line-height:1.4;margin:2px 0 6px}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px}
+.bar{background:var(--navy);color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.bar .wrap{display:flex;align-items:center;gap:12px;padding-top:12px;padding-bottom:12px}
+.logo{flex:none;width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#ea580c);display:grid;place-items:center;font-size:22px;box-shadow:0 4px 12px rgba(245,158,11,.35)}
+.bar .t{flex:1;min-width:0;line-height:1.35}
+.bar .t small{display:block;font-size:12px;color:#fbbf24;font-weight:700}
+.bar .t b{font-size:17px;font-weight:900}
+.theme{flex:none;border:1px solid #334155;background:#1e293b;color:#e2e8f0;border-radius:10px;height:34px;padding:0 12px;cursor:pointer;font:inherit;font-size:13px;font-weight:700}
+.hero{margin:28px 0 8px;background:radial-gradient(120% 140% at 0% 0%,#1e293b 0%,#0f172a 60%);color:#fff;border-radius:24px;padding:36px 32px;border:1px solid #1e293b;box-shadow:var(--shadow)}
+.hero .unit{display:inline-block;font-size:13px;font-weight:700;color:#fbbf24;border:1px solid rgba(251,191,36,.45);background:rgba(245,158,11,.12);padding:3px 12px;border-radius:999px}
+.hero h1{font-weight:900;font-size:clamp(32px,6vw,48px);line-height:1.3;margin:14px 0 10px}
+.hero h1 em{font-style:normal;color:#fbbf24}
+.hero p{color:#cbd5e1;margin:0;max-width:34em}
+h2.sec{font-weight:900;font-size:22px;margin:36px 0 4px}
+.sec-sub{color:var(--ink-2);font-size:15px;margin:0 0 18px}
+ol.lessons{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.lesson{display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;text-decoration:none;color:inherit;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+.lesson:hover,.lesson:focus-visible{transform:translateY(-2px);border-color:var(--amber);outline:none}
+.num{width:64px;height:64px;border-radius:16px;background:var(--navy);color:#fbbf24;display:grid;place-items:center;font-weight:900;font-size:26px;border:1px solid #1e293b}
+.lesson .era{display:inline-block;font-size:12.5px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:1px 10px;border-radius:6px}
+.lesson h3{font-weight:900;font-size:20px;line-height:1.4;margin:6px 0 4px}
 .lesson p{margin:0;color:var(--ink-2);font-size:15.5px}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.tag{font-size:12.5px;padding:3px 10px;border-radius:999px;background:var(--surface-2);color:var(--ink-2)}
-.go{margin-top:14px;font-weight:700;color:var(--accent);font-size:15px}
-.tip{margin:36px 0 0;padding:18px 20px;border-radius:14px;border:1px dashed var(--line);color:var(--ink-2);font-size:15px}
+.tag{font-size:12.5px;padding:3px 10px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);font-weight:500}
+.go{display:inline-block;margin-top:14px;font-weight:700;font-size:14px;background:var(--amber);color:#0f172a;padding:6px 14px;border-radius:10px}
+.tip{margin:32px 0 0;padding:18px 20px;border-radius:16px;border:1px dashed var(--line);background:var(--surface);color:var(--ink-2);font-size:15px}
 .tip strong{color:var(--ink)}
-footer{padding:40px 0 56px;color:var(--ink-2);font-size:13px}
+footer{padding:36px 0 56px;color:var(--ink-2);font-size:13px}
 @media (max-width:520px){
   .lesson{grid-template-columns:1fr;gap:12px;padding:18px}
   .num{width:48px;height:48px;font-size:21px;border-radius:12px}
+  .hero{padding:28px 20px;border-radius:20px}
 }
 </style>
 </head>
 <body>
+<header class="bar"><div class="wrap">
+  <div class="logo" aria-hidden="true">🏛️</div>
+  <div class="t"><small>중2 역사① · 2학기</small><b>역사 수업실</b></div>
+  <button class="theme" id="theme" type="button">◐ 화면</button>
+</div></header>
 <div class="wrap">
-  <header class="top"><button class="theme" id="theme" type="button">화면 모드</button></header>
-
   <section class="hero">
     <div class="unit">중2 역사① · 2학기</div>
-    <h1>역사 수업실</h1>
+    <h1>역사 <em>수업실</em></h1>
     <p>수업 시간에 함께 볼 자료를 모아 두었습니다. 선생님이 안내한 차시를 눌러 들어가세요.</p>
   </section>
 

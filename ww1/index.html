@@ -333,7 +333,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="flex items-center justify-between mb-3 pb-2 border-b border-amber-700/60">
                 <div class="flex items-center gap-2">
-                    <span class="bg-amber-500 text-black font-black text-xs px-2.5 py-1 rounded">중학교 역사① Ⅵ-01</span>
+                    <span class="bg-amber-500 text-black font-black text-xs px-2.5 py-1 rounded">중학교 역사① Ⅵ-01-1</span>
                     <h2 class="font-bold text-base sm:text-lg text-amber-200">교과서 핵심 판서 요약 노트</h2>
                 </div>
                 <button onclick="toggleTeacherMode()" class="fx-btn px-2.5 py-1 rounded bg-amber-900/60 text-amber-200 hover:text-white text-xs font-bold">
@@ -1381,7 +1381,7 @@
                                     <div>
                                         <span class="font-sans font-black text-xs text-red-900 bg-red-200/70 px-2 py-0.5 rounded">제235조</span>
                                         <p class="text-sm sm:text-base text-[#1e1912] mt-1 font-bold">
-                                            독일은 …… 금화 200억 마르크에 해당하는 배상금을 지불해야 한다. (군비 축소 포함)
+                                            독일은 …… 금화 200억 마르크에 해당하는 배상금을 지불해야 한다.
                                         </p>
                                     </div>
                                     <span id="stamp-235" class="hidden stamp-effect px-2.5 py-1 text-xs shrink-0">막대한 배상금</span>
@@ -4615,6 +4615,18 @@
         function initRealWorldMaps() {
             if (typeof L === 'undefined') return;
 
+            // 숨겨진 챕터에서 막 넘어온 지도는 크기가 0이라 flyTo가 NaN 오류를 냅니다. 크기를 먼저 다시 잡고, 그래도 0이면 애니메이션 없이 이동합니다.
+            if (!L.Map.prototype._safeFlyPatched) {
+                const _origFlyTo = L.Map.prototype.flyTo;
+                L.Map.prototype.flyTo = function (latlng, zoom, opts) {
+                    try { this.invalidateSize(false); } catch (e) {}
+                    const sz = this.getSize();
+                    if (!sz.x || !sz.y) return this.setView(latlng, zoom, { animate: false });
+                    return _origFlyTo.call(this, latlng, zoom, opts);
+                };
+                L.Map.prototype._safeFlyPatched = true;
+            }
+
             // ---------------- 1. Chapter 1 실제 세계지도 초기화 ----------------
             mapCh1 = L.map('leaflet-map-ch1', {
                 center: [49.5, 14.5],
@@ -5617,6 +5629,6 @@
             document.getElementById('toast-box').classList.add('hidden');
         }
     </script>
-<a href="../" aria-label="수업 목록으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483000;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:rgba(31,29,26,.88);color:#fff;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.2;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)">← 수업 목록</a>
+<a href="../" aria-label="수업 목록으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483000;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:rgba(15,23,42,.92);color:#fff;border:1px solid rgba(245,158,11,.55);font-family:"Noto Sans KR",system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.2;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)">← 수업 목록</a>
 </body>
 </html>

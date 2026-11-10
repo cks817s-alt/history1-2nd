@@ -442,7 +442,7 @@
         /**
          * 중학교 2학년 역사 교육과정 맞춤형 제2차 세계대전 12대 주요 사건 데이터
          * - wikiEnTitle: 영문 위키백과 공식 REST API를 통해 100% 작동하는 대표 역사 아카이브 사진을 실시간 조회
-         * - imageUrl / backupImageUrl: CDN 프록시(wsrv.nl)를 통해 핫링크 차단 및 학교 방화벽 문제를 우회한 검증된 역사 사진 URL
+         * - imageUrl / backupImageUrl: 사이트에 직접 넣은 위키미디어 공용 사진(img/, 학교 방화벽에도 안전)
          */
         const ww2Events = [
             {
@@ -460,11 +460,11 @@
                 lng: 21.0122,
                 altitude: 1.5,
                 wikiEnTitle: "Invasion_of_Poland",
-                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/c/c8/Bundesarchiv_Bild_183-S52189,_Polen,_Schlagbaum_durch_Deutsche_Soldaten_entfernt.jpg&w=900&output=jpg",
-                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/8/82/Schleswig-Holstein_firing_Westerplatte_1939.jpg&w=900&output=jpg",
+                imageUrl: "img/e01.jpg",
+                backupImageUrl: "img/e01.jpg",
                 googleImgQuery: "1939년 독일 폴란드 침공 실제 사진 Invasion of Poland 1939",
-                imageCaption: "1939년 9월 1일, 폴란드 국경 차단기를 부수며 진격하는 독일군과 단치히 포격 장면 (독일 연방기록원)",
-                summary: "히틀러가 이끄는 나치 독일이 소련과 '독소 불가침 조약'을 비밀리에 맺은 뒤, 1939년 9월 1일 새벽 폴란드를 기습 침공했습니다. 전차(탱크)와 급강하 폭격기를 앞세운 독일의 빠른 '전격전(블리츠크리그)'에 폴란드는 한 달 만에 무너졌고, 이에 영국과 프랑스가 독일에 선전포고하면서 제2차 세계대전이 시작되었습니다.",
+                imageCaption: "1939년 9월 1일 새벽, 독일 전함 슐레스비히홀슈타인호가 폴란드 단치히(그단스크)의 베스테르플라테를 포격하는 장면. 제2차 세계 대전의 첫 포성이었다.",
+                summary: "히틀러가 이끄는 나치 독일이 소련과 '독소 불가침 조약'을 비밀리에 맺은 뒤, 1939년 9월 1일 새벽 폴란드를 기습 침공했습니다. 이에 맞서 영국과 프랑스가 9월 3일 독일에 선전포고하면서 제2차 세계대전이 시작되었습니다. 전차(탱크)와 급강하 폭격기를 앞세운 독일의 빠른 '전격전(블리츠크리그)'에 폴란드는 한 달 만에 무너졌습니다.",
                 textbookPoint: "제2차 세계대전의 직접적 시작점! 독일은 양면 전쟁을 피하기 위해 소련과 먼저 '독소 불가침 조약'을 체결한 후 폴란드를 침공했다는 점을 꼭 기억하세요.",
                 question: "왜 히틀러는 공산주의 국가인 소련을 싫어했으면서도 폴란드 침공 직전에 '독소 불가침 조약'을 맺었을까요?",
                 answer: "제1차 세계대전 당시 독일이 서쪽(영·프)과 동쪽(러시아) 두 개의 전선에서 동시에 싸우다 패배했기 때문에, 먼저 서유럽을 제압할 때까지 동쪽의 안전을 확보하려는 전략이었습니다.",
@@ -492,10 +492,10 @@
                 lng: 2.3522,
                 altitude: 1.4,
                 wikiEnTitle: "Battle_of_France",
-                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/e/ea/Bundesarchiv_Bild_101I-114-0468-08,_Frankreich,_Panzer_III_und_Infanterie.jpg&w=900&output=jpg",
-                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/6/67/Hitler_in_Paris_1940.jpg&w=900&output=jpg",
+                imageUrl: "img/e02.jpg",
+                backupImageUrl: "img/e02.jpg",
                 googleImgQuery: "1940년 독일군 프랑스 파리 점령 에펠탑 히틀러 Paris 1940 German occupation",
-                imageCaption: "1940년 6월 프랑스를 함락시킨 나치 독일군이 파리에 입성하여 에펠탑 앞을 행진하고 히틀러가 시가지를 시찰하던 역사적 장면",
+                imageCaption: "1940년 6월 23일, 프랑스를 점령한 뒤 파리를 찾아 에펠탑 앞에 선 히틀러 일행 (크게 보기로 전체 사진 확인)",
                 summary: "프랑스는 독일 국경에 철벽 요새인 '마지노선'을 쌓았지만, 독일 기갑부대는 울창한 삼림 지대인 아르덴 숲을 우회해 프랑스의 뒤를 찔렀습니다. 프랑스 육군은 한 달 반 만에 무너져 내렸고, 1940년 6월 수도 파리가 함락되면서 에펠탑에 나치 하켄크로이츠 깃발이 걸렸습니다. 프랑스 남부에는 친독일 괴뢰 정부인 '비시 정부'가 세워졌습니다.",
                 textbookPoint: "프랑스 항복 후 남부에는 독일에 협력하는 '비시 정부'가 수립되었고, 샤를 드골 장군은 영국 런던으로 망명해 '자유 프랑스 정부'를 세워 레지스탕스(저항 운동)를 이끌었습니다.",
                 question: "강력한 군사력을 자랑하던 프랑스가 독일의 침공에 그렇게 쉽게 무너진 결정적인 이유는 무엇이었을까요?",
@@ -524,10 +524,10 @@
                 lng: -0.1278,
                 altitude: 1.4,
                 wikiEnTitle: "Battle_of_Britain",
-                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/c/c8/St_Pauls_Cathedral_in_the_Blitz.jpg&w=900&output=jpg",
-                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/f/f9/Royal_Air_Force_Supermarine_Spitfire_Mk_I_fighters.jpg&w=900&output=jpg",
+                imageUrl: "img/e03.jpg",
+                backupImageUrl: "img/e03.jpg",
                 googleImgQuery: "영국 본토 항공전 런던 대공습 스핏파이어 처칠 Battle of Britain photos",
-                imageCaption: "독일군의 런던 대공습 속에서도 연기를 뚫고 서 있는 세인트폴 대성당과 영국 공군 전투기",
+                imageCaption: "1940년 12월, 독일군의 런던 대공습 속에서도 연기를 뚫고 서 있는 세인트폴 대성당",
                 summary: "서유럽 대륙을 장악한 히틀러는 마지막 남은 영국을 굴복시키기 위해 대규모 공군(루프트바페)을 동원해 런던과 주요 도시를 밤낮으로 폭격했습니다. 그러나 윈스턴 처칠 총리를 중심으로 똘똘 뭉친 영국 국민들의 항전 의지와 최신 과학기술인 '레이더(Radar)' 및 스핏파이어 전투기의 활약으로 독일의 영국 상륙 계획은 좌절되었습니다.",
                 textbookPoint: "히틀러의 첫 번째 좌절! 영국은 '레이더' 기술을 활용해 독일 폭격기를 미리 탐지해 막아냈고, 서유럽에서 민주주의 진영의 최후 보루를 지켜냈습니다.",
                 question: "처칠 총리는 '우리는 해변에서 싸울 것이며, 결코 항복하지 않을 것이다'라고 연설했습니다. 영국의 저항이 연합군 전체에 준 의미는 무엇일까요?",
@@ -556,10 +556,10 @@
                 lng: 37.6173,
                 altitude: 1.7,
                 wikiEnTitle: "Operation_Barbarossa",
-                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/9/9f/Bundesarchiv_Bild_101I-265-0003-18A,_Russland,_Kradfahrer_im_Schlamm.jpg&w=900&output=jpg",
-                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/e/e0/Bundesarchiv_Bild_101I-136-0883-16,_Russland,_Panzer_III_und_Infanterie.jpg&w=900&output=jpg",
+                imageUrl: "img/e04.jpg",
+                backupImageUrl: "img/e04.jpg",
                 googleImgQuery: "독소전쟁 바르바로사 작전 실제 사진 Operation Barbarossa 1941",
-                imageCaption: "1941년 소련을 기습 침공(바르바로사 작전)한 독일군과 러시아의 진흙탕·혹한에 발이 묶인 부대",
+                imageCaption: "1941년 6~7월, 소련 땅으로 진격하는 독일군(바르바로사 작전). 넓은 땅과 진흙길, 겨울 추위가 독일군의 발목을 잡았다.",
                 summary: "영국 침공이 여의치 않자, 히틀러는 소련의 풍부한 석유와 곡창지대를 차지하기 위해 '독소 불가침 조약'을 일방적으로 깨고 300만 대군으로 소련을 기습했습니다(바르바로사 작전). 초반에는 모스크바 코앞까지 진격했으나, 소련군의 끈질긴 방어와 영하 40도에 달하는 러시아의 겨울 추위('동장군')로 독일군의 진격이 멈추게 됩니다.",
                 textbookPoint: "독일이 스스로 불가침 조약을 파기하고 소련을 침공하면서, 소련이 영국·미국과 손잡고 '연합국' 진영에 합류하게 되었습니다.",
                 question: "과거 나폴레옹도 러시아 원정에서 겨울 추위로 패배했는데, 왜 독일군도 똑같은 실수를 반복했을까요?",
@@ -576,24 +576,24 @@
             {
                 id: 5,
                 step: 5,
-                title: "일본의 진주만 기습 (태평양 전쟁 발발)",
+                title: "일본의 진주만 기습 (아시아 태평양 전쟁 발발)",
                 shortTitle: "진주만 기습",
                 date: "1941년 12월 7일",
                 year: "1941",
                 theater: "pacific",
                 theaterName: "아시아·태평양 전선",
-                phase: "2단계: 태평양 전쟁 발발",
+                phase: "2단계: 아시아 태평양 전쟁 발발",
                 locationName: "미국 하와이 오아후섬 진주만 기지",
                 lat: 21.3649,
                 lng: -157.9501,
                 altitude: 1.6,
                 wikiEnTitle: "Attack_on_Pearl_Harbor",
-                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/c/c7/Attack_on_Pearl_Harbor_Japanese_planes_view.jpg&w=900&output=jpg",
-                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/0/09/The_USS_Arizona_%28BB-39%29_burning_after_the_Japanese_attack_on_Pearl_Harbor_-_NARA_195617_-_Edit.jpg&w=900&output=jpg",
+                imageUrl: "img/e05.jpg",
+                backupImageUrl: "img/e05b.jpg",
                 googleImgQuery: "1941년 일본 진주만 기습 실제 사진 Attack on Pearl Harbor",
                 imageCaption: "1941년 12월 7일 아침, 일본 해군 항공대의 기습 폭격으로 화염에 휩싸인 미국 진주만 해군기지 전함들",
-                summary: "중일 전쟁(1937)을 일으키고 동남아시아까지 침략하던 일본에 대해 미국이 석유와 고철 수출을 금지(ABCD 포위망)하자, 일본은 1941년 12월 7일 일요일 아침 하와이 진주만의 미국 태평양 함대를 선전포고도 없이 기습 폭격했습니다. 이 사건으로 그동안 중립을 지키던 세계 최대 공업국 '미국'이 전쟁에 본격 참전하면서 태평양 전쟁이 시작되었습니다.",
-                textbookPoint: "시험 빈출 1순위! 일본의 진주만 기습으로 태평양 전쟁이 발발했고, 미국이 연합국 측에 본격 참전하면서 전쟁의 규모가 명실상부한 '세계대전'으로 확대되었습니다.",
+                summary: "중일 전쟁(1937)을 일으키고 동남아시아까지 침략하던 일본에 대해 미국이 석유와 고철 수출을 금지(ABCD 포위망)하자, 일본은 1941년 12월 7일 일요일 아침 하와이 진주만의 미국 태평양 함대를 선전포고도 없이 기습 폭격했습니다. 이 사건으로 그동안 중립을 지키던 세계 최대 공업국 '미국'이 전쟁에 본격 참전하면서 아시아 태평양 전쟁이 시작되었습니다.",
+                textbookPoint: "시험 빈출 1순위! 일본의 진주만 기습으로 아시아 태평양 전쟁이 발발했고, 미국이 연합국 측에 본격 참전하면서 전쟁의 규모가 명실상부한 '세계대전'으로 확대되었습니다.",
                 question: "당시 대한민국 임시정부는 진주만 기습 직후인 1941년 12월 9일, 일본에 대해 어떤 역사적 선언을 했을까요?",
                 answer: "대한민국 임시정부는 '대일 선전 성명서'를 발표하여 연합국의 일원으로 일본과 맞서 싸우겠다고 공식 선언하고 한국광복군을 연합군 작전에 투입했습니다.",
                 videoKeywords: [
@@ -620,10 +620,10 @@
                 lng: 120.9842,
                 altitude: 1.7,
                 wikiEnTitle: "Philippines_campaign_(1941–1942)",
-                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/1/10/Japanese_troops_celebrating_the_capture_of_Bataan.jpg&w=900&output=jpg",
-                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/c/c8/Surrender_of_Singapore.jpg&w=900&output=jpg",
+                imageUrl: "img/e06.jpg",
+                backupImageUrl: "img/e06.jpg",
                 googleImgQuery: "태평양전쟁 일본 동남아 점령 대동아공영권 강제동원 사진",
-                imageCaption: "1942년 동남아시아(필리핀·싱가포르 등)를 점령한 일본군. '대동아 공영권'을 선전하며 자원과 인력을 수탈했다.",
+                imageCaption: "1942년 2월 15일, 싱가포르에서 일본군에게 항복하러 가는 영국군 장교들. 일본은 '대동아 공영권'을 선전하며 동남아시아를 점령하고 자원과 인력을 수탈했다.",
                 summary: "진주만 기습과 동시에 일본군은 홍콩, 말레이반도, 싱가포르, 필리핀, 인도네시아(네덜란드령 동인도) 등 동남아시아 전역을 빠르게 점령했습니다. 일본은 '서양 세력을 몰아내고 아시아인이 함께 번영하자'는 이른바 '대동아 공영권'을 내세웠지만, 실제로는 전쟁 수행에 필요한 고무·석유 자원과 인력을 가혹하게 수탈했습니다.",
                 textbookPoint: "일본이 침략 전쟁을 정당화하기 위해 내세운 슬로건이 바로 '대동아 공영권'입니다. 이 시기 한국에서도 강제 징용, 징병, 일본군 '위안부' 동원, 금속 공출 등 민족 말살 통치가 극에 달했습니다.",
                 question: "일본이 내세운 '대동아 공영권(아시아의 공동 번영)'이라는 주장이 왜 거짓 선전이었는지 근거를 들어 설명해 볼까요?",
@@ -640,7 +640,7 @@
             {
                 id: 7,
                 step: 7,
-                title: "미드웨이 해전 (태평양 전쟁의 전환점)",
+                title: "미드웨이 해전 (아시아 태평양 전쟁의 전환점)",
                 shortTitle: "미드웨이 해전",
                 date: "1942년 6월 4일 ~ 7일",
                 year: "1942",
@@ -652,12 +652,12 @@
                 lng: -177.3735,
                 altitude: 1.6,
                 wikiEnTitle: "Battle_of_Midway",
-                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/1/1f/Hiryu_under_attack_Midway.jpg&w=900&output=jpg",
-                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/3/30/Douglas_SBD_Dauntless_at_Battle_of_Midway.jpg&w=900&output=jpg",
+                imageUrl: "img/e07.jpg",
+                backupImageUrl: "img/e07b.jpg",
                 googleImgQuery: "1942년 미드웨이 해전 실제 사진 Battle of Midway",
-                imageCaption: "1942년 6월 미드웨이 해전에서 불타는 항공모함과 급강하 폭격기를 앞세워 반격하는 미 해군",
+                imageCaption: "1942년 6월 미드웨이 해전에서 미군의 공격을 받고 불타는 일본 항공모함 히류",
                 summary: "일본 해군은 미드웨이섬을 공격해 미국의 남은 항공모함들을 유인·격파하려 했습니다. 그러나 미국 암호 해독반이 일본군의 비밀 암호('AF=미드웨이')를 미리 해독해 매복 작전을 펼쳤고, 단 하루 만에 일본의 주력 항공모함 4척을 모두 침몰시켰습니다. 이 해전으로 태평양의 바다와 하늘의 주도권이 미국으로 완전히 넘어갔습니다.",
-                textbookPoint: "태평양 전쟁의 흐름을 바꾼 결정적 전환점! 미드웨이 해전 승리로 미국은 수세에서 공세로 전환하여 일본 본토를 향해 섬을 하나씩 되찾는 '섬 건너뛰기 작전'을 시작합니다.",
+                textbookPoint: "아시아 태평양 전쟁의 흐름을 바꾼 결정적 전환점! 미드웨이 해전 승리로 미국은 수세에서 공세로 전환하여 일본 본토를 향해 섬을 하나씩 되찾는 '섬 건너뛰기 작전'을 시작합니다.",
                 question: "미드웨이 해전에서 미국이 일본보다 군함 수가 적었음에도 대승을 거둘 수 있었던 결정적인 비결은 무엇이었나요?",
                 answer: "뛰어난 정보 분석 능력으로 일본군의 통신 암호를 해독하여 적의 공격 목표와 시간을 정확히 알고 미리 대비했기 때문입니다.",
                 videoKeywords: [
@@ -684,10 +684,10 @@
                 lng: 44.5133,
                 altitude: 1.5,
                 wikiEnTitle: "Battle_of_Stalingrad",
-                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/b/b1/RIAN_archive_44732_Soviet_soldiers_attack_house_in_Stalingrad.jpg&w=900&output=jpg",
-                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/a/ae/RIAN_archive_602128_Center_of_Stalingrad_after_liberation.jpg&w=900&output=jpg",
+                imageUrl: "img/e08.jpg",
+                backupImageUrl: "img/e08.jpg",
                 googleImgQuery: "스탈린그라드 전투 시가전 실제 사진 Battle of Stalingrad",
-                imageCaption: "폐허가 된 스탈린그라드 시내 건물 사이에서 치열한 시가전을 벌이는 소련군 병사들",
+                imageCaption: "폐허가 된 스탈린그라드 시내 건물 사이에서 치열한 시가전을 벌이는 소련군 병사들 (사진: 게오르기 젤마 / RIA Novosti, CC BY-SA 3.0)",
                 summary: "남부 유전지대로 가는 길목인 스탈린그라드를 차지하기 위해 독일군과 소련군이 건물 하나, 방 하나를 두고 6개월간 처절한 시가전을 벌였습니다. 소련군은 겨울이 오자 도시 밖에서 독일 제6군을 거대하게 포위(천왕성 작전)했고, 결국 1943년 2월 독일군 약 30만 명이 전멸하거나 항복하면서 독일은 패망의 길로 들어서게 됩니다.",
                 textbookPoint: "태평양에 '미드웨이 해전'이 있다면 유럽 동부전선에는 '스탈린그라드 전투'가 있습니다! 이 전투 이후 소련군이 독일 본토(베를린)를 향해 거센 역공을 시작했습니다.",
                 question: "미드웨이 해전(1942.6)과 스탈린그라드 전투(1942.8~1943.2)를 묶어 왜 제2차 세계대전의 '분수령(전환점)'이라고 부를까요?",
@@ -716,8 +716,8 @@
                 lng: 19.2020,
                 altitude: 1.3,
                 wikiEnTitle: "Auschwitz_concentration_camp",
-                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/c/c7/Auschwitz_I_entrance_snow.jpg&w=900&output=jpg",
-                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/f/f6/ Birkenau_gate.JPG&w=900&output=jpg",
+                imageUrl: "img/e09.jpg",
+                backupImageUrl: "img/e09.jpg",
                 googleImgQuery: "아우슈비츠 수용소 홀로코스트 역사 사진 Auschwitz concentration camp",
                 imageCaption: "유네스코 세계유산으로 지정되어 인류의 반성과 인권 교육 현장으로 남은 아우슈비츠 수용소",
                 summary: "나치 독일은 게르만족이 가장 우월하다는 극단적인 인종주의를 내세워 유대인, 집시, 장애인, 정치범 등을 강제 수용소에 가두고 조직적으로 학살했습니다. 이를 '홀로코스트(Holocaust)'라고 부르며, 아우슈비츠 수용소 등을 비롯한 유럽 전역에서 약 600만 명의 유대인이 목숨을 잃었습니다.",
@@ -748,8 +748,8 @@
                 lng: -0.5586,
                 altitude: 1.4,
                 wikiEnTitle: "Normandy_landings",
-                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/a/a5/Into_the_Jaws_of_Death_23-0455M_edit.jpg&w=900&output=jpg",
-                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/0/07/Normandy_Supply_edit.jpg&w=900&output=jpg",
+                imageUrl: "img/e10.jpg",
+                backupImageUrl: "img/e10.jpg",
                 googleImgQuery: "1944년 노르망디 상륙작전 디데이 실제 사진 Normandy landings D-Day",
                 imageCaption: "1944년 6월 6일 D-Day, 독일군의 방어선을 뚫고 프랑스 노르망디 오마하 해변에 상륙하는 연합군 장병들",
                 summary: "1943년 북아프리카를 평정하고 시칠리아에 상륙한 연합군은 먼저 파시스트 이탈리아의 항복(1943.9)을 받아냈습니다. 이어 1944년 6월 6일, 아이젠하워 장군이 지휘하는 미·영·캐나다 연합군이 함정 5,000여 척과 비행기 1만 대를 동원해 프랑스 노르망디 해안에 기습 상륙(오버로드 작전)하여 마침내 파리를 해방시켰습니다.",
@@ -780,12 +780,12 @@
                 lng: 13.3761,
                 altitude: 1.3,
                 wikiEnTitle: "Battle_of_Berlin",
-                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/1/17/Raising_a_flag_over_the_Reichstag_2.jpg&w=900&output=jpg",
-                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/c/c2/ Brandenburg_Gate_1945.jpg&w=900&output=jpg",
+                imageUrl: "img/e11.jpg",
+                backupImageUrl: "img/e11.jpg",
                 googleImgQuery: "1945년 베를린 함락 독일 항복 제국의회 깃발 사진 Battle of Berlin",
                 imageCaption: "1945년 5월, 폐허가 된 독일 베를린의 제국의회 의사당 옥상에 승리의 깃발을 꽂는 연합군(소련군)",
                 summary: "서쪽에서는 미·영 연합군이, 동쪽에서는 소련군이 독일 심장부를 향해 진격해 들어왔습니다. 소련군이 수도 베를린을 완전히 포위하자 히틀러는 지하 벙커에서 스스로 목숨을 끊었고(4월 30일), 1945년 5월 8일 독일이 무조건 항복 문서에 서명하면서 유럽에서의 전쟁이 마침내 끝났습니다.",
-                textbookPoint: "독일의 패망이 임박하자 연합국 정상들(미·영·소)은 카이로 회담(1943.11, 한국의 독립 최초 약속)과 얄타 회담(1945.2, 전후 처리와 소련의 대일전 참전 결정)을 열어 전후 질서를 논의했습니다.",
+                textbookPoint: "독일의 패망이 임박하자 연합국 정상들은 카이로 회담(1943.11, 미·영·중, 한국의 독립 최초 약속)과 얄타 회담(1945.2, 미·영·소, 전후 처리와 소련의 대일전 참전 결정)을 열어 전후 질서를 논의했습니다.",
                 question: "독일이 항복하기 전 열린 '카이로 회담(1943)'이 우리 한국사에서 매우 중요하게 다루어지는 이유는 무엇인가요?",
                 answer: "미국(루스벨트), 영국(처칠), 중국(장제스) 세 나라 정상이 모여 '적절한 절차에 따라 한국을 자유롭고 독립된 나라로 만든다'고 국제 사회에서 최초로 약속했기 때문입니다.",
                 videoKeywords: [
@@ -812,8 +812,8 @@
                 lng: 132.4553,
                 altitude: 1.4,
                 wikiEnTitle: "Atomic_bombings_of_Hiroshima_and_Nagasaki",
-                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/5/54/Atomic_bombing_of_Japan.jpg&w=900&output=jpg",
-                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/e/e0/Nagasakibomb.jpg&w=900&output=jpg",
+                imageUrl: "img/e12.jpg",
+                backupImageUrl: "img/e12b.jpg",
                 googleImgQuery: "1945년 히로시마 나가사키 원자폭탄 일본 항복 815 광복 사진",
                 imageCaption: "1945년 8월 히로시마와 나가사키에 투하된 원자폭탄 버섯구름. 이어 8월 15일 일본이 무조건 항복하며 광복을 맞이했다.",
                 summary: "독일이 항복한 뒤에도 일본은 '일억옥쇄(1억 국민이 모두 죽을 때까지 싸운다)'를 외치며 카미카제 자살특공대 등으로 저항했습니다. 연합국은 포츠담 선언으로 항복을 권고했으나 일본이 거부하자, 미국은 8월 6일 히로시마와 8월 9일 나가사키에 원자폭탄을 투하했고 소련도 대일전에 참전했습니다. 결국 1945년 8월 15일 일본이 무조건 항복하면서 6년간의 제2차 세계대전이 막을 내렸고, 우리 민족은 꿈에 그리던 '8·15 광복'을 맞이했습니다.",
@@ -845,7 +845,7 @@
                 exp: "정답은 ② 폴란드입니다! 독일의 폴란드 침공에 맞서 영국과 프랑스가 선전포고하며 제2차 세계대전이 발발했습니다."
             },
             {
-                q: "Q2. 1941년 12월, 일본이 미국의 하와이 해군 기지를 기습 공격하면서 태평양 전쟁이 일어났습니다. 이 사건의 이름은 무엇일까요?",
+                q: "Q2. 1941년 12월, 일본이 미국의 하와이 해군 기지를 기습 공격하면서 아시아 태평양 전쟁이 일어났습니다. 이 사건의 이름은 무엇일까요?",
                 options: ["① 미드웨이 해전", "② 노르망디 상륙작전", "③ 진주만 기습", "④ 영국 본토 항공전"],
                 correct: 2,
                 exp: "정답은 ③ 진주만 기습입니다! 이 사건으로 중립을 지키던 미국이 연합국 편에서 본격적으로 전쟁에 참전했습니다."
@@ -1196,9 +1196,10 @@
 
             // 후보 이미지 리스트 구성 (1순위: 검증된 wsrv CDN 아카이브 사진, 2순위: 위키백과 API 실시간 원본, 3순위: 백업 사진, 4순위: 내장 그래픽 카드)
             const candidates = [];
-            if (wikiImageCache[ev.id]) candidates.push(wikiImageCache[ev.id]);
+            // 사이트에 직접 넣은 사진(img/)을 먼저 쓰고, 안 될 때만 위키백과 사진을 씁니다.
             if (ev.imageUrl) candidates.push(ev.imageUrl);
             if (ev.backupImageUrl) candidates.push(ev.backupImageUrl);
+            if (wikiImageCache[ev.id]) candidates.push(wikiImageCache[ev.id]);
 
             let attempt = 0;
 
@@ -1510,7 +1511,7 @@
                 <div style="font-family:sans-serif;max-width:420px;line-height:1.6;">
                     <h3 style="color:#d97706;margin-bottom:4px;">${ev.step}. ${ev.title}</h3>
                     <p style="font-size:12px;color:#64748b;margin-top:0;"><b>일시:</b> ${ev.date} | <b>장소:</b> ${ev.locationName}</p>
-                    <img src="${ev.imageUrl}" style="width:100%;border-radius:8px;margin:8px 0;" />
+                    <img src="${new URL(ev.imageUrl, location.href).href}" style="width:100%;border-radius:8px;margin:8px 0;" />
                     <p style="font-size:13px;">${ev.summary}</p>
                     <div style="background:#fef3c7;padding:10px;border-radius:8px;font-size:12px;color:#92400e;">
                         <b>★ 중2 역사 핵심 포인트:</b><br/>${ev.textbookPoint}
@@ -1615,6 +1616,6 @@
             modal.classList.remove('flex');
         }
     </script>
-<a href="../" aria-label="수업 목록으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483000;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:rgba(31,29,26,.88);color:#fff;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.2;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)">← 수업 목록</a>
+<a href="../" aria-label="수업 목록으로" style="position:fixed;left:12px;bottom:92px;z-index:2147483000;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:rgba(15,23,42,.92);color:#fff;border:1px solid rgba(245,158,11,.55);font-family:"Noto Sans KR",system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.2;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)">← 수업 목록</a>
 </body>
 </html>
