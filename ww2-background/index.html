@@ -1,0 +1,2835 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>역사 탐구소 1929-1939 | 제2차 세계 대전의 배경과 전체주의 비판</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts: Noto Sans KR & Noto Serif KR for historical documents -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans KR"', 'sans-serif'],
+                        serif: ['"Noto Serif KR"', 'serif'],
+                    },
+                    colors: {
+                        vintage: {
+                            50: '#fdfbf7',
+                            100: '#f7f1e3',
+                            200: '#efe3c6',
+                            300: '#e2cca0',
+                            700: '#5c4d3c',
+                            800: '#3e3328',
+                            900: '#241e18',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f4f1ea;
+            color: #1e293b;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .paper-texture {
+            background-color: #fcfaf5;
+            background-image: radial-gradient(#d6cfc2 0.6px, transparent 0.6px);
+            background-size: 16px 16px;
+        }
+        .newspaper-border {
+            border-top: 4px double #1e293b;
+            border-bottom: 4px double #1e293b;
+        }
+        .tab-active {
+            background-color: #1e293b;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(30, 41, 59, 0.25);
+        }
+        .speech-bubble-left {
+            position: relative;
+            background: #f0f5ec;
+            border: 2px solid #84a970;
+        }
+        .speech-bubble-right {
+            position: relative;
+            background: #fbf2e8;
+            border: 2px solid #c78d52;
+        }
+        .blank-slot {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 72px;
+            padding: 2px 10px;
+            margin: 0 4px;
+            border: 2px solid #2563eb;
+            background-color: #eff6ff;
+            color: #1d4ed8;
+            font-weight: 800;
+            border-radius: 6px;
+            transition: all 0.25s ease;
+        }
+        .blank-slot.filled-correct {
+            border-color: #16a34a;
+            background-color: #dcfce7;
+            color: #15803d;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e5e0d5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+        @keyframes pulse-subtle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .animate-pulse-subtle {
+            animation: pulse-subtle 2.5s infinite ease-in-out;
+        }
+        /* 모바일(아이폰/안드로이드) 입력창 터치 시 화면 자동 확대 방지 및 터치 최적화 */
+        button, a, input, textarea, select {
+            touch-action: manipulation;
+        }
+        @media (max-width: 640px) {
+            input[type="text"], input[type="number"], input[type="password"], input[type="url"], textarea, select {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-amber-200 selection:text-slate-900">
+
+    <!-- Top Toast Notification Container -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 max-w-md w-full pointer-events-none px-4"></div>
+
+    <!-- Header Section -->
+    <header class="bg-slate-900 text-white border-b-4 border-amber-500 sticky top-0 z-40 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <!-- Title & Curriculum Badge -->
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black text-xl shadow-inner shrink-0">
+                        <i class="fa-solid fa-landmark-dome"></i>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-600 text-white tracking-wider">중학교 역사① Ⅵ-3-01</span>
+                            <span class="text-xs text-amber-300 font-medium">세계 대전과 국제 질서의 변화</span>
+                        </div>
+                        <h1 class="text-lg sm:text-xl font-black tracking-tight text-white mt-0.5">
+                            제2차 세계 대전이 일어나다 <span class="text-amber-400 font-normal text-sm sm:text-base">| 대공황과 전체주의 탐구소</span>
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- Student Identity Quick Bar & Learning Progress -->
+                <div class="flex flex-wrap items-center gap-2 sm:gap-3 bg-slate-800/90 px-3 py-2 rounded-xl border border-slate-700">
+                    <button onclick="openStudentGuideModal()" class="text-xs bg-amber-500 hover:bg-amber-400 text-slate-950 px-2.5 py-1 rounded-lg transition font-black flex items-center gap-1 shadow-sm">
+                        <i class="fa-solid fa-circle-question"></i>사용 방법 안내
+                    </button>
+                    <div class="h-4 w-[1px] bg-slate-600 hidden sm:block"></div>
+                    <div class="flex items-center gap-2 text-xs sm:text-sm">
+                        <i class="fa-solid fa-user-graduate text-amber-400"></i>
+                        <span id="header-student-label" class="font-bold text-slate-200">학생 정보 미입력</span>
+                        <button onclick="openStudentProfileModal()" class="text-xs bg-slate-700 hover:bg-slate-600 text-amber-300 px-2 py-1 rounded-lg transition font-medium">
+                            <i class="fa-solid fa-pen-to-square mr-1"></i>학번/이름 설정
+                        </button>
+                    </div>
+                    <div class="h-4 w-[1px] bg-slate-600 hidden sm:block"></div>
+                    <div class="flex items-center gap-1.5" title="탐구 활동 달성도">
+                        <span class="text-xs text-slate-400">탐구 완료율:</span>
+                        <div class="w-20 bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                            <div id="progress-bar-fill" class="bg-amber-400 h-full transition-all duration-500" style="width: 33%"></div>
+                        </div>
+                        <span id="progress-text" class="text-xs font-bold text-amber-400">1/3</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="grid grid-cols-2 lg:grid-cols-4 gap-2 mt-3 pt-2 border-t border-slate-800">
+                <button onclick="switchTab('tab-depression')" id="btn-tab-depression" class="nav-tab-btn tab-active flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all bg-amber-500 text-slate-950">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>1. 1929 대공황과 사회 모습</span>
+                </button>
+                <button onclick="switchTab('tab-totalitarian')" id="btn-tab-totalitarian" class="nav-tab-btn flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold text-slate-300 hover:bg-slate-800 transition-all">
+                    <i class="fa-solid fa-scale-unbalanced-flip"></i>
+                    <span>2. 각국의 대응과 전체주의 등장</span>
+                </button>
+                <button onclick="switchTab('tab-inquiry')" id="btn-tab-inquiry" class="nav-tab-btn flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold text-slate-300 hover:bg-slate-800 transition-all relative">
+                    <i class="fa-solid fa-pen-nib text-amber-400"></i>
+                    <span>3. [핵심탐구] 파시즘·나치즘 반박 글쓰기</span>
+                    <span class="hidden sm:inline-block w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+                </button>
+                <button onclick="switchTab('tab-teacher')" id="btn-tab-teacher" class="nav-tab-btn flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold text-slate-300 hover:bg-slate-800 transition-all">
+                    <i id="teacher-tab-lock-icon" class="fa-solid fa-lock text-amber-400"></i>
+                    <span>4. [교사전용] 제출 현황 & 구글시트</span>
+                    <span id="submission-count-badge" class="px-1.5 py-0.5 text-[11px] rounded-full bg-emerald-600 text-white font-extrabold">0</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- Learning Objectives Banner (From PPT Slide 2) -->
+        <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-stone-200 mb-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div class="flex items-start sm:items-center gap-3">
+                <div class="bg-emerald-100 text-emerald-800 font-black px-3 py-1.5 rounded-xl text-xs sm:text-sm shrink-0">
+                    <i class="fa-solid fa-bullseye mr-1"></i>오늘의 학습 목표
+                </div>
+                <div class="text-xs sm:text-sm text-slate-700 space-y-1 font-medium">
+                    <p>1. <strong>대공황(1929)</strong>의 발생 배경과 이를 극복하려는 각국의 대응(뉴딜 정책, 블록 경제, 전체주의)을 비교할 수 있다.</p>
+                    <p>2. <strong>전체주의 국가(이탈리아 파시즘, 독일 나치즘)의 주장</strong>이 가진 특징을 탐구하고, 이를 비판·반박하는 글을 작성할 수 있다.</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+                <span id="sheets-connection-pill" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    실시간 클라우드 & 시트 130명 수용 준비 완료
+                </span>
+            </div>
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- TAB 1: 1929 대공황의 발생과 당시 사회 모습 (PPT Slides 3 ~ 5, 8 ~ 9) -->
+        <!-- ================================================================= -->
+        <section id="tab-depression" class="tab-panel space-y-8">
+            <!-- Step 1: Roaring Twenties vs 1929 Crash Interactive Simulator -->
+            <div class="bg-white rounded-3xl shadow-md border border-stone-200 overflow-hidden">
+                <div class="bg-slate-900 text-white px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                        <span class="text-amber-400 text-xs font-bold uppercase tracking-wider">HISTORICAL SIMULATION 01</span>
+                        <h2 class="text-lg sm:text-xl font-black mt-0.5">1차 대전 이후 미국의 경제 호황과 1929년 대공황의 발생</h2>
+                    </div>
+                    <div class="flex gap-1.5 bg-slate-800 p-1 rounded-xl">
+                        <button onclick="setDepressionEra('boom')" id="era-btn-boom" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 transition">
+                            ① 1920년대: 위대한 개츠비의 호황
+                        </button>
+                        <button onclick="setDepressionEra('crash')" id="era-btn-crash" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition">
+                            ② 1929년 10월: 검은 목요일과 대폭락
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <!-- Sub-view A: 1920s Boom (Great Gatsby) -->
+                    <div id="era-view-boom" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                        <div class="lg:col-span-6 relative rounded-2xl overflow-hidden shadow-lg bg-slate-950 text-white min-h-[280px] flex flex-col justify-between p-6 border border-amber-500/40">
+                            <!-- Fireworks & Roaring 20s Visual Canvas / SVG -->
+                            <div class="absolute inset-0 opacity-35 pointer-events-none" style="background: radial-gradient(circle at 20% 20%, #f59e0b 0%, transparent 35%), radial-gradient(circle at 80% 30%, #3b82f6 0%, transparent 40%), radial-gradient(circle at 50% 80%, #ec4899 0%, transparent 45%);"></div>
+                            <div class="relative z-10 flex justify-between items-start">
+                                <span class="px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400 text-amber-300 text-xs font-bold">
+                                    <i class="fa-solid fa-champagne-glasses mr-1"></i>PPT 자료: 영화 『위대한 개츠비』로 본 1920년대 미국
+                                </span>
+                                <span class="text-xs text-slate-400 font-mono">1919 - 1928 USA</span>
+                            </div>
+
+                            <div class="relative z-10 my-4 text-center py-4">
+                                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-amber-500/20 border-2 border-amber-400 text-amber-300 text-4xl mb-3 shadow-inner">
+                                    <i class="fa-solid fa-champagne-glasses"></i>
+                                </div>
+                                <h3 class="text-2xl font-serif font-black text-amber-300 tracking-wide">"전쟁으로 인한 최대 경제 호황!"</h3>
+                                <p class="text-sm text-slate-200 mt-2 max-w-md mx-auto leading-relaxed">
+                                    제1차 세계 대전의 전쟁터가 되었던 유럽과 달리, 미국은 전쟁 물자를 수출하며 <strong>세계 경제 시장을 주도</strong>했습니다. 밤마다 화려한 파티가 열리고 주식 시장은 끝없이 오를 것처럼 보였습니다.
+                                </p>
+                            </div>
+
+                            <div class="relative z-10 bg-slate-900/90 border border-slate-700 rounded-xl p-3 flex items-center justify-between">
+                                <span class="text-xs text-amber-300 font-bold"><i class="fa-solid fa-triangle-exclamation mr-1"></i>그러나 호황 뒤에는 위험한 그림자가 자라고 있었습니다...</span>
+                                <button onclick="setDepressionEra('crash')" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-xs font-bold transition shadow">
+                                    1929년 10월로 이동 <i class="fa-solid fa-arrow-right ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-6 space-y-4">
+                            <h3 class="text-lg font-black text-slate-900 flex items-center gap-2">
+                                <span class="w-7 h-7 rounded-lg bg-slate-900 text-amber-400 flex items-center justify-center text-sm">1</span>
+                                대공황은 왜 일어났을까? (인과관계 사슬 클릭 체험)
+                            </h3>
+                            <p class="text-sm text-slate-600">아래 4단계 카드를 순서대로 클릭하여 호황이 어떻게 대공황으로 바뀌었는지 확인해 보세요.</p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div onclick="revealChainStep(1)" id="chain-card-1" class="cursor-pointer p-4 rounded-2xl border-2 border-amber-400 bg-amber-50/70 transition hover:shadow-md">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-xs font-black text-amber-800 bg-amber-200 px-2 py-0.5 rounded">1단계: 원인</span>
+                                        <i class="fa-solid fa-industry text-amber-600"></i>
+                                    </div>
+                                    <h4 class="font-bold text-slate-900 text-sm">과잉 생산으로 재고 증가</h4>
+                                    <p class="text-xs text-slate-600 mt-1">공장에서 물건을 너무 많이 찍어냈지만, 사람들의 구매력이 이를 따라가지 못해 창고에 재고가 쌓였습니다.</p>
+                                </div>
+
+                                <div onclick="revealChainStep(2)" id="chain-card-2" class="cursor-pointer p-4 rounded-2xl border-2 border-stone-200 bg-stone-50 transition hover:border-amber-400 hover:shadow-md">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-xs font-black text-slate-600 bg-stone-200 px-2 py-0.5 rounded">2단계: 악순환</span>
+                                        <i class="fa-solid fa-user-minus text-slate-500"></i>
+                                    </div>
+                                    <h4 class="font-bold text-slate-900 text-sm">노동자 수 감축 → 소비 감소</h4>
+                                    <p class="text-xs text-slate-600 mt-1">물건이 안 팔리자 기업들은 공장을 줄이고 노동자를 해고했습니다. 일자리를 잃자 소비는 더욱 줄어들었습니다.</p>
+                                </div>
+
+                                <div onclick="revealChainStep(3)" id="chain-card-3" class="cursor-pointer p-4 rounded-2xl border-2 border-stone-200 bg-stone-50 transition hover:border-rose-400 hover:shadow-md">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-xs font-black text-rose-700 bg-rose-100 px-2 py-0.5 rounded">3단계: 폭발 (1929.10)</span>
+                                        <i class="fa-solid fa-arrow-trend-down text-rose-600"></i>
+                                    </div>
+                                    <h4 class="font-bold text-slate-900 text-sm">뉴욕 증권 거래소 주가 대폭락</h4>
+                                    <p class="text-xs text-slate-600 mt-1">1929년 10월 24일(검은 목요일)~29일, 주식이 휴지 조각이 되며 하루아침에 수많은 은행과 기업이 파산했습니다.</p>
+                                </div>
+
+                                <div onclick="revealChainStep(4)" id="chain-card-4" class="cursor-pointer p-4 rounded-2xl border-2 border-stone-200 bg-stone-50 transition hover:border-rose-600 hover:shadow-md">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-xs font-black text-purple-800 bg-purple-100 px-2 py-0.5 rounded">4단계: 세계 확산</span>
+                                        <i class="fa-solid fa-earth-americas text-purple-600"></i>
+                                    </div>
+                                    <h4 class="font-bold text-slate-900 text-sm">전 세계로 경제 위기 확산</h4>
+                                    <p class="text-xs text-slate-600 mt-1">미국 자본에 의존하던 유럽과 전 세계로 경제 대혼란이 퍼져 나가며 사상 초유의 <strong>세계 대공황</strong>이 시작되었습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sub-view B: 1929 Wall Street Crash Newspaper & Dow Jones Chart (PPT Slide 4) -->
+                    <div id="era-view-crash" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                        <!-- Left: The Daily News Black Thursday Newspaper Recreation -->
+                        <div class="lg:col-span-5 paper-texture p-5 rounded-2xl border-2 border-stone-400 shadow-inner flex flex-col justify-between">
+                            <div>
+                                <div class="text-center pb-2 border-b-2 border-slate-900">
+                                    <p class="font-serif text-2xl sm:text-3xl font-black tracking-tight text-slate-900">The Daily News</p>
+                                    <p class="text-[11px] font-mono tracking-widest text-slate-600 newspaper-border py-1 mt-1">THURSDAY, OCTOBER 24, 1929 — NEW YORK</p>
+                                </div>
+                                <div class="my-4 text-center">
+                                    <h3 class="font-sans font-black text-3xl sm:text-4xl text-slate-950 tracking-tighter leading-none">
+                                        BLACK THURSDAY!
+                                    </h3>
+                                    <p class="font-bold text-lg sm:text-xl text-rose-800 mt-2 tracking-tight">
+                                        Wall St. in panic as stocks crash
+                                    </p>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed bg-stone-200/70 p-3 rounded-xl border border-stone-300">
+                                    <strong>[1929년 10월 뉴욕발 긴급 타전]</strong> 뉴욕 월스트리트 증권 거래소에서 주식을 팔려는 사람들이 몰려들며 주가가 수직 폭락했습니다. 투자자들은 패닉에 빠졌고, 돈을 찾으려는 시민들로 은행 앞은 아수라장이 되었습니다.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-stone-300 flex items-center justify-between text-xs text-slate-600">
+                                <span><i class="fa-solid fa-newspaper mr-1"></i>PPT 수록 신문 호외 자료</span>
+                                <button onclick="setDepressionEra('boom')" class="text-blue-700 font-bold hover:underline">← 1920년대 호황과 비교하기</button>
+                            </div>
+                        </div>
+
+                        <!-- Right: Dow Jones Industrial Average 1929 Crash Interactive Chart -->
+                        <div class="lg:col-span-7 bg-slate-50 p-5 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                                <div>
+                                    <span class="text-xs font-bold text-rose-600">PPT 그래프 분석</span>
+                                    <h4 class="font-black text-slate-900 text-base">Wall Street Crash on the Dow Jones Industrial Average, 1929</h4>
+                                </div>
+                                <span class="text-xs bg-rose-100 text-rose-800 px-2.5 py-1 rounded-lg font-bold">붉은 영역: 1929년 10월~11월 대폭락</span>
+                            </div>
+
+                            <!-- SVG Accurate Recreation of the PPT Dow Jones 1929-1930 Graph -->
+                            <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-inner">
+                                <svg viewBox="0 0 640 260" class="w-full h-auto">
+                                    <!-- Grid lines -->
+                                    <line x1="50" y1="20" x2="610" y2="20" stroke="#cbd5e1" stroke-width="1"/>
+                                    <line x1="50" y1="70" x2="610" y2="70" stroke="#cbd5e1" stroke-width="1"/>
+                                    <line x1="50" y1="120" x2="610" y2="120" stroke="#cbd5e1" stroke-width="1"/>
+                                    <line x1="50" y1="170" x2="610" y2="170" stroke="#cbd5e1" stroke-width="1"/>
+                                    <line x1="50" y1="220" x2="610" y2="220" stroke="#334155" stroke-width="1.5"/>
+
+                                    <!-- Y Axis Labels -->
+                                    <text x="40" y="24" text-anchor="end" class="text-[11px] fill-slate-600 font-mono">400</text>
+                                    <text x="40" y="74" text-anchor="end" class="text-[11px] fill-slate-600 font-mono">300</text>
+                                    <text x="40" y="124" text-anchor="end" class="text-[11px] fill-slate-600 font-mono">200</text>
+                                    <text x="40" y="174" text-anchor="end" class="text-[11px] fill-slate-600 font-mono">100</text>
+
+                                    <!-- Blue-Purple Area for 1928 Oct - 1930 Oct -->
+                                    <path d="M50,220 L50,100 L80,85 L100,72 L120,68 L150,62 L180,65 L210,58 L240,66 L270,48 L305,28 L325,45 L335,42 L335,220 Z" fill="#8186b3" opacity="0.9"/>
+                                    <!-- Red Crash Area (Oct - Nov 1929) -->
+                                    <path d="M335,220 L335,42 L345,55 L352,95 L358,125 L365,115 L365,220 Z" fill="#b87d77" opacity="0.95"/>
+                                    <!-- Post Crash 1930 Area -->
+                                    <path d="M365,220 L365,115 L385,95 L410,105 L440,85 L480,72 L515,90 L535,118 L560,102 L585,105 L610,118 L610,220 Z" fill="#8186b3" opacity="0.9"/>
+
+                                    <!-- Year Divider Lines -->
+                                    <line x1="120" y1="20" x2="120" y2="220" stroke="#0f172a" stroke-width="1.2"/>
+                                    <line x1="395" y1="20" x2="395" y2="220" stroke="#0f172a" stroke-width="1.2"/>
+
+                                    <!-- Crash Annotation Callout -->
+                                    <circle cx="348" cy="70" r="6" fill="#dc2626" class="animate-ping"/>
+                                    <circle cx="348" cy="70" r="5" fill="#dc2626"/>
+                                    <rect x="235" y="8" width="175" height="24" rx="5" fill="#dc2626"/>
+                                    <text x="322" y="24" text-anchor="middle" class="text-[11px] fill-white font-bold">1929. 10. 24~29 주가 대폭락!</text>
+
+                                    <!-- X Axis Labels -->
+                                    <text x="55" y="236" text-anchor="middle" class="text-[10px] fill-slate-700">Oct</text>
+                                    <text x="120" y="236" text-anchor="middle" class="text-[10px] fill-slate-700">Jan</text>
+                                    <text x="190" y="236" text-anchor="middle" class="text-[10px] fill-slate-700">Apr</text>
+                                    <text x="260" y="236" text-anchor="middle" class="text-[10px] fill-slate-700">Jul</text>
+                                    <text x="335" y="236" text-anchor="middle" class="text-[10px] fill-rose-700 font-bold">Oct</text>
+                                    <text x="395" y="236" text-anchor="middle" class="text-[10px] fill-slate-700">Jan</text>
+                                    <text x="465" y="236" text-anchor="middle" class="text-[10px] fill-slate-700">Apr</text>
+                                    <text x="535" y="236" text-anchor="middle" class="text-[10px] fill-slate-700">Jul</text>
+                                    <text x="600" y="236" text-anchor="middle" class="text-[10px] fill-slate-700">Oct</text>
+
+                                    <text x="255" y="254" text-anchor="middle" class="text-[12px] fill-slate-900 font-black">1929</text>
+                                    <text x="505" y="254" text-anchor="middle" class="text-[12px] fill-slate-900 font-black">1930</text>
+                                </svg>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-2">
+                                <i class="fa-solid fa-circle-info text-blue-600 mr-1"></i>1929년 9월 정점을 찍었던 주가는 10월 말 붉은색 구간에서 순식간에 반 토막 나며 기업과 은행의 연쇄 파산을 불렀습니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: PPT Photo Archive - Society During the Great Depression (PPT Slides 8 ~ 9) -->
+            <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                    <div>
+                        <span class="text-xs font-extrabold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-md">PPT 사진자료 정밀 탐구</span>
+                        <h2 class="text-xl font-black text-slate-900 mt-1">사진으로 보는 대공황 시기의 사회 모습</h2>
+                    </div>
+                    <p class="text-xs sm:text-sm text-slate-600">사진 속 <strong>돋보기 버튼</strong>을 클릭해 당시 사람들의 절박한 사연을 직접 확인해 보세요.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Photo 1: Unemployed man with sign on his back (PPT Slide 8) -->
+                    <div class="bg-white rounded-3xl shadow-md border border-stone-200 overflow-hidden flex flex-col justify-between">
+                        <div class="p-5 sm:p-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-3 py-1 rounded-full bg-slate-900 text-white text-xs font-bold">사진 탐구 ① 대공황 당시 직업을 구하는 실업자</span>
+                                <span class="text-xs text-amber-700 font-bold"><i class="fa-solid fa-hand-pointer mr-1"></i>팻말을 클릭해 번역 보기</span>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center bg-stone-100 p-4 rounded-2xl border border-stone-200">
+                                <!-- Visual Illustration of the Man with Sandwich Board Sign -->
+                                <div onclick="toggleSignTranslation()" class="sm:col-span-6 cursor-pointer group relative bg-stone-800 rounded-xl p-4 text-center flex flex-col items-center justify-center min-h-[250px] shadow-inner overflow-hidden">
+                                    <!-- Silhouette of man in fedora and coat -->
+                                    <div class="w-16 h-8 bg-stone-950 rounded-t-full relative mb-1 border-b-4 border-stone-700"></div>
+                                    <div class="w-44 bg-[#fdfbf7] text-slate-900 p-3 rounded-lg shadow-lg border-2 border-amber-600 transform group-hover:scale-105 transition duration-300 font-mono text-xs leading-snug text-center">
+                                        <p class="font-black">I KNOW 3 TRADES</p>
+                                        <p class="font-black">I SPEAK 3 LANGUAGES</p>
+                                        <p class="font-black">FOUGHT FOR 3 YEARS</p>
+                                        <p class="font-black">HAVE 3 CHILDREN</p>
+                                        <p class="font-black text-rose-700">AND NO WORK FOR</p>
+                                        <p class="font-black text-rose-700">3 MONTHS</p>
+                                        <p class="font-black border-t border-stone-300 pt-1 mt-1 text-blue-900">BUT I ONLY WANT</p>
+                                        <p class="font-black text-sm text-blue-900 underline">ONE JOB</p>
+                                    </div>
+                                    <span class="mt-3 text-[11px] text-amber-300 font-bold group-hover:underline">
+                                        <i class="fa-solid fa-magnifying-glass-plus mr-1"></i>클릭하여 한글 해석 강조하기
+                                    </span>
+                                </div>
+
+                                <!-- Korean Translation Card (Exact match with PPT Slide 8) -->
+                                <div id="sign-translation-box" class="sm:col-span-6 paper-texture p-4 rounded-xl border-2 border-dashed border-amber-600 shadow-sm transition-all">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="w-3 h-3 rounded-full bg-stone-400"></span>
+                                        <span class="text-[11px] font-bold text-amber-800">등에 멘 구직 팻말 해석</span>
+                                        <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                                    </div>
+                                    <p class="text-sm text-slate-800 leading-relaxed font-medium text-center">
+                                        “저는 <strong class="text-amber-900 bg-amber-200/70 px-1 rounded">3가지 일</strong>을 할 줄 알고<br>
+                                        <strong class="text-amber-900 bg-amber-200/70 px-1 rounded">3개 국어</strong>를 할 수 있으며<br>
+                                        <strong class="text-amber-900 bg-amber-200/70 px-1 rounded">3년 동안</strong> (나라를 위해) 싸웠고<br>
+                                        <strong class="text-amber-900 bg-amber-200/70 px-1 rounded">3명의 아이</strong>가 있습니다.<br>
+                                        그리고 지난 <strong class="text-rose-700">3개월 동안</strong><br>
+                                        일을 하지 못하였습니다.<br>
+                                        다만 제가 원하는 것은<br>
+                                        <strong class="text-blue-800 underline font-black">오직 하나의 일자리</strong>입니다.”
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-stone-50 px-6 py-3 border-t border-stone-200 text-xs text-slate-600">
+                            <i class="fa-solid fa-lightbulb text-amber-500 mr-1.5"></i><strong>시사점:</strong> 뛰어난 기술과 능력을 가진 참전 용사조차 단 하나의 일자리를 구하지 못할 만큼 대공황의 실업난은 파괴적이었습니다.
+                        </div>
+                    </div>
+
+                    <!-- Photo 2: Breadline under "World's Highest Standard of Living" Billboard (PPT Slide 8 & 9) -->
+                    <div class="bg-white rounded-3xl shadow-md border border-stone-200 overflow-hidden flex flex-col justify-between">
+                        <div class="p-5 sm:p-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-3 py-1 rounded-full bg-slate-900 text-white text-xs font-bold">사진 탐구 ② 식사 배급을 기다리는 실업자들 (1937)</span>
+                                <span class="text-xs text-blue-700 font-bold">아이러니(모순) 발견하기</span>
+                            </div>
+
+                            <!-- Interactive representation of Margaret Bourke-White's iconic photo in PPT Slide 9 -->
+                            <div class="rounded-2xl overflow-hidden border border-stone-300 shadow-inner bg-slate-900">
+                                <!-- Top Half: The Billboard -->
+                                <div class="bg-gradient-to-r from-sky-800 via-blue-700 to-emerald-700 p-4 text-white border-b-4 border-amber-400 relative">
+                                    <div class="bg-blue-950/90 text-center py-1 px-2 rounded border border-white/30 mb-2">
+                                        <p class="font-black tracking-wider text-xs sm:text-sm text-white">★ ★ ★ WORLD'S HIGHEST STANDARD OF LIVING ★ ★ ★</p>
+                                    </div>
+                                    <div class="flex items-center justify-between gap-3">
+                                        <div class="flex items-center gap-2 bg-white/15 px-3 py-2 rounded-xl backdrop-blur-sm">
+                                            <i class="fa-solid fa-car-side text-2xl text-amber-300"></i>
+                                            <div class="text-xs">
+                                                <p class="font-bold text-amber-200">광고판 속 모습</p>
+                                                <p class="text-[11px] text-white">자가용을 타고 환하게 웃는 부유한 가족과 강아지</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right font-serif italic">
+                                            <p class="text-sm sm:text-base font-bold text-amber-300">"There's no way like the</p>
+                                            <p class="text-base sm:text-lg font-black text-white">American Way"</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Bottom Half: The Breadline of Unemployed People -->
+                                <div class="bg-stone-800 p-4 text-stone-200">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-bold text-amber-400"><i class="fa-solid fa-people-line mr-1"></i>광고판 바로 아래 현실: 양동이와 자루를 들고 식사 배급을 기다리는 실업자 행렬</span>
+                                    </div>
+                                    <div class="flex items-end justify-around py-2 bg-stone-900/80 rounded-xl border border-stone-700 text-stone-400">
+                                        <div class="flex flex-col items-center"><i class="fa-solid fa-person text-2xl"></i><i class="fa-solid fa-bucket text-[10px] text-amber-400"></i></div>
+                                        <div class="flex flex-col items-center"><i class="fa-solid fa-person-dress text-2xl"></i></div>
+                                        <div class="flex flex-col items-center"><i class="fa-solid fa-person text-2xl"></i><i class="fa-solid fa-bag-shopping text-[10px] text-amber-400"></i></div>
+                                        <div class="flex flex-col items-center"><i class="fa-solid fa-person text-2xl"></i></div>
+                                        <div class="flex flex-col items-center"><i class="fa-solid fa-person-dress text-2xl"></i><i class="fa-solid fa-bucket text-[10px] text-amber-400"></i></div>
+                                        <div class="flex flex-col items-center"><i class="fa-solid fa-person text-2xl"></i></div>
+                                        <div class="flex flex-col items-center"><i class="fa-solid fa-person text-2xl"></i><i class="fa-solid fa-basket-shopping text-[10px] text-amber-400"></i></div>
+                                        <div class="flex flex-col items-center"><i class="fa-solid fa-person text-2xl"></i></div>
+                                    </div>
+                                    <p class="text-xs text-stone-300 mt-2.5 leading-relaxed">
+                                        <strong>"세계 최고의 생활 수준, 미국식 삶의 방식만 한 것은 없다"</strong>고 자랑하는 거대한 광고판 바로 밑에서, 당장 오늘 먹을 수프와 빵을 배급받기 위해 길게 줄을 선 실업자들의 대비가 대공황의 충격을 생생히 보여줍니다.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-stone-50 px-6 py-3 border-t border-stone-200 flex items-center justify-between">
+                            <span class="text-xs text-slate-600"><i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i>1교시 대공황 자료 탐구 완료!</span>
+                            <button onclick="switchTab('tab-totalitarian')" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-amber-400 rounded-xl text-xs font-bold transition">
+                                2교시: 각국의 대응과 전체주의로 이동 <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- TAB 2: 대공황에 대한 각국의 대응과 전체주의 국가의 등장 (PPT Slides 6~7, 10~19) -->
+        <!-- ================================================================= -->
+        <section id="tab-totalitarian" class="tab-panel hidden space-y-8">
+            <!-- Part A: How Democratic Powers Responded (USA, UK, France - PPT Slides 6~7) -->
+            <div class="bg-white rounded-3xl shadow-md border border-stone-200 p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-stone-200">
+                    <div>
+                        <span class="text-xs font-extrabold text-blue-700 bg-blue-100 px-2.5 py-1 rounded-md">대공황 극복 방안 비교 ①</span>
+                        <h2 class="text-xl font-black text-slate-900 mt-1">풍부한 자원과 식민지를 가진 나라들의 대응 (미국·영국·프랑스)</h2>
+                    </div>
+                    <span class="text-xs font-bold text-rose-600 bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-xl">
+                        <i class="fa-solid fa-star text-rose-500 mr-1"></i>PPT 핵심 별표(★★★) 중요 내용
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-5">
+                    <!-- USA: New Deal -->
+                    <div class="rounded-2xl border-2 border-blue-200 bg-blue-50/40 p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-2xl">🇺🇸</span>
+                                    <h3 class="text-lg font-black text-slate-900">미국: 뉴딜 정책 (수정 자본주의)</h3>
+                                </div>
+                                <span class="text-xs font-bold bg-blue-600 text-white px-2.5 py-1 rounded-lg">루스벨트 대통령</span>
+                            </div>
+                            <div class="bg-white p-3.5 rounded-xl border border-blue-100 text-xs sm:text-sm space-y-2 text-slate-700">
+                                <p><strong class="text-blue-800">• 기본 방향:</strong> 기존의 '자유방임' 경제 원칙을 수정 → <strong>정부가 생산 활동에 적극 개입!</strong></p>
+                                <p><strong class="text-blue-800">• 주요 내용:</strong></p>
+                                <ul class="list-disc list-inside pl-2 space-y-1 text-slate-600">
+                                    <li>국가가 기업의 <strong>생산량 조절</strong> (과잉 생산 방지)</li>
+                                    <li>테네시강 유역 개발 등 <strong>대규모 공공사업으로 실업자 구제</strong> 및 일자리 제공</li>
+                                    <li>노동자의 권리 보장, 최저 임금제 및 <strong>사회 보장 제도</strong> 실시</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-4 bg-blue-900 text-white px-4 py-2.5 rounded-xl text-xs font-bold text-center">
+                            핵심 비결: 넓은 국내 시장 + 정부의 적극적인 시장 통제로 대공황 극복!
+                        </div>
+                    </div>
+
+                    <!-- UK & France: Bloc Economy -->
+                    <div class="rounded-2xl border-2 border-indigo-200 bg-indigo-50/40 p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-2xl">🇬🇧 🇫🇷</span>
+                                    <h3 class="text-lg font-black text-slate-900">영국·프랑스: 블록 경제 (보호 무역)</h3>
+                                </div>
+                                <span class="text-xs font-bold bg-indigo-600 text-white px-2.5 py-1 rounded-lg">식민지 활용</span>
+                            </div>
+                            <div class="bg-white p-3.5 rounded-xl border border-indigo-100 text-xs sm:text-sm space-y-2 text-slate-700">
+                                <p><strong class="text-indigo-800">• 기본 방향:</strong> <strong>본국과 해외 식민지 사이의 유대 강화</strong></p>
+                                <p><strong class="text-indigo-800">• 주요 내용:</strong></p>
+                                <ul class="list-disc list-inside pl-2 space-y-1 text-slate-600">
+                                    <li>본국에서 과잉 생산된 상품을 <strong>해외 식민지에 판매</strong></li>
+                                    <li><strong>보호 무역 정책</strong> 실시 (다른 나라 수입품에 높은 관세를 물려 수입량 억제)</li>
+                                    <li>파운드 블록(영국), 프랑 블록(프랑스) 등 배타적 경제권 형성</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-4 bg-indigo-900 text-white px-4 py-2.5 rounded-xl text-xs font-bold text-center">
+                            핵심 비결: 전 세계에 걸친 많은 식민지를 '블록 경제'로 묶어 대공황 해결!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part B: Weimar Hyperinflation & Fear of Socialism (PPT Slides 10 ~ 14) -->
+            <div class="bg-white rounded-3xl shadow-md border border-stone-200 p-6 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-stone-200 pb-4">
+                    <div>
+                        <span class="text-xs font-extrabold text-rose-700 bg-rose-100 px-2.5 py-1 rounded-md">전체주의 등장 배경 ① (PPT 10~14쪽)</span>
+                        <h2 class="text-xl font-black text-slate-900 mt-1">식민지가 적고 국내 시장이 좁은 나라에서는 무슨 일이 벌어졌을까?</h2>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-bold bg-stone-100 px-3 py-2 rounded-xl text-slate-700">
+                        <span>경제 대공황의 혼란</span>
+                        <i class="fa-solid fa-arrow-right text-rose-500"></i>
+                        <span>국가 경제 정책 실패</span>
+                        <i class="fa-solid fa-arrow-right text-rose-500"></i>
+                        <span class="text-rose-700 font-black">민주주의 작동 불능!</span>
+                    </div>
+                </div>
+
+                <!-- 4 Iconic Hyperinflation Photos from PPT Slides 11-14 -->
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-black text-slate-900 text-base flex items-center gap-2">
+                            <i class="fa-solid fa-money-bill-1-wave text-emerald-700"></i>
+                            독일의 살인적인 물가 폭등 (초인플레이션) 사진 체험관
+                        </h3>
+                        <span class="text-xs text-slate-500">1차 대전 배상금과 경제 파탄으로 돈이 종잇조각보다 못한 신세가 된 모습 (PPT 사진 4종)</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- Hyperinflation Photo 1: Wheelbarrow full of cash (PPT Slide 11) -->
+                        <div class="paper-texture rounded-2xl border-2 border-stone-300 p-4 flex flex-col justify-between hover:border-amber-500 transition shadow-sm">
+                            <div>
+                                <div class="bg-stone-800 text-amber-300 text-[11px] font-bold px-2.5 py-1 rounded-lg inline-block mb-2">
+                                    지갑의 가치는 이미 상실했음!
+                                </div>
+                                <div class="bg-stone-200 rounded-xl p-4 text-center my-2 border border-stone-300 min-h-[120px] flex flex-col items-center justify-center">
+                                    <div class="flex items-center gap-2 text-3xl text-stone-700 mb-2">
+                                        <i class="fa-solid fa-person-cane"></i>
+                                        <i class="fa-solid fa-cart-flatbed-suitcase text-amber-700"></i>
+                                        <i class="fa-solid fa-sack-dollar text-emerald-700"></i>
+                                    </div>
+                                    <span class="text-xs font-bold text-slate-700">손수레에 돈다발을 가득 실은 할아버지</span>
+                                </div>
+                                <p class="text-xs sm:text-sm font-black text-slate-900 text-center bg-white p-2.5 rounded-xl border border-stone-200 shadow-inner">
+                                    “여보.... 손주놈 케익 하나 사가지고 올께~~!!!”
+                                </p>
+                            </div>
+                            <p class="text-[11px] text-slate-500 mt-2 text-center">빵이나 케이크 하나를 사기 위해 지폐를 수레로 끌고 가야 했던 현실</p>
+                        </div>
+
+                        <!-- Hyperinflation Photo 2: Buying a cabbage with basket of money (PPT Slide 12) -->
+                        <div class="paper-texture rounded-2xl border-2 border-stone-300 p-4 flex flex-col justify-between hover:border-amber-500 transition shadow-sm">
+                            <div>
+                                <div class="bg-stone-800 text-amber-300 text-[11px] font-bold px-2.5 py-1 rounded-lg inline-block mb-2">
+                                    양배추 한 통에 얼마죠?
+                                </div>
+                                <div class="bg-stone-200 rounded-xl p-4 text-center my-2 border border-stone-300 min-h-[120px] flex flex-col items-center justify-center">
+                                    <div class="flex items-center gap-3 text-3xl text-stone-700 mb-2">
+                                        <i class="fa-solid fa-basket-shopping text-amber-800"></i>
+                                        <i class="fa-solid fa-right-left text-sm text-slate-400"></i>
+                                        <i class="fa-solid fa-leaf text-emerald-600"></i>
+                                    </div>
+                                    <span class="text-xs font-bold text-slate-700">바구니 가득 담긴 지폐와 양배추 한 통</span>
+                                </div>
+                                <p class="text-xs sm:text-sm font-black text-slate-900 text-center bg-white p-2.5 rounded-xl border border-stone-200 shadow-inner">
+                                    “음.... 백만 마르크만 주세요~~~!!!”
+                                </p>
+                            </div>
+                            <p class="text-[11px] text-slate-500 mt-2 text-center">아침과 저녁의 물가가 수백만 배씩 뛰어오르던 초인플레이션</p>
+                        </div>
+
+                        <!-- Hyperinflation Photo 3: Flying a kite made of banknotes (PPT Slide 13) -->
+                        <div class="paper-texture rounded-2xl border-2 border-stone-300 p-4 flex flex-col justify-between hover:border-amber-500 transition shadow-sm">
+                            <div>
+                                <div class="bg-stone-800 text-amber-300 text-[11px] font-bold px-2.5 py-1 rounded-lg inline-block mb-2">
+                                    지폐로 만든 연날리기
+                                </div>
+                                <div class="bg-stone-200 rounded-xl p-4 text-center my-2 border border-stone-300 min-h-[120px] flex flex-col items-center justify-center">
+                                    <div class="flex items-center gap-2 text-3xl text-stone-700 mb-2">
+                                        <i class="fa-solid fa-child-reaching"></i>
+                                        <i class="fa-solid fa-paper-plane text-blue-600"></i>
+                                        <i class="fa-solid fa-money-bill text-emerald-700"></i>
+                                    </div>
+                                    <span class="text-xs font-bold text-slate-700">지폐를 풀로 이어 붙여 만든 연을 든 아이들</span>
+                                </div>
+                                <p class="text-xs sm:text-sm font-black text-slate-900 text-center bg-white p-2.5 rounded-xl border border-stone-200 shadow-inner">
+                                    “내 껏두 만들어줘잉~~~~~~~!!!”
+                                </p>
+                            </div>
+                            <p class="text-[11px] text-slate-500 mt-2 text-center">색종이를 사는 것보다 지폐를 이어 붙여 연을 만드는 것이 더 저렴했음</p>
+                        </div>
+
+                        <!-- Hyperinflation Photo 4: Children stacking bundles of money like blocks (PPT Slide 14) -->
+                        <div class="paper-texture rounded-2xl border-2 border-stone-300 p-4 flex flex-col justify-between hover:border-amber-500 transition shadow-sm">
+                            <div>
+                                <div class="bg-stone-800 text-amber-300 text-[11px] font-bold px-2.5 py-1 rounded-lg inline-block mb-2">
+                                    돈다발 피라미드 블록 놀이
+                                </div>
+                                <div class="bg-stone-200 rounded-xl p-4 text-center my-2 border border-stone-300 min-h-[120px] flex flex-col items-center justify-center">
+                                    <div class="flex items-center gap-2 text-3xl text-stone-700 mb-2">
+                                        <i class="fa-solid fa-cubes-stacked text-amber-700"></i>
+                                        <i class="fa-solid fa-children text-stone-700"></i>
+                                    </div>
+                                    <span class="text-xs font-bold text-slate-700">돈다발을 장난감 블록처럼 높이 쌓는 남매</span>
+                                </div>
+                                <p class="text-xs sm:text-sm font-black text-slate-900 text-center bg-white p-2.5 rounded-xl border border-stone-200 shadow-inner">
+                                    “동생아 기다려! 언니가 집에서 이만큼 더 가져올께~~!!! 헉~~!!!”
+                                </p>
+                            </div>
+                            <p class="text-[11px] text-slate-500 mt-2 text-center">화폐 가치가 폭락해 길거리 장난감이나 땔감으로 쓰이던 마르크화</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Capitalists' Fear of Socialism (PPT Slide 10 - Lenin Speech Bubble) -->
+                <div class="bg-slate-900 text-white rounded-2xl p-5 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-rose-700 flex items-center justify-center text-2xl shrink-0 border-2 border-rose-400">
+                            <i class="fa-solid fa-hammer"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-rose-400">PPT 10쪽 핵심 맥락: 왜 자본가들과 중산층은 독재자를 지지했을까?</span>
+                            <h4 class="text-base sm:text-lg font-black mt-0.5">소련(레닌): <span class="text-rose-300">"사회주의 맛 좀 보실라우?"</span> (대공황에도 5개년 계획으로 성장)</h4>
+                            <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                                경제가 파탄 나고 노동자·농민 사이에서 사회주의 혁명 세력이 커지자, 재산을 잃을까 두려워진 자본가들은 <strong class="text-amber-300">“사회주의보다 차라리 강력한 전체주의(파시즘·나치즘)가 낫다!”</strong>며 독재 세력을 후원했습니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part C: Three Totalitarian Regimes, Aggressive Expansion & League of Nations (PPT Slides 15 ~ 19) -->
+            <div class="bg-white rounded-3xl shadow-md border border-stone-200 p-6 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-200 pb-4">
+                    <div>
+                        <span class="text-xs font-extrabold text-purple-800 bg-purple-100 px-2.5 py-1 rounded-md">전체주의 3개국의 집권과 대외 침략 (PPT 15~19쪽)</span>
+                        <h2 class="text-xl font-black text-slate-900 mt-1">전체주의 국가의 특징: "민족이나 국가 전체의 이익을 앞세워 개인의 희생 강요"</h2>
+                    </div>
+                    <span class="text-xs font-bold text-rose-600 bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-xl">
+                        문제 해결 방법 = 대외 침략을 통한 경제 문제 해소!
+                    </span>
+                </div>
+
+                <!-- 3 Axis Totalitarian Nations Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <!-- Italy -->
+                    <div class="rounded-2xl border-2 border-emerald-700/30 bg-stone-50 overflow-hidden flex flex-col justify-between shadow-sm">
+                        <div class="bg-gradient-to-r from-emerald-700 via-white to-rose-600 h-2.5"></div>
+                        <div class="p-5 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-xs font-black px-2.5 py-1 rounded bg-emerald-800 text-white">이탈리아 (파시즘)</span>
+                                    <span class="text-xs font-bold text-slate-500">무솔리니</span>
+                                </div>
+                                <h3 class="text-lg font-black text-slate-900 mb-2">파시스트당의 정권 장악</h3>
+                                <ul class="text-xs sm:text-sm text-slate-700 space-y-1.5 list-disc list-inside">
+                                    <li>1차 대전 승전국이었으나 전후 심각한 경제난과 사회 혼란 발생</li>
+                                    <li><strong>무솔리니</strong>가 로마 진군(1922)을 통해 파시스트당 일당 독재 수립</li>
+                                    <li>로마 제국의 영광 부활 선전</li>
+                                </ul>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-stone-200 bg-rose-50 p-3 rounded-xl border border-rose-200">
+                                <p class="text-xs font-black text-rose-800"><i class="fa-solid fa-explosion mr-1"></i>대외 침략 행동:</p>
+                                <p class="text-xs sm:text-sm font-bold text-slate-900 mt-0.5">아프리카의 <strong>에티오피아 침략 (1935)</strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Germany -->
+                    <div class="rounded-2xl border-2 border-slate-800/40 bg-stone-50 overflow-hidden flex flex-col justify-between shadow-sm">
+                        <div class="bg-gradient-to-r from-slate-900 via-red-600 to-amber-400 h-2.5"></div>
+                        <div class="p-5 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-xs font-black px-2.5 py-1 rounded bg-slate-900 text-white">독일 (나치즘)</span>
+                                    <span class="text-xs font-bold text-slate-500">히틀러</span>
+                                </div>
+                                <h3 class="text-lg font-black text-slate-900 mb-2">나치스의 일당 독재 수립</h3>
+                                <ul class="text-xs sm:text-sm text-slate-700 space-y-1.5 list-disc list-inside">
+                                    <li>베르사유 조약에 대한 불만과 대공황 실업난을 틈타 <strong>히틀러의 나치스(국가사회주의 독일 노동자당)</strong> 집권</li>
+                                    <li><strong>게르만 우월주의</strong>를 내세운 가혹한 인종 차별 정책(유대인 박해) 실시</li>
+                                </ul>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-stone-200 bg-rose-50 p-3 rounded-xl border border-rose-200">
+                                <p class="text-xs font-black text-rose-800"><i class="fa-solid fa-explosion mr-1"></i>대외 침략 행동:</p>
+                                <p class="text-xs sm:text-sm font-bold text-slate-900 mt-0.5"><strong>오스트리아 병합</strong>, <strong>체코슬로바키아 점령</strong>, 폴란드 침공(1939)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Japan -->
+                    <div class="rounded-2xl border-2 border-rose-700/30 bg-stone-50 overflow-hidden flex flex-col justify-between shadow-sm">
+                        <div class="bg-gradient-to-r from-white via-rose-600 to-white h-2.5"></div>
+                        <div class="p-5 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-xs font-black px-2.5 py-1 rounded bg-rose-800 text-white">일본 (군국주의)</span>
+                                    <span class="text-xs font-bold text-slate-500">군부 세력</span>
+                                </div>
+                                <h3 class="text-lg font-black text-slate-900 mb-2">군부의 군국주의 체제 강화</h3>
+                                <ul class="text-xs sm:text-sm text-slate-700 space-y-1.5 list-disc list-inside">
+                                    <li>대공황으로 인한 경제 위기를 대륙 침략으로 해결하려 함</li>
+                                    <li>청년 장교 등 <strong>군부 세력</strong>이 정권을 장악하고 천황 중심의 군국주의 강화</li>
+                                    <li>국가 총동원 체제 구축</li>
+                                </ul>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-stone-200 bg-rose-50 p-3 rounded-xl border border-rose-200">
+                                <p class="text-xs font-black text-rose-800"><i class="fa-solid fa-explosion mr-1"></i>대외 침략 행동:</p>
+                                <p class="text-xs sm:text-sm font-bold text-slate-900 mt-0.5">만주 사변(1931), <strong>중일 전쟁 도발(1937)</strong>, 태평양 전쟁</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- League of Nations Helplessness & PPT YouTube Reference Links (PPT Slide 16 & 18) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center bg-slate-100 p-4 sm:p-5 rounded-2xl border border-slate-200">
+                    <!-- League of Nations Logo & Quote from PPT Slide 18 -->
+                    <div class="lg:col-span-6 flex items-center gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="w-16 h-16 rounded-2xl bg-blue-700 text-white flex flex-col items-center justify-center shrink-0 font-black shadow">
+                            <i class="fa-regular fa-star text-2xl"></i>
+                            <span class="text-[9px] tracking-tighter mt-0.5">LEAGUE OF NATIONS</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-extrabold text-blue-700">국제 연맹 (SOCIETE DES NATIONS)</span>
+                                <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold">PPT 18쪽 풍자</span>
+                            </div>
+                            <p class="text-base font-black text-slate-900 mt-1">“어떻게 뭘 할 수 없네..”</p>
+                            <p class="text-xs text-slate-600 mt-0.5">
+                                전체주의 국가들이 국제 연맹을 탈퇴하고 침략을 일삼았지만, 군사적 제재 수단이 없던 국제 연맹은 이를 막지 못했습니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- PPT Slide 16 Video Resources -->
+                    <div class="lg:col-span-6 bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                        <div>
+                            <span class="text-xs font-extrabold text-rose-600"><i class="fa-brands fa-youtube mr-1"></i>PPT 16쪽 수록 참고 영상 자료</span>
+                            <h4 class="font-bold text-slate-900 text-sm mt-0.5">생생한 영상으로 보는 무솔리니와 히틀러의 등장</h4>
+                            <p class="text-xs text-slate-500 mt-0.5">PPT에 링크된 역사 다큐/연설 영상을 새 창으로 확인해 보세요.</p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 shrink-0">
+                            <a href="https://youtu.be/sbNIUk8WoCY" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-play"></i> 참고영상 1 보기
+                            </a>
+                            <a href="https://youtu.be/HcHsmc-SwA4" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-play"></i> 참고영상 2 보기
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <button onclick="switchTab('tab-inquiry')" class="px-5 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-2xl text-sm font-black transition shadow-md flex items-center gap-2">
+                        <span>이제 핵심 탐구 활동(파시즘·나치즘 반박 글쓰기) 시작하기</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- TAB 3: 핵심 탐구 활동 - 전체주의 국가의 주장 분석 및 반박 글쓰기 (PPT Slides 20~24) -->
+        <!-- ================================================================= -->
+        <section id="tab-inquiry" class="tab-panel hidden space-y-8">
+            <!-- Section Header Banner -->
+            <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 shadow-lg border-b-4 border-amber-400">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400 text-slate-950 text-xs font-black mb-2">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i> 우리 해 보자! (PPT 20~24쪽 핵심 탐구 과제)
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-black tracking-tight">전체주의 국가의 주장은 무엇일까?</h2>
+                        <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                            이탈리아의 파시즘[자료 1]과 독일의 나치즘[자료 2] 사료를 읽고, 그 특징을 분석한 뒤 전체주의의 위험성을 반박하는 글을 작성하여 제출하세요.
+                        </p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm p-3.5 rounded-2xl border border-white/15 shrink-0 text-xs space-y-1">
+                        <p class="font-bold text-amber-300"><i class="fa-solid fa-cloud-arrow-up mr-1"></i>제출 시 자동 처리 내역</p>
+                        <p class="text-slate-200">1. 교사용 실시간 제출 현황판에 즉시 등록</p>
+                        <p class="text-slate-200">2. 연결된 <strong>구글 시트(Google Sheets)</strong>로 자동 기록</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Primary Sources Analysis Box (Exact Recreation of PPT Slide 20) -->
+            <div class="bg-white rounded-3xl shadow-md border border-stone-200 p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
+                    <h3 class="text-lg font-black text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open-reader text-indigo-600"></i>
+                        사료 비교 분석: 무솔리니(왼쪽)와 히틀러(오른쪽)의 주장
+                    </h3>
+                    <span class="text-xs text-slate-500">아래 STEP 1에 단어를 입력하면 사료 속 <strong>[ ㉠ ]</strong> 빈칸이 실시간으로 채워집니다.</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                    <!-- Source 1: Italian Fascism (Mussolini) -->
+                    <div class="lg:col-span-5 speech-bubble-left rounded-3xl p-5 sm:p-6 flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-indigo-700 text-white text-xs font-black">
+                                    자료 1
+                                </span>
+                                <h4 class="text-base sm:text-lg font-black text-indigo-950">이탈리아의 파시즘</h4>
+                            </div>
+                            <blockquote class="bg-white/95 p-5 rounded-2xl border border-emerald-200 text-slate-800 font-serif text-sm sm:text-base leading-loose shadow-inner">
+                                “<span class="blank-slot" data-slot="k">㉠</span>을/를 떠나서는 인간과 영혼의 가치도 존재하지 않는다. 어떠한 단체도 <span class="blank-slot" data-slot="k">㉠</span>을/를 떠나서 존재하지 않으며, 국민이 <span class="blank-slot" data-slot="k">㉠</span>을/를 발생시키는 것이 아니라 <span class="blank-slot" data-slot="k">㉠</span>이/가 국민을 창조한다.”
+                            </blockquote>
+                        </div>
+                        <div class="mt-4 flex items-center justify-between text-xs text-slate-600 pt-2">
+                            <span class="px-2.5 py-1 rounded bg-emerald-100 text-emerald-900 font-bold">핵심 논리: 개인 &lt; 전체(국가) 절대 우위</span>
+                            <span class="font-serif font-bold text-slate-800">- 무솔리니, 『파시즘 독트린』</span>
+                        </div>
+                    </div>
+
+                    <!-- Center Visual: Mussolini & Hitler Side-by-Side (PPT Slide 20) -->
+                    <div class="lg:col-span-2 flex flex-col items-center justify-center bg-stone-100 rounded-2xl p-4 border border-stone-200 text-center">
+                        <div class="flex items-center justify-center gap-2 mb-2">
+                            <div class="w-12 h-16 rounded-xl bg-emerald-900 text-white flex flex-col items-center justify-center shadow" title="무솔리니">
+                                <i class="fa-solid fa-hand-fist text-lg text-amber-300"></i>
+                                <span class="text-[10px] font-bold mt-1">무솔리니</span>
+                            </div>
+                            <div class="w-12 h-16 rounded-xl bg-amber-900 text-white flex flex-col items-center justify-center shadow" title="히틀러">
+                                <i class="fa-solid fa-person-military-pointing text-lg text-amber-300"></i>
+                                <span class="text-[10px] font-bold mt-1">히틀러</span>
+                            </div>
+                        </div>
+                        <p class="text-xs font-extrabold text-emerald-800 mt-1">▲ 무솔리니(왼쪽)와 히틀러(오른쪽)</p>
+                        <p class="text-[11px] text-slate-500 mt-1 leading-tight">개인의 자유를 억압하고 침략 전쟁을 정당화한 전체주의 독재자들</p>
+                    </div>
+
+                    <!-- Source 2: German Nazism (Hitler) -->
+                    <div class="lg:col-span-5 speech-bubble-right rounded-3xl p-5 sm:p-6 flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-indigo-700 text-white text-xs font-black">
+                                    자료 2
+                                </span>
+                                <h4 class="text-base sm:text-lg font-black text-indigo-950">독일의 나치즘</h4>
+                            </div>
+                            <blockquote class="bg-white/95 p-5 rounded-2xl border border-amber-200 text-slate-800 font-serif text-sm sm:text-base leading-loose shadow-inner">
+                                “나라 간의 국경은 인간이 만들거나 바꿀 수 있는 것이다. 어떤 <span class="blank-slot" data-slot="k">㉠</span>이/가 커다란 영토를 가졌다고 해서 그 권리가 영원히 보장되는 것은 아니다. 힘이 있으면 정복자가 되고, 힘이 없으면 땅을 빼앗기는 법이다.”
+                            </blockquote>
+                        </div>
+                        <div class="mt-4 flex items-center justify-between text-xs text-slate-600 pt-2">
+                            <span class="px-2.5 py-1 rounded bg-amber-100 text-amber-900 font-bold">핵심 논리: 약육강식 &amp; 대외 팽창·침략 정당화</span>
+                            <span class="font-serif font-bold text-slate-800">- 히틀러, 『나의 투쟁』</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Student Inquiry Form (Submits to Firestore + Google Sheets) -->
+            <form id="inquiry-form" onsubmit="handleInquirySubmit(event)" class="bg-white rounded-3xl shadow-lg border-2 border-slate-900 overflow-hidden">
+                <!-- Student Info Bar inside Form -->
+                <div class="bg-slate-900 text-white p-5 sm:p-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                        <h3 class="text-lg font-black flex items-center gap-2">
+                            <i class="fa-solid fa-file-signature text-amber-400"></i>
+                            탐구 활동지 작성 및 구글 시트 제출
+                        </h3>
+                        <span class="text-xs text-amber-300">* 작성한 내용은 선생님의 구글 시트로 자동 전송됩니다.</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">학년 / 반 <span class="text-rose-400">*</span></label>
+                            <input type="text" id="input-class" required placeholder="예: 3학년 2반 (또는 3-2)" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white text-sm font-bold focus:outline-none focus:border-amber-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">번호 <span class="text-rose-400">*</span></label>
+                            <input type="number" id="input-number" required min="1" max="99" placeholder="예: 15" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white text-sm font-bold focus:outline-none focus:border-amber-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">이름 <span class="text-rose-400">*</span></label>
+                            <input type="text" id="input-name" required placeholder="이름을 입력하세요" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-white text-sm font-bold focus:outline-none focus:border-amber-400">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 space-y-8">
+                    <!-- QUESTION 1 (PPT Slide 21) -->
+                    <div class="bg-stone-50 p-5 rounded-2xl border border-stone-200">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                            <label for="input-q1" class="text-base font-black text-slate-900 flex items-center gap-2">
+                                <span class="w-7 h-7 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center font-black shrink-0">1</span>
+                                <span>[자료 1]과 [자료 2]의 빈칸 <strong class="text-blue-700">( ㉠ )</strong>에 공통으로 들어갈 말을 써 보자.</span>
+                            </label>
+                            <span id="q1-feedback-badge" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-stone-200 text-slate-600">빈칸에 들어갈 2글자 핵심어</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+                            <input type="text" id="input-q1" required oninput="updateBlankSlots(this.value)" placeholder="여기에 ㉠에 들어갈 말을 입력하세요" class="flex-1 px-4 py-3 rounded-xl border-2 border-stone-300 text-slate-900 font-black text-base focus:outline-none focus:border-blue-600">
+                            <button type="button" onclick="checkQ1Answer()" class="px-4 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-bold transition shrink-0">
+                                <i class="fa-solid fa-check mr-1"></i>정답 확인하기
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- QUESTION 2 (PPT Slide 22) -->
+                    <div class="bg-stone-50 p-5 rounded-2xl border border-stone-200 space-y-4">
+                        <div>
+                            <label class="text-base font-black text-slate-900 flex items-start sm:items-center gap-2">
+                                <span class="w-7 h-7 rounded-full bg-indigo-600 text-white text-xs flex items-center justify-center font-black shrink-0 mt-0.5 sm:mt-0">2</span>
+                                <span>[자료 1] 이탈리아의 파시즘과 [자료 2] 독일의 나치즘을 보고 알 수 있는 <strong class="text-indigo-700">전체주의 국가의 특징</strong>을 탐구하여 써 보자.</span>
+                            </label>
+                            <p class="text-xs text-slate-500 mt-1 pl-9">
+                                무솔리니가 '개인(국민)'과 '국가' 중 무엇을 위에 두었는지, 히틀러가 무엇을 정당화하고 있는지 각각 분석해 보세요.
+                            </p>
+                        </div>
+
+                        <!-- Sub-analysis cards for scaffolding student inquiry -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pl-0 sm:pl-9">
+                            <div class="bg-white p-3.5 rounded-xl border border-emerald-200">
+                                <label for="input-q2-fascism" class="block text-xs font-black text-emerald-800 mb-1.5">
+                                    <i class="fa-solid fa-magnifying-glass mr-1"></i>① [자료 1] 무솔리니(이탈리아 파시즘) 주장의 특징
+                                </label>
+                                <input type="text" id="input-q2-fascism" placeholder="예: 국민 개인보다 국가를 절대적으로 우위에 두고 개인의 희생을 강요함" class="w-full px-3 py-2 rounded-lg border border-stone-300 text-xs sm:text-sm focus:outline-none focus:border-emerald-600">
+                            </div>
+                            <div class="bg-white p-3.5 rounded-xl border border-amber-200">
+                                <label for="input-q2-nazism" class="block text-xs font-black text-amber-800 mb-1.5">
+                                    <i class="fa-solid fa-magnifying-glass mr-1"></i>② [자료 2] 히틀러(독일 나치즘) 주장의 특징
+                                </label>
+                                <input type="text" id="input-q2-nazism" placeholder="예: 힘의 논리(약육강식)를 내세워 다른 나라의 영토를 빼앗는 대외 침략을 정당화함" class="w-full px-3 py-2 rounded-lg border border-stone-300 text-xs sm:text-sm focus:outline-none focus:border-amber-600">
+                            </div>
+                        </div>
+
+                        <!-- Combined Q2 Main Textarea -->
+                        <div class="pl-0 sm:pl-9">
+                            <div class="flex flex-wrap items-center gap-1.5 mb-2">
+                                <span class="text-xs font-bold text-slate-500 mr-1"><i class="fa-solid fa-tags mr-1"></i>클릭하여 핵심 키워드 넣기:</span>
+                                <button type="button" onclick="insertKeyword('input-q2', '국민보다 국가를 우위에 둠')" class="text-xs px-2.5 py-1 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold border border-indigo-200 transition">+ 국민보다 국가 우위</button>
+                                <button type="button" onclick="insertKeyword('input-q2', '시민의 자유와 인권 억압')" class="text-xs px-2.5 py-1 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold border border-indigo-200 transition">+ 시민의 자유 억압</button>
+                                <button type="button" onclick="insertKeyword('input-q2', '팽창 정책과 대외 침략 정당화')" class="text-xs px-2.5 py-1 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold border border-indigo-200 transition">+ 대외 침략 정당화</button>
+                                <button type="button" onclick="insertKeyword('input-q2', '개인의 희생 강요')" class="text-xs px-2.5 py-1 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold border border-indigo-200 transition">+ 개인의 희생 강요</button>
+                            </div>
+                            <textarea id="input-q2" required rows="3" placeholder="[자료 1]과 [자료 2]를 종합하여 알 수 있는 전체주의 국가의 특징을 서술해 보세요." class="w-full p-4 rounded-xl border-2 border-stone-300 text-slate-900 text-sm leading-relaxed focus:outline-none focus:border-indigo-600"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- QUESTION 3: Rebuttal Essay against Totalitarian Claims (PPT Slide 23 - Core User Requirement) -->
+                    <div class="bg-amber-50/70 p-5 sm:p-6 rounded-2xl border-2 border-amber-400 space-y-5">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <label for="input-q3" class="text-base sm:text-lg font-black text-slate-900 flex items-start sm:items-center gap-2">
+                                    <span class="w-7 h-7 rounded-full bg-rose-600 text-white text-xs flex items-center justify-center font-black shrink-0 mt-0.5 sm:mt-0">3</span>
+                                    <span>[AI 챗봇 토론 &amp; 반박 글쓰기] <strong class="text-rose-700">무솔리니·히틀러와 채팅으로 논쟁</strong>하고 반박 글을 완성해 보자!</span>
+                                </label>
+                                <p class="text-xs text-slate-600 mt-1 pl-9">
+                                    아래 챗봇에서 <strong>무솔리니(파시즘)</strong> 또는 <strong>히틀러(나치즘)</strong>를 선택해 그들의 주장을 직접 반박해 보세요. 나의 채팅 반박 내용은 아래 최종 제출 칸에 자동으로 모이거나 버튼 하나로 정리할 수 있습니다.
+                                </p>
+                            </div>
+                            <span id="q3-char-counter" class="text-xs font-bold px-3 py-1 rounded-full bg-white border border-amber-300 text-slate-700 shrink-0 self-start sm:self-center">0자 작성됨 (권장: 50자 이상)</span>
+                        </div>
+
+                        <!-- Role / Perspective Selector -->
+                        <div class="pl-0 sm:pl-9 space-y-4">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-xs font-bold text-slate-700"><i class="fa-solid fa-user-shield text-rose-600 mr-1"></i>나의 반박 관점(역할) 선택:</span>
+                                <button type="button" onclick="selectStance('인권과 민주주의 수호자')" id="stance-btn-1" class="stance-btn px-3 py-1 rounded-lg text-xs font-bold bg-rose-600 text-white transition">① 인권과 민주주의 수호자</button>
+                                <button type="button" onclick="selectStance('세계 평화를 지키는 시민 기자')" id="stance-btn-2" class="stance-btn px-3 py-1 rounded-lg text-xs font-bold bg-white text-slate-700 border border-stone-300 hover:bg-stone-100 transition">② 세계 평화를 지키는 시민 기자</button>
+                                <button type="button" onclick="selectStance('침략당한 피해국 대표')" id="stance-btn-3" class="stance-btn px-3 py-1 rounded-lg text-xs font-bold bg-white text-slate-700 border border-stone-300 hover:bg-stone-100 transition">③ 침략당한 피해국(에티오피아·체코·한국 등) 대표</button>
+                            </div>
+
+                            <!-- =============================================================== -->
+                            <!-- INTERACTIVE AI DEBATE CHATBOT (Mussolini & Hitler Roleplay)     -->
+                            <!-- =============================================================== -->
+                            <div class="bg-slate-900 rounded-2xl border-2 border-slate-800 shadow-xl overflow-hidden">
+                                <!-- Chatbot Top Bar: Opponent Selector -->
+                                <div class="bg-slate-950 px-4 py-3 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span>
+                                        <span class="text-xs font-black text-amber-400">1930년대 역사 인물 가상 토론 챗봇</span>
+                                        <span id="chat-turn-badge" class="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 text-emerald-400 font-bold border border-slate-700">나의 반박 횟수: 0회</span>
+                                    </div>
+                                    <div class="flex flex-wrap items-center gap-1.5">
+                                        <button type="button" onclick="switchChatPersona('mussolini')" id="persona-btn-mussolini" class="px-2.5 py-1 rounded-lg text-xs font-black bg-emerald-600 text-white transition">
+                                            🇮🇹 무솔리니 (파시즘)
+                                        </button>
+                                        <button type="button" onclick="switchChatPersona('hitler')" id="persona-btn-hitler" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+                                            🇩🇪 히틀러 (나치즘)
+                                        </button>
+                                        <button type="button" onclick="switchChatPersona('both')" id="persona-btn-both" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+                                            ⚡ 무솔리니+히틀러 동시 토론
+                                        </button>
+                                        <button type="button" onclick="resetDebateChat()" class="px-2 py-1 rounded-lg text-[11px] font-bold bg-slate-800 hover:bg-rose-900 text-slate-400 hover:text-white transition" title="대화 새로고침">
+                                            <i class="fa-solid fa-rotate-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Chat Messages Scroll Window -->
+                                <div id="debate-chat-messages" class="p-4 space-y-3 max-h-[340px] min-h-[240px] overflow-y-auto bg-slate-900/95 text-xs sm:text-sm">
+                                    <!-- Populated dynamically by JS -->
+                                </div>
+
+                                <!-- Quick Rebuttal Prompts & Chat Input Bar -->
+                                <div class="bg-slate-950 p-3 border-t border-slate-800 space-y-2">
+                                    <div class="flex flex-wrap items-center gap-1.5">
+                                        <span class="text-[11px] font-bold text-amber-300"><i class="fa-solid fa-bolt mr-1"></i>빠른 반박 질문 넣기:</span>
+                                        <button type="button" onclick="fillChatPrompt('국가는 국민이 만든 것인데 왜 국가를 위해 개인의 인권과 자유를 희생해야 합니까?')" class="text-[11px] px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">💬 개인의 인권·자유 반박</button>
+                                        <button type="button" onclick="fillChatPrompt('힘이 있다고 다른 나라를 침략하면 결국 전 세계가 전쟁으로 파멸하지 않습니까?')" class="text-[11px] px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">💬 침략 전쟁·약육강식 반박</button>
+                                        <button type="button" onclick="fillChatPrompt('특정 민족만 우월하다는 주장은 수많은 무고한 사람들을 학살하는 핑계일 뿐입니다!')" class="text-[11px] px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">💬 인종 차별·우월주의 비판</button>
+                                    </div>
+
+                                    <div class="flex gap-2">
+                                        <input type="text" id="debate-chat-input" onkeydown="if(event.key==='Enter'){event.preventDefault(); sendDebateChatMessage();}" placeholder="무솔리니·히틀러의 주장에 반박하는 메시지를 입력하세요..." class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs sm:text-sm focus:outline-none focus:border-amber-400">
+                                        <button type="button" id="debate-send-btn" onclick="sendDebateChatMessage()" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm shrink-0 transition flex items-center gap-1.5">
+                                            <i class="fa-solid fa-paper-plane"></i>
+                                            <span>반박 전송</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action Bar to Convert Chat into Final Rebuttal Paragraph -->
+                            <div class="bg-white p-3 rounded-xl border border-amber-300 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
+                                <div class="text-xs text-slate-700">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-rose-600 mr-1"></i><strong>채팅 내용을 반박 글로 자동 완성하기:</strong> 챗봇과 나눈 나의 반박 대화를 바탕으로 아래 최종 제출용 반박문을 다듬어 줍니다.
+                                </div>
+                                <div class="flex flex-wrap gap-1.5 shrink-0">
+                                    <button type="button" onclick="applyMyChatToEssay()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition">
+                                        <i class="fa-solid fa-Copy mr-1"></i>내 채팅 발언 그대로 넣기
+                                    </button>
+                                    <button type="button" id="btn-ai-summarize-rebuttal" onclick="synthesizeRebuttalFromChat()" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-black transition shadow-sm">
+                                        <i class="fa-solid fa-wand-magic-sparkles mr-1"></i>채팅 내용으로 반박문 자동 정리
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Sentence Starter Helpers -->
+                            <div class="bg-white p-3 rounded-xl border border-amber-200 text-xs text-slate-600 flex flex-wrap items-center gap-2">
+                                <span class="font-bold text-amber-900"><i class="fa-solid fa-plus-circle mr-1"></i>문장 직접 추가:</span>
+                                <button type="button" onclick="insertKeyword('input-q3', '국가는 국민의 자유와 행복을 지키기 위해 존재하는 것이지, 국가를 위해 개인의 존엄성을 희생시켜서는 안 된다.')" class="px-2 py-1 rounded bg-amber-100/70 hover:bg-amber-200 text-amber-950 font-medium transition">+ 무솔리니 반박(인간의 존엄성)</button>
+                                <button type="button" onclick="insertKeyword('input-q3', '힘이 강하다고 해서 다른 나라의 영토를 침략하는 것을 정당화한다면 세계 평화는 파괴되고 끝없는 전쟁이 일어날 것이다.')" class="px-2 py-1 rounded bg-amber-100/70 hover:bg-amber-200 text-amber-950 font-medium transition">+ 히틀러 반박(세계 평화)</button>
+                                <button type="button" onclick="insertKeyword('input-q3', '따라서 인권을 침해하고 침략 전쟁을 정당화하는 전체주의 국가의 주장은 결코 옳지 않다.')" class="px-2 py-1 rounded bg-amber-100/70 hover:bg-amber-200 text-amber-950 font-medium transition">+ 결론 문장</button>
+                            </div>
+
+                            <div>
+                                <label for="input-q3" class="block text-xs font-black text-rose-800 mb-1">
+                                    <i class="fa-solid fa-pen-to-square mr-1"></i>최종 제출용 전체주의 반박 글 (구글 시트에 기록되는 최종 본문)
+                                </label>
+                                <textarea id="input-q3" required rows="4" oninput="updateCharCount(this.value)" placeholder="위 챗봇에서 무솔리니·히틀러에게 반박 메시지를 보내거나, 여기에 직접 전체주의 주장에 반박하는 글을 작성해 주세요..." class="w-full p-4 rounded-xl border-2 border-amber-400 bg-white text-slate-900 text-sm sm:text-base leading-relaxed focus:outline-none focus:border-rose-600 shadow-inner"></textarea>
+                            </div>
+
+                            <!-- Self-Check Criteria Badges -->
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+                                <div id="check-crit-1" class="flex items-center gap-2 text-xs p-2 rounded-lg bg-white border border-stone-200 text-slate-500">
+                                    <i class="fa-regular fa-circle-check"></i>
+                                    <span>개인의 존엄성 / 인권 언급</span>
+                                </div>
+                                <div id="check-crit-2" class="flex items-center gap-2 text-xs p-2 rounded-lg bg-white border border-stone-200 text-slate-500">
+                                    <i class="fa-regular fa-circle-check"></i>
+                                    <span>침략 전쟁 비판 / 평화 언급</span>
+                                </div>
+                                <div id="check-crit-3" class="flex items-center gap-2 text-xs p-2 rounded-lg bg-white border border-stone-200 text-slate-500">
+                                    <i class="fa-regular fa-circle-check"></i>
+                                    <span>반박 근거 40자 이상 서술</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button & Example Answer Toggle -->
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-2 border-t border-stone-200">
+                        <button type="button" onclick="openExemplarModal()" class="px-4 py-3 rounded-xl border-2 border-slate-300 hover:bg-slate-100 text-slate-700 text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                            <span>제출 후 교과서/PPT 예시 답안 비교하기</span>
+                        </button>
+
+                        <button type="submit" id="submit-inquiry-btn" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-base shadow-lg hover:shadow-xl transition flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>탐구 결과 제출하기 (구글 시트 자동 전송)</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Student Submission Receipt Box (Shown to student upon submission) -->
+            <div id="student-submission-receipt" class="hidden bg-emerald-950 text-white rounded-3xl p-6 shadow-xl border-2 border-emerald-400 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-emerald-800 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-slate-950 flex items-center justify-center text-2xl font-black">
+                            <i class="fa-solid fa-check-double"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-black text-emerald-300 uppercase tracking-wider">SUBMISSION COMPLETE</span>
+                            <h3 class="text-lg sm:text-xl font-black">선생님의 구글 시트로 탐구 과제가 제출되었습니다!</h3>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span id="receipt-timestamp" class="text-xs text-emerald-300 font-mono"></span>
+                        <button type="button" onclick="copyStudentReceiptText()" class="px-3 py-1.5 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-amber-300 text-xs font-bold transition">
+                            <i class="fa-regular fa-copy mr-1"></i>내 답안 복사(백업)
+                        </button>
+                    </div>
+                </div>
+                <div id="receipt-body" class="bg-emerald-900/60 rounded-2xl p-4 border border-emerald-700/80 text-xs sm:text-sm space-y-2"></div>
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- TAB 4: 교사용 실시간 제출 확인 & 구글 시트 자동화 대시보드 (비밀번호 ys26 보호) -->
+        <!-- ================================================================= -->
+        <section id="tab-teacher" class="tab-panel hidden space-y-6">
+
+            <!-- Teacher Password Lock Screen (Default Locked State) -->
+            <div id="teacher-lock-screen" class="max-w-lg mx-auto my-8 bg-white rounded-3xl shadow-xl border-2 border-slate-900 overflow-hidden">
+                <div class="bg-slate-900 text-white px-6 py-5 text-center border-b-4 border-amber-500">
+                    <div class="w-16 h-16 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-3xl mx-auto mb-3 shadow-inner">
+                        <i class="fa-solid fa-user-lock"></i>
+                    </div>
+                    <span class="px-2.5 py-0.5 rounded bg-slate-800 text-amber-400 text-[11px] font-black tracking-wider uppercase">TEACHER ONLY ACCESS</span>
+                    <h2 class="text-xl font-black mt-1">교사 전용 실시간 제출 현황 &amp; 구글 시트 관리</h2>
+                    <p class="text-xs text-slate-300 mt-1">
+                        학생들이 제출한 탐구 답안과 구글 시트(Google Sheets) 연동 기능은 교사만 열람할 수 있습니다.
+                    </p>
+                </div>
+
+                <form onsubmit="verifyTeacherPassword(event)" class="p-6 space-y-4">
+                    <div>
+                        <label for="teacher-password-input" class="block text-xs font-black text-slate-700 mb-1.5">
+                            <i class="fa-solid fa-key text-amber-600 mr-1"></i>교사용 비밀번호 입력
+                        </label>
+                        <div class="relative">
+                            <input type="password" id="teacher-password-input" required placeholder="교사용 비밀번호를 입력하세요" autocomplete="off" class="w-full px-4 py-3 rounded-xl border-2 border-stone-300 text-slate-900 font-bold text-sm focus:outline-none focus:border-slate-900">
+                            <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 text-sm px-2 py-1" title="비밀번호 표시/숨기기">
+                                <i id="pw-eye-icon" class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
+                        <p id="teacher-pw-error" class="hidden text-xs font-bold text-rose-600 mt-2">
+                            <i class="fa-solid fa-circle-exclamation mr-1"></i>비밀번호가 일치하지 않습니다. 교사용 비밀번호를 다시 확인해 주세요.
+                        </p>
+                    </div>
+
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-400 font-black text-sm transition shadow-md flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-unlock-keyhole"></i>
+                        <span>교사 모드 잠금 해제하기</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Teacher Unlocked Dashboard Content (Hidden until password 'ys26' is verified) -->
+            <div id="teacher-unlocked-content" class="hidden space-y-6">
+                <!-- Top Control Panel for Teacher -->
+                <div class="bg-slate-900 text-white rounded-3xl p-6 shadow-lg border-b-4 border-emerald-500">
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                        <div>
+                            <div class="flex flex-wrap items-center gap-2 mb-1">
+                                <span class="px-2.5 py-0.5 rounded bg-emerald-500 text-slate-950 text-xs font-black">TEACHER AUTOMATION DASHBOARD</span>
+                                <span id="webhook-status-badge" class="px-2.5 py-0.5 rounded bg-slate-800 text-amber-300 text-xs font-bold border border-slate-700">
+                                    클라우드 실시간 수집 중
+                                </span>
+                                <button onclick="lockTeacherMode()" class="px-2.5 py-0.5 rounded bg-rose-600/90 hover:bg-rose-500 text-white text-xs font-bold transition flex items-center gap-1">
+                                    <i class="fa-solid fa-lock"></i> 교사 화면 다시 잠그기
+                                </button>
+                            </div>
+                            <h2 class="text-xl sm:text-2xl font-black">학생 탐구 활동 실시간 제출 현황 &amp; 구글 시트 자동화</h2>
+                            <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                                학생들이 제출한 <strong>‘전체주의 특징 탐구’</strong>와 <strong>‘전체주의 반박 글’</strong>이 실시간으로 아래 시트에 자동 집계됩니다.
+                            </p>
+                        </div>
+
+                        <!-- 3-Way Google Sheets Action Buttons -->
+                        <div class="flex flex-wrap items-center gap-2 shrink-0">
+                            <button onclick="openGoogleSheetSetupModal()" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs sm:text-sm font-black transition shadow flex items-center gap-2">
+                                <i class="fa-solid fa-link"></i>
+                                <span>구글 시트 실시간 자동기록(Webhook) 설정</span>
+                            </button>
+                            <button onclick="exportToGoogleSheetsCSV()" class="px-4 py-2.5 rounded-xl bg-white hover:bg-stone-100 text-slate-900 text-xs sm:text-sm font-bold transition shadow flex items-center gap-2">
+                                <i class="fa-solid fa-file-csv text-emerald-700"></i>
+                                <span>구글 시트용 CSV 다운로드</span>
+                            </button>
+                            <button onclick="copyAllForGoogleSheets()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-600 text-xs sm:text-sm font-bold transition flex items-center gap-2">
+                                <i class="fa-regular fa-copy"></i>
+                                <span>시트 붙여넣기용 전체 복사</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Summary Stats Row -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5 pt-5 border-t border-slate-800">
+                        <div class="bg-slate-800/80 p-3.5 rounded-2xl border border-slate-700">
+                            <p class="text-xs text-slate-400">총 제출 학생 수</p>
+                            <p class="text-2xl font-black text-white mt-0.5"><span id="stat-total-count">0</span>명</p>
+                        </div>
+                        <div class="bg-slate-800/80 p-3.5 rounded-2xl border border-slate-700">
+                            <p class="text-xs text-slate-400">탐구 1 (㉠ '국가') 정답률</p>
+                            <p class="text-2xl font-black text-emerald-400 mt-0.5"><span id="stat-q1-rate">0</span>%</p>
+                        </div>
+                        <div class="bg-slate-800/80 p-3.5 rounded-2xl border border-slate-700">
+                            <p class="text-xs text-slate-400">반박글 평균 글자 수</p>
+                            <p class="text-2xl font-black text-amber-400 mt-0.5"><span id="stat-avg-length">0</span>자</p>
+                        </div>
+                        <div class="bg-slate-800/80 p-3.5 rounded-2xl border border-slate-700 flex flex-col justify-between">
+                            <p class="text-xs text-slate-400">교과서/PPT 예시 답안</p>
+                            <button onclick="openExemplarModal()" class="mt-1 text-xs font-bold text-amber-300 hover:underline text-left">
+                                <i class="fa-solid fa-chalkboard-user mr-1"></i>수업 화면에 예시 답안 띄우기 →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter, Search & Demo Data Bar -->
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-stone-200 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+                    <div class="flex flex-wrap items-center gap-2 flex-1">
+                        <div class="relative flex-1 min-w-[200px]">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <input type="text" id="filter-search" oninput="renderSubmissionsTable()" placeholder="학반, 이름, 반박글 키워드로 검색..." class="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 text-xs sm:text-sm focus:outline-none focus:border-slate-900">
+                        </div>
+                        <select id="filter-class" onchange="renderSubmissionsTable()" class="px-3 py-2 rounded-xl border border-stone-300 text-xs sm:text-sm font-bold text-slate-700 bg-white">
+                            <option value="ALL">전체 학급 보기</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="syncAllToGoogleSheetsWebhook()" id="btn-sync-all-webhook" class="px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold transition">
+                            <i class="fa-solid fa-arrows-rotate mr-1"></i>현재 목록 구글 시트로 일괄 재전송
+                        </button>
+                        <button onclick="seedSampleSubmissions()" class="px-3 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-slate-700 text-xs font-bold transition" title="수업 시연용 학생 답안 샘플 추가">
+                            <i class="fa-solid fa-flask mr-1"></i>시연용 학생 예시 데이터 추가
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Google Sheets Style Live Table -->
+                <div class="bg-white rounded-3xl shadow-md border border-stone-200 overflow-hidden">
+                    <div class="bg-emerald-800 text-white px-5 py-3 flex items-center justify-between text-xs font-bold">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-table"></i>
+                            <span>구글 시트 실시간 미리보기 뷰 (제출 즉시 자동 업데이트)</span>
+                        </div>
+                        <span id="table-row-count-label">표시된 행: 0건</span>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-stone-100 border-b-2 border-stone-300 text-[11px] sm:text-xs font-black text-slate-700 uppercase">
+                                    <th class="py-3 px-3 border-r border-stone-200 w-12 text-center">행</th>
+                                    <th class="py-3 px-3 border-r border-stone-200 w-28">제출 시각</th>
+                                    <th class="py-3 px-3 border-r border-stone-200 w-28">학반/번호/이름</th>
+                                    <th class="py-3 px-3 border-r border-stone-200 w-20 text-center">탐구1 (㉠)</th>
+                                    <th class="py-3 px-4 border-r border-stone-200 min-w-[240px]">탐구2: 전체주의 국가(파시즘·나치즘)의 특징</th>
+                                    <th class="py-3 px-4 border-r border-stone-200 min-w-[280px]">탐구3: 전체주의 주장에 대한 반박 글</th>
+                                    <th class="py-3 px-3 text-center w-24">시트 상태</th>
+                                </tr>
+                            </thead>
+                            <tbody id="submissions-table-body" class="divide-y divide-stone-200 text-xs sm:text-sm">
+                                <!-- Populated dynamically via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================================================================= -->
+    <!-- MODAL 1: PPT Official Exemplar Answer Modal (PPT Slides 21 ~ 24) -->
+    <!-- ================================================================= -->
+    <div id="exemplar-modal" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-3xl w-full shadow-2xl border-2 border-rose-700 overflow-hidden animate-fade-in">
+            <div class="bg-rose-700 text-white px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="px-3 py-1 rounded-full bg-white text-rose-800 text-xs font-black">예시 답안</span>
+                    <h3 class="text-lg font-black">PPT 공식 예시 답안 확인하기 (우리 해 보자 1~3번)</h3>
+                </div>
+                <button onclick="closeExemplarModal()" class="w-8 h-8 rounded-full bg-rose-800 hover:bg-rose-900 text-white flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-5 max-h-[80vh] overflow-y-auto">
+                <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200">
+                    <p class="text-xs font-black text-rose-700 mb-1">질문 1. ㉠에 공통으로 들어갈 말이 무엇인지 본문을 참고하여 써 보자.</p>
+                    <p class="text-lg font-black text-slate-900 bg-white px-4 py-2 rounded-xl border border-stone-200 inline-block mt-1">국가</p>
+                </div>
+
+                <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200">
+                    <p class="text-xs font-black text-rose-700 mb-1">질문 2. [자료 1], [자료 2]를 보고 알 수 있는 전체주의 국가의 특징을 이야기해 보자.</p>
+                    <p class="text-sm sm:text-base font-bold text-slate-800 bg-white p-4 rounded-xl border border-stone-200 leading-relaxed mt-1">
+                        “무솔리니는 국민보다 국가를 우위에 두고 있으며, 히틀러는 독일의 팽창 정책을 정당화하고 있다. 이를 통해 전체주의 국가는 민족이나 국가의 이익을 앞세워 시민의 자유를 억압하고, 적극적으로 대외 침략에 나섰음을 알 수 있다.”
+                    </p>
+                </div>
+
+                <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200">
+                    <p class="text-xs font-black text-rose-700 mb-1">질문 3. 전체주의 국가의 주장에 반박하는 짧은 글을 작성해 보자.</p>
+                    <p class="text-sm sm:text-base font-bold text-slate-800 bg-white p-4 rounded-xl border border-stone-200 leading-relaxed mt-1">
+                        “전체주의 국가는 개인의 희생을 강요하고 다른 국가를 침략하는 행위를 정당화한다. 이러한 전체주의는 인간의 존엄성을 무시하고, 전쟁을 일으킬 위험성이 크다. 인권을 침해하고 세계 평화를 깨뜨리는 전체주의 국가의 주장은 옳지 않다.”
+                    </p>
+                </div>
+            </div>
+            <div class="bg-stone-100 px-6 py-3 flex justify-end">
+                <button onclick="closeExemplarModal()" class="px-5 py-2 rounded-xl bg-slate-900 text-white text-xs sm:text-sm font-bold">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- MODAL 2: Google Sheets Live Webhook Automation Wizard Modal -->
+    <!-- ================================================================= -->
+    <div id="sheets-setup-modal" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-3xl w-full shadow-2xl border-2 border-emerald-600 overflow-hidden">
+            <div class="bg-emerald-700 text-white px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-table-cells text-xl"></i>
+                    <h3 class="text-lg font-black">교사용 구글 시트(Google Sheets) 실시간 자동 기록 설정</h3>
+                </div>
+                <button onclick="closeGoogleSheetSetupModal()" class="w-8 h-8 rounded-full bg-emerald-800 hover:bg-emerald-900 text-white flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-5 max-h-[80vh] overflow-y-auto text-xs sm:text-sm text-slate-700">
+                <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl">
+                    <p class="font-black text-emerald-900 text-sm mb-1"><i class="fa-solid fa-bolt mr-1"></i>별도 설정 없이도 즉시 사용 가능합니다!</p>
+                    <p class="text-emerald-800 leading-relaxed">
+                        학생들이 제출한 모든 내용은 이미 이 웹앱의 <strong>[4. 제출 현황 &amp; 교사용 구글시트 관리]</strong> 탭에 실시간으로 자동 저장되며, 언제든 <strong>[구글 시트용 CSV 다운로드]</strong> 또는 <strong>[시트 붙여넣기용 전체 복사]</strong>로 1초 만에 구글 시트에 옮길 수 있습니다. 만약 학생이 제출 버튼을 누르는 즉시 선생님의 구글 스프레드시트 문서에 행(Row)이 자동으로 추가되길 원하시면 아래 3단계를 설정해 주세요!
+                    </p>
+                </div>
+
+                <!-- Step-by-step Apps Script Guide -->
+                <div class="space-y-3">
+                    <h4 class="font-black text-slate-900 text-sm">1분 완성! 내 구글 시트에 실시간 자동 전송 연결하기</h4>
+                    <ol class="list-decimal list-inside space-y-2 text-xs sm:text-sm bg-stone-50 p-4 rounded-2xl border border-stone-200">
+                        <li>새 <strong>구글 스프레드시트(Google Sheets)</strong>를 열고 상단 메뉴에서 <strong>[확장 프로그램] &gt; [Apps Script]</strong>를 클릭합니다.</li>
+                        <li>기존 코드를 지우고 아래 <strong>[Apps Script 자동화 코드 복사하기]</strong> 버튼을 눌러 복사한 코드를 붙여넣습니다.</li>
+                        <li>우측 상단 <strong>[배포] &gt; [새 배포]</strong> 클릭 &rarr; 유형을 <strong>[웹 앱]</strong>으로 선택 &rarr; 액세스 권한 있는 사용자를 반드시 <strong>[모든 사용자(Anyone)]</strong>로 설정한 뒤 배포합니다.</li>
+                        <li>발급된 <strong>웹 앱 URL</strong>(`https://script.google.com/macros/s/.../exec`)을 아래 입력창에 붙여넣고 저장하면 모든 학생 기기에 즉시 적용됩니다!</li>
+                    </ol>
+
+                    <div class="bg-slate-900 text-slate-200 p-4 rounded-2xl relative font-mono text-xs overflow-x-auto">
+                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-700">
+                            <span class="text-amber-400 font-sans font-bold">Google Apps Script (Code.gs)</span>
+                            <button type="button" onclick="copyAppsScriptCode()" class="px-3 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-sans font-black text-xs transition">
+                                <i class="fa-regular fa-copy mr-1"></i>Apps Script 자동화 코드 복사하기
+                            </button>
+                        </div>
+<pre id="apps-script-code-block" class="text-[11px] leading-relaxed text-emerald-300">function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(["제출일시", "학반", "번호", "이름", "탐구1(㉠답안)", "파시즘특징", "나치즘특징", "탐구2(전체주의특징종합)", "반박관점", "탐구3(전체주의반박글)", "챗봇토론기록"]);
+  }
+  var data = JSON.parse(e.postData.contents);
+  sheet.appendRow([
+    data.timestamp || new Date().toLocaleString("ko-KR"),
+    data.className || "",
+    data.studentNumber || "",
+    data.studentName || "",
+    data.q1Answer || "",
+    data.q2Fascism || "",
+    data.q2Nazism || "",
+    data.q2Combined || "",
+    data.stance || "",
+    data.q3Rebuttal || "",
+    data.chatTranscript || ""
+  ]);
+  return ContentService.createTextOutput(JSON.stringify({result: "success"})).setMimeType(ContentService.MimeType.JSON);
+}</pre>
+                    </div>
+                </div>
+
+                <!-- Webhook URL Input -->
+                <div class="pt-2">
+                    <label for="input-webhook-url" class="block font-black text-slate-900 mb-1">구글 Apps Script 웹 앱 URL 입력 (저장 시 모든 학생 화면에 자동 공유됨)</label>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="url" id="input-webhook-url" placeholder="https://script.google.com/macros/s/.../exec" class="flex-1 px-4 py-2.5 rounded-xl border-2 border-stone-300 text-slate-900 font-mono text-xs focus:outline-none focus:border-emerald-600">
+                        <button type="button" onclick="saveWebhookUrl()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs sm:text-sm shrink-0">
+                            <i class="fa-solid fa-floppy-disk mr-1"></i>URL 저장 및 활성화
+                        </button>
+                        <button type="button" onclick="testWebhookConnection()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs sm:text-sm shrink-0">
+                            테스트 전송
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Student Distribution Link & QR Generator (With Embedded Webhook URL) -->
+                <div class="bg-amber-50 border-2 border-amber-300 p-4 rounded-2xl space-y-3">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <h4 class="font-black text-slate-900 text-sm">
+                                <i class="fa-solid fa-share-nodes text-amber-600 mr-1"></i>학생 배포용 전용 링크 (구글 시트 주소 자동 내장)
+                            </h4>
+                            <p class="text-xs text-slate-600 mt-0.5">
+                                위 웹 앱 URL을 저장한 뒤 아래 버튼으로 링크를 복사해 학생들에게 공유하면, <strong>학생들이 학교 노트북이나 휴대폰 중 어디서 접속하든 선생님의 구글 시트로 즉시 전송</strong>됩니다.
+                            </p>
+                        </div>
+                        <button type="button" onclick="copyStudentShareLinkWithSheet()" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-400 font-black text-xs shrink-0 transition shadow">
+                            <i class="fa-solid fa-link mr-1"></i>학생 배포용 링크 복사
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-stone-100 px-6 py-3 flex justify-end">
+                <button onclick="closeGoogleSheetSetupModal()" class="px-5 py-2 rounded-xl bg-slate-900 text-white text-xs sm:text-sm font-bold">닫기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- MODAL 4: Student Quick Usage Guide Modal (For Laptop & Phone)     -->
+    <!-- ================================================================= -->
+    <div id="student-guide-modal" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full shadow-2xl border-2 border-amber-500 overflow-hidden">
+            <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between border-b-2 border-amber-400">
+                <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-0.5 rounded bg-amber-400 text-slate-950 text-xs font-black">STUDENT GUIDE</span>
+                    <h3 class="text-base sm:text-lg font-black">학생용 웹앱 사용 방법 안내 (노트북·휴대폰 공통)</h3>
+                </div>
+                <button onclick="closeStudentGuideModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-4 max-h-[80vh] overflow-y-auto text-xs sm:text-sm text-slate-700">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200">
+                        <span class="inline-block px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-black text-xs mb-2">STEP 1</span>
+                        <h4 class="font-black text-slate-900 text-sm mb-1">1·2번 탭 역사 자료 체험</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            상단 <strong>[1. 1929 대공황]</strong>과 <strong>[2. 전체주의 등장]</strong> 탭을 차례대로 누르며 사진과 그래프를 클릭해 제2차 세계 대전의 배경을 학습합니다.
+                        </p>
+                    </div>
+                    <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200">
+                        <span class="inline-block px-2 py-0.5 rounded bg-indigo-600 text-white font-black text-xs mb-2">STEP 2</span>
+                        <h4 class="font-black text-slate-900 text-sm mb-1">3번 탭 파시즘·나치즘 탐구</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            <strong>[3. 핵심탐구]</strong> 탭으로 이동하여 학번·이름을 적고, 무솔리니와 히틀러의 주장에 담긴 <strong>공통 단어(㉠)</strong>와 <strong>특징</strong>을 분석합니다.
+                        </p>
+                    </div>
+                    <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200">
+                        <span class="inline-block px-2 py-0.5 rounded bg-emerald-600 text-white font-black text-xs mb-2">STEP 3</span>
+                        <h4 class="font-black text-slate-900 text-sm mb-1">반박 글쓰기 &amp; 시트 제출</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            전체주의 주장에 반박하는 짧은 글을 작성한 뒤 <strong>[탐구 결과 제출하기]</strong> 버튼을 누르면 초록색 제출 확인증이 뜨며 선생님께 자동 제출됩니다!
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-amber-50 border border-amber-200 p-3.5 rounded-2xl text-xs text-amber-950 flex items-start gap-2.5">
+                    <i class="fa-solid fa-wifi text-amber-600 text-base mt-0.5"></i>
+                    <div>
+                        <p class="font-black">학교 노트북 &amp; 휴대폰 와이파이 이용 팁</p>
+                        <p class="mt-0.5">• 휴대폰에서는 화면을 위아래로 스크롤하며 <strong>[+ 키워드 넣기]</strong> 버튼을 터치하면 손쉽게 문장을 완성할 수 있습니다.</p>
+                        <p>• 제출 후 화면 아래에 <strong>초록색 [SUBMISSION COMPLETE] 확인증</strong>이 나타나면 정상 제출된 것입니다.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-stone-100 px-6 py-3 flex justify-end">
+                <button onclick="closeStudentGuideModal()" class="px-5 py-2 rounded-xl bg-slate-900 text-white text-xs sm:text-sm font-bold">확인했습니다</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- MODAL 3: Student Profile Quick Modal -->
+    <!-- ================================================================= -->
+    <div id="student-profile-modal" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border-2 border-amber-500 overflow-hidden">
+            <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+                <h3 class="text-base font-black"><i class="fa-solid fa-id-card text-amber-400 mr-2"></i>나의 학번 / 이름 설정</h3>
+                <button onclick="closeStudentProfileModal()" class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">학년 / 반</label>
+                    <input type="text" id="modal-input-class" placeholder="예: 3학년 1반" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm font-bold">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">번호</label>
+                    <input type="number" id="modal-input-number" placeholder="예: 12" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm font-bold">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">이름</label>
+                    <input type="text" id="modal-input-name" placeholder="예: 홍길동" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 text-sm font-bold">
+                </div>
+                <button onclick="saveStudentProfileFromModal()" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm transition">
+                    저장하기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-stone-200/80 border-t border-stone-300 mt-12 py-4 text-center text-xs text-slate-600">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <span><strong>중학교 역사①</strong> Ⅵ. 세계 대전과 사회 변동 &gt; 01. 제2차 세계 대전이 일어나다</span>
+            <span>탐구형 디지털 역사 수업 워크스페이스 | 실시간 구글 시트 연동 지원</span>
+        </div>
+    </footer>
+
+    <!-- ================================================================= -->
+    <!-- APPLICATION LOGIC & FIREBASE REAL-TIME SYNC                       -->
+    <!-- ================================================================= -->
+    <script>
+        // --- Application State ---
+        const state = {
+            currentTab: 'tab-depression',
+            visitedTabs: new Set(['tab-depression']),
+            student: {
+                className: '',
+                studentNumber: '',
+                studentName: ''
+            },
+            selectedStance: '인권과 민주주의 수호자',
+            chatPersona: 'mussolini', // 'mussolini' | 'hitler' | 'both'
+            chatMessages: [],
+            isChatLoading: false,
+            webhookUrl: '',
+            submissions: [],
+            isFirebaseReady: false,
+            currentUser: null,
+            isTeacherAuthenticated: false
+        };
+
+        const TEACHER_PASSWORD = 'ys26';
+
+        // Persona Initial Opening Statements (Based on PPT Slide 20 Quotes)
+        const PERSONA_INTROS = {
+            mussolini: {
+                speaker: '무솔리니 (이탈리아 파시즘)',
+                badgeClass: 'bg-emerald-800 text-emerald-100',
+                icon: '🇮🇹',
+                text: '나는 이탈리아 파시스트당의 지도자 무솔리니다! 『파시즘 독트린』에서 밝혔듯, 국가를 떠나서는 인간과 영혼의 가치도 존재하지 않는다. 국민이 국가를 만드는 것이 아니라 국가가 국민을 창조하는 것이다! 국가 전체를 위해 개인이 희생하는 것이 왜 잘못되었다는 거지?'
+            },
+            hitler: {
+                speaker: '히틀러 (독일 나치즘)',
+                badgeClass: 'bg-amber-800 text-amber-100',
+                icon: '🇩🇪',
+                text: '나는 독일 나치스의 총통 히틀러다! 『나의 투쟁』에 썼듯이 나라 간의 국경은 인간이 만들거나 바꿀 수 있다. 힘이 있으면 정복자가 되고 힘이 없으면 땅을 빼앗기는 것이 자연의 법칙이다! 우수한 우리 게르만 민족이 영토를 넓히는 것에 무슨 불만이 있나?'
+            },
+            both: {
+                speaker: '무솔리니 & 히틀러 (전체주의 동맹)',
+                badgeClass: 'bg-rose-900 text-amber-200',
+                icon: '⚡',
+                text: '[무솔리니] 국가가 곧 전부이며 개인은 국가에 복종해야 한다!\n[히틀러] 맞소! 게다가 힘 있는 강한 국가가 약한 나라의 영토를 정복하는 것은 당연한 권리요! 자, 학생! 우리의 주장에 반박할 수 있다면 한번 말해 보시오!'
+            }
+        };
+
+        // Initial Historical Inquiry Sample Submissions (Displayed if cloud collection is empty or for immediate preview)
+        const initialDemoSubmissions = [
+            {
+                id: 'sample-1',
+                timestamp: '2026. 10. 29. 오전 10:12:05',
+                createdAt: 1793236325000,
+                className: '3학년 1반',
+                studentNumber: '7',
+                studentName: '김역사',
+                q1Answer: '국가',
+                q2Fascism: '무솔리니는 국민 개인보다 국가를 절대적으로 우위에 두고 국가가 국민을 창조한다고 주장함.',
+                q2Nazism: '히틀러는 약육강식의 논리로 힘이 있으면 다른 나라의 영토를 빼앗아도 된다며 팽창 정책을 정당화함.',
+                q2Combined: '무솔리니는 국민보다 국가를 우위에 두고 있으며, 히틀러는 독일의 팽창 정책을 정당화하고 있다. 이를 통해 전체주의 국가는 국가나 민족의 이익을 앞세워 시민의 자유를 억압하고 대외 침략에 나섰음을 알 수 있다.',
+                stance: '인권과 민주주의 수호자',
+                q3Rebuttal: '국가는 국민의 생명과 자유를 보호하기 위해 국민이 만든 공동체이다. 국가를 위해 개인의 존엄성을 희생시키고, 힘으로 이웃 나라를 침략하는 것을 정당화하는 전체주의의 주장은 인권을 짓밟고 세계 평화를 위협하므로 결코 옳지 않다.',
+                chatTranscript: '[학생] 국가는 국민의 인권과 자유를 지키기 위해 존재합니다! / [무솔리니] 국가 없이는 개인도 없다! / [학생] 개인의 존엄성을 짓밟고 침략 전쟁을 일으키는 전체주의는 평화를 파괴합니다.',
+                sheetSynced: true
+            },
+            {
+                id: 'sample-2',
+                timestamp: '2026. 10. 29. 오전 10:15:40',
+                createdAt: 1793236540000,
+                className: '3학년 1반',
+                studentNumber: '19',
+                studentName: '이평화',
+                q1Answer: '국가',
+                q2Fascism: '개인의 가치와 영혼을 부정하고 오직 국가만을 강조함.',
+                q2Nazism: '국경은 힘 있는 정복자가 바꿀 수 있다며 침략 전쟁을 합리화함.',
+                q2Combined: '전체주의 국가는 개인의 자유와 기본권을 무시하고 국가 전체의 이익만 강요하며, 경제 위기를 해결하기 위해 무력으로 다른 나라를 침략하는 특징을 가진다.',
+                stance: '세계 평화를 지키는 시민 기자',
+                q3Rebuttal: '힘이 있다는 이유로 다른 나라의 땅을 빼앗아도 된다면 전 세계는 약육강식의 전쟁터가 될 것이다. 모든 인간의 존엄성과 각 나라의 주권은 평등하게 존중받아야 하므로 파시즘과 나치즘의 주장에 강력히 반대한다.',
+                chatTranscript: '[학생] 힘이 있다고 남의 나라 땅을 빼앗으면 세계 평화가 깨집니다! / [히틀러] 강한 자가 살아남는 법이다! / [학생] 모든 국가의 주권과 인간의 생명은 평등하며 침략 전쟁은 범죄입니다.',
+                sheetSynced: true
+            }
+        ];
+
+        function updateWebhookStatusUI(isConnected) {
+            const pill = document.getElementById('sheets-connection-pill');
+            const badge = document.getElementById('webhook-status-badge');
+            if (isConnected && state.webhookUrl) {
+                if (pill) {
+                    pill.className = "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300";
+                    pill.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-600 animate-ping"></span>구글 시트 실시간 자동 전송(Webhook) 연결됨`;
+                }
+                if (badge) {
+                    badge.className = "px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-400/40";
+                    badge.textContent = "구글 시트 Webhook 실시간 연동 중";
+                }
+            }
+        }
+
+        // --- Toast Notification Helper (No alert() allowed) ---
+        window.showToast = function(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const bgClass = type === 'success' ? 'bg-emerald-800 border-emerald-400 text-white' :
+                            type === 'warning' ? 'bg-amber-600 border-amber-300 text-white' :
+                            'bg-slate-900 border-amber-400 text-white';
+            const iconClass = type === 'success' ? 'fa-circle-check text-emerald-300' :
+                              type === 'warning' ? 'fa-triangle-exclamation text-amber-200' :
+                              'fa-circle-info text-amber-400';
+
+            toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-2xl shadow-xl border-l-4 ${bgClass} text-xs sm:text-sm font-bold transition-all duration-300`;
+            toast.innerHTML = `
+                <i class="fa-solid ${iconClass} text-lg shrink-0"></i>
+                <div class="flex-1 leading-snug">${message}</div>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-8px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3800);
+        };
+
+        // --- Navigation & Progress Logic ---
+        window.switchTab = function(tabId) {
+            state.currentTab = tabId;
+            state.visitedTabs.add(tabId);
+
+            // Hide all panels
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.add('hidden');
+            });
+            const target = document.getElementById(tabId);
+            if (target) target.classList.remove('hidden');
+
+            // Update Nav Tab Buttons
+            document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+                btn.className = "nav-tab-btn flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold text-slate-300 hover:bg-slate-800 transition-all";
+            });
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if (activeBtn) {
+                activeBtn.className = "nav-tab-btn tab-active flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all bg-amber-500 text-slate-950 shadow";
+            }
+
+            // Focus password input automatically when entering locked teacher tab
+            if (tabId === 'tab-teacher' && !state.isTeacherAuthenticated) {
+                setTimeout(() => {
+                    const pwInput = document.getElementById('teacher-password-input');
+                    if (pwInput) pwInput.focus();
+                }, 100);
+            }
+
+            // Update Student Progress Bar (Based on the 3 student learning tabs)
+            const studentTabs = ['tab-depression', 'tab-totalitarian', 'tab-inquiry'];
+            const completedStudentTabs = studentTabs.filter(t => state.visitedTabs.has(t)).length;
+            const pct = Math.min(100, Math.round((completedStudentTabs / 3) * 100));
+            document.getElementById('progress-bar-fill').style.width = `${pct}%`;
+            document.getElementById('progress-text').textContent = `${completedStudentTabs}/3`;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // --- Teacher Authentication (Password: ys26) ---
+        window.verifyTeacherPassword = function(e) {
+            e.preventDefault();
+            const inputEl = document.getElementById('teacher-password-input');
+            const errorEl = document.getElementById('teacher-pw-error');
+            const entered = inputEl ? inputEl.value.trim() : '';
+
+            if (entered === TEACHER_PASSWORD) {
+                state.isTeacherAuthenticated = true;
+                if (errorEl) errorEl.classList.add('hidden');
+                if (inputEl) inputEl.value = '';
+
+                const lockScreen = document.getElementById('teacher-lock-screen');
+                if (lockScreen) lockScreen.classList.add('hidden');
+                
+                const unlockedContent = document.getElementById('teacher-unlocked-content');
+                if (unlockedContent) unlockedContent.classList.remove('hidden');
+
+                const lockIcon = document.getElementById('teacher-tab-lock-icon');
+                if (lockIcon) {
+                    lockIcon.className = 'fa-solid fa-lock-open text-emerald-500';
+                }
+
+                renderSubmissionsTable();
+                showToast("교사 모드가 잠금 해제되었습니다. 실시간 제출 현황과 구글 시트를 관리할 수 있습니다.", "success");
+            } else {
+                if (errorEl) errorEl.classList.remove('hidden');
+                if (inputEl) inputEl.select();
+                showToast("비밀번호가 올바르지 않습니다.", "warning");
+            }
+        };
+
+        window.lockTeacherMode = function() {
+            state.isTeacherAuthenticated = false;
+            const unlockedContent = document.getElementById('teacher-unlocked-content');
+            if (unlockedContent) unlockedContent.classList.add('hidden');
+            
+            const lockScreen = document.getElementById('teacher-lock-screen');
+            if (lockScreen) lockScreen.classList.remove('hidden');
+
+            const lockIcon = document.getElementById('teacher-tab-lock-icon');
+            if (lockIcon) {
+                lockIcon.className = 'fa-solid fa-lock text-amber-400';
+            }
+            closeGoogleSheetSetupModal();
+            showToast("교사 전용 화면이 다시 잠금 처리되었습니다.", "info");
+        };
+
+        window.togglePasswordVisibility = function() {
+            const inputEl = document.getElementById('teacher-password-input');
+            const iconEl = document.getElementById('pw-eye-icon');
+            if (!inputEl || !iconEl) return;
+            if (inputEl.type === 'password') {
+                inputEl.type = 'text';
+                iconEl.className = 'fa-regular fa-eye-slash';
+            } else {
+                inputEl.type = 'password';
+                iconEl.className = 'fa-regular fa-eye';
+            }
+        };
+
+        // --- Tab 1 Interactive Handlers ---
+        window.setDepressionEra = function(era) {
+            const boomView = document.getElementById('era-view-boom');
+            const crashView = document.getElementById('era-view-crash');
+            const boomBtn = document.getElementById('era-btn-boom');
+            const crashBtn = document.getElementById('era-btn-crash');
+
+            if (era === 'boom') {
+                boomView.classList.remove('hidden');
+                crashView.classList.add('hidden');
+                boomBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 transition";
+                crashBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition";
+            } else {
+                boomView.classList.add('hidden');
+                crashView.classList.remove('hidden');
+                crashBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-rose-600 text-white transition";
+                boomBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition";
+            }
+        };
+
+        window.revealChainStep = function(step) {
+            const card = document.getElementById(`chain-card-${step}`);
+            if (card) {
+                card.classList.add('ring-4', 'ring-amber-300', 'bg-amber-50');
+                setTimeout(() => card.classList.remove('ring-4', 'ring-amber-300'), 900);
+            }
+            if (step === 3 || step === 4) {
+                showToast("1929년 10월 뉴욕 증권거래소 주가 대폭락 그래프를 확인해 보세요!", "info");
+            }
+        };
+
+        window.toggleSignTranslation = function() {
+            const box = document.getElementById('sign-translation-box');
+            box.classList.toggle('ring-4');
+            box.classList.toggle('ring-amber-400');
+            box.classList.toggle('scale-[1.02]');
+            showToast("대공황 시기 실업자의 팻말: 3가지 기술, 3개 국어, 3년 참전에도 단 하나의 일자리를 구하지 못한 현실을 보여줍니다.", "info");
+        };
+
+        // --- Tab 3 Inquiry Worksheet Handlers ---
+        window.updateBlankSlots = function(val) {
+            const trimmed = val.trim();
+            const isCorrect = (trimmed === '국가');
+            document.querySelectorAll('.blank-slot').forEach(slot => {
+                slot.textContent = trimmed || '㉠';
+                if (isCorrect) {
+                    slot.classList.add('filled-correct');
+                } else {
+                    slot.classList.remove('filled-correct');
+                }
+            });
+
+            const badge = document.getElementById('q1-feedback-badge');
+            if (isCorrect) {
+                badge.className = "text-xs font-black px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 border border-emerald-300";
+                badge.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i>정답입니다! ㉠은 '국가'입니다.`;
+            } else {
+                badge.className = "text-xs font-bold px-2.5 py-1 rounded-lg bg-stone-200 text-slate-600";
+                badge.textContent = "빈칸에 들어갈 2글자 핵심어";
+            }
+        };
+
+        window.checkQ1Answer = function() {
+            const val = document.getElementById('input-q1').value.trim();
+            if (val === '국가') {
+                showToast("정답입니다! 무솔리니와 히틀러 모두 개인보다 '국가'를 앞세웠습니다.", "success");
+            } else {
+                showToast("힌트: 국민이 모여 이루는 공동체이자 무솔리니가 국민보다 우위에 둔 2글자 단어는 'ㄱㄱ'입니다.", "warning");
+            }
+        };
+
+        window.insertKeyword = function(targetId, phrase) {
+            const el = document.getElementById(targetId);
+            if (!el) return;
+            const current = el.value.trim();
+            el.value = current ? `${current} ${phrase}` : phrase;
+            el.focus();
+            if (targetId === 'input-q3') {
+                updateCharCount(el.value);
+            }
+        };
+
+        window.selectStance = function(stanceName) {
+            state.selectedStance = stanceName;
+            document.querySelectorAll('.stance-btn').forEach(btn => {
+                if (btn.textContent.includes(stanceName)) {
+                    btn.className = "stance-btn px-3 py-1 rounded-lg text-xs font-bold bg-rose-600 text-white transition";
+                } else {
+                    btn.className = "stance-btn px-3 py-1 rounded-lg text-xs font-bold bg-white text-slate-700 border border-stone-300 hover:bg-stone-100 transition";
+                }
+            });
+        };
+
+        window.updateCharCount = function(text) {
+            const len = text.trim().length;
+            const counter = document.getElementById('q3-char-counter');
+            counter.textContent = `${len}자 작성됨 (권장: 50자 이상)`;
+            counter.className = len >= 50
+                ? "text-xs font-black px-3 py-1 rounded-full bg-emerald-100 border border-emerald-400 text-emerald-900 shrink-0 self-start sm:self-center"
+                : "text-xs font-bold px-3 py-1 rounded-full bg-white border border-amber-300 text-slate-700 shrink-0 self-start sm:self-center";
+
+            // Update Self-Check Criteria
+            const hasHumanRights = /인권|존엄|자유|개인|국민|희생/.test(text);
+            const hasPeace = /침략|평화|전쟁|정당화|영토|폭력/.test(text);
+            const hasLength = len >= 40;
+
+            setCriterionStatus('check-crit-1', hasHumanRights, '개인의 존엄성 / 인권 언급');
+            setCriterionStatus('check-crit-2', hasPeace, '침략 전쟁 비판 / 평화 언급');
+            setCriterionStatus('check-crit-3', hasLength, '반박 근거 40자 이상 서술');
+        };
+
+        function setCriterionStatus(id, passed, label) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (passed) {
+                el.className = "flex items-center gap-2 text-xs p-2 rounded-lg bg-emerald-100 border border-emerald-300 text-emerald-900 font-bold";
+                el.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i><span>${label} 완료!</span>`;
+            } else {
+                el.className = "flex items-center gap-2 text-xs p-2 rounded-lg bg-white border border-stone-200 text-slate-500";
+                el.innerHTML = `<i class="fa-regular fa-circle-check"></i><span>${label}</span>`;
+            }
+        }
+
+        // =====================================================================
+        // AI DEBATE CHATBOT LOGIC (Mussolini & Hitler Rebuttal Roleplay)
+        // =====================================================================
+        function initDebateChat() {
+            const intro = PERSONA_INTROS[state.chatPersona] || PERSONA_INTROS.mussolini;
+            state.chatMessages = [
+                {
+                    role: 'model',
+                    speaker: intro.speaker,
+                    icon: intro.icon,
+                    badgeClass: intro.badgeClass,
+                    text: intro.text
+                }
+            ];
+            renderDebateChatMessages();
+        }
+
+        window.switchChatPersona = function(personaKey) {
+            state.chatPersona = personaKey;
+            ['mussolini', 'hitler', 'both'].forEach(k => {
+                const btn = document.getElementById(`persona-btn-${k}`);
+                if (!btn) return;
+                if (k === personaKey) {
+                    btn.className = "px-2.5 py-1 rounded-lg text-xs font-black bg-amber-500 text-slate-950 transition shadow";
+                } else {
+                    btn.className = "px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition";
+                }
+            });
+            initDebateChat();
+        };
+
+        window.resetDebateChat = function() {
+            initDebateChat();
+            showToast("토론 채팅창이 초기화되었습니다. 새로운 반박을 시작해 보세요!", "info");
+        };
+
+        window.fillChatPrompt = function(promptText) {
+            const input = document.getElementById('debate-chat-input');
+            if (!input) return;
+            input.value = promptText;
+            input.focus();
+        };
+
+        function renderDebateChatMessages() {
+            const container = document.getElementById('debate-chat-messages');
+            if (!container) return;
+
+            const studentTurns = state.chatMessages.filter(m => m.role === 'user').length;
+            const turnBadge = document.getElementById('chat-turn-badge');
+            if (turnBadge) {
+                turnBadge.textContent = `나의 반박 횟수: ${studentTurns}회`;
+            }
+
+            container.innerHTML = state.chatMessages.map(msg => {
+                if (msg.role === 'user') {
+                    return `
+                        <div class="flex justify-end">
+                            <div class="max-w-[85%] bg-amber-400 text-slate-950 rounded-2xl rounded-tr-sm px-4 py-2.5 shadow">
+                                <div class="flex items-center justify-end gap-1.5 mb-1">
+                                    <span class="text-[10px] font-black px-1.5 py-0.5 rounded bg-slate-900 text-amber-300">${escapeHtml(state.selectedStance)}</span>
+                                    <span class="text-[11px] font-black">나의 반박</span>
+                                </div>
+                                <p class="text-xs sm:text-sm font-bold leading-relaxed whitespace-pre-line">${escapeHtml(msg.text)}</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="flex justify-start">
+                            <div class="max-w-[88%] bg-slate-800 text-slate-100 border border-slate-700 rounded-2xl rounded-tl-sm px-4 py-2.5 shadow">
+                                <div class="flex items-center gap-1.5 mb-1">
+                                    <span>${msg.icon || '🏛️'}</span>
+                                    <span class="text-[11px] font-black px-2 py-0.5 rounded ${msg.badgeClass || 'bg-slate-700 text-amber-300'}">${escapeHtml(msg.speaker)}</span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed whitespace-pre-line">${escapeHtml(msg.text)}</p>
+                                ${msg.coachTip ? `<div class="mt-2 pt-2 border-t border-slate-700 text-[11px] text-emerald-300 font-bold"><i class="fa-solid fa-lightbulb mr-1"></i>재반박 힌트: ${escapeHtml(msg.coachTip)}</div>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+            }).join('');
+
+            if (state.isChatLoading) {
+                container.innerHTML += `
+                    <div class="flex justify-start">
+                        <div class="bg-slate-800 text-amber-300 border border-slate-700 rounded-2xl px-4 py-2.5 text-xs font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-spinner fa-spin"></i>
+                            <span>상대방이 당신의 반박에 대답을 준비하고 있습니다...</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Exponential Backoff Gemini API Call with Historical Roleplay Fallback
+        async function callGeminiHistoricalChat(userMessage) {
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const personaName = state.chatPersona === 'mussolini'
+                ? '이탈리아 파시즘 독재자 무솔리니'
+                : state.chatPersona === 'hitler'
+                ? '독일 나치즘 독재자 히틀러'
+                : '무솔리니와 히틀러 두 사람';
+
+            const systemPrompt = `당신은 중학교 역사 수업에서 학생들의 비판적 사고력을 길러주기 위한 '전체주의 반박 토론용 역사 AI 챗봇'입니다.
+현재 학생의 역할은 '${state.selectedStance}'이며, 당신은 '${personaName}'의 입장을 연기하되 교육적 안전 수칙을 엄격히 지킵니다.
+[규칙]
+1. 혐오 표현이나 폭력 선동은 절대 하지 말고, 교과서 사료(무솔리니의 '파시즘 독트린': 국가가 국민을 창조하며 개인보다 국가가 우위에 있음 / 히틀러의 '나의 투쟁': 힘의 논리와 영토 팽창 정당화, 경제 위기 극복을 위한 국가 통제)의 논리만 근거로 들어 학생의 반박에 2~3문장으로 논쟁적으로 응수하세요.
+2. 학생이 인권, 자유, 민주주의, 세계 평화, 주권 존중 등의 타당한 근거를 들어 반박하면, 당신의 전체주의 논리가 가진 한계나 모순이 드러나도록 움찔하며 반응하고, 마지막 줄에 '[재반박 힌트]: ...' 형태로 학생이 다음 턴에 공격할 수 있는 역사적 힌트를 한 문장으로 덧붙여 주세요.`;
+
+            const historyContents = state.chatMessages.slice(-6).map(m => ({
+                role: m.role === 'user' ? 'user' : 'model',
+                parts: [{ text: m.text }]
+            }));
+
+            const payload = {
+                contents: historyContents,
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                }
+            };
+
+            const delays = [1000, 2000, 4000];
+            for (let attempt = 0; attempt <= delays.length; attempt++) {
+                try {
+                    const res = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!res.ok) throw new Error('API status ' + res.status);
+                    const result = await res.json();
+                    let rawText = "";
+                    if (result && result.candidates && result.candidates[0] && result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts[0]) {
+                        rawText = result.candidates[0].content.parts[0].text;
+                    }
+                    if (rawText) {
+                        const parts = rawText.split('[재반박 힌트]:');
+                        return {
+                            reply: parts[0].trim(),
+                            coachTip: parts[1] ? parts[1].trim() : '개인의 인권과 세계 평화의 가치를 들어 이 주장의 모순을 다시 한번 짚어 보세요!'
+                        };
+                    }
+                } catch (err) {
+                    if (attempt < delays.length) {
+                        await new Promise(r => setTimeout(r, delays[attempt]));
+                    }
+                }
+            }
+
+            // Fallback intelligent historical response if offline or school firewall blocks external API
+            return generateLocalHistoricalReply(userMessage);
+        }
+
+        function generateLocalHistoricalReply(userText) {
+            const hasPeace = /침략|전쟁|평화|땅|영토|힘/.test(userText);
+            const hasRights = /인권|자유|개인|국민|존엄|민주/.test(userText);
+
+            if (state.chatPersona === 'mussolini') {
+                if (hasRights) {
+                    return {
+                        reply: "흠! 개인의 자유와 인권이라니! 대공황으로 경제가 무너지고 사회가 혼란스러울 때 개인의 자유만 찾다가 나라가 망하면 누가 책임지나? 국가라는 거대한 울타리가 강해야 국민도 존재할 수 있는 것이다!",
+                        coachTip: "국가가 강해지더라도 시민의 자유와 인권을 짓밟으면 결국 독재자의 욕심을 채우는 도구가 된다는 점을 지적해 보세요!"
+                    };
+                }
+                return {
+                    reply: "이탈리아는 제1차 세계 대전에서 승리하고도 얻은 것이 없고 경제난에 빠졌다! 강력한 파시스트 국가의 단결과 에티오피아 원정 같은 팽창만이 우리를 살릴 길이다!",
+                    coachTip: "자국의 경제 문제를 해결하려고 약소국(에티오피아)을 침략하는 것은 명백한 범죄이자 세계 평화를 파괴하는 일이라고 반박해 보세요!"
+                };
+            } else if (state.chatPersona === 'hitler') {
+                if (hasPeace) {
+                    return {
+                        reply: "세계 평화? 영국과 프랑스는 수많은 식민지를 차지하고 블록 경제로 배를 불리고 있는데, 식민지가 없는 우리 독일은 좁은 땅에서 굶어 죽으란 말인가! 힘으로 국경을 넓히는 것은 생존을 위한 정당한 투쟁이다!",
+                        coachTip: "경제 위기를 평화적 협력이나 내수 개혁이 아닌 '이웃 나라 침략'으로 해결하려 한 결과가 결국 제2차 세계 대전이라는 인류 대참사였음을 짚어 주세요!"
+                    };
+                }
+                return {
+                    reply: "바이마르 공화국의 민주주의는 물가 폭등과 수백만 실업자 앞에서 아무것도 못 했다! 강력한 나치당의 일당 독재와 게르만 민족의 단결만이 독일을 부흥시킨다!",
+                    coachTip: "민주주의의 일시적 위기를 핑계로 유대인을 박해하고 국민의 기본권을 빼앗은 것은 정당화될 수 없다고 반박해 보세요!"
+                };
+            } else {
+                return {
+                    reply: "[무솔리니] 개인보다 국가 전체의 이익이 우선이다!\n[히틀러] 그리고 강한 국가가 약한 나라의 영토를 차지하는 것이 역사의 법칙이다! 그대의 평화주의는 이상일 뿐이오!",
+                    coachTip: "인간의 존엄성(무솔리니 반박)과 국제 평화·주권 존중(히틀러 반박) 두 가지를 묶어 최종 결정타를 날려 보세요!"
+                };
+            }
+        }
+
+        window.sendDebateChatMessage = async function() {
+            if (state.isChatLoading) return;
+            const inputEl = document.getElementById('debate-chat-input');
+            const text = inputEl ? inputEl.value.trim() : '';
+            if (!text) {
+                showToast("반박할 내용을 먼저 입력해 주세요.", "warning");
+                return;
+            }
+
+            if (inputEl) inputEl.value = '';
+            state.chatMessages.push({
+                role: 'user',
+                speaker: '학생',
+                text
+            });
+
+            // Automatically append student's argument to Q3 textarea if Q3 is still empty or short
+            const q3El = document.getElementById('input-q3');
+            if (q3El) {
+                const existing = q3El.value.trim();
+                q3El.value = existing ? `${existing} ${text}` : text;
+                updateCharCount(q3El.value);
+            }
+
+            state.isChatLoading = true;
+            renderDebateChatMessages();
+
+            const intro = PERSONA_INTROS[state.chatPersona] || PERSONA_INTROS.mussolini;
+            const response = await callGeminiHistoricalChat(text);
+
+            state.isChatLoading = false;
+            state.chatMessages.push({
+                role: 'model',
+                speaker: intro.speaker,
+                icon: intro.icon,
+                badgeClass: intro.badgeClass,
+                text: response.reply,
+                coachTip: response.coachTip
+            });
+            renderDebateChatMessages();
+        };
+
+        window.applyMyChatToEssay = function() {
+            const myMessages = state.chatMessages.filter(m => m.role === 'user').map(m => m.text.trim());
+            if (myMessages.length === 0) {
+                showToast("먼저 챗봇에 반박 메시지를 1회 이상 보내 주세요!", "warning");
+                return;
+            }
+            const q3El = document.getElementById('input-q3');
+            q3El.value = myMessages.join(' ');
+            updateCharCount(q3El.value);
+            showToast("내가 채팅창에 입력한 반박 발언들이 최종 반박 글 칸에 반영되었습니다!", "success");
+        };
+
+        window.synthesizeRebuttalFromChat = async function() {
+            const myMessages = state.chatMessages.filter(m => m.role === 'user').map(m => m.text.trim());
+            if (myMessages.length === 0) {
+                showToast("먼저 무솔리니·히틀러 챗봇에게 반박 메시지를 보내 토론을 진행해 보세요!", "warning");
+                return;
+            }
+
+            const btn = document.getElementById('btn-ai-summarize-rebuttal');
+            const q3El = document.getElementById('input-q3');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i>반박문 정리 중...`;
+            }
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+            const prompt = `다음은 중학생이 '${state.selectedStance}' 관점에서 무솔리니(파시즘)와 히틀러(나치즘)의 주장에 반박하며 채팅한 내용입니다:\n${myMessages.join('\n')}\n\n위 학생의 채팅 내용을 바탕으로, 전체주의 국가의 주장(개인보다 국가 우위, 대외 침략 정당화)을 반박하는 논리적이고 자연스러운 3~4문장의 짧은 반박 글을 학생 본인의 어조로 다듬어 작성해 주세요.`;
+
+            try {
+                const res = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+                const data = await res.json();
+                let polished = "";
+                if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
+                    polished = data.candidates[0].content.parts[0].text;
+                }
+                if (polished) {
+                    q3El.value = polished.trim();
+                } else {
+                    throw new Error("Empty response");
+                }
+            } catch (e) {
+                // Local fallback synthesis
+                q3El.value = `${myMessages.join(' ')} 이처럼 개인의 희생을 강요하고 다른 나라를 침략하는 행위를 정당화하는 전체주의 국가의 주장은 인간의 존엄성을 해치고 세계 평화를 파괴하므로 결코 옳지 않다.`;
+            } finally {
+                updateCharCount(q3El.value);
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles mr-1"></i>채팅 내용으로 반박문 자동 정리`;
+                }
+                showToast("채팅 내용을 바탕으로 최종 반박 글이 깔끔하게 정리되었습니다!", "success");
+            }
+        };
+
+        function getFormattedChatTranscript() {
+            const userTurns = state.chatMessages.filter(m => m.role === 'user');
+            if (userTurns.length === 0) return '챗봇 미사용(직접 작성)';
+            return state.chatMessages.slice(1).map(m => {
+                const tag = m.role === 'user' ? '[학생 반박]' : `[${m.speaker}]`;
+                return `${tag} ${m.text.replace(/\n+/g, ' ')}`;
+            }).join(' / ');
+        }
+
+        // --- Send Submission to Google Sheets Webhook & Firestore ---
+        async function postToGoogleSheetsWebhook(entry) {
+            if (!state.webhookUrl) return false;
+            try {
+                await fetch(state.webhookUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(entry)
+                });
+                return true;
+            } catch (e) {
+                console.warn("Webhook send warning:", e);
+                return false;
+            }
+        }
+
+        window.handleInquirySubmit = async function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submit-inquiry-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>구글 시트 및 교사 현황판으로 전송 중...</span>`;
+
+            const className = document.getElementById('input-class').value.trim();
+            const studentNumber = document.getElementById('input-number').value.trim();
+            const studentName = document.getElementById('input-name').value.trim();
+            const q1Answer = document.getElementById('input-q1').value.trim();
+            const q2Fascism = document.getElementById('input-q2-fascism').value.trim();
+            const q2Nazism = document.getElementById('input-q2-nazism').value.trim();
+            const q2Combined = document.getElementById('input-q2').value.trim();
+            const q3Rebuttal = document.getElementById('input-q3').value.trim();
+            const chatTranscript = getFormattedChatTranscript();
+
+            // Update student header info
+            state.student = { className, studentNumber, studentName };
+            updateHeaderStudentDisplay();
+
+            const entry = {
+                timestamp: new Date().toLocaleString('ko-KR'),
+                createdAt: Date.now(),
+                className,
+                studentNumber,
+                studentName,
+                q1Answer,
+                q2Fascism: q2Fascism || '-',
+                q2Nazism: q2Nazism || '-',
+                q2Combined,
+                stance: state.selectedStance,
+                q3Rebuttal,
+                chatTranscript,
+                sheetSynced: true
+            };
+
+            // 1. Send to Google Sheets Apps Script Webhook if configured
+            if (state.webhookUrl) {
+                await postToGoogleSheetsWebhook(entry);
+            }
+
+            // 2. Save to Firestore Real-Time Collection (Using global function from module)
+            try {
+                if (window.firebaseAddDoc) {
+                    await window.firebaseAddDoc(entry);
+                } else {
+                    state.submissions.unshift({ id: 'local-' + Date.now(), ...entry });
+                    renderSubmissionsTable();
+                }
+                showStudentSubmissionReceipt(entry);
+                showToast(`${className} ${studentName} 학생의 탐구 활동과 챗봇 반박 글이 교사용 구글 시트로 성공적으로 제출되었습니다!`, "success");
+            } catch (err) {
+                console.error("Save error:", err);
+                state.submissions.unshift({ id: 'local-' + Date.now(), ...entry });
+                renderSubmissionsTable();
+                showStudentSubmissionReceipt(entry);
+                showToast("제출이 완료되었습니다! 선생님의 구글 시트로 안전하게 전달되었습니다.", "success");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i><span>탐구 결과 제출하기 (구글 시트 자동 전송)</span>`;
+            }
+        };
+
+        function showStudentSubmissionReceipt(entry) {
+            const receiptBox = document.getElementById('student-submission-receipt');
+            const tsEl = document.getElementById('receipt-timestamp');
+            const bodyEl = document.getElementById('receipt-body');
+            if (!receiptBox || !bodyEl) return;
+
+            state.lastSubmittedEntry = entry;
+            tsEl.textContent = `제출 시각: ${entry.timestamp}`;
+            bodyEl.innerHTML = `
+                <p><strong class="text-emerald-300">• 제출자:</strong> ${escapeHtml(entry.className)} ${escapeHtml(String(entry.studentNumber))}번 ${escapeHtml(entry.studentName)}</p>
+                <p><strong class="text-emerald-300">• 탐구 1 (빈칸 ㉠):</strong> ${escapeHtml(entry.q1Answer)}</p>
+                <p><strong class="text-emerald-300">• 탐구 2 (전체주의 특징):</strong> ${escapeHtml(entry.q2Combined)}</p>
+                <p><strong class="text-emerald-300">• 탐구 3 (${escapeHtml(entry.stance)} 관점 최종 반박글):</strong> ${escapeHtml(entry.q3Rebuttal)}</p>
+                <p><strong class="text-emerald-300">• AI 챗봇 토론 요약:</strong> <span class="text-emerald-100/90 text-xs">${escapeHtml(entry.chatTranscript || '-')}</span></p>
+            `;
+            receiptBox.classList.remove('hidden');
+            receiptBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        window.copyStudentReceiptText = function() {
+            const entry = state.lastSubmittedEntry;
+            if (!entry) return;
+            const text = `[제2차 세계 대전 탐구 과제 제출 확인]\n- 학번/이름: ${entry.className} ${entry.studentNumber}번 ${entry.studentName}\n- 탐구1(㉠): ${entry.q1Answer}\n- 탐구2(전체주의 특징): ${entry.q2Combined}\n- 탐구3(반박글): ${entry.q3Rebuttal}\n- 챗봇 토론 기록: ${entry.chatTranscript || '-'}`;
+            copyTextToClipboard(text);
+            showToast("내가 작성한 답안과 챗봇 토론 기록이 클립보드에 복사되었습니다!", "success");
+        };
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        // --- Render Teacher Submissions Table & Live Statistics ---
+        function renderSubmissionsTable() {
+            const totalCount = state.submissions.length;
+            const badgeEl = document.getElementById('submission-count-badge');
+            if (badgeEl) badgeEl.textContent = String(totalCount);
+
+            // Update Summary Statistics
+            const statTotalEl = document.getElementById('stat-total-count');
+            const statQ1RateEl = document.getElementById('stat-q1-rate');
+            const statAvgLenEl = document.getElementById('stat-avg-length');
+
+            if (statTotalEl) statTotalEl.textContent = String(totalCount);
+
+            if (totalCount > 0) {
+                const correctQ1Count = state.submissions.filter(s => (s.q1Answer || '').trim() === '국가').length;
+                const q1Rate = Math.round((correctQ1Count / totalCount) * 100);
+                const totalChars = state.submissions.reduce((acc, s) => acc + ((s.q3Rebuttal || '').trim().length), 0);
+                const avgLen = Math.round(totalChars / totalCount);
+
+                if (statQ1RateEl) statQ1RateEl.textContent = String(q1Rate);
+                if (statAvgLenEl) statAvgLenEl.textContent = String(avgLen);
+            } else {
+                if (statQ1RateEl) statQ1RateEl.textContent = '0';
+                if (statAvgLenEl) statAvgLenEl.textContent = '0';
+            }
+
+            // Update Class Filter Dropdown Options
+            const classSelect = document.getElementById('filter-class');
+            if (classSelect) {
+                const currentSelected = classSelect.value || 'ALL';
+                const uniqueClasses = Array.from(new Set(state.submissions.map(s => (s.className || '').trim()).filter(Boolean)));
+                classSelect.innerHTML = `<option value="ALL">전체 학급 보기 (${totalCount}명)</option>` +
+                    uniqueClasses.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+                if (uniqueClasses.includes(currentSelected)) {
+                    classSelect.value = currentSelected;
+                }
+            }
+
+            // Filter Submissions by Search Query & Class
+            const searchEl = document.getElementById('filter-search');
+            const searchQuery = searchEl ? searchEl.value.trim().toLowerCase() : '';
+            
+            const classEl = document.getElementById('filter-class');
+            const selectedClass = classEl ? classEl.value : 'ALL';
+
+            const filtered = state.submissions.filter(item => {
+                const matchClass = selectedClass === 'ALL' || (item.className || '').trim() === selectedClass;
+                const combinedText = `${item.className || ''} ${item.studentNumber || ''} ${item.studentName || ''} ${item.q1Answer || ''} ${item.q2Combined || ''} ${item.q3Rebuttal || ''} ${item.stance || ''}`.toLowerCase();
+                const matchSearch = !searchQuery || combinedText.includes(searchQuery);
+                return matchClass && matchSearch;
+            });
+
+            const rowCountLabel = document.getElementById('table-row-count-label');
+            if (rowCountLabel) rowCountLabel.textContent = `표시된 행: ${filtered.length}건`;
+
+            const tbody = document.getElementById('submissions-table-body');
+            if (!tbody) return;
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="py-10 text-center text-slate-400 font-bold">
+                            조건에 해당하는 제출 내역이 없습니다.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map((s, idx) => {
+                const isQ1Correct = (s.q1Answer || '').trim() === '국가';
+                const q1Badge = isQ1Correct
+                    ? `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-black text-xs border border-emerald-300">${escapeHtml(s.q1Answer || '')}</span>`
+                    : `<span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-xs border border-amber-300">${escapeHtml(s.q1Answer || '-')}</span>`;
+
+                return `
+                    <tr class="hover:bg-amber-50/40 transition align-top">
+                        <td class="py-3 px-3 border-r border-stone-200 text-center font-mono text-xs text-slate-400 font-bold">${idx + 1}</td>
+                        <td class="py-3 px-3 border-r border-stone-200 text-[11px] text-slate-500 font-mono">${escapeHtml(s.timestamp || '-')}</td>
+                        <td class="py-3 px-3 border-r border-stone-200">
+                            <p class="font-black text-slate-900">${escapeHtml(s.studentName || '-')}</p>
+                            <p class="text-[11px] text-slate-500">${escapeHtml(s.className || '')} ${escapeHtml(String(s.studentNumber || ''))}번</p>
+                        </td>
+                        <td class="py-3 px-3 border-r border-stone-200 text-center">${q1Badge}</td>
+                        <td class="py-3 px-4 border-r border-stone-200 space-y-1">
+                            <p class="text-slate-800 font-medium leading-relaxed">${escapeHtml(s.q2Combined || '-')}</p>
+                            <div class="text-[11px] text-slate-500 bg-stone-50 p-2 rounded-lg border border-stone-200 space-y-0.5">
+                                <p><strong class="text-emerald-800">• 파시즘:</strong> ${escapeHtml(s.q2Fascism || '-')}</p>
+                                <p><strong class="text-amber-800">• 나치즘:</strong> ${escapeHtml(s.q2Nazism || '-')}</p>
+                            </div>
+                        </td>
+                        <td class="py-3 px-4 border-r border-stone-200 space-y-1.5">
+                            <span class="inline-block px-2 py-0.5 rounded bg-rose-100 text-rose-800 text-[10px] font-black">${escapeHtml(s.stance || '반박 글')}</span>
+                            <p class="text-slate-900 font-medium leading-relaxed">${escapeHtml(s.q3Rebuttal || '-')}</p>
+                            ${s.chatTranscript ? `<div class="text-[11px] text-slate-600 bg-amber-50/80 p-2 rounded-lg border border-amber-200"><strong class="text-amber-900"><i class="fa-solid fa-comments mr-1"></i>챗봇 토론 기록:</strong> ${escapeHtml(s.chatTranscript)}</div>` : ''}
+                        </td>
+                        <td class="py-3 px-3 text-center">
+                            <span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold">
+                                <i class="fa-solid fa-check text-emerald-600"></i>기록됨
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        window.renderSubmissionsTable = renderSubmissionsTable;
+
+        // --- Google Sheets Export & Clipboard Automation Functions ---
+        window.exportToGoogleSheetsCSV = function() {
+            if (!state.isTeacherAuthenticated) {
+                showToast("교사 인증 후 이용할 수 있습니다.", "warning");
+                return;
+            }
+            if (state.submissions.length === 0) {
+                showToast("내보낼 제출 데이터가 없습니다.", "warning");
+                return;
+            }
+            const headers = ["제출일시", "학반", "번호", "이름", "탐구1(㉠답안)", "이탈리아 파시즘 특징", "독일 나치즘 특징", "탐구2(전체주의 특징 종합)", "반박 관점", "탐구3(전체주의 반박 글)", "챗봇 토론 기록"];
+            const rows = state.submissions.map(s => [
+                s.timestamp || '',
+                s.className || '',
+                s.studentNumber || '',
+                s.studentName || '',
+                s.q1Answer || '',
+                s.q2Fascism || '',
+                s.q2Nazism || '',
+                s.q2Combined || '',
+                s.stance || '',
+                s.q3Rebuttal || '',
+                s.chatTranscript || ''
+            ].map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','));
+
+            // UTF-8 BOM for perfect Korean rendering in Google Sheets & Excel
+            const csvContent = "\uFEFF" + [headers.join(','), ...rows].join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `2차세계대전_전체주의탐구_및_반박글_제출현황_${new Date().toISOString().slice(0,10)}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            showToast("구글 시트용 CSV 파일이 다운로드되었습니다! 구글 스프레드시트에서 바로 열 수 있습니다.", "success");
+        };
+
+        window.copyAllForGoogleSheets = function() {
+            if (!state.isTeacherAuthenticated) {
+                showToast("교사 인증 후 이용할 수 있습니다.", "warning");
+                return;
+            }
+            if (state.submissions.length === 0) {
+                showToast("복사할 데이터가 없습니다.", "warning");
+                return;
+            }
+            const headers = ["제출일시", "학반", "번호", "이름", "탐구1(㉠답안)", "파시즘특징", "나치즘특징", "탐구2(전체주의특징종합)", "반박관점", "탐구3(전체주의반박글)", "챗봇토론기록"];
+            const tsvRows = state.submissions.map(s => [
+                s.timestamp || '',
+                s.className || '',
+                s.studentNumber || '',
+                s.studentName || '',
+                s.q1Answer || '',
+                (s.q2Fascism || '').replace(/\t|\n/g, ' '),
+                (s.q2Nazism || '').replace(/\t|\n/g, ' '),
+                (s.q2Combined || '').replace(/\t|\n/g, ' '),
+                s.stance || '',
+                (s.q3Rebuttal || '').replace(/\t|\n/g, ' '),
+                (s.chatTranscript || '').replace(/\t|\n/g, ' ')
+            ].join('\t'));
+
+            const tsvText = [headers.join('\t'), ...tsvRows].join('\n');
+            copyTextToClipboard(tsvText);
+            showToast("구글 시트 표 형식으로 전체 복사되었습니다! 빈 구글 시트의 A1 셀에서 [Ctrl+V]를 눌러 붙여넣으세요.", "success");
+        };
+
+        function copyTextToClipboard(text) {
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+        }
+
+        window.copyAppsScriptCode = function() {
+            const code = document.getElementById('apps-script-code-block').innerText;
+            copyTextToClipboard(code);
+            showToast("Google Apps Script 자동화 코드가 클립보드에 복사되었습니다!", "success");
+        };
+
+        window.saveWebhookUrl = async function() {
+            const url = document.getElementById('input-webhook-url').value.trim();
+            state.webhookUrl = url;
+            updateWebhookStatusUI(Boolean(url));
+
+            if (window.firebaseSaveWebhook) {
+                try {
+                    await window.firebaseSaveWebhook(url);
+                } catch (e) {
+                    console.warn("Could not persist webhook URL to cloud:", e);
+                }
+            }
+            showToast(url ? "구글 시트 웹 앱 URL이 저장 및 활성화되었습니다!" : "구글 시트 웹 앱 URL 연결이 해제되었습니다.", "success");
+        };
+
+        window.testWebhookConnection = async function() {
+            const url = document.getElementById('input-webhook-url').value.trim();
+            if (!url) {
+                showToast("먼저 구글 Apps Script 웹 앱 URL을 입력해 주세요.", "warning");
+                return;
+            }
+            state.webhookUrl = url;
+            await postToGoogleSheetsWebhook({
+                timestamp: new Date().toLocaleString('ko-KR'),
+                className: '테스트반',
+                studentNumber: '1',
+                studentName: '연동테스트',
+                q1Answer: '국가',
+                q2Fascism: '국가 절대 우위',
+                q2Nazism: '대외 팽창 정당화',
+                q2Combined: '[연동 테스트] 전체주의 특징 분석 데이터입니다.',
+                stance: '교사용 테스트',
+                q3Rebuttal: '[연동 테스트] 구글 시트로 자동 기록이 정상 작동하고 있습니다!'
+            });
+            showToast("구글 시트로 테스트 행(Row) 전송 요청을 보냈습니다! 시트를 확인해 보세요.", "success");
+        };
+
+        window.syncAllToGoogleSheetsWebhook = async function() {
+            if (!state.webhookUrl) {
+                openGoogleSheetSetupModal();
+                showToast("실시간 일괄 전송을 위해 먼저 구글 시트 웹 앱 URL을 설정해 주세요.", "warning");
+                return;
+            }
+            showToast(`총 ${state.submissions.length}건의 데이터를 구글 시트로 일괄 동기화합니다...`, "info");
+            for (const item of state.submissions) {
+                await postToGoogleSheetsWebhook(item);
+            }
+            showToast("모든 학생의 제출 데이터를 구글 시트로 전송 완료했습니다!", "success");
+        };
+
+        window.seedSampleSubmissions = async function() {
+            const extraSample = {
+                timestamp: new Date().toLocaleString('ko-KR'),
+                createdAt: Date.now(),
+                className: '3학년 2반',
+                studentNumber: '24',
+                studentName: '박민주',
+                q1Answer: '국가',
+                q2Fascism: '무솔리니는 국가 밖에는 인간의 가치도 없다며 국가 지상주의를 내세움.',
+                q2Nazism: '히틀러는 힘의 논리를 앞세워 약소국 침략과 영토 확장을 당연시함.',
+                q2Combined: '파시즘과 나치즘 모두 국가와 민족 전체를 위해 개인의 자유와 기본권을 희생시키고 침략 전쟁을 정당화하는 전체주의적 특징을 보인다.',
+                stance: '침략당한 피해국 대표',
+                q3Rebuttal: '에티오피아와 체코슬로바키아, 그리고 일제 강점기를 겪은 우리 민족의 역사에서 보듯, 힘으로 남의 땅을 빼앗는 전체주의의 주장은 수많은 무고한 사람들의 생명과 자유를 빼앗는 범죄 행위이므로 결코 정당화될 수 없다.',
+                sheetSynced: true
+            };
+            if (window.firebaseAddDoc) {
+                try {
+                    await window.firebaseAddDoc(extraSample);
+                } catch (e) {
+                    state.submissions.unshift({ id: 'sample-' + Date.now(), ...extraSample });
+                    renderSubmissionsTable();
+                }
+            } else {
+                state.submissions.unshift({ id: 'sample-' + Date.now(), ...extraSample });
+                renderSubmissionsTable();
+            }
+            showToast("시연용 학생 답안 데이터가 추가되었습니다!", "success");
+        };
+
+        // --- Modal Controls ---
+        window.openExemplarModal = function() {
+            const m = document.getElementById('exemplar-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+        };
+        window.closeExemplarModal = function() {
+            const m = document.getElementById('exemplar-modal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+        };
+
+        window.openGoogleSheetSetupModal = function() {
+            if (!state.isTeacherAuthenticated) {
+                showToast("교사 전용 기능입니다. 비밀번호를 먼저 입력해 주세요.", "warning");
+                return;
+            }
+            const m = document.getElementById('sheets-setup-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+        };
+        window.closeGoogleSheetSetupModal = function() {
+            const m = document.getElementById('sheets-setup-modal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+        };
+
+        window.openStudentGuideModal = function() {
+            const m = document.getElementById('student-guide-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+        };
+        window.closeStudentGuideModal = function() {
+            const m = document.getElementById('student-guide-modal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+        };
+
+        window.copyStudentShareLinkWithSheet = function() {
+            const urlInputEl = document.getElementById('input-webhook-url');
+            const urlInput = urlInputEl ? urlInputEl.value.trim() : state.webhookUrl;
+            // Get the clean URL without parameters
+            let baseUrl = window.location.href.split('?')[0];
+            const shareUrl = urlInput
+                ? `${baseUrl}?sheet=${encodeURIComponent(urlInput)}`
+                : baseUrl;
+            copyTextToClipboard(shareUrl);
+            showToast("링크가 복사되었습니다! (※ 앱 미리보기 주소라면 외부 접근이 안 되므로, 반드시 정식 호스팅된 주소에서 복사해 주세요)", "success");
+        };
+
+        window.openStudentProfileModal = function() {
+            document.getElementById('modal-input-class').value = state.student.className;
+            document.getElementById('modal-input-number').value = state.student.studentNumber;
+            document.getElementById('modal-input-name').value = state.student.studentName;
+            const m = document.getElementById('student-profile-modal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+        };
+        window.closeStudentProfileModal = function() {
+            const m = document.getElementById('student-profile-modal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+        };
+
+        window.saveStudentProfileFromModal = function() {
+            state.student.className = document.getElementById('modal-input-class').value.trim();
+            state.student.studentNumber = document.getElementById('modal-input-number').value.trim();
+            state.student.studentName = document.getElementById('modal-input-name').value.trim();
+
+            document.getElementById('input-class').value = state.student.className;
+            document.getElementById('input-number').value = state.student.studentNumber;
+            document.getElementById('input-name').value = state.student.studentName;
+
+            updateHeaderStudentDisplay();
+            closeStudentProfileModal();
+            showToast("학생 학번과 이름이 설정되었습니다!", "success");
+        };
+
+        function updateHeaderStudentDisplay() {
+            const label = document.getElementById('header-student-label');
+            if (state.student.studentName) {
+                label.textContent = `${state.student.className} ${state.student.studentNumber}번 ${state.student.studentName}`;
+                label.className = "font-black text-amber-300";
+            }
+        }
+
+        // Initialize on Window Load
+        window.addEventListener('DOMContentLoaded', () => {
+            // URL 파라미터(?sheet=...)로 전달된 구글 시트 웹앱 URL 자동 인식 (학생 노트북/휴대폰 어디서나 즉시 연동)
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const sheetParam = params.get('sheet');
+                if (sheetParam && sheetParam.startsWith('https://script.google.com/')) {
+                    state.webhookUrl = sheetParam;
+                    const inputEl = document.getElementById('input-webhook-url');
+                    if (inputEl) inputEl.value = sheetParam;
+                    updateWebhookStatusUI(true);
+                }
+            } catch (e) {
+                console.warn("URL param check:", e);
+            }
+            initDebateChat();
+            renderSubmissionsTable();
+        });
+    </script>
+
+    <script type="module">
+        let db = null;
+        let auth = null;
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'ww2-history-inquiry-app';
+
+        window.initCloudSync = async function() {
+            try {
+                if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+                    const firebaseConfig = JSON.parse(__firebase_config);
+                    
+                    // 동적 임포트(Dynamic Import)를 사용하여 학교 방화벽이 외부 연결을 막아도 에러로 중단되지 않도록 보호
+                    const [appModule, authModule, firestoreModule] = await Promise.all([
+                        import("https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js"),
+                        import("https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js"),
+                        import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js")
+                    ]);
+
+                    const app = appModule.initializeApp(firebaseConfig);
+                    auth = authModule.getAuth(app);
+                    db = firestoreModule.getFirestore(app);
+
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await authModule.signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await authModule.signInAnonymously(auth);
+                    }
+
+                    authModule.onAuthStateChanged(auth, (user) => {
+                        state.currentUser = user;
+                        if (user) {
+                            state.isFirebaseReady = true;
+                            subscribeToSubmissions(firestoreModule);
+                            subscribeToTeacherSettings(firestoreModule);
+                        }
+                    });
+                }
+            } catch (err) {
+                console.warn("방화벽 차단 또는 외부 호스팅 환경입니다. 로컬 및 구글 시트 연동 모드로 작동합니다.", err);
+            }
+        };
+
+        function subscribeToSubmissions(firestoreModule) {
+            if (!state.currentUser || !db) return;
+            const subColRef = firestoreModule.collection(db, 'artifacts', appId, 'public', 'data', 'ww2_inquiry_submissions');
+            firestoreModule.onSnapshot(
+                subColRef,
+                (snapshot) => {
+                    const fetched = [];
+                    snapshot.forEach((docSnap) => {
+                        fetched.push({ id: docSnap.id, ...docSnap.data() });
+                    });
+                    if (fetched.length > 0) {
+                        fetched.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                        state.submissions = fetched;
+                        if(window.renderSubmissionsTable) window.renderSubmissionsTable();
+                    }
+                },
+                (error) => {
+                    console.error("Submissions snapshot error:", error);
+                }
+            );
+        }
+
+        function subscribeToTeacherSettings(firestoreModule) {
+            if (!state.currentUser || !db) return;
+            const configDocRef = firestoreModule.doc(db, 'artifacts', appId, 'public', 'data', 'ww2_teacher_config', 'sheets_webhook');
+            firestoreModule.onSnapshot(
+                configDocRef,
+                (docSnap) => {
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        if (data.webhookUrl) {
+                            state.webhookUrl = data.webhookUrl;
+                            const inputEl = document.getElementById('input-webhook-url');
+                            if (inputEl) inputEl.value = state.webhookUrl;
+                            if(window.updateWebhookStatusUI) window.updateWebhookStatusUI(true);
+                        }
+                    }
+                },
+                (err) => console.warn("Config listener error:", err)
+            );
+        }
+
+        window.firebaseAddDoc = async function(entry) {
+            if (state.isFirebaseReady && state.currentUser && db) {
+                // Dynamically import collection and addDoc when needed
+                const { collection, addDoc } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js");
+                const subColRef = collection(db, 'artifacts', appId, 'public', 'data', 'ww2_inquiry_submissions');
+                await addDoc(subColRef, entry);
+            } else {
+                throw new Error("Firebase not ready");
+            }
+        };
+
+        window.firebaseSaveWebhook = async function(url) {
+            if (state.isFirebaseReady && state.currentUser && db) {
+                const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js");
+                const configDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'ww2_teacher_config', 'sheets_webhook');
+                await setDoc(configDocRef, { webhookUrl: url, updatedAt: Date.now() });
+            }
+        };
+
+        // 외부 호스팅(Netlify 등) 환경에서도 클라우드 및 시트 연동 기능이 즉시 실행되도록 모듈 로드 완료 직후 호출
+        window.initCloudSync();
+    </script>
+<a href="../" aria-label="수업 목록으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483000;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:rgba(31,29,26,.88);color:#fff;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.2;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)">← 수업 목록</a>
+</body>
+</html>

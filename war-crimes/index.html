@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>전쟁 범죄와 기억</title>
+<meta name="description" content="중학교 역사① Ⅵ-02-1. 두 차례 세계 대전 중에 전쟁 범죄가 발생하다 (1차시 수업 자료)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@600;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f3ee; --surface:#ffffff; --surface-2:#efe9e0; --ink:#1f1d1a; --ink-2:#55504a; --line:#d9d1c4;
+  --accent:#8a2b2b; --accent-soft:#f3e3df; --ok:#2f6b4f; --ok-soft:#e1efe7; --no:#a33a2a; --no-soft:#f6e1dc;
+  --gold:#9a7a3a; --shadow:0 1px 2px rgba(0,0,0,.05),0 6px 20px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#181614; --surface:#221f1c; --surface-2:#2c2824; --ink:#efe9e1; --ink-2:#b4aca2; --line:#3d3731;
+    --accent:#e08a7c; --accent-soft:#3a2522; --ok:#7cc4a0; --ok-soft:#1f3329; --no:#ee8f7f; --no-soft:#3d2420;
+    --gold:#d6b46c; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#181614; --surface:#221f1c; --surface-2:#2c2824; --ink:#efe9e1; --ink-2:#b4aca2; --line:#3d3731;
+  --accent:#e08a7c; --accent-soft:#3a2522; --ok:#7cc4a0; --ok-soft:#1f3329; --no:#ee8f7f; --no-soft:#3d2420;
+  --gold:#d6b46c; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;font-size:18px;line-height:1.75;word-break:keep-all;overflow-wrap:break-word}
+h1,h2,h3{font-family:"Noto Serif KR",serif;line-height:1.35;margin:0 0 .5em}
+a{color:var(--accent)}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:12px;height:56px}
+.bar .tag{font-size:13px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.steps{display:flex;gap:6px}
+.steps a{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);color:var(--ink-2);text-decoration:none;font-size:13px;font-weight:700;background:var(--surface)}
+.steps a.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.theme{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;height:32px;padding:0 10px;cursor:pointer;font:inherit;font-size:13px}
+.progress{height:3px;background:var(--accent);width:0;transition:width .15s}
+
+/* hero */
+.hero{padding:72px 0 48px;border-bottom:1px solid var(--line)}
+.hero .unit{display:inline-block;font-size:14px;font-weight:700;color:var(--accent);letter-spacing:.02em;margin-bottom:14px}
+.hero h1{font-size:clamp(30px,5.5vw,52px);font-weight:900}
+.hero p.lead{font-size:clamp(17px,2.2vw,21px);color:var(--ink-2);max-width:40em}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-size:13px;padding:4px 12px;border-radius:999px;background:var(--surface-2);color:var(--ink-2)}
+
+section{padding:64px 0;border-bottom:1px solid var(--line);scroll-margin-top:60px}
+.kicker{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:6px}
+section h2{font-size:clamp(24px,4vw,34px)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:16px}
+@media(min-width:720px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
+
+/* goals */
+.goals{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.goals li{display:flex;gap:14px;align-items:flex-start}
+.goals .n{flex:none;width:32px;height:32px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:900}
+
+/* hook */
+.diary{background:var(--surface);border-left:4px solid var(--gold);border-radius:4px 14px 14px 4px;padding:24px 28px;font-family:"Noto Serif KR",serif;font-size:19px;box-shadow:var(--shadow)}
+.diary small{display:block;margin-top:12px;font-family:"Noto Sans KR",sans-serif;font-size:14px;color:var(--ink-2)}
+.ask{margin-top:20px;display:flex;gap:12px;align-items:flex-start;background:var(--accent-soft);border-radius:12px;padding:16px 20px;font-weight:700}
+.ask::before{content:"Q";flex:none;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:15px}
+details.reveal{margin-top:12px}
+details.reveal summary{cursor:pointer;color:var(--accent);font-weight:700;font-size:15px}
+details.reveal div{padding:10px 0 0;color:var(--ink-2)}
+
+/* stat */
+.stat{display:flex;flex-direction:column;gap:4px}
+.stat .big{font-family:"Noto Serif KR",serif;font-size:clamp(32px,5vw,44px);font-weight:900;color:var(--accent);line-height:1.1}
+.stat .lbl{color:var(--ink-2);font-size:15px}
+.cause{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:20px 0}
+.cause span{background:var(--surface-2);border-radius:8px;padding:6px 12px;font-weight:500}
+.cause b{color:var(--accent)}
+
+/* crime tabs */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tabs button{font:inherit;font-size:16px;font-weight:700;padding:10px 18px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{display:none}
+.panel.on{display:block}
+.panel .row{display:grid;gap:8px;padding:14px 0;border-top:1px dashed var(--line)}
+.panel .row:first-of-type{border-top:0}
+@media(min-width:720px){.panel .row{grid-template-columns:110px 1fr;gap:16px}}
+.panel .row dt{font-weight:900;color:var(--accent)}
+.panel .row dd{margin:0}
+.panel ul{margin:0;padding-left:1.2em}
+.where{font-size:14px;color:var(--ink-2);margin-top:6px}
+
+/* timeline */
+.tl{position:relative;padding-left:28px;margin:0;list-style:none}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl li{position:relative;padding-bottom:18px}
+.tl li::before{content:"";position:absolute;left:-26px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:3px solid var(--accent)}
+.tl .y{font-weight:900;color:var(--accent);margin-right:8px}
+
+/* fill-in */
+.fill p{margin:0 0 14px}
+.blank{display:inline-flex;align-items:center;gap:4px;vertical-align:baseline}
+.blank input{font:inherit;font-weight:700;width:9em;max-width:60vw;padding:2px 8px;border:0;border-bottom:2px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:6px 6px 0 0;text-align:center}
+.blank input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.blank.ok input{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.blank.no input{border-color:var(--no);background:var(--no-soft)}
+.num{font-weight:900;color:var(--accent)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.btn{font:inherit;font-weight:700;font-size:16px;padding:10px 20px;border-radius:10px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.result{margin-top:10px;font-weight:700;min-height:1.6em}
+
+/* quiz */
+.q{margin-bottom:22px}
+.q .opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.q .opts button{font:inherit;font-size:17px;font-weight:700;padding:10px 22px;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;min-width:96px}
+.q .opts button.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.q .opts button.no{border-color:var(--no);background:var(--no-soft);color:var(--no)}
+.q .fb{font-size:15px;color:var(--ink-2);margin-top:6px;min-height:1.5em}
+
+/* reflect */
+textarea{width:100%;min-height:150px;font:inherit;padding:14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);resize:vertical}
+textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+.hint{font-size:14px;color:var(--ink-2)}
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.checks label{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.checks input{width:20px;height:20px;margin-top:5px;accent-color:var(--accent);flex:none}
+
+/* historical photos */
+.photo{margin:0;display:flex;flex-direction:column}
+.photo img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;background:var(--surface-2);cursor:zoom-in;filter:grayscale(.15)}
+.photo figcaption{padding:10px 2px 0;font-size:15px;line-height:1.6;color:var(--ink-2)}
+.photo figcaption b{display:block;color:var(--ink);font-size:16px}
+.photo figcaption b::before{content:"▲ ";color:var(--accent);font-size:12px}
+.photo .credit{display:block;font-size:12px;opacity:.75;margin-top:4px}
+.photo.mid{max-width:620px;margin:4px 0 20px}
+.photo.mid img{aspect-ratio:auto}
+.photo.portrait img{aspect-ratio:auto;max-height:420px;object-fit:contain;background:transparent}
+.strip{display:grid;gap:24px;margin:24px 0}
+@media(min-width:720px){.strip.two{grid-template-columns:1fr 1fr}.strip.three{grid-template-columns:repeat(3,1fr)}}
+.anne{display:grid;gap:24px;align-items:center;margin-bottom:8px}
+@media(min-width:720px){.anne{grid-template-columns:260px 1fr}}
+/* click-to-enlarge */
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;padding:16px;cursor:zoom-out;flex-direction:column;gap:12px}
+.lightbox.on{display:flex}
+.lightbox img{max-width:100%;max-height:85vh;border-radius:6px}
+.lightbox p{color:#eee;margin:0;font-size:15px;text-align:center;max-width:800px}
+.credits{list-style:none;padding:0;margin:12px 0 0;font-size:12px;line-height:1.7}
+.credits a{color:inherit}
+.note{font-size:14px;color:var(--ink-2);background:var(--surface-2);border-radius:10px;padding:12px 16px}
+footer{padding:40px 0 64px;color:var(--ink-2);font-size:14px}
+
+@media print{.bar,.btns,.theme{display:none}section{break-inside:avoid;padding:24px 0}body{font-size:14px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <div class="tag">역사① Ⅵ-02 · 두 차례 세계 대전 중에 전쟁 범죄가 발생하다</div>
+    <nav class="steps" aria-label="수업 단계">
+      <a href="#s1" title="도입">1</a><a href="#s2" title="민간인의 희생">2</a><a href="#s3" title="전쟁 범죄">3</a><a href="#s4" title="정리">4</a><a href="#s5" title="확인">5</a><a href="#s6" title="생각">6</a>
+    </nav>
+    <button class="theme" id="theme" type="button" aria-label="화면 밝기 전환">◐</button>
+  </div>
+  <div class="progress" id="progress"></div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div class="unit">Ⅵ. 세계 대전과 사회 변동 · 02. 전쟁 범죄에 맞선 평화 유지 노력</div>
+      <h1>두 차례 세계 대전 중에<br>전쟁 범죄가 발생하다</h1>
+      <p class="lead">전쟁은 군인만의 싸움이 아니었습니다. 세계 대전 동안 수많은 민간인이 목숨을 잃었고, 인간의 존엄을 짓밟는 범죄가 일어났습니다. 오늘은 그 사실을 살펴보고, 우리가 왜 이것을 기억해야 하는지 생각해 봅니다.</p>
+      <div class="meta"><span class="chip">중학교 2학년</span><span class="chip">역사① (2022 개정)</span><span class="chip">1차시 · 45분</span><span class="chip">교과서 196~199쪽</span></div>
+
+      <div class="card" style="margin-top:32px">
+        <div class="kicker">학습 목표</div>
+        <ul class="goals">
+          <li><span class="n">1</span><span>두 차례 세계 대전 중에 일어난 <b>대량 학살</b>의 사례를 설명할 수 있다.</span></li>
+          <li><span class="n">2</span><span>두 차례 세계 대전 중에 벌어진 <b>인권 침해</b>의 실상을 말할 수 있다.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 도입 -->
+  <section id="s1">
+    <div class="wrap">
+      <div class="kicker">STEP 1 · 도입 (5분)</div>
+      <h2>한 소녀의 일기</h2>
+      <div class="anne">
+        <figure class="photo portrait">
+          <img src="img/anne-frank-1942.jpg" alt="1942년 5월에 찍은 안네 프랑크의 사진" loading="lazy">
+          <figcaption><b>안네 프랑크(1942)</b> 은신 생활을 시작하기 직전에 찍은 사진<span class="credit">사진: 안네 프랑크 하우스 소장 / 퍼블릭 도메인</span></figcaption>
+        </figure>
+      <div class="diary">
+        “나는 지금까지 누구에게도 털어놓지 못한 모든 것을 너에게 털어놓을 수 있기를 바라. 그리고 네가 내게 큰 위로와 버팀목이 되어 주기를 바라.”
+        <small>— 안네 프랑크, 『안네의 일기』 첫머리(1942년 6월 12일)<br>안네는 13살 생일에 받은 일기장에 이 글을 썼습니다. 그리고 약 2년 동안 가족과 함께 암스테르담의 한 건물 뒤편 비밀 공간에 숨어 지냈습니다.</small>
+      </div>
+      </div>
+      <div class="ask">안네의 가족은 왜 숨어 살아야만 했을까요?</div>
+      <details class="reveal">
+        <summary>생각을 나눈 뒤 열어 보기</summary>
+        <div>안네의 가족은 <b>유대인</b>이었습니다. 나치스가 점령한 지역에서 유대인은 붙잡혀 수용소로 끌려갔습니다. 1944년 은신처가 발각된 뒤 안네는 수용소로 끌려갔고, 1945년 베르겐벨젠 수용소에서 15살의 나이로 숨졌습니다. 안네의 일기는 오늘 배울 <b>홀로코스트</b>의 참상을 전하는 기록입니다.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 2. 민간인의 희생 -->
+  <section id="s2">
+    <div class="wrap">
+      <div class="kicker">STEP 2 · 전개 ① (10분)</div>
+      <h2>민간인의 희생</h2>
+      <p>19세기에 발달한 과학 기술과 대량 생산 체제는 무기를 만드는 데에도 쓰였습니다. 두 차례 세계 대전에서는 전차, 폭격기, 독가스 같은 <b>대량 살상 무기</b>가 등장했고, 군대와 민간인을 가리지 않는 무차별 공격이 이어졌습니다.</p>
+
+      <div class="cause">
+        <span>과학 기술 발달</span><b>→</b><span>대량 살상 무기 등장</span><b>→</b><span>무차별 공격</span><b>→</b><span>민간인 희생 급증</span>
+      </div>
+
+      <div class="strip three">
+        <figure class="photo">
+          <img src="img/london-balham-1940.jpg" alt="폭격으로 생긴 구덩이에 빠진 런던 버스와 무너진 건물 잔해" loading="lazy">
+          <figcaption><b>폭격으로 폐허가 된 영국 런던(1940)</b> 독일군 공습으로 생긴 구덩이에 버스가 빠졌다(런던 밸럼).<span class="credit">사진: 영국 정부(IWM HU 36188) / 퍼블릭 도메인</span></figcaption>
+        </figure>
+        <figure class="photo">
+          <img src="img/cologne-1945.jpg" alt="연합군 폭격으로 파괴된 독일 쾰른 시내를 하늘에서 찍은 사진" loading="lazy">
+          <figcaption><b>폭격으로 폐허가 된 독일 쾰른(1945)</b> 연합군의 폭격으로 도시 대부분이 파괴되었다.<span class="credit">사진: 미 육군 항공대 / 퍼블릭 도메인</span></figcaption>
+        </figure>
+        <figure class="photo">
+          <img src="img/hiroshima-1945.jpg" alt="히로시마 상공으로 솟아오르는 원자 폭탄 버섯구름" loading="lazy">
+          <figcaption><b>히로시마 원자 폭탄 투하(1945. 8. 6.)</b> 폭격기에서 찍은 버섯구름. 이 폭탄 하나로 수많은 시민이 목숨을 잃었다.<span class="credit">사진: George R. Caron / 퍼블릭 도메인</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="grid g3">
+        <div class="card stat"><span class="big">약 5,000만 명</span><span class="lbl">제2차 세계 대전 희생자 (민간인 포함)</span></div>
+        <div class="card stat"><span class="big">1945. 8.</span><span class="lbl">미국이 일본 히로시마(6일)·나가사키(9일)에 원자 폭탄 투하</span></div>
+        <div class="card stat"><span class="big">강제 동원</span><span class="lbl">식민지 사람들이 전쟁에 강제로 끌려감</span></div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="font-size:20px">인권 침해도 함께 일어났어요</h3>
+        <ul style="margin:0;padding-left:1.2em">
+          <li>식민지 사람들이 군인, 노동자 등으로 전쟁에 <b>강제 동원</b>되었습니다.</li>
+          <li>독일과 일본은 사람을 대상으로 <b>생체 실험</b>을 했습니다. (예: 나치스 수용소의 의학 실험, 일본군 731부대)</li>
+        </ul>
+      </div>
+      <div class="ask">왜 제2차 세계 대전에서는 군인보다 민간인이 더 많이 희생되었을까요?</div>
+    </div>
+  </section>
+
+  <!-- 3. 전쟁 범죄 -->
+  <section id="s3">
+    <div class="wrap">
+      <div class="kicker">STEP 3 · 전개 ② (15분)</div>
+      <h2>전쟁 범죄의 발생</h2>
+      <p>세 가지 사례를 하나씩 눌러 보며 <b>배경</b>과 <b>내용</b>을 정리해 봅시다.</p>
+
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" aria-controls="p1" id="t1">난징 대학살</button>
+        <button role="tab" aria-selected="false" aria-controls="p2" id="t2">홀로코스트</button>
+        <button role="tab" aria-selected="false" aria-controls="p3" id="t3">일본군 ‘위안부’</button>
+      </div>
+
+      <div class="card panel on" id="p1" role="tabpanel" aria-labelledby="t1">
+        <h3>난징 대학살 <span class="where">1937년 12월 · 중국 난징</span></h3>
+        <div class="strip two">
+        <figure class="photo">
+          <img src="img/nanjing-newspaper-1937.jpg" alt="1937년 12월 13일 도쿄일일신문 기사. 두 일본군 장교의 사진과 百人斬り 제목" loading="lazy">
+          <figcaption><b>일본 군인의 대학살을 보도한 기사</b> 『도쿄 일일 신문』, 1937. 12. 13. 두 일본군 장교가 누가 먼저 100명을 베는지 겨룬 것을 자랑하듯 보도했다. 제목의 ‘106 대 105’는 둘이 죽였다는 사람 수이다.<span class="credit">퍼블릭 도메인</span></figcaption>
+        </figure>
+        <figure class="photo">
+          <img style="object-position:center 12%" src="img/nanjing-memorial.jpg" alt="난징 대학살 기념관 앞의 조각상. 가족을 잃은 사람의 모습" loading="lazy">
+          <figcaption><b>난징 대학살 희생 동포 기념관(중국 난징)</b> 기념관 앞에는 가족을 잃은 사람들의 슬픔을 표현한 조각이 서 있다.<span class="credit">사진: Jakub Hałun / CC BY-SA 4.0</span></figcaption>
+        </figure>
+        </div>
+        <dl style="margin:0">
+          <div class="row"><dt>배경</dt><dd>1930년대 일본이 적극적으로 대외 침략에 나섰고, 1937년 <b>중일 전쟁</b>이 일어났습니다.</dd></div>
+          <div class="row"><dt>내용</dt><dd><ul>
+            <li>일본군이 당시 중국의 수도 <b>난징</b>을 점령하여 도시 전체를 파괴했습니다.</li>
+            <li>중국군 포로뿐 아니라 여성과 아이 등 수많은 <b>민간인</b>을 폭행하고 살해했습니다.</li>
+          </ul></dd></div>
+          <div class="row"><dt>생각</dt><dd>전쟁 중이라도 포로와 민간인은 보호받아야 합니다. 난징 대학살은 이 원칙을 무너뜨린 대표적인 전쟁 범죄입니다.</dd></div>
+        </dl>
+      </div>
+
+      <div class="card panel" id="p2" role="tabpanel" aria-labelledby="t2">
+        <h3>홀로코스트 <span class="where">1930년대 후반~1945 · 독일과 독일 점령 지역</span></h3>
+        <div class="strip two">
+        <figure class="photo">
+          <img src="img/auschwitz-gate.jpg" alt="아우슈비츠 수용소 정문. 철문 위에 ARBEIT MACHT FREI 라고 쓰인 간판" loading="lazy">
+          <figcaption><b>아우슈비츠 수용소 정문(폴란드 오시비엥침)</b> 간판에는 “노동이 그대를 자유롭게 하리라.”라고 쓰여 있다. 가스실, 철벽, 고문실 등이 남아 있다.<span class="credit">사진: Dnalor 01 / CC BY-SA 3.0 AT</span></figcaption>
+        </figure>
+        <figure class="photo">
+          <img src="img/auschwitz-shoes.jpg" alt="아우슈비츠 박물관에 쌓여 있는 희생자들의 신발" loading="lazy">
+          <figcaption><b>아우슈비츠 수용소 희생자들의 신발</b> 수용소에 끌려온 사람들에게서 빼앗은 신발이다. 어린이 신발도 섞여 있다.<span class="credit">사진: Ingo Mehling / CC BY-SA 4.0</span></figcaption>
+        </figure>
+        </div>
+        <dl style="margin:0">
+          <div class="row"><dt>의미</dt><dd><b>나치스</b>가 <b>유대인</b>을 대상으로 저지른 대규모 학살 (약 600만 명의 유대인이 희생)</dd></div>
+          <div class="row"><dt>배경</dt><dd>독일에서 히틀러가 정권을 장악한 뒤 <b>유대인 차별법</b>을 만들었습니다.</dd></div>
+          <div class="row"><dt>내용</dt><dd><ul>
+            <li>유대인 주거 지역(게토)을 만들어 유대인을 사회에서 격리했습니다.</li>
+            <li>독일과 점령 지역에 <b>유대인 수용소</b>를 설치하여 강제 노동을 시켰고, 생체 실험을 하거나 가스실로 끌고 가 살해했습니다.</li>
+            <li>폴란드의 <b>아우슈비츠 수용소</b>에는 지금도 가스실, 철조망 등이 남아 그 참상을 전합니다.</li>
+          </ul></dd></div>
+        </dl>
+      </div>
+
+      <div class="card panel" id="p3" role="tabpanel" aria-labelledby="t3">
+        <h3>일본군 ‘위안부’ <span class="where">1930년대~1945 · 일본군 점령지와 전쟁 지역</span></h3>
+        <figure class="photo mid">
+          <img src="img/statue-of-peace.jpg" alt="한복을 입고 의자에 앉은 소녀상과 옆의 빈 의자" loading="lazy">
+          <figcaption><b>평화의 소녀상</b> 일본군 ‘위안부’ 피해자를 기억하기 위한 조형물로, 서울 옛 일본 대사관 앞 소녀상과 같은 모습이 세계 여러 곳에 세워졌다. 옆의 빈 의자는 함께 앉아 피해자들의 아픔에 공감해 달라는 뜻을 담고 있다. (사진은 호주 시드니)<span class="credit">사진: Oronsay / CC BY-SA 4.0</span></figcaption>
+        </figure>
+        <dl style="margin:0">
+          <div class="row"><dt>배경</dt><dd>1930년대 초부터 일본은 일본군이 점령하거나 전투를 벌이는 지역 곳곳에 <b>군대 위안소</b>를 설치했습니다.</dd></div>
+          <div class="row"><dt>내용</dt><dd><ul>
+            <li>한국, 중국, 필리핀, 인도네시아 등 여러 점령지에서 수만 명의 여성을 끌고 가 일본군 ‘위안부’로서의 삶을 강요하여 <b>여성의 인권</b>을 짓밟았습니다.</li>
+            <li>패전 후 일본은 이 사실을 숨기려 했고, 살아남은 여성들은 오랫동안 정신적·육체적 상처 속에서 힘든 삶을 살아야 했습니다.</li>
+          </ul></dd></div>
+          <div class="row"><dt>생각</dt><dd>1991년 김학순 할머니가 처음으로 피해 사실을 공개 증언하면서 이 문제가 세상에 널리 알려졌습니다. 피해자들의 용기 있는 증언이 기억의 시작이었습니다.</dd></div>
+        </dl>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h3 style="font-size:20px">한눈에 보는 흐름</h3>
+        <ol class="tl">
+          <li><span class="y">1933</span>히틀러와 나치스가 독일에서 정권 장악</li>
+          <li><span class="y">1937</span>중일 전쟁 발발 → 12월 난징 대학살</li>
+          <li><span class="y">1939</span>독일의 폴란드 침공으로 제2차 세계 대전 발발</li>
+          <li><span class="y">1940년대</span>나치스 수용소에서 유대인 대량 학살 / 일본군 위안소 확대</li>
+          <li><span class="y">1945</span>원자 폭탄 투하, 독일·일본 항복으로 전쟁 종결</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 정리 빈칸 -->
+  <section id="s4">
+    <div class="wrap">
+      <div class="kicker">STEP 4 · 정리 (7분)</div>
+      <h2>빈칸을 채워 정리해 봅시다</h2>
+      <div class="card fill" id="fill">
+        <p><span class="num">1.</span> 두 차례의 세계 대전 중 <span class="blank" data-a="대량살상무기"><input aria-label="빈칸 1" placeholder="❶"></span>의 등장으로 무차별 공격이 이어졌다.</p>
+        <p><span class="num">2.</span> 미국의 <span class="blank" data-a="원자폭탄|원폭"><input aria-label="빈칸 2" placeholder="❷"></span> 투하로 일본의 수많은 사람이 목숨을 잃었다.</p>
+        <p><span class="num">3.</span> 일본군이 <span class="blank" data-a="난징"><input aria-label="빈칸 3" placeholder="❸"></span>을/를 점령하여 포로와 민간인을 학살하였다.</p>
+        <p><span class="num">4.</span> <span class="blank" data-a="나치스|나치|나치당"><input aria-label="빈칸 4" placeholder="❹"></span>이/가 유대인을 대상으로 저지른 대규모 학살을 <span class="blank" data-a="홀로코스트"><input aria-label="빈칸 5" placeholder="❺"></span>(이)라고 한다.</p>
+        <p><span class="num">5.</span> 일본은 점령지 곳곳에 군대 위안소를 설치하고 수만 명의 여성에게 일본군 <span class="blank" data-a="위안부"><input aria-label="빈칸 6" placeholder="❻"></span>로서의 삶을 강요하였다.</p>
+        <div class="btns">
+          <button class="btn" type="button" id="checkFill">확인하기</button>
+          <button class="btn ghost" type="button" id="showFill">정답 보기</button>
+          <button class="btn ghost" type="button" id="resetFill">다시 하기</button>
+        </div>
+        <div class="result" id="fillResult" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 확인 퀴즈 -->
+  <section id="s5">
+    <div class="wrap">
+      <div class="kicker">STEP 5 · 확인 (5분)</div>
+      <h2>알맞은 것을 골라 보세요</h2>
+      <div class="card" id="quiz">
+        <div class="q" data-a="일본">
+          <div><b>Q1.</b> 제2차 세계 대전 중에 미국이 ( ? )에 원자 폭탄을 떨어뜨려 수많은 사람이 목숨을 잃었다.</div>
+          <div class="opts"><button type="button">독일</button><button type="button">일본</button></div>
+          <div class="fb" aria-live="polite"></div>
+        </div>
+        <div class="q" data-a="유대인">
+          <div><b>Q2.</b> 독일의 나치스는 수용소를 설치하여 ( ? )을 대상으로 대규모 학살을 벌였다.</div>
+          <div class="opts"><button type="button">아랍인</button><button type="button">유대인</button></div>
+          <div class="fb" aria-live="polite"></div>
+        </div>
+        <div class="q" data-a="O">
+          <div><b>Q3.</b> 난징 대학살 때 일본군은 중국군 포로뿐 아니라 여성과 아이 등 민간인도 살해하였다.</div>
+          <div class="opts"><button type="button">O</button><button type="button">X</button></div>
+          <div class="fb" aria-live="polite"></div>
+        </div>
+        <div class="q" data-a="X" style="margin-bottom:0">
+          <div><b>Q4.</b> 세계 대전 중 식민지 사람들은 자신이 원할 때만 전쟁에 참여하였다.</div>
+          <div class="opts"><button type="button">O</button><button type="button">X</button></div>
+          <div class="fb" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 생각 나누기 -->
+  <section id="s6">
+    <div class="wrap">
+      <div class="kicker">STEP 6 · 생각 나누기 (3분)</div>
+      <h2>전쟁 범죄를 기억해야 하는 이유는 무엇일까?</h2>
+      
+      <p>오늘 배운 전쟁 범죄 중 하나를 골라, 이를 알리는 짧은 글을 써 봅시다.</p>
+      <div class="grid g2">
+        <div>
+          <textarea id="reflect" placeholder="예) 내가 고른 전쟁 범죄는 ○○이다. 이 사건을 기억해야 하는 이유는…"></textarea>
+          <div class="hint">이 화면에서 쓴 글은 지금 사용하는 기기에만 저장됩니다.</div>
+        </div>
+        <div class="card">
+          <div class="kicker">스스로 점검하기</div>
+          <ul class="checks">
+            <li><label><input type="checkbox"> 두 차례 세계 대전 중 민간인이 많이 희생된 까닭을 말할 수 있다.</label></li>
+            <li><label><input type="checkbox"> 난징 대학살과 홀로코스트의 배경과 내용을 설명할 수 있다.</label></li>
+            <li><label><input type="checkbox"> 일본군 ‘위안부’ 문제가 인권 침해인 까닭을 말할 수 있다.</label></li>
+          </ul>
+        </div>
+      </div>
+      <p class="note" style="margin-top:24px">다음 시간에는 <b>② 전쟁 범죄를 반성하고 평화를 위해 노력하다</b>에서 뉘른베르크 재판·도쿄 재판, 그리고 전쟁 범죄를 기억하려는 노력을 배웁니다.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">중학교 역사①(2022 개정) Ⅵ-02-1 수업 자료 · 교과서 196~199쪽 내용을 바탕으로 수업용으로 재구성했습니다.
+    <ul class="credits">
+      <li>사진 출처 (모두 위키미디어 공용, 클릭하면 원본·라이선스 확인):</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Anne_Frank_passport_photo,_May_1942_(cropped).jpg">안네 프랑크(1942)</a> – 퍼블릭 도메인 ·
+        <a href="https://commons.wikimedia.org/wiki/File:Air_Raid_Damage_in_Britain_during_the_Second_World_War_HU36188.jpg">런던 밸럼(1940)</a> – 퍼블릭 도메인 ·
+        <a href="https://commons.wikimedia.org/wiki/File:Cologne_aerial_view_1945.jpg">쾰른(1945)</a> – 퍼블릭 도메인 ·
+        <a href="https://commons.wikimedia.org/wiki/File:Atomic_cloud_over_Hiroshima_-_NARA_542192_-_Edit.jpg">히로시마(1945)</a> – 퍼블릭 도메인 ·
+        <a href="https://commons.wikimedia.org/wiki/File:Contest_To_Cut_Down_100_People.jpg">도쿄일일신문(1937)</a> – 퍼블릭 도메인</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:The_monument_in_the_front_of_Nanjing_Massacre_Memorial_Hall_(20090614_9921).jpg">난징 대학살 기념관</a> – Jakub Hałun, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Eingangstor_des_KZ_Auschwitz,_Arbeit_macht_frei_(2007).jpg">아우슈비츠 정문</a> – Dnalor 01, <a href="https://creativecommons.org/licenses/by-sa/3.0/at/">CC BY-SA 3.0 AT</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Auschwitz_I_-_shoes_of_victims.jpg">희생자들의 신발</a> – Ingo Mehling, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Statue_of_Peace_-_Comfort_Women_02.jpg">평화의 소녀상</a> – Oronsay, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></li>
+    </ul>
+  </div>
+  <div class="lightbox" id="lightbox" role="dialog" aria-label="사진 크게 보기"><img alt=""><p></p></div>
+</footer>
+
+<script>
+(function(){
+  // theme toggle
+  var root=document.documentElement, KEY='wc-theme';
+  try{var t=localStorage.getItem(KEY); if(t) root.setAttribute('data-theme',t);}catch(e){}
+  document.getElementById('theme').addEventListener('click',function(){
+    var dark = root.getAttribute('data-theme') ? root.getAttribute('data-theme')==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    var next = dark?'light':'dark'; root.setAttribute('data-theme',next);
+    try{localStorage.setItem(KEY,next);}catch(e){}
+  });
+
+  // progress + step highlight
+  var bar=document.getElementById('progress'), links=[].slice.call(document.querySelectorAll('.steps a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  function onScroll(){
+    var h=document.documentElement; bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+    var cur=-1; secs.forEach(function(s,i){ if(s.getBoundingClientRect().top<120) cur=i; });
+    links.forEach(function(a,i){a.classList.toggle('on',i===cur);});
+  }
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // tabs
+  var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
+  tabs.forEach(function(t){ t.addEventListener('click',function(){
+    tabs.forEach(function(x){ x.setAttribute('aria-selected',x===t); document.getElementById(x.getAttribute('aria-controls')).classList.toggle('on',x===t); });
+  });});
+
+  // fill-in
+  var blanks=[].slice.call(document.querySelectorAll('.blank'));
+  function norm(s){return s.replace(/[\s'‘’"“”]/g,'');}
+  function ok(b){ return b.dataset.a.split('|').indexOf(norm(b.querySelector('input').value))>-1; }
+  document.getElementById('checkFill').onclick=function(){
+    var n=0; blanks.forEach(function(b){ var r=ok(b); n+=r; b.classList.toggle('ok',r); b.classList.toggle('no',!r); });
+    document.getElementById('fillResult').textContent = n===blanks.length ? '모두 맞았어요! 🎉' : blanks.length+'개 중 '+n+'개를 맞혔어요. 빨간 칸을 다시 생각해 보세요.';
+  };
+  document.getElementById('showFill').onclick=function(){
+    var show={'대량살상무기':'대량 살상 무기','원자폭탄':'원자 폭탄'};
+    blanks.forEach(function(b){ var a=b.dataset.a.split('|')[0]; b.querySelector('input').value=show[a]||a; b.classList.add('ok'); b.classList.remove('no'); });
+    document.getElementById('fillResult').textContent='정답을 확인하고 공책에 정리해 보세요.';
+  };
+  document.getElementById('resetFill').onclick=function(){
+    blanks.forEach(function(b){ b.querySelector('input').value=''; b.classList.remove('ok','no'); });
+    document.getElementById('fillResult').textContent='';
+  };
+
+  // quiz
+  var fbText={
+    '일본':'1945년 8월, 히로시마와 나가사키에 원자 폭탄이 떨어졌어요.',
+    '유대인':'나치스는 유대인 차별법을 만들고 수용소에서 대량 학살을 저질렀어요.',
+    'O':'난징 대학살은 포로와 민간인을 가리지 않은 학살이었어요.',
+    'X':'식민지 사람들은 군인·노동자 등으로 강제 동원되었어요.'
+  };
+  [].forEach.call(document.querySelectorAll('.q'),function(q){
+    var btns=[].slice.call(q.querySelectorAll('button')), fb=q.querySelector('.fb');
+    btns.forEach(function(b){ b.addEventListener('click',function(){
+      btns.forEach(function(x){x.classList.remove('ok','no');});
+      var right=b.textContent===q.dataset.a; b.classList.add(right?'ok':'no');
+      fb.textContent=(right?'정답! ':'다시 생각해 볼까요? ')+(right?fbText[q.dataset.a]:'');
+    });});
+  });
+
+  // click photo to enlarge (for projector use)
+  var lb=document.getElementById('lightbox'), lbImg=lb.querySelector('img'), lbP=lb.querySelector('p');
+  [].forEach.call(document.querySelectorAll('.photo img'),function(img){
+    img.addEventListener('click',function(){
+      lbImg.src=img.src; lbImg.alt=img.alt;
+      var b=img.parentNode.querySelector('figcaption b'); lbP.textContent=b?b.textContent:'';
+      lb.classList.add('on');
+    });
+  });
+  lb.addEventListener('click',function(){lb.classList.remove('on');});
+  addEventListener('keydown',function(e){ if(e.key==='Escape') lb.classList.remove('on'); });
+
+  // reflection autosave
+  var ta=document.getElementById('reflect'), RK='wc-reflect';
+  try{ ta.value=localStorage.getItem(RK)||''; }catch(e){}
+  ta.addEventListener('input',function(){ try{localStorage.setItem(RK,ta.value);}catch(e){} });
+})();
+</script>
+<a href="../" aria-label="수업 목록으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483000;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:rgba(31,29,26,.88);color:#fff;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.2;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)">← 수업 목록</a>
+</body>
+</html>

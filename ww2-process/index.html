@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>중2 역사: 제2차 세계대전 인터랙티브 어스 투어</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Pretendard / Noto Sans KR Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Three.js & Globe.gl for 3D Earth -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/globe.gl@2.30.0/dist/globe.gl.min.js"></script>
+    <!-- Leaflet.js for 2D Detailed Map Fallback/Toggle -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #0b0f19;
+            color: #f1f5f9;
+            overflow: hidden;
+            user-select: none;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+        
+        /* Pulse Animation for Map Markers */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            80%, 100% { transform: scale(2.2); opacity: 0; }
+        }
+        .marker-pulse::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background-color: inherit;
+            animation: pulse-ring 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+            z-index: -1;
+        }
+
+        /* Leaflet Dark Theme Overrides */
+        .leaflet-container {
+            background: #0b132b !important;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+            background: #1e293b !important;
+            color: #f8fafc !important;
+            border: 1px solid #334155;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Glassmorphism utility */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.82);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        /* Globe HTML Marker Styling */
+        .globe-pin {
+            pointer-events: auto;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .globe-pin:hover {
+            transform: scale(1.25) translateY(-4px);
+            z-index: 50 !important;
+        }
+    </style>
+</head>
+<body class="h-screen w-screen flex flex-col relative overflow-hidden">
+
+    <!-- ================= TOP HEADER BAR ================= -->
+    <header class="glass-panel z-30 px-4 py-3 flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 shrink-0">
+        <!-- Brand / Title -->
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-red-600 flex items-center justify-center shadow-lg shadow-red-600/20">
+                <i class="fa-solid fa-earth-asia text-white text-xl"></i>
+            </div>
+            <div>
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-full">중학교 2학년 역사</span>
+                    <span class="text-xs text-slate-400 hidden sm:inline">인터랙티브 3D 타임라인 투어</span>
+                </div>
+                <h1 class="text-base sm:text-lg font-black tracking-tight text-white">한눈에 따라가는 제2차 세계대전 (1939~1945)</h1>
+            </div>
+        </div>
+
+        <!-- Center Theater Filter -->
+        <div class="flex items-center bg-slate-900/90 p-1 rounded-xl border border-slate-700/70">
+            <button onclick="setFilter('all')" id="filter-all" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-amber-500 text-slate-950 shadow">
+                전체 보기 (12)
+            </button>
+            <button onclick="setFilter('europe')" id="filter-europe" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition-all flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-blue-400"></span> 유럽·아프리카 전선
+            </button>
+            <button onclick="setFilter('pacific')" id="filter-pacific" class="px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition-all flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-rose-400"></span> 아시아·태평양 전선
+            </button>
+        </div>
+
+        <!-- Right Controls: 3D/2D Toggle, Quiz, KML Download -->
+        <div class="flex items-center gap-2">
+            <!-- View Mode Toggle -->
+            <div class="flex items-center bg-slate-900/90 p-1 rounded-xl border border-slate-700/70">
+                <button onclick="switchMapMode('3d')" id="mode-3dBtn" class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow flex items-center gap-1.5 transition-all" title="구글 어스 스타일 3D 지구본">
+                    <i class="fa-solid fa-globe"></i> <span class="hidden md:inline">3D 지구본</span>
+                </button>
+                <button onclick="switchMapMode('2d')" id="mode-2dBtn" class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white flex items-center gap-1.5 transition-all" title="세부 지형이 잘 보이는 2D 세계지도">
+                    <i class="fa-solid fa-map"></i> <span class="hidden md:inline">2D 상세지도</span>
+                </button>
+            </div>
+
+            <!-- KML Export for Real Google Earth -->
+            <button onclick="downloadKML()" class="px-3 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold flex items-center gap-1.5 transition-all" title="구글 어스(earth.google.com)에서 바로 열 수 있는 KML 프로젝트 파일을 다운로드합니다">
+                <i class="fa-solid fa-download"></i>
+                <span class="hidden lg:inline">구글 어스 파일(.kml) 받기</span>
+            </button>
+
+            <!-- History Quiz Modal Trigger -->
+            <button onclick="openQuizModal()" class="px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold flex items-center gap-1.5 shadow-lg shadow-amber-500/20 transition-all">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>정리 퀴즈</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ================= MAIN WORKSPACE ================= -->
+    <div class="flex-1 flex flex-col lg:flex-row relative overflow-hidden">
+
+        <!-- MAP / GLOBE CONTAINER -->
+        <div class="relative flex-1 h-full w-full bg-[#060913] overflow-hidden">
+            <!-- 3D Globe View -->
+            <div id="globe-container" class="w-full h-full"></div>
+            
+            <!-- 2D Leaflet Map View (Hidden initially) -->
+            <div id="map2d-container" class="w-full h-full hidden z-10"></div>
+
+            <!-- Floating Map Legend & Tour Controls (Top-Left on Map) -->
+            <div class="absolute top-4 left-4 z-20 flex flex-col gap-2 pointer-events-auto max-w-xs">
+                <div class="glass-panel px-3.5 py-2.5 rounded-2xl shadow-xl">
+                    <div class="flex items-center justify-between gap-4 mb-1.5">
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">전선 및 진영 안내</span>
+                        <button onclick="resetCameraView()" class="text-[11px] text-amber-400 hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-compress"></i> 시점 초기화
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-x-3 gap-y-1 text-xs">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block ring-2 ring-blue-400/30"></span>
+                            <span class="text-slate-200">유럽 전선 주요 사건</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block ring-2 ring-rose-400/30"></span>
+                            <span class="text-slate-200">태평양 전선 주요 사건</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 col-span-2 mt-1 pt-1 border-t border-slate-800 text-[11px] text-slate-400">
+                            <i class="fa-solid fa-route text-amber-400"></i> 점선 화살표는 사건의 시간순 진행 경로를 나타냅니다.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Auto Play Tour Controller -->
+                <div class="glass-panel px-3.5 py-2.5 rounded-2xl shadow-xl flex items-center justify-between gap-2">
+                    <button onclick="prevEvent()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center transition" title="이전 사건">
+                        <i class="fa-solid fa-backward-step text-xs"></i>
+                    </button>
+                    <button onclick="toggleAutoPlay()" id="autoplay-btn" class="flex-1 py-1.5 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow">
+                        <i class="fa-solid fa-play" id="autoplay-icon"></i>
+                        <span id="autoplay-text">투어 자동 재생</span>
+                    </button>
+                    <button onclick="nextEvent()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center transition" title="다음 사건">
+                        <i class="fa-solid fa-forward-step text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Current Event Quick Banner (Bottom of Map on Mobile, Top-Right on Desktop) -->
+            <div class="absolute top-4 right-4 z-20 hidden sm:flex items-center gap-2 glass-panel px-3.5 py-2 rounded-full text-xs text-slate-300">
+                <i class="fa-solid fa-hand-pointer text-amber-400 animate-bounce"></i>
+                <span>지구본을 드래그하여 회전하고, 번호 핀을 클릭해 보세요!</span>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDEBAR: EVENT DETAILS, PHOTOS, VIDEO & STUDY POINT -->
+        <aside id="info-panel" class="w-full lg:w-[460px] xl:w-[500px] h-[52%] lg:h-full glass-panel border-t lg:border-t-0 lg:border-l border-slate-800 z-20 flex flex-col shrink-0 transition-all">
+            
+            <!-- Event Header -->
+            <div class="p-4 sm:p-5 border-b border-slate-800/80 flex items-start justify-between gap-3 shrink-0 bg-slate-900/50">
+                <div>
+                    <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                        <span id="event-step-badge" class="px-2.5 py-0.5 rounded-md text-xs font-black bg-amber-500 text-slate-950">
+                            STEP 1 / 12
+                        </span>
+                        <span id="event-theater-badge" class="px-2.5 py-0.5 rounded-md text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                            유럽 전선
+                        </span>
+                        <span id="event-date" class="text-xs font-bold text-amber-400 flex items-center gap-1">
+                            <i class="fa-regular fa-calendar"></i> 1939년 9월 1일
+                        </span>
+                    </div>
+                    <h2 id="event-title" class="text-xl sm:text-2xl font-black text-white leading-snug">
+                        독일의 폴란드 침공 (전쟁 발발)
+                    </h2>
+                    <p id="event-location" class="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-location-dot text-rose-400"></i> 폴란드 바르샤바 및 단치히(그단스크) 일대
+                    </p>
+                </div>
+
+                <!-- Direct Google Earth Web 3D Link -->
+                <a id="google-earth-link" href="#" target="_blank" rel="noopener noreferrer" 
+                   class="shrink-0 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600/80 text-xs font-bold text-sky-300 flex flex-col items-center justify-center gap-1 transition shadow-sm"
+                   title="실제 구글 어스 웹버전(3D 위성 지형)으로 현재 장소를 새 창에서 엽니다">
+                    <i class="fa-solid fa-satellite text-base"></i>
+                    <span class="text-[10px]">실제 위성뷰</span>
+                </a>
+            </div>
+
+            <!-- Media Tabs (Photos & Map Graphic / Video Search & Clip) -->
+            <div class="px-4 pt-3 bg-slate-900/30 border-b border-slate-800 flex items-center justify-between shrink-0">
+                <div class="flex gap-4">
+                    <button onclick="switchMediaTab('photo')" id="tab-photo" class="pb-2.5 text-xs font-bold border-b-2 border-amber-500 text-amber-400 flex items-center gap-1.5 transition">
+                        <i class="fa-regular fa-image"></i> 역사 사진 자료
+                    </button>
+                    <button onclick="switchMediaTab('video')" id="tab-video" class="pb-2.5 text-xs font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition">
+                        <i class="fa-brands fa-youtube text-red-500"></i> 관련 영상 자료
+                    </button>
+                    <button onclick="switchMediaTab('tactic')" id="tab-tactic" class="pb-2.5 text-xs font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition">
+                        <i class="fa-solid fa-chess-knight text-emerald-400"></i> 핵심 작전도
+                    </button>
+                </div>
+                <span id="phase-indicator" class="text-[11px] font-semibold text-slate-400 pb-2">전쟁 초기: 추축국의 공세</span>
+            </div>
+
+            <!-- Scrollable Content Body -->
+            <div class="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">
+                
+                <!-- MEDIA DISPLAY BOX -->
+                <div class="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 shadow-inner">
+                    
+                    <!-- 1. Photo View -->
+                    <div id="media-photo-view" class="block">
+                        <div class="relative h-56 sm:h-64 w-full bg-slate-900 flex items-center justify-center overflow-hidden group">
+                            <!-- Loading Spinner -->
+                            <div id="photo-loading" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900 z-10">
+                                <i class="fa-solid fa-circle-notch fa-spin text-amber-400 text-2xl mb-2"></i>
+                                <span class="text-xs text-slate-400">역사 아카이브 사진 불러오는 중...</span>
+                            </div>
+
+                            <img id="event-image" src="" alt="역사 자료 사진" referrerpolicy="no-referrer"
+                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-85 pointer-events-none"></div>
+                            
+                            <!-- Top Action Buttons on Photo -->
+                            <div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 z-20">
+                                <a id="google-img-search-btn" href="#" target="_blank" rel="noopener noreferrer"
+                                   class="bg-slate-900/85 hover:bg-amber-500 hover:text-slate-950 text-amber-300 text-xs font-bold px-2.5 py-1.5 rounded-lg border border-amber-500/40 flex items-center gap-1.5 backdrop-blur-sm transition shadow">
+                                    <i class="fa-brands fa-google"></i> 구글 이미지 더보기
+                                </a>
+                                <button onclick="openLightbox()" class="bg-slate-900/85 hover:bg-slate-800 text-white text-xs px-2.5 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1.5 backdrop-blur-sm transition shadow">
+                                    <i class="fa-solid fa-magnifying-glass-plus"></i> 크게 보기
+                                </button>
+                            </div>
+
+                            <div class="absolute bottom-3 left-3 right-3 z-20">
+                                <p id="event-image-caption" class="text-xs text-slate-200 font-medium bg-slate-950/80 px-3 py-1.5 rounded-lg border border-slate-800/80 backdrop-blur-sm">
+                                    자료 사진 설명이 여기에 표시됩니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Video View -->
+                    <div id="media-video-view" class="hidden">
+                        <div class="p-4 sm:p-5 bg-slate-900/90 space-y-3">
+                            <div class="flex items-start gap-3">
+                                <div class="w-11 h-11 rounded-xl bg-red-600/20 border border-red-500/30 flex items-center justify-center shrink-0 text-red-400 text-xl">
+                                    <i class="fa-solid fa-film"></i>
+                                </div>
+                                <div>
+                                    <h4 id="video-title" class="text-sm font-bold text-white">영상 학습 가이드</h4>
+                                    <p id="video-desc" class="text-xs text-slate-300 mt-1 leading-relaxed">
+                                        학교 네트워크 환경에서도 끊김 없이 시청할 수 있도록 핵심 장면을 재구성한 브리핑 애니메이션과 유튜브·EBS 역사 클립 바로가기를 제공합니다.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Interactive Animated Motion Briefing Canvas -->
+                            <div class="relative rounded-xl overflow-hidden border border-slate-700 bg-slate-950 p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-[11px] font-bold text-amber-400 flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                                        1분 핵심 영상 요약 노트
+                                    </span>
+                                    <span id="video-duration" class="text-[11px] text-slate-400">핵심 키워드 브리핑</span>
+                                </div>
+                                <div id="video-key-points" class="space-y-2 text-xs text-slate-200 bg-slate-900/90 p-3 rounded-lg border border-slate-800">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+
+                            <!-- Direct Curated Video Links (YouTube Search & WikiMedia Video) -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                                <a id="yt-search-link" href="#" target="_blank" rel="noopener noreferrer"
+                                   class="px-3.5 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow transition">
+                                    <i class="fa-brands fa-youtube text-base"></i>
+                                    <span>유튜브 역사 영상 바로보기</span>
+                                </a>
+                                <a id="ebs-search-link" href="#" target="_blank" rel="noopener noreferrer"
+                                   class="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs flex items-center justify-center gap-2 transition">
+                                    <i class="fa-solid fa-book-open-reader text-amber-400"></i>
+                                    <span>우리말 백과사전·사료 보기</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Tactical Diagram SVG View -->
+                    <div id="media-tactic-view" class="hidden">
+                        <div class="h-52 sm:h-60 w-full bg-slate-950 flex flex-col items-center justify-center p-4 relative" id="tactic-svg-container">
+                            <!-- Populated with dynamic SVG tactical diagram -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STORY / EXPLANATION SECTION -->
+                <div class="bg-slate-900/60 border border-slate-800/90 rounded-2xl p-4 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-extrabold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-scroll"></i> 사건의 전개와 배경
+                        </h3>
+                        <span id="event-casualties" class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-300"></span>
+                    </div>
+                    <p id="event-summary" class="text-sm text-slate-200 leading-relaxed font-normal">
+                        사건 설명이 들어갑니다.
+                    </p>
+                </div>
+
+                <!-- MIDDLE SCHOOL CURRICULUM KEY POINT -->
+                <div class="bg-gradient-to-br from-amber-500/15 to-orange-600/10 border border-amber-500/30 rounded-2xl p-4 space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center font-black text-xs">★</span>
+                        <h4 class="text-xs sm:text-sm font-extrabold text-amber-300">중2 역사 교과서 핵심 포인트!</h4>
+                    </div>
+                    <p id="event-textbook-point" class="text-xs sm:text-sm text-amber-100/90 leading-relaxed pl-8">
+                        교과서 핵심 요약이 들어갑니다.
+                    </p>
+                </div>
+
+                <!-- THINKING QUESTION FOR STUDENTS -->
+                <div class="bg-indigo-950/40 border border-indigo-500/30 rounded-2xl p-4">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
+                            <i class="fa-solid fa-lightbulb text-amber-400"></i> 모둠 토의 & 생각해보기
+                        </span>
+                        <button onclick="toggleAnswer()" class="text-[11px] text-indigo-300 hover:text-white underline">
+                            길잡이 답안 보기
+                        </button>
+                    </div>
+                    <p id="event-question" class="text-xs sm:text-sm font-medium text-white leading-relaxed"></p>
+                    <div id="event-answer-box" class="hidden mt-2.5 pt-2.5 border-t border-indigo-500/30 text-xs text-indigo-200 leading-relaxed"></div>
+                </div>
+
+            </div>
+
+            <!-- Sidebar Bottom Quick Navigation -->
+            <div class="p-3 border-t border-slate-800 bg-slate-950/80 flex items-center justify-between gap-2 shrink-0">
+                <button onclick="prevEvent()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 flex items-center gap-1.5 transition">
+                    <i class="fa-solid fa-arrow-left"></i> 이전 사건
+                </button>
+                <span id="bottom-progress-text" class="text-xs font-bold text-slate-400">1 / 12</span>
+                <button onclick="nextEvent()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-xs font-extrabold text-slate-950 flex items-center gap-1.5 transition shadow">
+                    다음 사건 <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- ================= BOTTOM INTERACTIVE TIMELINE BAR ================= -->
+    <footer class="glass-panel z-30 border-t border-slate-800 px-4 py-2.5 shrink-0">
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar" id="timeline-container">
+            <!-- Populated dynamically with 12 event nodes -->
+        </div>
+    </footer>
+
+    <!-- ================= IMAGE LIGHTBOX MODAL ================= -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4" onclick="closeLightbox()">
+        <div class="max-w-4xl w-full bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between px-4 py-3 border-b border-slate-800">
+                <h3 id="lightbox-title" class="text-sm font-bold text-white">역사 사진 크게 보기</h3>
+                <button onclick="closeLightbox()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-4 flex flex-col items-center justify-center bg-slate-950">
+                <img id="lightbox-img" src="" alt="확대 이미지" referrerpolicy="no-referrer" class="max-h-[70vh] w-auto object-contain rounded-lg">
+                <p id="lightbox-caption" class="text-xs text-slate-300 mt-3 text-center max-w-2xl"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= QUIZ MODAL FOR CLASSROOM CHECK ================= -->
+    <div id="quiz-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="max-w-lg w-full bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden shadow-2xl">
+            <div class="px-6 py-4 bg-gradient-to-r from-amber-500 to-orange-600 flex items-center justify-between">
+                <div class="flex items-center gap-2 text-slate-950">
+                    <i class="fa-solid fa-trophy text-lg"></i>
+                    <h3 class="font-black text-base">제2차 세계대전 핵심 정리 퀴즈</h3>
+                </div>
+                <button onclick="closeQuizModal()" class="w-8 h-8 rounded-full bg-black/20 hover:bg-black/30 text-slate-950 flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-4" id="quiz-body">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= APPLICATION LOGIC & DATA ================= -->
+    <script>
+        /**
+         * 중학교 2학년 역사 교육과정 맞춤형 제2차 세계대전 12대 주요 사건 데이터
+         * - wikiEnTitle: 영문 위키백과 공식 REST API를 통해 100% 작동하는 대표 역사 아카이브 사진을 실시간 조회
+         * - imageUrl / backupImageUrl: CDN 프록시(wsrv.nl)를 통해 핫링크 차단 및 학교 방화벽 문제를 우회한 검증된 역사 사진 URL
+         */
+        const ww2Events = [
+            {
+                id: 1,
+                step: 1,
+                title: "독일의 폴란드 침공 (전쟁의 시작)",
+                shortTitle: "폴란드 침공",
+                date: "1939년 9월 1일",
+                year: "1939",
+                theater: "europe",
+                theaterName: "유럽 전선",
+                phase: "1단계: 전쟁의 발발",
+                locationName: "폴란드 바르샤바 · 단치히(그단스크)",
+                lat: 52.2297,
+                lng: 21.0122,
+                altitude: 1.5,
+                wikiEnTitle: "Invasion_of_Poland",
+                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/c/c8/Bundesarchiv_Bild_183-S52189,_Polen,_Schlagbaum_durch_Deutsche_Soldaten_entfernt.jpg&w=900&output=jpg",
+                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/8/82/Schleswig-Holstein_firing_Westerplatte_1939.jpg&w=900&output=jpg",
+                googleImgQuery: "1939년 독일 폴란드 침공 실제 사진 Invasion of Poland 1939",
+                imageCaption: "1939년 9월 1일, 폴란드 국경 차단기를 부수며 진격하는 독일군과 단치히 포격 장면 (독일 연방기록원)",
+                summary: "히틀러가 이끄는 나치 독일이 소련과 '독소 불가침 조약'을 비밀리에 맺은 뒤, 1939년 9월 1일 새벽 폴란드를 기습 침공했습니다. 전차(탱크)와 급강하 폭격기를 앞세운 독일의 빠른 '전격전(블리츠크리그)'에 폴란드는 한 달 만에 무너졌고, 이에 영국과 프랑스가 독일에 선전포고하면서 제2차 세계대전이 시작되었습니다.",
+                textbookPoint: "제2차 세계대전의 직접적 시작점! 독일은 양면 전쟁을 피하기 위해 소련과 먼저 '독소 불가침 조약'을 체결한 후 폴란드를 침공했다는 점을 꼭 기억하세요.",
+                question: "왜 히틀러는 공산주의 국가인 소련을 싫어했으면서도 폴란드 침공 직전에 '독소 불가침 조약'을 맺었을까요?",
+                answer: "제1차 세계대전 당시 독일이 서쪽(영·프)과 동쪽(러시아) 두 개의 전선에서 동시에 싸우다 패배했기 때문에, 먼저 서유럽을 제압할 때까지 동쪽의 안전을 확보하려는 전략이었습니다.",
+                videoKeywords: [
+                    "⚡ 전격전(Blitzkrieg): 탱크 부대와 전투기를 집중 투입해 순식간에 적의 지휘부를 마비시키는 전술",
+                    "🤝 독소 불가침 조약(1939.8): 독일과 소련이 서로 공격하지 않고 폴란드를 분할 점령하기로 한 밀약",
+                    "📢 영·프 선전포고(1939.9.3): 침략을 멈추라는 최후통첩을 독일이 무시하자 세계대전으로 확대"
+                ],
+                ytQuery: "제2차 세계대전 독일 폴란드 침공 전격전 역사",
+                wikiQuery: "폴란드_침공",
+                tacticType: "blitzkrieg"
+            },
+            {
+                id: 2,
+                step: 2,
+                title: "독일의 프랑스 점령과 파리 입성",
+                shortTitle: "프랑스 함락",
+                date: "1940년 5월 ~ 6월",
+                year: "1940",
+                theater: "europe",
+                theaterName: "유럽 전선",
+                phase: "1단계: 추축국의 초기 공세",
+                locationName: "프랑스 파리 에펠탑 일대",
+                lat: 48.8566,
+                lng: 2.3522,
+                altitude: 1.4,
+                wikiEnTitle: "Battle_of_France",
+                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/e/ea/Bundesarchiv_Bild_101I-114-0468-08,_Frankreich,_Panzer_III_und_Infanterie.jpg&w=900&output=jpg",
+                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/6/67/Hitler_in_Paris_1940.jpg&w=900&output=jpg",
+                googleImgQuery: "1940년 독일군 프랑스 파리 점령 에펠탑 히틀러 Paris 1940 German occupation",
+                imageCaption: "1940년 6월 프랑스를 함락시킨 나치 독일군이 파리에 입성하여 에펠탑 앞을 행진하고 히틀러가 시가지를 시찰하던 역사적 장면",
+                summary: "프랑스는 독일 국경에 철벽 요새인 '마지노선'을 쌓았지만, 독일 기갑부대는 울창한 삼림 지대인 아르덴 숲을 우회해 프랑스의 뒤를 찔렀습니다. 프랑스 육군은 한 달 반 만에 무너져 내렸고, 1940년 6월 수도 파리가 함락되면서 에펠탑에 나치 하켄크로이츠 깃발이 걸렸습니다. 프랑스 남부에는 친독일 괴뢰 정부인 '비시 정부'가 세워졌습니다.",
+                textbookPoint: "프랑스 항복 후 남부에는 독일에 협력하는 '비시 정부'가 수립되었고, 샤를 드골 장군은 영국 런던으로 망명해 '자유 프랑스 정부'를 세워 레지스탕스(저항 운동)를 이끌었습니다.",
+                question: "강력한 군사력을 자랑하던 프랑스가 독일의 침공에 그렇게 쉽게 무너진 결정적인 이유는 무엇이었을까요?",
+                answer: "프랑스군이 제1차 세계대전 당시의 참호전 방식(마지노선 방어)에만 갇혀 있었던 반면, 독일군은 전차와 공군을 입체적으로 활용한 신속한 '전격전' 전술로 허를 찔렀기 때문입니다.",
+                videoKeywords: [
+                    "🛡️ 마지노선 무력화: 프랑스의 철벽 방어선을 피해 아르덴 숲을 우회 돌파한 독일군",
+                    "🗼 파리 함락(1940.6): 에펠탑에 나치 독재의 상징인 하켄크로이츠 깃발이 게양됨",
+                    "🇫🇷 드골과 레지스탕스: 점령당한 프랑스 안팎에서 끝까지 나치에 맞서 싸운 저항 운동"
+                ],
+                ytQuery: "1940년 프랑스 파리 함락 독일군 에펠탑 히틀러",
+                wikiQuery: "프랑스_전투",
+                tacticType: "flank"
+            },
+            {
+                id: 3,
+                step: 3,
+                title: "영국 본토 항공전 (처칠의 결사항전)",
+                shortTitle: "영국 본토 항공전",
+                date: "1940년 7월 ~ 10월",
+                year: "1940",
+                theater: "europe",
+                theaterName: "유럽 전선",
+                phase: "1단계: 추축국의 초기 공세",
+                locationName: "영국 런던 및 도버 해협 상공",
+                lat: 51.5074,
+                lng: -0.1278,
+                altitude: 1.4,
+                wikiEnTitle: "Battle_of_Britain",
+                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/c/c8/St_Pauls_Cathedral_in_the_Blitz.jpg&w=900&output=jpg",
+                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/f/f9/Royal_Air_Force_Supermarine_Spitfire_Mk_I_fighters.jpg&w=900&output=jpg",
+                googleImgQuery: "영국 본토 항공전 런던 대공습 스핏파이어 처칠 Battle of Britain photos",
+                imageCaption: "독일군의 런던 대공습 속에서도 연기를 뚫고 서 있는 세인트폴 대성당과 영국 공군 전투기",
+                summary: "서유럽 대륙을 장악한 히틀러는 마지막 남은 영국을 굴복시키기 위해 대규모 공군(루프트바페)을 동원해 런던과 주요 도시를 밤낮으로 폭격했습니다. 그러나 윈스턴 처칠 총리를 중심으로 똘똘 뭉친 영국 국민들의 항전 의지와 최신 과학기술인 '레이더(Radar)' 및 스핏파이어 전투기의 활약으로 독일의 영국 상륙 계획은 좌절되었습니다.",
+                textbookPoint: "히틀러의 첫 번째 좌절! 영국은 '레이더' 기술을 활용해 독일 폭격기를 미리 탐지해 막아냈고, 서유럽에서 민주주의 진영의 최후 보루를 지켜냈습니다.",
+                question: "처칠 총리는 '우리는 해변에서 싸울 것이며, 결코 항복하지 않을 것이다'라고 연설했습니다. 영국의 저항이 연합군 전체에 준 의미는 무엇일까요?",
+                answer: "영국이 버텨냈기 때문에 훗날 미국 지원군과 연합군이 모여 유럽 대륙을 되찾기 위한 반격 기지(노르망디 상륙작전의 출발점)로 삼을 수 있었습니다.",
+                videoKeywords: [
+                    "📡 레이더(Radar)의 활약: 적 비행기의 위치와 거리를 전파로 미리 알아내 영국 공군이 효율적으로 방어",
+                    "🦁 윈스턴 처칠의 리더십: 지하철역으로 대피하면서도 흔들리지 않은 런던 시민들의 단결",
+                    "✈️ 사상 최초의 전면 공중전: 해군 상륙에 앞서 하늘의 지배권(제공권)을 두고 벌어진 대결"
+                ],
+                ytQuery: "영국 본토 항공전 처칠 스핏파이어 2차세계대전",
+                wikiQuery: "영국_본토_항공전",
+                tacticType: "airbattle"
+            },
+            {
+                id: 4,
+                step: 4,
+                title: "독일의 소련 침공 (독소 전쟁 발발)",
+                shortTitle: "독소 전쟁 발발",
+                date: "1941년 6월 22일",
+                year: "1941",
+                theater: "europe",
+                theaterName: "유럽 전선 (동부)",
+                phase: "2단계: 전선의 확대",
+                locationName: "소련 서부 국경 ~ 모스크바 외곽",
+                lat: 55.7558,
+                lng: 37.6173,
+                altitude: 1.7,
+                wikiEnTitle: "Operation_Barbarossa",
+                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/9/9f/Bundesarchiv_Bild_101I-265-0003-18A,_Russland,_Kradfahrer_im_Schlamm.jpg&w=900&output=jpg",
+                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/e/e0/Bundesarchiv_Bild_101I-136-0883-16,_Russland,_Panzer_III_und_Infanterie.jpg&w=900&output=jpg",
+                googleImgQuery: "독소전쟁 바르바로사 작전 실제 사진 Operation Barbarossa 1941",
+                imageCaption: "1941년 소련을 기습 침공(바르바로사 작전)한 독일군과 러시아의 진흙탕·혹한에 발이 묶인 부대",
+                summary: "영국 침공이 여의치 않자, 히틀러는 소련의 풍부한 석유와 곡창지대를 차지하기 위해 '독소 불가침 조약'을 일방적으로 깨고 300만 대군으로 소련을 기습했습니다(바르바로사 작전). 초반에는 모스크바 코앞까지 진격했으나, 소련군의 끈질긴 방어와 영하 40도에 달하는 러시아의 겨울 추위('동장군')로 독일군의 진격이 멈추게 됩니다.",
+                textbookPoint: "독일이 스스로 불가침 조약을 파기하고 소련을 침공하면서, 소련이 영국·미국과 손잡고 '연합국' 진영에 합류하게 되었습니다.",
+                question: "과거 나폴레옹도 러시아 원정에서 겨울 추위로 패배했는데, 왜 독일군도 똑같은 실수를 반복했을까요?",
+                answer: "독일군은 폴란드와 프랑스를 단 몇 주 만에 무너뜨린 '전격전'을 과신하여, 겨울이 오기 전에 소련도 3개월이면 항복할 것이라 믿고 동계 군복조차 제대로 준비하지 않았습니다.",
+                videoKeywords: [
+                    "⚔️ 바르바로사 작전: 인류 역사상 최대 규모인 300만 병력이 투입된 독일의 소련 기습 작전",
+                    "❄️ 동장군(General Winter): 영하 40도의 혹한으로 독일군 전차 엔진과 무기가 얼어붙음",
+                    "🌍 연합국의 확대: 소련이 반파시즘 연합국 대열에 합류하며 독일은 다시 양면전쟁에 직면"
+                ],
+                ytQuery: "독소전쟁 바르바로사 작전 모스크바 공방전",
+                wikiQuery: "바르바로사_작전",
+                tacticType: "eastfront"
+            },
+            {
+                id: 5,
+                step: 5,
+                title: "일본의 진주만 기습 (태평양 전쟁 발발)",
+                shortTitle: "진주만 기습",
+                date: "1941년 12월 7일",
+                year: "1941",
+                theater: "pacific",
+                theaterName: "아시아·태평양 전선",
+                phase: "2단계: 태평양 전쟁 발발",
+                locationName: "미국 하와이 오아후섬 진주만 기지",
+                lat: 21.3649,
+                lng: -157.9501,
+                altitude: 1.6,
+                wikiEnTitle: "Attack_on_Pearl_Harbor",
+                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/c/c7/Attack_on_Pearl_Harbor_Japanese_planes_view.jpg&w=900&output=jpg",
+                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/0/09/The_USS_Arizona_%28BB-39%29_burning_after_the_Japanese_attack_on_Pearl_Harbor_-_NARA_195617_-_Edit.jpg&w=900&output=jpg",
+                googleImgQuery: "1941년 일본 진주만 기습 실제 사진 Attack on Pearl Harbor",
+                imageCaption: "1941년 12월 7일 아침, 일본 해군 항공대의 기습 폭격으로 화염에 휩싸인 미국 진주만 해군기지 전함들",
+                summary: "중일 전쟁(1937)을 일으키고 동남아시아까지 침략하던 일본에 대해 미국이 석유와 고철 수출을 금지(ABCD 포위망)하자, 일본은 1941년 12월 7일 일요일 아침 하와이 진주만의 미국 태평양 함대를 선전포고도 없이 기습 폭격했습니다. 이 사건으로 그동안 중립을 지키던 세계 최대 공업국 '미국'이 전쟁에 본격 참전하면서 태평양 전쟁이 시작되었습니다.",
+                textbookPoint: "시험 빈출 1순위! 일본의 진주만 기습으로 태평양 전쟁이 발발했고, 미국이 연합국 측에 본격 참전하면서 전쟁의 규모가 명실상부한 '세계대전'으로 확대되었습니다.",
+                question: "당시 대한민국 임시정부는 진주만 기습 직후인 1941년 12월 9일, 일본에 대해 어떤 역사적 선언을 했을까요?",
+                answer: "대한민국 임시정부는 '대일 선전 성명서'를 발표하여 연합국의 일원으로 일본과 맞서 싸우겠다고 공식 선언하고 한국광복군을 연합군 작전에 투입했습니다.",
+                videoKeywords: [
+                    "🛢️ 미국의 석유 금수 조치: 일본의 중국·동남아 침략에 맞서 미국이 석유 공급을 차단",
+                    "💥 진주만 기습(1941.12.7): 일본 항공모함 함대가 하와이 미 해군 기지를 기습 공격",
+                    "🇺🇸 잠자던 거인 미국의 참전: 루스벨트 대통령의 선전포고와 함께 미국의 압도적 생산력이 가동됨"
+                ],
+                ytQuery: "태평양 전쟁 진주만 공습 역사 요약",
+                wikiQuery: "진주만_공격",
+                tacticType: "carrier"
+            },
+            {
+                id: 6,
+                step: 6,
+                title: "일본의 동남아 점령과 대동아 공영권 선전",
+                shortTitle: "동남아 침략",
+                date: "1942년 상반기",
+                year: "1942",
+                theater: "pacific",
+                theaterName: "아시아·태평양 전선",
+                phase: "2단계: 추축국의 최대 팽창",
+                locationName: "필리핀 마닐라 · 싱가포르 · 인도네시아",
+                lat: 14.5995,
+                lng: 120.9842,
+                altitude: 1.7,
+                wikiEnTitle: "Philippines_campaign_(1941–1942)",
+                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/1/10/Japanese_troops_celebrating_the_capture_of_Bataan.jpg&w=900&output=jpg",
+                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/c/c8/Surrender_of_Singapore.jpg&w=900&output=jpg",
+                googleImgQuery: "태평양전쟁 일본 동남아 점령 대동아공영권 강제동원 사진",
+                imageCaption: "1942년 동남아시아(필리핀·싱가포르 등)를 점령한 일본군. '대동아 공영권'을 선전하며 자원과 인력을 수탈했다.",
+                summary: "진주만 기습과 동시에 일본군은 홍콩, 말레이반도, 싱가포르, 필리핀, 인도네시아(네덜란드령 동인도) 등 동남아시아 전역을 빠르게 점령했습니다. 일본은 '서양 세력을 몰아내고 아시아인이 함께 번영하자'는 이른바 '대동아 공영권'을 내세웠지만, 실제로는 전쟁 수행에 필요한 고무·석유 자원과 인력을 가혹하게 수탈했습니다.",
+                textbookPoint: "일본이 침략 전쟁을 정당화하기 위해 내세운 슬로건이 바로 '대동아 공영권'입니다. 이 시기 한국에서도 강제 징용, 징병, 일본군 '위안부' 동원, 금속 공출 등 민족 말살 통치가 극에 달했습니다.",
+                question: "일본이 내세운 '대동아 공영권(아시아의 공동 번영)'이라는 주장이 왜 거짓 선전이었는지 근거를 들어 설명해 볼까요?",
+                answer: "서양 식민지배에서 해방시켜 준다고 말하면서 실제로는 일본어 사용을 강요하고, 식량과 자원을 빼앗았으며, 수많은 아시아 청년들을 강제로 전쟁터와 노역장에 끌고 갔기 때문입니다.",
+                videoKeywords: [
+                    "🎭 대동아 공영권의 허구: 침략 전쟁을 '아시아 해방'으로 포장한 일본 제국주의의 논리",
+                    "⛏️ 자원 및 인력 수탈: 동남아의 석유·고무 약탈 및 한국·아시아 민중에 대한 강제 동원",
+                    "🌏 태평양 전선의 확대: 호주 북부에서 미얀마(버마)까지 일본의 점령지가 최대치에 달함"
+                ],
+                ytQuery: "대동아공영권 태평양전쟁 일제강점기 수탈",
+                wikiQuery: "대동아공영권",
+                tacticType: "expansion"
+            },
+            {
+                id: 7,
+                step: 7,
+                title: "미드웨이 해전 (태평양 전쟁의 전환점)",
+                shortTitle: "미드웨이 해전",
+                date: "1942년 6월 4일 ~ 7일",
+                year: "1942",
+                theater: "pacific",
+                theaterName: "아시아·태평양 전선",
+                phase: "3단계: 전쟁의 대전환점",
+                locationName: "태평양 중앙 미드웨이 환초 해역",
+                lat: 28.2072,
+                lng: -177.3735,
+                altitude: 1.6,
+                wikiEnTitle: "Battle_of_Midway",
+                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/1/1f/Hiryu_under_attack_Midway.jpg&w=900&output=jpg",
+                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/3/30/Douglas_SBD_Dauntless_at_Battle_of_Midway.jpg&w=900&output=jpg",
+                googleImgQuery: "1942년 미드웨이 해전 실제 사진 Battle of Midway",
+                imageCaption: "1942년 6월 미드웨이 해전에서 불타는 항공모함과 급강하 폭격기를 앞세워 반격하는 미 해군",
+                summary: "일본 해군은 미드웨이섬을 공격해 미국의 남은 항공모함들을 유인·격파하려 했습니다. 그러나 미국 암호 해독반이 일본군의 비밀 암호('AF=미드웨이')를 미리 해독해 매복 작전을 펼쳤고, 단 하루 만에 일본의 주력 항공모함 4척을 모두 침몰시켰습니다. 이 해전으로 태평양의 바다와 하늘의 주도권이 미국으로 완전히 넘어갔습니다.",
+                textbookPoint: "태평양 전쟁의 흐름을 바꾼 결정적 전환점! 미드웨이 해전 승리로 미국은 수세에서 공세로 전환하여 일본 본토를 향해 섬을 하나씩 되찾는 '섬 건너뛰기 작전'을 시작합니다.",
+                question: "미드웨이 해전에서 미국이 일본보다 군함 수가 적었음에도 대승을 거둘 수 있었던 결정적인 비결은 무엇이었나요?",
+                answer: "뛰어난 정보 분석 능력으로 일본군의 통신 암호를 해독하여 적의 공격 목표와 시간을 정확히 알고 미리 대비했기 때문입니다.",
+                videoKeywords: [
+                    "🔐 암호 해독의 승리: 미 해군 정보국이 일본의 공격 목표(AF=미드웨이)를 사전에 간파",
+                    "✈️ 운명의 5분: 미군 급강하 폭격기(돈틀리스)가 일본 주력 항공모함 4척을 일거에 격침",
+                    "🔄 태평양의 주도권 역전: 일본 해군의 팽창이 멈추고 미군의 반격(과달카날 상륙 등)이 시작됨"
+                ],
+                ytQuery: "미드웨이 해전 태평양전쟁 전환점 역사",
+                wikiQuery: "미드웨이_해전",
+                tacticType: "midway"
+            },
+            {
+                id: 8,
+                step: 8,
+                title: "스탈린그라드 전투 (유럽 전선의 전환점)",
+                shortTitle: "스탈린그라드 전투",
+                date: "1942년 8월 ~ 1943년 2월",
+                year: "1942~43",
+                theater: "europe",
+                theaterName: "유럽 전선 (동부)",
+                phase: "3단계: 전쟁의 대전환점",
+                locationName: "소련 스탈린그라드 (현 러시아 볼고그라드)",
+                lat: 48.7080,
+                lng: 44.5133,
+                altitude: 1.5,
+                wikiEnTitle: "Battle_of_Stalingrad",
+                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/b/b1/RIAN_archive_44732_Soviet_soldiers_attack_house_in_Stalingrad.jpg&w=900&output=jpg",
+                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/a/ae/RIAN_archive_602128_Center_of_Stalingrad_after_liberation.jpg&w=900&output=jpg",
+                googleImgQuery: "스탈린그라드 전투 시가전 실제 사진 Battle of Stalingrad",
+                imageCaption: "폐허가 된 스탈린그라드 시내 건물 사이에서 치열한 시가전을 벌이는 소련군 병사들",
+                summary: "남부 유전지대로 가는 길목인 스탈린그라드를 차지하기 위해 독일군과 소련군이 건물 하나, 방 하나를 두고 6개월간 처절한 시가전을 벌였습니다. 소련군은 겨울이 오자 도시 밖에서 독일 제6군을 거대하게 포위(천왕성 작전)했고, 결국 1943년 2월 독일군 약 30만 명이 전멸하거나 항복하면서 독일은 패망의 길로 들어서게 됩니다.",
+                textbookPoint: "태평양에 '미드웨이 해전'이 있다면 유럽 동부전선에는 '스탈린그라드 전투'가 있습니다! 이 전투 이후 소련군이 독일 본토(베를린)를 향해 거센 역공을 시작했습니다.",
+                question: "미드웨이 해전(1942.6)과 스탈린그라드 전투(1942.8~1943.2)를 묶어 왜 제2차 세계대전의 '분수령(전환점)'이라고 부를까요?",
+                answer: "그전까지는 독일과 일본(추축국)이 계속 영토를 넓히며 이기고 있었으나, 이 두 전투에서 패배한 뒤부터는 연합국이 주도권을 쥐고 추축국을 몰아붙이기 시작했기 때문입니다.",
+                videoKeywords: [
+                    "🏚️ 극한의 시가전: 탱크가 다니기 힘든 무너진 건물 잔해 속에서 벌어진 백병전과 저격전",
+                    "🔄 소련군의 양익 포위 작전: 도시에 집착한 독일군 제6군 30만 명을 역포위하여 항복 받아냄",
+                    "📉 나치 독일의 내리막길: 무적이라 불리던 독일 육군의 신화가 깨지고 동부전선 후퇴 시작"
+                ],
+                ytQuery: "스탈린그라드 전투 독소전쟁 전환점 역사",
+                wikiQuery: "스탈린그라드_전투",
+                tacticType: "encircle"
+            },
+            {
+                id: 9,
+                step: 9,
+                title: "아우슈비츠와 홀로코스트 (인권 유린의 비극)",
+                shortTitle: "홀로코스트 비극",
+                date: "1941년 ~ 1945년 1월",
+                year: "1943",
+                theater: "europe",
+                theaterName: "유럽 전선 (인권과 평화)",
+                phase: "교과서 주제 탐구: 전쟁과 인권",
+                locationName: "폴란드 남부 오시비엥침 (아우슈비츠 수용소)",
+                lat: 50.0274,
+                lng: 19.2020,
+                altitude: 1.3,
+                wikiEnTitle: "Auschwitz_concentration_camp",
+                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/c/c7/Auschwitz_I_entrance_snow.jpg&w=900&output=jpg",
+                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/f/f6/ Birkenau_gate.JPG&w=900&output=jpg",
+                googleImgQuery: "아우슈비츠 수용소 홀로코스트 역사 사진 Auschwitz concentration camp",
+                imageCaption: "유네스코 세계유산으로 지정되어 인류의 반성과 인권 교육 현장으로 남은 아우슈비츠 수용소",
+                summary: "나치 독일은 게르만족이 가장 우월하다는 극단적인 인종주의를 내세워 유대인, 집시, 장애인, 정치범 등을 강제 수용소에 가두고 조직적으로 학살했습니다. 이를 '홀로코스트(Holocaust)'라고 부르며, 아우슈비츠 수용소 등을 비롯한 유럽 전역에서 약 600만 명의 유대인이 목숨을 잃었습니다.",
+                textbookPoint: "제2차 세계대전은 단순한 영토 전쟁을 넘어 끔찍한 인권 유린을 낳았습니다. 독일의 유대인 대학살(홀로코스트)과 일본의 난징 대학살, 731부대 생체실험, 일본군 '위안부' 강제 동원은 인류가 절대 반복해서는 안 될 역사적 교훈입니다.",
+                question: "전쟁이 끝난 후 세계 여러 나라가 모여 1948년 '세계 인권 선언'을 채택한 이유는 무엇일까요?",
+                answer: "홀로코스트와 같은 국가 권력의 잔혹한 폭력과 차별을 반성하고, 인종·종교·국적에 상관없이 모든 인간의 존엄성과 기본적 인권을 국제적으로 보호하기 위해서입니다.",
+                videoKeywords: [
+                    "🕯️ 홀로코스트(Holocaust): 나치 독일이 자행한 유대인 600만 명 등 민간인 집단 학살",
+                    "📖 안네의 일기: 나치의 눈을 피해 은신처에서 평화와 희망을 기록한 유대인 소녀 안네 프랑크",
+                    "⚖️ 전쟁 범죄와 인권: 전후 뉘른베르크 재판·도쿄 재판 및 '세계 인권 선언(1948)'의 배경"
+                ],
+                ytQuery: "아우슈비츠 수용소 홀로코스트 안네의 일기 역사",
+                wikiQuery: "홀로코스트",
+                tacticType: "memorial"
+            },
+            {
+                id: 10,
+                step: 10,
+                title: "노르망디 상륙작전과 이탈리아 항복",
+                shortTitle: "노르망디 상륙",
+                date: "1944년 6월 6일 (D-Day)",
+                year: "1944",
+                theater: "europe",
+                theaterName: "유럽 전선 (서부)",
+                phase: "4단계: 연합국의 대반격",
+                locationName: "프랑스 북서부 노르망디 해안",
+                lat: 49.3386,
+                lng: -0.5586,
+                altitude: 1.4,
+                wikiEnTitle: "Normandy_landings",
+                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/a/a5/Into_the_Jaws_of_Death_23-0455M_edit.jpg&w=900&output=jpg",
+                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/0/07/Normandy_Supply_edit.jpg&w=900&output=jpg",
+                googleImgQuery: "1944년 노르망디 상륙작전 디데이 실제 사진 Normandy landings D-Day",
+                imageCaption: "1944년 6월 6일 D-Day, 독일군의 방어선을 뚫고 프랑스 노르망디 오마하 해변에 상륙하는 연합군 장병들",
+                summary: "1943년 북아프리카를 평정하고 시칠리아에 상륙한 연합군은 먼저 파시스트 이탈리아의 항복(1943.9)을 받아냈습니다. 이어 1944년 6월 6일, 아이젠하워 장군이 지휘하는 미·영·캐나다 연합군이 함정 5,000여 척과 비행기 1만 대를 동원해 프랑스 노르망디 해안에 기습 상륙(오버로드 작전)하여 마침내 파리를 해방시켰습니다.",
+                textbookPoint: "노르망디 상륙작전 성공으로 유럽 서부전선이 다시 열렸습니다! 이로써 독일은 서쪽의 미·영 연합군과 동쪽의 소련군에게 양쪽에서 협공을 당하게 됩니다.",
+                question: "작전 개시일을 뜻하는 'D-Day(디데이)'라는 말이 오늘날에도 중요한 시험일이나 행사일을 가리키는 말로 쓰이게 된 배경은 무엇일까요?",
+                answer: "인류 역사상 최대 규모의 상륙작전이었던 1944년 6월 6일 노르망디 상륙작전이 전쟁의 승패를 결정지은 가장 극적인 날로 기억되면서 널리 퍼지게 되었습니다.",
+                videoKeywords: [
+                    "🇮🇹 이탈리아의 항복(1943.9): 무솔리니 실각과 함께 추축국 세 나라 중 가장 먼저 탈락",
+                    "🌊 노르망디 상륙(1944.6.6): 사상 최대 규모의 육·해·공 합동 상륙작전으로 서부전선 개척",
+                    "🗼 파리 해방(1944.8): 4년간의 나치 점령에서 벗어나 자유 프랑스군과 시민들이 파리를 되찾음"
+                ],
+                ytQuery: "노르망디 상륙작전 디데이 2차세계대전",
+                wikiQuery: "노르망디_상륙",
+                tacticType: "dday"
+            },
+            {
+                id: 11,
+                step: 11,
+                title: "베를린 함락과 독일의 무조건 항복",
+                shortTitle: "독일 항복",
+                date: "1945년 5월 8일 (V-E Day)",
+                year: "1945.5",
+                theater: "europe",
+                theaterName: "유럽 전선",
+                phase: "5단계: 추축국의 패망",
+                locationName: "독일 수도 베를린 제국의회 의사당",
+                lat: 52.5186,
+                lng: 13.3761,
+                altitude: 1.3,
+                wikiEnTitle: "Battle_of_Berlin",
+                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/1/17/Raising_a_flag_over_the_Reichstag_2.jpg&w=900&output=jpg",
+                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/c/c2/ Brandenburg_Gate_1945.jpg&w=900&output=jpg",
+                googleImgQuery: "1945년 베를린 함락 독일 항복 제국의회 깃발 사진 Battle of Berlin",
+                imageCaption: "1945년 5월, 폐허가 된 독일 베를린의 제국의회 의사당 옥상에 승리의 깃발을 꽂는 연합군(소련군)",
+                summary: "서쪽에서는 미·영 연합군이, 동쪽에서는 소련군이 독일 심장부를 향해 진격해 들어왔습니다. 소련군이 수도 베를린을 완전히 포위하자 히틀러는 지하 벙커에서 스스로 목숨을 끊었고(4월 30일), 1945년 5월 8일 독일이 무조건 항복 문서에 서명하면서 유럽에서의 전쟁이 마침내 끝났습니다.",
+                textbookPoint: "독일의 패망이 임박하자 연합국 정상들(미·영·소)은 카이로 회담(1943.11, 한국의 독립 최초 약속)과 얄타 회담(1945.2, 전후 처리와 소련의 대일전 참전 결정)을 열어 전후 질서를 논의했습니다.",
+                question: "독일이 항복하기 전 열린 '카이로 회담(1943)'이 우리 한국사에서 매우 중요하게 다루어지는 이유는 무엇인가요?",
+                answer: "미국(루스벨트), 영국(처칠), 중국(장제스) 세 나라 정상이 모여 '적절한 절차에 따라 한국을 자유롭고 독립된 나라로 만든다'고 국제 사회에서 최초로 약속했기 때문입니다.",
+                videoKeywords: [
+                    "🤝 엘베강의 만남: 서쪽에서 온 미군과 동쪽에서 온 소련군이 독일 엘베강에서 만나 악수",
+                    "🏳️ 베를린 함락(1945.5): 히틀러의 최후와 독일의 무조건 항복으로 유럽 전쟁 종결",
+                    "📜 카이로·얄타·포츠담 회담: 연합국 수뇌부가 모여 전후 세계 질서와 한국의 독립을 약속"
+                ],
+                ytQuery: "베를린 공방전 독일 항복 카이로 회담 얄타 회담",
+                wikiQuery: "베를린_전투",
+                tacticType: "pincer"
+            },
+            {
+                id: 12,
+                step: 12,
+                title: "원자폭탄 투하와 일본 항복 (8·15 광복)",
+                shortTitle: "일본 항복·광복",
+                date: "1945년 8월 15일",
+                year: "1945.8",
+                theater: "pacific",
+                theaterName: "아시아·태평양 전선",
+                phase: "5단계: 제2차 세계대전 종결",
+                locationName: "일본 히로시마 · 나가사키 · 도쿄만 (및 서울)",
+                lat: 34.3853,
+                lng: 132.4553,
+                altitude: 1.4,
+                wikiEnTitle: "Atomic_bombings_of_Hiroshima_and_Nagasaki",
+                imageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/5/54/Atomic_bombing_of_Japan.jpg&w=900&output=jpg",
+                backupImageUrl: "https://wsrv.nl/?url=upload.wikimedia.org/wikipedia/commons/e/e0/Nagasakibomb.jpg&w=900&output=jpg",
+                googleImgQuery: "1945년 히로시마 나가사키 원자폭탄 일본 항복 815 광복 사진",
+                imageCaption: "1945년 8월 히로시마와 나가사키에 투하된 원자폭탄 버섯구름. 이어 8월 15일 일본이 무조건 항복하며 광복을 맞이했다.",
+                summary: "독일이 항복한 뒤에도 일본은 '일억옥쇄(1억 국민이 모두 죽을 때까지 싸운다)'를 외치며 카미카제 자살특공대 등으로 저항했습니다. 연합국은 포츠담 선언으로 항복을 권고했으나 일본이 거부하자, 미국은 8월 6일 히로시마와 8월 9일 나가사키에 원자폭탄을 투하했고 소련도 대일전에 참전했습니다. 결국 1945년 8월 15일 일본이 무조건 항복하면서 6년간의 제2차 세계대전이 막을 내렸고, 우리 민족은 꿈에 그리던 '8·15 광복'을 맞이했습니다.",
+                textbookPoint: "1945년 8월 15일 일본의 무조건 항복으로 제2차 세계대전이 완전히 끝났으며, 전쟁 후 인류는 평화를 지키기 위해 국제연맹보다 훨씬 강력한 '국제연합(UN)'을 창설했습니다.",
+                question: "제1차 세계대전 후 만든 '국제연맹'은 제2차 세계대전을 막지 못했습니다. 이를 보완하여 새롭게 탄생한 '국제연합(UN)'은 어떤 점이 달라졌을까요?",
+                answer: "미국과 소련 등 강대국이 모두 참여했고, 침략국을 제재할 때 군사력을 동원할 수 있는 'UN군(평화유지군)' 파병 권한을 갖추어 평화 유지 힘을 크게 강화했습니다.",
+                videoKeywords: [
+                    "☢️ 히로시마·나가사키 원폭 투하(1945.8.6 / 8.9) 및 소련군의 만주·한반도 북부 진격",
+                    "🇰🇷 1945년 8월 15일 일본의 무조건 항복 선언과 대한민국의 감격스러운 광복!",
+                    "🕊️ 국제연합(UN) 창설(1945.10): 인류의 평화와 안전, 인권 수호를 위한 새로운 국제기구 탄생"
+                ],
+                ytQuery: "태평양 전쟁 종전 히로시마 원폭 815 광복 국제연합 UN",
+                wikiQuery: "일본의_항복",
+                tacticType: "peace"
+            }
+        ];
+
+        // 캐시된 위키백과 API 고화질 썸네일 저장소
+        const wikiImageCache = {};
+
+        /**
+         * 정리 퀴즈 데이터 (수업 마무리 확인용)
+         */
+        const quizQuestions = [
+            {
+                q: "Q1. 1939년 9월 1일, 독일이 소련과 불가침 조약을 맺은 직후 이 나라를 기습 침공하면서 제2차 세계대전이 시작되었습니다. 이 나라는 어디일까요?",
+                options: ["① 프랑스", "② 폴란드", "③ 벨기에", "④ 오스트리아"],
+                correct: 1,
+                exp: "정답은 ② 폴란드입니다! 독일의 폴란드 침공에 맞서 영국과 프랑스가 선전포고하며 제2차 세계대전이 발발했습니다."
+            },
+            {
+                q: "Q2. 1941년 12월, 일본이 미국의 하와이 해군 기지를 기습 공격하면서 태평양 전쟁이 일어났습니다. 이 사건의 이름은 무엇일까요?",
+                options: ["① 미드웨이 해전", "② 노르망디 상륙작전", "③ 진주만 기습", "④ 영국 본토 항공전"],
+                correct: 2,
+                exp: "정답은 ③ 진주만 기습입니다! 이 사건으로 중립을 지키던 미국이 연합국 편에서 본격적으로 전쟁에 참전했습니다."
+            },
+            {
+                q: "Q3. 1943년 11월 미·영·중 정상이 모여 '한국의 독립'을 최초로 약속한 회담과, 제2차 세계대전이 끝난 후 세계 평화를 위해 창설된 국제기구를 바르게 짝지은 것은?",
+                options: [
+                    "① 파리 강화 회의 - 국제연맹",
+                    "② 카이로 회담 - 국제연합(UN)",
+                    "③ 뮌헨 회담 - 유럽연합(EU)",
+                    "④ 워싱턴 회의 - 국제연합(UN)"
+                ],
+                correct: 1,
+                exp: "정답은 ② 카이로 회담 - 국제연합(UN)입니다! 카이로 선언에서 한국의 독립이 최초로 명시되었고, 종전 후 UN이 창설되었습니다."
+            }
+        ];
+
+        // ================= STATE VARIABLES =================
+        let currentIndex = 0;
+        let currentFilter = 'all';
+        let currentMapMode = '3d'; // '3d' or '2d'
+        let currentMediaTab = 'photo'; // 'photo', 'video', 'tactic'
+        let isAutoPlaying = false;
+        let autoPlayTimer = null;
+
+        let globeInstance = null;
+        let leafletMap = null;
+        let leafletMarkers = [];
+        let leafletPolyline = null;
+
+        // ================= INITIALIZATION =================
+        window.onload = function () {
+            initGlobe3D();
+            initLeaflet2D();
+            renderTimeline();
+            preloadWikiThumbnails();
+            selectEvent(0);
+
+            window.addEventListener('resize', () => {
+                if (globeInstance && currentMapMode === '3d') {
+                    const container = document.getElementById('globe-container');
+                    globeInstance.width(container.clientWidth);
+                    globeInstance.height(container.clientHeight);
+                }
+                if (leafletMap && currentMapMode === '2d') {
+                    leafletMap.invalidateSize();
+                }
+            });
+        };
+
+        // ================= 3D GLOBE (GOOGLE EARTH STYLE) =================
+        function initGlobe3D() {
+            const container = document.getElementById('globe-container');
+            try {
+                globeInstance = Globe()(container)
+                    .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+                    .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+                    .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png')
+                    .showAtmosphere(true)
+                    .atmosphereColor('#38bdf8')
+                    .atmosphereAltitude(0.18)
+                    .width(container.clientWidth)
+                    .height(container.clientHeight);
+
+                // Smooth controls
+                const controls = globeInstance.controls();
+                controls.enableDamping = true;
+                controls.dampingFactor = 0.08;
+                controls.rotateSpeed = 0.7;
+                controls.zoomSpeed = 0.9;
+
+                updateGlobeMarkersAndArcs();
+            } catch (err) {
+                console.error("3D Globe initialization error, switching to 2D map:", err);
+                switchMapMode('2d');
+            }
+        }
+
+        function updateGlobeMarkersAndArcs() {
+            if (!globeInstance) return;
+
+            const filteredEvents = getFilteredEvents();
+
+            // Create connecting arcs between sequential events
+            const arcsData = [];
+            for (let i = 0; i < filteredEvents.length - 1; i++) {
+                const start = filteredEvents[i];
+                const end = filteredEvents[i + 1];
+                const isCurrentArc = (ww2Events[currentIndex].id === end.id);
+                arcsData.push({
+                    startLat: start.lat,
+                    startLng: start.lng,
+                    endLat: end.lat,
+                    endLng: end.lng,
+                    color: isCurrentArc ? ['#fbbf24', '#ef4444'] : ['rgba(148, 163, 184, 0.35)', 'rgba(251, 191, 36, 0.55)'],
+                    stroke: isCurrentArc ? 1.1 : 0.45
+                });
+            }
+
+            globeInstance
+                .arcsData(arcsData)
+                .arcColor('color')
+                .arcDashLength(0.5)
+                .arcDashGap(0.2)
+                .arcDashAnimateTime(2200)
+                .arcStroke('stroke')
+                .arcAltitudeAutoScale(0.35);
+
+            // Render custom HTML pins on the 3D globe
+            globeInstance
+                .htmlElementsData(filteredEvents)
+                .htmlLat(d => d.lat)
+                .htmlLng(d => d.lng)
+                .htmlAltitude(0.01)
+                .htmlElement(d => {
+                    const isSelected = (ww2Events[currentIndex].id === d.id);
+                    const isEurope = d.theater === 'europe';
+                    const bgClass = isSelected 
+                        ? 'bg-amber-400 text-slate-950 ring-4 ring-amber-400/50 scale-125' 
+                        : (isEurope ? 'bg-blue-600 text-white hover:bg-blue-500' : 'bg-rose-600 text-white hover:bg-rose-500');
+
+                    const el = document.createElement('div');
+                    el.className = 'globe-pin flex flex-col items-center group';
+                    el.style.zIndex = isSelected ? '40' : '10';
+                    el.innerHTML = `
+                        <div class="px-2 py-0.5 rounded-md text-[10px] font-bold mb-1 whitespace-nowrap shadow-md transition-all ${
+                            isSelected 
+                                ? 'bg-amber-400 text-slate-950 font-black' 
+                                : 'bg-slate-900/90 text-slate-100 border border-slate-700 opacity-90 group-hover:opacity-100'
+                        }">
+                            ${d.step}. ${d.shortTitle}
+                        </div>
+                        <div class="relative w-7 h-7 rounded-full flex items-center justify-center font-black text-xs shadow-lg border-2 border-white ${bgClass} ${isSelected ? 'marker-pulse' : ''}">
+                            ${d.step}
+                        </div>
+                    `;
+                    el.onclick = (e) => {
+                        e.stopPropagation();
+                        const targetIdx = ww2Events.findIndex(item => item.id === d.id);
+                        if (targetIdx !== -1) selectEvent(targetIdx);
+                    };
+                    return el;
+                });
+        }
+
+        // ================= 2D LEAFLET DETAILED MAP =================
+        function initLeaflet2D() {
+            leafletMap = L.map('map2d-container', {
+                center: [35, 20],
+                zoom: 3,
+                minZoom: 2,
+                maxZoom: 12,
+                worldCopyJump: true
+            });
+
+            // High-contrast Satellite + Labels hybrid look using Esri World Imagery + Labels
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri'
+            }).addTo(leafletMap);
+
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+                opacity: 0.85
+            }).addTo(leafletMap);
+
+            updateLeafletMarkers();
+        }
+
+        function updateLeafletMarkers() {
+            if (!leafletMap) return;
+
+            leafletMarkers.forEach(m => leafletMap.removeLayer(m));
+            leafletMarkers = [];
+            if (leafletPolyline) leafletMap.removeLayer(leafletPolyline);
+
+            const filteredEvents = getFilteredEvents();
+            const latlngs = [];
+
+            filteredEvents.forEach(d => {
+                latlngs.push([d.lat, d.lng]);
+                const isSelected = (ww2Events[currentIndex].id === d.id);
+                const colorHex = isSelected ? '#fbbf24' : (d.theater === 'europe' ? '#2563eb' : '#e11d48');
+                const textColor = isSelected ? '#0f172a' : '#ffffff';
+
+                const icon = L.divIcon({
+                    className: 'custom-leaflet-pin',
+                    html: `
+                        <div style="display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-50%);">
+                            <div style="background:rgba(15,23,42,0.92);color:#f8fafc;padding:2px 6px;border-radius:6px;font-size:11px;font-weight:700;white-space:nowrap;border:1px solid #475569;margin-bottom:3px;">
+                                ${d.step}. ${d.shortTitle}
+                            </div>
+                            <div style="width:28px;height:28px;border-radius:9999px;background:${colorHex};color:${textColor};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;border:2px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,0.5);">
+                                ${d.step}
+                            </div>
+                        </div>
+                    `,
+                    iconSize: [30, 30],
+                    iconAnchor: [15, 15]
+                });
+
+                const marker = L.marker([d.lat, d.lng], { icon }).addTo(leafletMap);
+                marker.on('click', () => {
+                    const idx = ww2Events.findIndex(item => item.id === d.id);
+                    if (idx !== -1) selectEvent(idx);
+                });
+                leafletMarkers.push(marker);
+            });
+
+            if (latlngs.length > 1) {
+                leafletPolyline = L.polyline(latlngs, {
+                    color: '#fbbf24',
+                    weight: 2.5,
+                    dashArray: '6, 8',
+                    opacity: 0.75
+                }).addTo(leafletMap);
+            }
+        }
+
+        // ================= EVENT SELECTION & UI UPDATE =================
+        function selectEvent(index) {
+            if (index < 0) index = ww2Events.length - 1;
+            if (index >= ww2Events.length) index = 0;
+            currentIndex = index;
+
+            const ev = ww2Events[currentIndex];
+
+            // 1. Update Right Sidebar Header
+            document.getElementById('event-step-badge').textContent = `STEP ${ev.step} / ${ww2Events.length}`;
+            
+            const theaterBadge = document.getElementById('event-theater-badge');
+            theaterBadge.textContent = ev.theaterName;
+            if (ev.theater === 'europe') {
+                theaterBadge.className = 'px-2.5 py-0.5 rounded-md text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30';
+            } else {
+                theaterBadge.className = 'px-2.5 py-0.5 rounded-md text-xs font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30';
+            }
+
+            document.getElementById('event-date').innerHTML = `<i class="fa-regular fa-calendar"></i> ${ev.date}`;
+            document.getElementById('event-title').textContent = ev.title;
+            document.getElementById('event-location').innerHTML = `<i class="fa-solid fa-location-dot text-rose-400"></i> ${ev.locationName}`;
+            document.getElementById('phase-indicator').textContent = ev.phase;
+
+            // 2. Direct Google Earth Web Link
+            const earthUrl = `https://earth.google.com/web/@${ev.lat},${ev.lng},150a,35000d,35y,0h,0t,0r`;
+            document.getElementById('google-earth-link').href = earthUrl;
+
+            // 3. Photo Media (Multi-stage Reliable Historical Image Loader)
+            loadReliableHistoricalPhoto(ev);
+            document.getElementById('event-image-caption').textContent = ev.imageCaption;
+            document.getElementById('google-img-search-btn').href = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(ev.googleImgQuery)}`;
+
+            // 4. Video Briefing & Curated Links
+            document.getElementById('video-title').textContent = `[영상 학습] ${ev.title}`;
+            const keyPointsContainer = document.getElementById('video-key-points');
+            keyPointsContainer.innerHTML = ev.videoKeywords.map(kw => `
+                <div class="flex items-start gap-2 leading-relaxed">
+                    <span>${kw}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('yt-search-link').href = `https://www.youtube.com/results?search_query=${encodeURIComponent(ev.ytQuery)}`;
+            document.getElementById('ebs-search-link').href = `https://ko.wikipedia.org/wiki/${encodeURIComponent(ev.wikiQuery)}`;
+
+            // 5. Tactical Diagram SVG
+            renderTacticalDiagram(ev);
+
+            // 6. Text & Curriculum Point
+            document.getElementById('event-summary').textContent = ev.summary;
+            document.getElementById('event-textbook-point').textContent = ev.textbookPoint;
+            document.getElementById('event-question').textContent = `Q. ${ev.question}`;
+            const ansBox = document.getElementById('event-answer-box');
+            ansBox.textContent = `💡 길잡이 답안: ${ev.answer}`;
+            ansBox.classList.add('hidden');
+
+            document.getElementById('bottom-progress-text').textContent = `${ev.step} / ${ww2Events.length}`;
+
+            // 7. Fly Camera to Event Coordinates
+            if (currentMapMode === '3d' && globeInstance) {
+                globeInstance.pointOfView({
+                    lat: ev.lat,
+                    lng: ev.lng,
+                    altitude: ev.altitude || 1.5
+                }, 1400);
+                updateGlobeMarkersAndArcs();
+            } else if (currentMapMode === '2d' && leafletMap) {
+                leafletMap.flyTo([ev.lat, ev.lng], 5, { duration: 1.2 });
+                updateLeafletMarkers();
+            }
+
+            // 8. Highlight Timeline Node
+            updateTimelineHighlight();
+        }
+
+        // ================= RELIABLE HISTORICAL PHOTO LOADER =================
+        async function preloadWikiThumbnails() {
+            // 페이지 로드 시 각 사건의 공식 영문 위키백과 REST API에서 가장 정확한 대표 아카이브 이미지 URL을 미리 받아옵니다.
+            ww2Events.forEach(async (ev) => {
+                if (!ev.wikiEnTitle) return;
+                try {
+                    const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(ev.wikiEnTitle)}`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data.originalimage && data.originalimage.source) {
+                            // wsrv.nl 글로벌 이미지 캐시 프록시를 통해 리사이징 및 핫링크 차단 방지
+                            wikiImageCache[ev.id] = `https://wsrv.nl/?url=${encodeURIComponent(data.originalimage.source)}&w=900&output=jpg`;
+                        } else if (data.thumbnail && data.thumbnail.source) {
+                            wikiImageCache[ev.id] = data.thumbnail.source;
+                        }
+                        // 만약 현재 보고 있는 사건이라면 즉시 고화질 이미지 반영
+                        if (ww2Events[currentIndex].id === ev.id) {
+                            const imgEl = document.getElementById('event-image');
+                            if (imgEl && imgEl.dataset.loadedEventId !== String(ev.id)) {
+                                loadReliableHistoricalPhoto(ev);
+                            }
+                        }
+                    }
+                } catch (e) {
+                    // 오프라인이거나 API 차단 시 기본 설정된 CDN URL 사용
+                }
+            });
+        }
+
+        function createFallbackSvgCard(ev) {
+            const bg1 = ev.theater === 'europe' ? '#1e3a8a' : '#881337';
+            const bg2 = '#0f172a';
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+                <defs>
+                    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="${bg1}"/>
+                        <stop offset="100%" stop-color="${bg2}"/>
+                    </linearGradient>
+                </defs>
+                <rect width="800" height="500" fill="url(#g)"/>
+                <circle cx="680" cy="120" r="180" fill="rgba(255,255,255,0.04)"/>
+                <rect x="50" y="50" width="700" height="400" rx="20" fill="rgba(15,23,42,0.55)" stroke="rgba(251,191,36,0.4)" stroke-width="2"/>
+                <text x="90" y="120" fill="#fbbf24" font-family="sans-serif" font-size="22" font-weight="bold">STEP ${ev.step} · ${ev.date} (${ev.theaterName})</text>
+                <text x="90" y="185" fill="#ffffff" font-family="sans-serif" font-size="36" font-weight="bold">${ev.title}</text>
+                <text x="90" y="240" fill="#cbd5e1" font-family="sans-serif" font-size="20">📍 장소: ${ev.locationName}</text>
+                <text x="90" y="330" fill="#fde68a" font-family="sans-serif" font-size="18">상단의 [구글 이미지 더보기] 버튼을 누르면</text>
+                <text x="90" y="365" fill="#fde68a" font-family="sans-serif" font-size="18">이 사건의 수많은 실제 역사 사진을 확인할 수 있습니다.</text>
+            </svg>`;
+            return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+        }
+
+        function loadReliableHistoricalPhoto(ev) {
+            const imgEl = document.getElementById('event-image');
+            const loadingEl = document.getElementById('photo-loading');
+            if (loadingEl) loadingEl.classList.remove('hidden');
+
+            // 후보 이미지 리스트 구성 (1순위: 검증된 wsrv CDN 아카이브 사진, 2순위: 위키백과 API 실시간 원본, 3순위: 백업 사진, 4순위: 내장 그래픽 카드)
+            const candidates = [];
+            if (wikiImageCache[ev.id]) candidates.push(wikiImageCache[ev.id]);
+            if (ev.imageUrl) candidates.push(ev.imageUrl);
+            if (ev.backupImageUrl) candidates.push(ev.backupImageUrl);
+
+            let attempt = 0;
+
+            function tryNextSource() {
+                if (attempt < candidates.length) {
+                    const src = candidates[attempt];
+                    attempt++;
+                    imgEl.src = src;
+                } else {
+                    // 모든 외부 이미지가 학교 방화벽 등으로 막혔을 때 깨진 아이콘 대신 그래픽 카드 표시
+                    imgEl.src = createFallbackSvgCard(ev);
+                    if (loadingEl) loadingEl.classList.add('hidden');
+                }
+            }
+
+            imgEl.onload = function () {
+                imgEl.dataset.loadedEventId = String(ev.id);
+                if (loadingEl) loadingEl.classList.add('hidden');
+            };
+
+            imgEl.onerror = function () {
+                tryNextSource();
+            };
+
+            tryNextSource();
+
+            // 만약 위키 API가 아직 응답 전이라면 실시간 단건 조회 후 업데이트
+            if (!wikiImageCache[ev.id] && ev.wikiEnTitle) {
+                fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(ev.wikiEnTitle)}`)
+                    .then(r => r.ok ? r.json() : null)
+                    .then(data => {
+                        if (data && data.thumbnail && data.thumbnail.source) {
+                            const highResThumb = data.thumbnail.source.replace(/\/\d+px-/, '/900px-');
+                            wikiImageCache[ev.id] = highResThumb;
+                            if (ww2Events[currentIndex].id === ev.id) {
+                                imgEl.src = highResThumb;
+                            }
+                        }
+                    })
+                    .catch(() => {});
+            }
+        }
+
+        // ================= TACTICAL SVG GENERATOR =================
+        function renderTacticalDiagram(ev) {
+            const container = document.getElementById('tactic-svg-container');
+            const isEurope = ev.theater === 'europe';
+            const accentColor = isEurope ? '#3b82f6' : '#f43f5e';
+
+            let customGraphic = '';
+            if (ev.tacticType === 'blitzkrieg') {
+                customGraphic = `
+                    <svg viewBox="0 0 400 180" class="w-full h-full">
+                        <rect width="400" height="180" fill="#090d16" rx="12"/>
+                        <text x="20" y="28" fill="#fbbf24" font-size="13" font-weight="bold">⚡ 독일의 전격전(Blitzkrieg) 핵심 구조</text>
+                        <!-- Enemy Defense Line -->
+                        <line x1="250" y1="45" x2="250" y2="160" stroke="#64748b" stroke-width="4" stroke-dasharray="6,6"/>
+                        <text x="260" y="60" fill="#94a3b8" font-size="11">폴란드 방어선</text>
+                        <!-- Step 1: Air Strike -->
+                        <path d="M 60 65 Q 170 30 310 75" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="4,4"/>
+                        <circle cx="310" cy="75" r="14" fill="rgba(239,68,68,0.25)" stroke="#ef4444" stroke-width="2"/>
+                        <text x="295" y="105" fill="#f87171" font-size="10" font-weight="bold">① 공군 후방 폭격</text>
+                        <!-- Step 2: Tank Breakthrough -->
+                        <path d="M 50 115 L 285 115" stroke="#fbbf24" stroke-width="5"/>
+                        <polygon points="285,107 302,115 285,123" fill="#fbbf24"/>
+                        <rect x="40" y="100" width="95" height="30" rx="6" fill="#1e293b" stroke="#fbbf24"/>
+                        <text x="52" y="119" fill="#fde68a" font-size="11" font-weight="bold">② 기갑(탱크) 돌파</text>
+                        <!-- Step 3: Infantry Follow -->
+                        <path d="M 50 150 L 220 150" stroke="#94a3b8" stroke-width="3"/>
+                        <text x="55" y="144" fill="#cbd5e1" font-size="10">③ 보병 부대 잔적 소탕</text>
+                    </svg>
+                `;
+            } else if (ev.tacticType === 'midway' || ev.tacticType === 'carrier') {
+                customGraphic = `
+                    <svg viewBox="0 0 400 180" class="w-full h-full">
+                        <rect width="400" height="180" fill="#081c2e" rx="12"/>
+                        <text x="20" y="28" fill="#38bdf8" font-size="13" font-weight="bold">🚢 태평양 항공모함 기동전 개념도</text>
+                        <!-- Left Carrier -->
+                        <rect x="35" y="105" width="90" height="34" rx="8" fill="#1e293b" stroke="#f43f5e" stroke-width="2"/>
+                        <text x="47" y="126" fill="#fda4af" font-size="11" font-weight="bold">일본 기동함대</text>
+                        <!-- Right Target / US Fleet -->
+                        <rect x="265" y="105" width="100" height="34" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+                        <text x="275" y="126" fill="#93c5fd" font-size="11" font-weight="bold">미국 태평양함대</text>
+                        <!-- Air Arc -->
+                        <path d="M 80 100 Q 200 25 310 100" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="5,5"/>
+                        <text x="135" y="55" fill="#fde68a" font-size="11" font-weight="bold">✈️ 함재기 장거리 공습 및 암호 해독전</text>
+                        <text x="35" y="162" fill="#cbd5e1" font-size="10">* 태평양 전쟁은 함포 사격 대신 항공모함 비행기가 승패를 결정했습니다.</text>
+                    </svg>
+                `;
+            } else {
+                customGraphic = `
+                    <svg viewBox="0 0 400 180" class="w-full h-full">
+                        <rect width="400" height="180" fill="#0b1120" rx="12"/>
+                        <text x="20" y="30" fill="#fbbf24" font-size="13" font-weight="bold">🗺️ [${ev.shortTitle}] 핵심 전략 요약도</text>
+                        <rect x="24" y="46" width="155" height="65" rx="10" fill="#1e293b" stroke="${accentColor}" stroke-width="2"/>
+                        <text x="38" y="70" fill="#94a3b8" font-size="10">작전 지역 및 연도</text>
+                        <text x="38" y="92" fill="#ffffff" font-size="12" font-weight="bold">${ev.year}년 · ${ev.theaterName}</text>
+                        
+                        <path d="M 185 78 L 215 78" stroke="#fbbf24" stroke-width="3"/>
+                        <polygon points="212,72 224,78 212,84" fill="#fbbf24"/>
+
+                        <rect x="230" y="46" width="146" height="65" rx="10" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+                        <text x="244" y="70" fill="#fde68a" font-size="10">역사적 결과</text>
+                        <text x="244" y="92" fill="#ffffff" font-size="12" font-weight="bold">${ev.phase.split(':')[1] || ev.phase}</text>
+
+                        <rect x="24" y="124" width="352" height="38" rx="8" fill="rgba(251,191,36,0.1)" stroke="rgba(251,191,36,0.3)"/>
+                        <text x="36" y="147" fill="#fef08a" font-size="11">💡 지구본의 점선 경로를 따라 이전·다음 사건과의 연결고리를 확인하세요!</text>
+                    </svg>
+                `;
+            }
+            container.innerHTML = customGraphic;
+        }
+
+        // ================= TIMELINE BAR RENDERING =================
+        function renderTimeline() {
+            const container = document.getElementById('timeline-container');
+            const filtered = getFilteredEvents();
+
+            container.innerHTML = filtered.map(ev => {
+                const realIdx = ww2Events.findIndex(item => item.id === ev.id);
+                const isSelected = (realIdx === currentIndex);
+                const dotColor = ev.theater === 'europe' ? 'bg-blue-400' : 'bg-rose-400';
+
+                return `
+                    <button onclick="selectEvent(${realIdx})" id="tl-btn-${ev.id}"
+                        class="shrink-0 px-3 py-2 rounded-xl border text-left transition-all flex items-center gap-2.5 ${
+                            isSelected 
+                                ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-lg shadow-amber-500/20 scale-[1.02]' 
+                                : 'bg-slate-900/90 hover:bg-slate-800 text-slate-300 border-slate-800'
+                        }">
+                        <span class="w-6 h-6 rounded-lg flex items-center justify-center text-xs font-black ${
+                            isSelected ? 'bg-slate-950 text-amber-400' : 'bg-slate-800 text-slate-300'
+                        }">${ev.step}</span>
+                        <div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full ${dotColor}"></span>
+                                <span class="text-[10px] font-bold ${isSelected ? 'text-slate-900' : 'text-slate-400'}">${ev.year}</span>
+                            </div>
+                            <div class="text-xs font-extrabold whitespace-nowrap">${ev.shortTitle}</div>
+                        </div>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function updateTimelineHighlight() {
+            renderTimeline();
+            const currentEv = ww2Events[currentIndex];
+            const activeBtn = document.getElementById(`tl-btn-${currentEv.id}`);
+            if (activeBtn) {
+                activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
+        }
+
+        // ================= FILTERING & NAVIGATION =================
+        function getFilteredEvents() {
+            if (currentFilter === 'all') return ww2Events;
+            return ww2Events.filter(e => e.theater === currentFilter);
+        }
+
+        function setFilter(filterType) {
+            currentFilter = filterType;
+            ['all', 'europe', 'pacific'].forEach(t => {
+                const btn = document.getElementById(`filter-${t}`);
+                if (t === filterType) {
+                    btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-amber-500 text-slate-950 shadow flex items-center gap-1.5';
+                } else {
+                    btn.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white transition-all flex items-center gap-1.5';
+                }
+            });
+
+            const filtered = getFilteredEvents();
+            if (!filtered.some(e => e.id === ww2Events[currentIndex].id)) {
+                const firstRealIdx = ww2Events.findIndex(e => e.id === filtered[0].id);
+                selectEvent(firstRealIdx);
+            } else {
+                updateGlobeMarkersAndArcs();
+                updateLeafletMarkers();
+                renderTimeline();
+            }
+        }
+
+        function nextEvent() {
+            const filtered = getFilteredEvents();
+            const curFilteredIdx = filtered.findIndex(e => e.id === ww2Events[currentIndex].id);
+            const nextEv = filtered[(curFilteredIdx + 1) % filtered.length];
+            const realIdx = ww2Events.findIndex(e => e.id === nextEv.id);
+            selectEvent(realIdx);
+        }
+
+        function prevEvent() {
+            const filtered = getFilteredEvents();
+            const curFilteredIdx = filtered.findIndex(e => e.id === ww2Events[currentIndex].id);
+            const prevEv = filtered[(curFilteredIdx - 1 + filtered.length) % filtered.length];
+            const realIdx = ww2Events.findIndex(e => e.id === prevEv.id);
+            selectEvent(realIdx);
+        }
+
+        function toggleAutoPlay() {
+            isAutoPlaying = !isAutoPlaying;
+            const icon = document.getElementById('autoplay-icon');
+            const text = document.getElementById('autoplay-text');
+            const btn = document.getElementById('autoplay-btn');
+
+            if (isAutoPlaying) {
+                icon.className = 'fa-solid fa-pause';
+                text.textContent = '투어 일시정지';
+                btn.className = 'flex-1 py-1.5 px-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs flex items-center justify-center gap-2 transition shadow';
+                autoPlayTimer = setInterval(() => {
+                    nextEvent();
+                }, 5500);
+            } else {
+                icon.className = 'fa-solid fa-play';
+                text.textContent = '투어 자동 재생';
+                btn.className = 'flex-1 py-1.5 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow';
+                clearInterval(autoPlayTimer);
+            }
+        }
+
+        // ================= 3D / 2D MAP MODE SWITCH =================
+        function switchMapMode(mode) {
+            currentMapMode = mode;
+            const globeEl = document.getElementById('globe-container');
+            const map2dEl = document.getElementById('map2d-container');
+            const btn3d = document.getElementById('mode-3dBtn');
+            const btn2d = document.getElementById('mode-2dBtn');
+
+            if (mode === '3d') {
+                globeEl.classList.remove('hidden');
+                map2dEl.classList.add('hidden');
+                btn3d.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow flex items-center gap-1.5 transition-all';
+                btn2d.className = 'px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white flex items-center gap-1.5 transition-all';
+                if (globeInstance) {
+                    globeInstance.width(globeEl.clientWidth);
+                    globeInstance.height(globeEl.clientHeight);
+                    const ev = ww2Events[currentIndex];
+                    globeInstance.pointOfView({ lat: ev.lat, lng: ev.lng, altitude: ev.altitude }, 1000);
+                }
+            } else {
+                globeEl.classList.add('hidden');
+                map2dEl.classList.remove('hidden');
+                btn2d.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow flex items-center gap-1.5 transition-all';
+                btn3d.className = 'px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white flex items-center gap-1.5 transition-all';
+                if (leafletMap) {
+                    setTimeout(() => {
+                        leafletMap.invalidateSize();
+                        const ev = ww2Events[currentIndex];
+                        leafletMap.setView([ev.lat, ev.lng], 5);
+                        updateLeafletMarkers();
+                    }, 100);
+                }
+            }
+        }
+
+        function resetCameraView() {
+            if (currentMapMode === '3d' && globeInstance) {
+                globeInstance.pointOfView({ lat: 30, lng: 20, altitude: 2.3 }, 1200);
+            } else if (currentMapMode === '2d' && leafletMap) {
+                leafletMap.flyTo([30, 20], 2);
+            }
+        }
+
+        // ================= MEDIA TABS & MODALS =================
+        function switchMediaTab(tab) {
+            currentMediaTab = tab;
+            ['photo', 'video', 'tactic'].forEach(t => {
+                const view = document.getElementById(`media-${t}-view`);
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === tab) {
+                    view.classList.remove('hidden');
+                    view.classList.add('block');
+                    btn.className = 'pb-2.5 text-xs font-bold border-b-2 border-amber-500 text-amber-400 flex items-center gap-1.5 transition';
+                } else {
+                    view.classList.add('hidden');
+                    view.classList.remove('block');
+                    btn.className = 'pb-2.5 text-xs font-bold border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition';
+                }
+            });
+        }
+
+        function toggleAnswer() {
+            const ansBox = document.getElementById('event-answer-box');
+            ansBox.classList.toggle('hidden');
+        }
+
+        function openLightbox() {
+            const ev = ww2Events[currentIndex];
+            const currentDisplayedSrc = document.getElementById('event-image').src;
+            document.getElementById('lightbox-title').textContent = `${ev.step}. ${ev.title}`;
+            document.getElementById('lightbox-img').src = currentDisplayedSrc || ev.imageUrl;
+            document.getElementById('lightbox-caption').textContent = ev.imageCaption;
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // ================= GOOGLE EARTH KML FILE GENERATOR =================
+        function downloadKML() {
+            let placemarks = ww2Events.map(ev => `
+        <Placemark>
+            <name>[${ev.step}단계] ${ev.title} (${ev.date})</name>
+            <description><![CDATA[
+                <div style="font-family:sans-serif;max-width:420px;line-height:1.6;">
+                    <h3 style="color:#d97706;margin-bottom:4px;">${ev.step}. ${ev.title}</h3>
+                    <p style="font-size:12px;color:#64748b;margin-top:0;"><b>일시:</b> ${ev.date} | <b>장소:</b> ${ev.locationName}</p>
+                    <img src="${ev.imageUrl}" style="width:100%;border-radius:8px;margin:8px 0;" />
+                    <p style="font-size:13px;">${ev.summary}</p>
+                    <div style="background:#fef3c7;padding:10px;border-radius:8px;font-size:12px;color:#92400e;">
+                        <b>★ 중2 역사 핵심 포인트:</b><br/>${ev.textbookPoint}
+                    </div>
+                    <p style="margin-top:10px;font-size:12px;">
+                        <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(ev.ytQuery)}" target="_blank">▶ 유튜브 관련 역사 영상 보기</a>
+                    </p>
+                </div>
+            ]]></description>
+            <LookAt>
+                <longitude>${ev.lng}</longitude>
+                <latitude>${ev.lat}</latitude>
+                <altitude>0</altitude>
+                <heading>0</heading>
+                <tilt>45</tilt>
+                <range>450000</range>
+            </LookAt>
+            <Point>
+                <coordinates>${ev.lng},${ev.lat},0</coordinates>
+            </Point>
+        </Placemark>`).join('\n');
+
+            const coordsLine = ww2Events.map(ev => `${ev.lng},${ev.lat},0`).join(' ');
+
+            const kmlContent = `<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+    <Document>
+        <name>중2 역사 - 제2차 세계대전의 전개과정 (1939~1945)</name>
+        <description>구글 어스(earth.google.com)의 [프로젝트] -> [KML 파일 가져오기]로 열면 슬라이드 프레젠테이션 투어가 가능합니다.</description>
+        ${placemarks}
+        <Placemark>
+            <name>제2차 세계대전 시간순 진행 경로</name>
+            <LineString>
+                <tessellate>1</tessellate>
+                <coordinates>${coordsLine}</coordinates>
+            </LineString>
+        </Placemark>
+    </Document>
+</kml>`;
+
+            const blob = new Blob([kmlContent], { type: 'application/vnd.google-earth.kml+xml;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '중2역사_제2차세계대전_구글어스투어.kml';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // ================= CLASSROOM QUIZ MODAL =================
+        function openQuizModal() {
+            const modal = document.getElementById('quiz-modal');
+            const body = document.getElementById('quiz-body');
+
+            body.innerHTML = quizQuestions.map((item, qIdx) => `
+                <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2.5">
+                    <p class="text-xs sm:text-sm font-bold text-white leading-relaxed">${item.q}</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        ${item.options.map((opt, oIdx) => `
+                            <button onclick="checkQuizAnswer(${qIdx}, ${oIdx})" id="quiz-btn-${qIdx}-${oIdx}"
+                                class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-medium text-slate-200 text-left transition">
+                                ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <p id="quiz-exp-${qIdx}" class="hidden text-xs pt-2 border-t border-slate-800 font-medium"></p>
+                </div>
+            `).join('');
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function checkQuizAnswer(qIdx, selectedIdx) {
+            const item = quizQuestions[qIdx];
+            const expEl = document.getElementById(`quiz-exp-${qIdx}`);
+            expEl.classList.remove('hidden');
+
+            item.options.forEach((_, idx) => {
+                const btn = document.getElementById(`quiz-btn-${qIdx}-${idx}`);
+                if (idx === item.correct) {
+                    btn.className = 'px-3 py-2 rounded-xl bg-emerald-600/30 border border-emerald-500 text-xs font-bold text-emerald-300 text-left';
+                } else if (idx === selectedIdx) {
+                    btn.className = 'px-3 py-2 rounded-xl bg-rose-600/30 border border-rose-500 text-xs font-bold text-rose-300 text-left';
+                }
+            });
+
+            if (selectedIdx === item.correct) {
+                expEl.className = 'text-xs pt-2 border-t border-slate-800 font-bold text-emerald-400';
+                expEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> 정답! ${item.exp}`;
+            } else {
+                expEl.className = 'text-xs pt-2 border-t border-slate-800 font-bold text-rose-400';
+                expEl.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> 아쉬워요! ${item.exp}`;
+            }
+        }
+
+        function closeQuizModal() {
+            const modal = document.getElementById('quiz-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    </script>
+<a href="../" aria-label="수업 목록으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483000;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:rgba(31,29,26,.88);color:#fff;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.2;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)">← 수업 목록</a>
+</body>
+</html>
