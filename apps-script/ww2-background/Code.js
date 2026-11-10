@@ -16,7 +16,9 @@ var HEADERS = ['제출일시', '학반', '번호', '이름', '탐구1(㉠답안)
   '탐구2(전체주의특징종합)', '반박관점', '탐구3(전체주의반박글)', '챗봇토론기록'];
 var FIELDS = ['timestamp', 'className', 'studentNumber', 'studentName', 'q1Answer', 'q2Fascism', 'q2Nazism',
   'q2Combined', 'stance', 'q3Rebuttal', 'chatTranscript'];
-var DEFAULT_MODELS = ['gemini-flash-latest', 'gemini-2.5-flash'];
+var DEFAULT_MODELS = ['gemini-flash-lite-latest', 'gemini-3-flash-preview', 'gemini-flash-latest'];
+var LAST_AI_ERROR = '';
+var AI_TRACE = [];
 var PERSONAS = {
   mussolini: '이탈리아 파시즘 독재자 무솔리니',
   hitler: '독일 나치즘 독재자 히틀러',
@@ -175,7 +177,7 @@ function chat_(data) {
   if (!contents.length) return { ok: false, error: 'empty' };
 
   var text = callGemini_(contents, system);
-  if (!text) return { ok: false, error: 'ai_unavailable' };
+  if (!text) return { ok: false, error: 'ai_unavailable', detail: LAST_AI_ERROR };
   var parts = text.split(/\[재반박 힌트\]\s*[:：]/);
   return { ok: true, reply: parts[0].trim(), coachTip: parts[1] ? parts[1].trim() : '' };
 }
@@ -195,32 +197,39 @@ function polish_(data) {
 function callGemini_(contents, systemText) {
   var props = PropertiesService.getScriptProperties();
   var key = props.getProperty('GEMINI_API_KEY');
-  if (!key) return null;
+  if (!key) { LAST_AI_ERROR = 'no_key'; return null; }
   var models = [props.getProperty('GEMINI_MODEL')].concat(DEFAULT_MODELS).filter(Boolean);
-  var body = { contents: contents, generationConfig: { temperature: 0.8, maxOutputTokens: 600 } };
+  var body = { contents: contents, generationConfig: { temperature: 0.8, maxOutputTokens: 4096 } };
   if (systemText) body.systemInstruction = { parts: [{ text: systemText }] };
 
   for (var i = 0; i < models.length; i++) {
+    var b = JSON.parse(JSON.stringify(body));
+    if (/^gemini-3/.test(models[i])) b.generationConfig.thinkingConfig = { thinkingLevel: 'low' };
     for (var attempt = 0; attempt < 2; attempt++) {
+      var t0 = Date.now();
       var res = UrlFetchApp.fetch(
         'https://generativelanguage.googleapis.com/v1beta/models/' + models[i] + ':generateContent', {
           method: 'post',
           contentType: 'application/json',
           headers: { 'x-goog-api-key': key },
-          payload: JSON.stringify(body),
+          payload: JSON.stringify(b),
           muteHttpExceptions: true
         });
       var code = res.getResponseCode();
+      AI_TRACE.push(models[i] + ':' + code + ':' + (Date.now() - t0) + 'ms');
+      if (code !== 200) LAST_AI_ERROR = models[i] + ':' + code + ' ' + res.getContentText().slice(0, 160);
       if (code === 200) {
         var out = JSON.parse(res.getContentText());
         var c = out.candidates && out.candidates[0];
         var p = c && c.content && c.content.parts;
         var text = p ? p.map(function (x) { return x.text || ''; }).join('') : '';
         if (text) return text;
+        LAST_AI_ERROR = models[i] + ':empty ' + JSON.stringify(out).slice(0, 300);
         break;
       }
-      if (code === 429 || code >= 500) { Utilities.sleep(1200 * (attempt + 1)); continue; }
-      break; // 404(모델 없음) 등은 다음 모델로
+      if (code === 400 && b.generationConfig.thinkingConfig) { delete b.generationConfig.thinkingConfig; continue; }
+      if (code >= 500 && attempt === 0) { Utilities.sleep(1000); continue; }
+      break; // 429(한도 초과)·404(모델 없음) 등은 바로 다음 모델로
     }
   }
   return null;
