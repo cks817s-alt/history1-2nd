@@ -1196,7 +1196,7 @@
         </section>
 
         <!-- ================================================================= -->
-        <!-- TAB 4: 교사용 실시간 제출 확인 & 구글 시트 자동화 대시보드 (비밀번호 ys26 보호) -->
+        <!-- TAB 4: 교사용 실시간 제출 확인 & 구글 시트 자동화 대시보드 -->
         <!-- ================================================================= -->
         <section id="tab-teacher" class="tab-panel hidden space-y-6">
 
@@ -1236,7 +1236,7 @@
                 </form>
             </div>
 
-            <!-- Teacher Unlocked Dashboard Content (Hidden until password 'ys26' is verified) -->
+            <!-- Teacher Unlocked Dashboard Content (서버에서 비밀번호 확인 후 표시) -->
             <div id="teacher-unlocked-content" class="hidden space-y-6">
                 <!-- Top Control Panel for Teacher -->
                 <div class="bg-slate-900 text-white rounded-3xl p-6 shadow-lg border-b-4 border-emerald-500">
@@ -1311,7 +1311,7 @@
 
                     <div class="flex flex-wrap items-center gap-2">
                         <button onclick="syncAllToGoogleSheetsWebhook()" id="btn-sync-all-webhook" class="px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold transition">
-                            <i class="fa-solid fa-arrows-rotate mr-1"></i>현재 목록 구글 시트로 일괄 재전송
+                            <i class="fa-solid fa-arrows-rotate mr-1"></i>구글 시트에서 새로고침
                         </button>
                         <button onclick="seedSampleSubmissions()" class="px-3 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-slate-700 text-xs font-bold transition" title="수업 시연용 학생 답안 샘플 추가">
                             <i class="fa-solid fa-flask mr-1"></i>시연용 학생 예시 데이터 추가
@@ -1418,42 +1418,11 @@
 
                 <!-- Step-by-step Apps Script Guide -->
                 <div class="space-y-3">
-                    <h4 class="font-black text-slate-900 text-sm">1분 완성! 내 구글 시트에 실시간 자동 전송 연결하기</h4>
-                    <ol class="list-decimal list-inside space-y-2 text-xs sm:text-sm bg-stone-50 p-4 rounded-2xl border border-stone-200">
-                        <li>새 <strong>구글 스프레드시트(Google Sheets)</strong>를 열고 상단 메뉴에서 <strong>[확장 프로그램] &gt; [Apps Script]</strong>를 클릭합니다.</li>
-                        <li>기존 코드를 지우고 아래 <strong>[Apps Script 자동화 코드 복사하기]</strong> 버튼을 눌러 복사한 코드를 붙여넣습니다.</li>
-                        <li>우측 상단 <strong>[배포] &gt; [새 배포]</strong> 클릭 &rarr; 유형을 <strong>[웹 앱]</strong>으로 선택 &rarr; 액세스 권한 있는 사용자를 반드시 <strong>[모든 사용자(Anyone)]</strong>로 설정한 뒤 배포합니다.</li>
-                        <li>발급된 <strong>웹 앱 URL</strong>(`https://script.google.com/macros/s/.../exec`)을 아래 입력창에 붙여넣고 저장하면 모든 학생 기기에 즉시 적용됩니다!</li>
-                    </ol>
-
-                    <div class="bg-slate-900 text-slate-200 p-4 rounded-2xl relative font-mono text-xs overflow-x-auto">
-                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-700">
-                            <span class="text-amber-400 font-sans font-bold">Google Apps Script (Code.gs)</span>
-                            <button type="button" onclick="copyAppsScriptCode()" class="px-3 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-sans font-black text-xs transition">
-                                <i class="fa-regular fa-copy mr-1"></i>Apps Script 자동화 코드 복사하기
-                            </button>
-                        </div>
-<pre id="apps-script-code-block" class="text-[11px] leading-relaxed text-emerald-300">function doPost(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow(["제출일시", "학반", "번호", "이름", "탐구1(㉠답안)", "파시즘특징", "나치즘특징", "탐구2(전체주의특징종합)", "반박관점", "탐구3(전체주의반박글)", "챗봇토론기록"]);
-  }
-  var data = JSON.parse(e.postData.contents);
-  sheet.appendRow([
-    data.timestamp || new Date().toLocaleString("ko-KR"),
-    data.className || "",
-    data.studentNumber || "",
-    data.studentName || "",
-    data.q1Answer || "",
-    data.q2Fascism || "",
-    data.q2Nazism || "",
-    data.q2Combined || "",
-    data.stance || "",
-    data.q3Rebuttal || "",
-    data.chatTranscript || ""
-  ]);
-  return ContentService.createTextOutput(JSON.stringify({result: "success"})).setMimeType(ContentService.MimeType.JSON);
-}</pre>
+                    <h4 class="font-black text-slate-900 text-sm">구글 시트 연결 상태: 연결 완료</h4>
+                    <div class="text-xs sm:text-sm bg-emerald-50 p-4 rounded-2xl border border-emerald-200 space-y-2 text-slate-800">
+                        <p>이 수업은 선생님 구글 드라이브의 <strong>「역사① 2학기 1차시 - 2차대전 배경 제출」</strong> 시트에 이미 연결되어 있습니다. 학생이 제출하면 <strong>[제출]</strong> 탭에 한 줄씩 자동으로 기록됩니다.</p>
+                        <p>챗봇용 <strong>제미나이 API 키</strong>와 <strong>교사 비밀번호</strong>는 그 시트 상단 메뉴 <strong>[📚 수업 설정]</strong>에서 바꿀 수 있습니다. 키와 비밀번호는 학생 화면 코드에 들어 있지 않습니다.</p>
+                        <p class="text-slate-500">아래 주소는 따로 바꿀 필요가 없습니다. 다른 시트로 옮길 때만 사용하세요.</p>
                     </div>
                 </div>
 
@@ -1592,6 +1561,9 @@
     <!-- ================================================================= -->
     <script>
         // --- Application State ---
+        // 학생 제출·챗봇·교사 현황판이 연결되는 구글 Apps Script 웹 앱 주소
+        const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbyfpqz_5eEpNHCmJyu6QdyYyYAaOfNnMo9S0Yd94ZBvp32PFutglQ2HU2_71Z4shqvmHw/exec';
+
         const state = {
             currentTab: 'tab-depression',
             visitedTabs: new Set(['tab-depression']),
@@ -1604,14 +1576,35 @@
             chatPersona: 'mussolini', // 'mussolini' | 'hitler' | 'both'
             chatMessages: [],
             isChatLoading: false,
-            webhookUrl: '',
+            webhookUrl: SHEET_API_URL,
+            teacherPassword: '',
             submissions: [],
             isFirebaseReady: false,
             currentUser: null,
             isTeacherAuthenticated: false
         };
 
-        const TEACHER_PASSWORD = 'ys26';
+        // 교사 비밀번호와 제미나이 API 키는 구글 시트의 Apps Script 서버에만 보관합니다.
+        // (시트 상단 메뉴 [📚 수업 설정]에서 변경)
+
+        // Apps Script 서버에 JSON을 보내고 JSON 응답을 받습니다.
+        async function apiPost(payload, timeoutMs) {
+            if (!state.webhookUrl) throw new Error('no server url');
+            const ctrl = new AbortController();
+            const timer = setTimeout(() => ctrl.abort(), timeoutMs || 30000);
+            try {
+                const res = await fetch(state.webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload),
+                    signal: ctrl.signal
+                });
+                if (!res.ok) throw new Error('status ' + res.status);
+                return await res.json();
+            } finally {
+                clearTimeout(timer);
+            }
+        }
 
         // Persona Initial Opening Statements (Based on PPT Slide 20 Quotes)
         const PERSONA_INTROS = {
@@ -1749,15 +1742,48 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
-        // --- Teacher Authentication (Password: ys26) ---
-        window.verifyTeacherPassword = function(e) {
+        // --- Teacher Authentication (구글 시트 서버에서 비밀번호 확인) ---
+        let teacherPollTimer = null;
+
+        async function loadSubmissionsFromSheet(silent) {
+            if (!state.isTeacherAuthenticated) return;
+            try {
+                const data = await apiPost({ action: 'list', password: state.teacherPassword }, 30000);
+                if (data && data.ok) {
+                    state.submissions = data.rows || [];
+                    renderSubmissionsTable();
+                    if (!silent) showToast(`구글 시트에서 제출 ${state.submissions.length}건을 불러왔습니다.`, "success");
+                } else if (!silent) {
+                    showToast("제출 현황을 불러오지 못했습니다.", "warning");
+                }
+            } catch (err) {
+                if (!silent) showToast("구글 시트 서버에 연결하지 못했습니다. 잠시 후 다시 시도해 주세요.", "warning");
+            }
+        }
+        window.loadSubmissionsFromSheet = loadSubmissionsFromSheet;
+
+        window.verifyTeacherPassword = async function(e) {
             e.preventDefault();
             const inputEl = document.getElementById('teacher-password-input');
             const errorEl = document.getElementById('teacher-pw-error');
             const entered = inputEl ? inputEl.value.trim() : '';
+            if (!entered) return;
 
-            if (entered === TEACHER_PASSWORD) {
+            let ok = false;
+            try {
+                const data = await apiPost({ action: 'auth', password: entered }, 20000);
+                ok = Boolean(data && data.ok);
+            } catch (err) {
+                showToast("구글 시트 서버에 연결하지 못했습니다. 인터넷 연결을 확인해 주세요.", "warning");
+                return;
+            }
+
+            if (ok) {
                 state.isTeacherAuthenticated = true;
+                state.teacherPassword = entered;
+                loadSubmissionsFromSheet(false);
+                clearInterval(teacherPollTimer);
+                teacherPollTimer = setInterval(() => loadSubmissionsFromSheet(true), 20000);
                 if (errorEl) errorEl.classList.add('hidden');
                 if (inputEl) inputEl.value = '';
 
@@ -1783,6 +1809,10 @@
 
         window.lockTeacherMode = function() {
             state.isTeacherAuthenticated = false;
+            state.teacherPassword = '';
+            clearInterval(teacherPollTimer);
+            state.submissions = [];
+            renderSubmissionsTable();
             const unlockedContent = document.getElementById('teacher-unlocked-content');
             if (unlockedContent) unlockedContent.classList.add('hidden');
             
@@ -2030,59 +2060,30 @@
         }
 
         // Exponential Backoff Gemini API Call with Historical Roleplay Fallback
+        // 챗봇: 구글 시트 서버(Apps Script)가 제미나이를 대신 호출합니다. (API 키는 서버에만 있음)
         async function callGeminiHistoricalChat(userMessage) {
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
-            const personaName = state.chatPersona === 'mussolini'
-                ? '이탈리아 파시즘 독재자 무솔리니'
-                : state.chatPersona === 'hitler'
-                ? '독일 나치즘 독재자 히틀러'
-                : '무솔리니와 히틀러 두 사람';
-
-            const systemPrompt = `당신은 중학교 역사 수업에서 학생들의 비판적 사고력을 길러주기 위한 '전체주의 반박 토론용 역사 AI 챗봇'입니다.
-현재 학생의 역할은 '${state.selectedStance}'이며, 당신은 '${personaName}'의 입장을 연기하되 교육적 안전 수칙을 엄격히 지킵니다.
-[규칙]
-1. 혐오 표현이나 폭력 선동은 절대 하지 말고, 교과서 사료(무솔리니의 '파시즘 독트린': 국가가 국민을 창조하며 개인보다 국가가 우위에 있음 / 히틀러의 '나의 투쟁': 힘의 논리와 영토 팽창 정당화, 경제 위기 극복을 위한 국가 통제)의 논리만 근거로 들어 학생의 반박에 2~3문장으로 논쟁적으로 응수하세요.
-2. 학생이 인권, 자유, 민주주의, 세계 평화, 주권 존중 등의 타당한 근거를 들어 반박하면, 당신의 전체주의 논리가 가진 한계나 모순이 드러나도록 움찔하며 반응하고, 마지막 줄에 '[재반박 힌트]: ...' 형태로 학생이 다음 턴에 공격할 수 있는 역사적 힌트를 한 문장으로 덧붙여 주세요.`;
-
-            const historyContents = state.chatMessages.slice(-6).map(m => ({
-                role: m.role === 'user' ? 'user' : 'model',
-                parts: [{ text: m.text }]
-            }));
-
             const payload = {
-                contents: historyContents,
-                systemInstruction: {
-                    parts: [{ text: systemPrompt }]
-                }
+                action: 'chat',
+                persona: state.chatPersona,
+                stance: state.selectedStance,
+                history: state.chatMessages.slice(-8).map(m => ({
+                    role: m.role === 'user' ? 'user' : 'model',
+                    text: m.text
+                }))
             };
 
-            const delays = [1000, 2000, 4000];
-            for (let attempt = 0; attempt <= delays.length; attempt++) {
+            for (let attempt = 0; attempt < 2; attempt++) {
                 try {
-                    const res = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (!res.ok) throw new Error('API status ' + res.status);
-                    const result = await res.json();
-                    let rawText = "";
-                    if (result && result.candidates && result.candidates[0] && result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts[0]) {
-                        rawText = result.candidates[0].content.parts[0].text;
-                    }
-                    if (rawText) {
-                        const parts = rawText.split('[재반박 힌트]:');
+                    const result = await apiPost(payload, 40000);
+                    if (result && result.ok && result.reply) {
                         return {
-                            reply: parts[0].trim(),
-                            coachTip: parts[1] ? parts[1].trim() : '개인의 인권과 세계 평화의 가치를 들어 이 주장의 모순을 다시 한번 짚어 보세요!'
+                            reply: result.reply,
+                            coachTip: result.coachTip || '개인의 인권과 세계 평화의 가치를 들어 이 주장의 모순을 다시 한번 짚어 보세요!'
                         };
                     }
+                    if (result && result.error === 'ai_unavailable') break;
                 } catch (err) {
-                    if (attempt < delays.length) {
-                        await new Promise(r => setTimeout(r, delays[attempt]));
-                    }
+                    if (attempt === 0) await new Promise(r => setTimeout(r, 1500));
                 }
             }
 
@@ -2192,21 +2193,9 @@
                 btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i>반박문 정리 중...`;
             }
 
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-            const prompt = `다음은 중학생이 '${state.selectedStance}' 관점에서 무솔리니(파시즘)와 히틀러(나치즘)의 주장에 반박하며 채팅한 내용입니다:\n${myMessages.join('\n')}\n\n위 학생의 채팅 내용을 바탕으로, 전체주의 국가의 주장(개인보다 국가 우위, 대외 침략 정당화)을 반박하는 논리적이고 자연스러운 3~4문장의 짧은 반박 글을 학생 본인의 어조로 다듬어 작성해 주세요.`;
-
             try {
-                const res = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-                });
-                const data = await res.json();
-                let polished = "";
-                if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
-                    polished = data.candidates[0].content.parts[0].text;
-                }
+                const data = await apiPost({ action: 'polish', stance: state.selectedStance, messages: myMessages }, 40000);
+                const polished = data && data.ok ? data.text : '';
                 if (polished) {
                     q3El.value = polished.trim();
                 } else {
@@ -2237,18 +2226,16 @@
         // --- Send Submission to Google Sheets Webhook & Firestore ---
         async function postToGoogleSheetsWebhook(entry) {
             if (!state.webhookUrl) return false;
-            try {
-                await fetch(state.webhookUrl, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify(entry)
-                });
-                return true;
-            } catch (e) {
-                console.warn("Webhook send warning:", e);
-                return false;
+            for (let attempt = 0; attempt < 3; attempt++) {
+                try {
+                    const data = await apiPost({ action: 'submit', ...entry }, 30000);
+                    if (data && data.ok) return true;
+                } catch (e) {
+                    console.warn("Sheet submit retry:", e);
+                }
+                await new Promise(r => setTimeout(r, 1500 * (attempt + 1)));
             }
+            return false;
         }
 
         window.handleInquirySubmit = async function(e) {
@@ -2287,27 +2274,18 @@
                 sheetSynced: true
             };
 
-            // 1. Send to Google Sheets Apps Script Webhook if configured
-            if (state.webhookUrl) {
-                await postToGoogleSheetsWebhook(entry);
-            }
-
-            // 2. Save to Firestore Real-Time Collection (Using global function from module)
+            // 구글 시트(Apps Script 서버)로 전송 — 실패하면 성공이라고 알리지 않습니다.
             try {
-                if (window.firebaseAddDoc) {
-                    await window.firebaseAddDoc(entry);
+                const sent = await postToGoogleSheetsWebhook(entry);
+                if (sent) {
+                    entry.sheetSynced = true;
+                    showStudentSubmissionReceipt(entry);
+                    showToast(`${className} ${studentName} 학생의 탐구 결과가 선생님의 구글 시트로 제출되었습니다!`, "success");
+                    if (state.isTeacherAuthenticated) loadSubmissionsFromSheet(true);
                 } else {
-                    state.submissions.unshift({ id: 'local-' + Date.now(), ...entry });
-                    renderSubmissionsTable();
+                    entry.sheetSynced = false;
+                    showToast("제출이 전송되지 않았습니다. 인터넷 연결을 확인하고 [제출하기]를 다시 눌러 주세요. (작성한 내용은 그대로 남아 있습니다)", "warning");
                 }
-                showStudentSubmissionReceipt(entry);
-                showToast(`${className} ${studentName} 학생의 탐구 활동과 챗봇 반박 글이 교사용 구글 시트로 성공적으로 제출되었습니다!`, "success");
-            } catch (err) {
-                console.error("Save error:", err);
-                state.submissions.unshift({ id: 'local-' + Date.now(), ...entry });
-                renderSubmissionsTable();
-                showStudentSubmissionReceipt(entry);
-                showToast("제출이 완료되었습니다! 선생님의 구글 시트로 안전하게 전달되었습니다.", "success");
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i><span>탐구 결과 제출하기 (구글 시트 자동 전송)</span>`;
@@ -2535,9 +2513,7 @@
         }
 
         window.copyAppsScriptCode = function() {
-            const code = document.getElementById('apps-script-code-block').innerText;
-            copyTextToClipboard(code);
-            showToast("Google Apps Script 자동화 코드가 클립보드에 복사되었습니다!", "success");
+            showToast("이 수업은 이미 구글 시트에 연결되어 있습니다.", "info");
         };
 
         window.saveWebhookUrl = async function() {
@@ -2583,11 +2559,8 @@
                 showToast("실시간 일괄 전송을 위해 먼저 구글 시트 웹 앱 URL을 설정해 주세요.", "warning");
                 return;
             }
-            showToast(`총 ${state.submissions.length}건의 데이터를 구글 시트로 일괄 동기화합니다...`, "info");
-            for (const item of state.submissions) {
-                await postToGoogleSheetsWebhook(item);
-            }
-            showToast("모든 학생의 제출 데이터를 구글 시트로 전송 완료했습니다!", "success");
+            // 제출물은 학생이 낼 때 곧바로 시트에 기록되므로, 여기서는 시트의 최신 내용을 다시 불러옵니다.
+            await loadSubmissionsFromSheet(false);
         };
 
         window.seedSampleSubmissions = async function() {
@@ -2719,6 +2692,11 @@
                 }
             } catch (e) {
                 console.warn("URL param check:", e);
+            }
+            if (state.webhookUrl) {
+                const inputEl = document.getElementById('input-webhook-url');
+                if (inputEl && !inputEl.value) inputEl.value = state.webhookUrl;
+                updateWebhookStatusUI(true);
             }
             initDebateChat();
             renderSubmissionsTable();
