@@ -129,6 +129,7 @@ details.reveal div{padding:10px 0 0;color:var(--ink-2)}
 .num{font-weight:900;color:var(--accent)}
 .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 .btn{font:inherit;font-weight:700;font-size:16px;padding:10px 20px;border-radius:12px;border:1px solid var(--amber);background:var(--amber);color:#0f172a;cursor:pointer}
+.btn:disabled{opacity:.6;cursor:wait}
 .btn.ghost{background:transparent;color:var(--accent)}
 .result{margin-top:10px;font-weight:700;min-height:1.6em}
 
@@ -144,6 +145,16 @@ details.reveal div{padding:10px 0 0;color:var(--ink-2)}
 textarea{width:100%;min-height:150px;font:inherit;padding:14px;border-radius:16px;border:1px solid var(--line);background:var(--surface);color:var(--ink);resize:vertical}
 textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
 .hint{font-size:14px;color:var(--ink-2)}
+.submit-card{margin-top:24px;border:2px solid var(--amber)}
+.who{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0}
+.who label{display:flex;flex-direction:column;gap:4px;font-size:14px;font-weight:700;color:var(--ink-2)}
+.who input{font:inherit;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);color:var(--ink);min-width:0}
+.who input:focus{outline:2px solid var(--amber);outline-offset:1px}
+.sendmsg{margin-top:8px;font-weight:700}.sendmsg.ok{color:#15803d}.sendmsg.err{color:#b91c1c}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sendmsg.ok{color:#4ade80}:root:not([data-theme="light"]) .sendmsg.err{color:#f87171}}
+:root[data-theme="dark"] .sendmsg.ok{color:#4ade80}:root[data-theme="dark"] .sendmsg.err{color:#f87171}
+@media (max-width:560px){.who{grid-template-columns:1fr 1fr}.who label:last-child{grid-column:1/-1}}
+
 .checks{list-style:none;padding:0;margin:0;display:grid;gap:10px}
 .checks label{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
 .checks input{width:20px;height:20px;margin-top:5px;accent-color:var(--amber);flex:none}
@@ -585,7 +596,7 @@ table.cmp td{background:var(--surface)}
             <textarea id="sc3" data-save="pc-sc3" placeholder="예) 우리는 이러한 일이 되풀이되지 않도록…"></textarea>
           </div>
           <div class="btns"><button class="btn" type="button" id="copyPlan">기획안 복사하기</button></div>
-          <div class="hint" id="copyMsg">쓴 내용은 이 기기에만 저장됩니다. 복사해서 과제 제출란에 붙여 넣을 수 있어요.</div>
+          <div class="hint" id="copyMsg">쓴 내용은 이 기기에 자동 저장됩니다. 다 쓰면 아래 ‘선생님께 제출하기’를 눌러 주세요.</div>
         </div>
         <div class="card">
           <div class="kicker">스스로 점검하기</div>
@@ -596,6 +607,17 @@ table.cmp td{background:var(--surface)}
             <li><label><input type="checkbox"> 평화를 실현하기 위한 노력(조약, 반성, 기억)의 예를 들 수 있다.</label></li>
           </ul>
         </div>
+      </div>
+      <div class="card submit-card" id="submitCard">
+        <div class="kicker">📮 선생님께 제출하기</div>
+        <p class="hint">아이히만 반박 글(STEP 3), 빈칸·숨은 숫자·연맹/연합 분류 결과, 다큐멘터리 기획안이 한 번에 제출됩니다. 고쳐서 다시 제출해도 괜찮아요(마지막 제출을 기준으로 봅니다).</p>
+        <div class="who">
+          <label>학반 <input id="stClass" data-keep="pc-class" placeholder="예) 2-3" autocomplete="off"></label>
+          <label>번호 <input id="stNum" data-keep="pc-num" inputmode="numeric" placeholder="예) 15" autocomplete="off"></label>
+          <label>이름 <input id="stName" data-keep="pc-name" placeholder="이름" autocomplete="off"></label>
+        </div>
+        <div class="btns"><button class="btn" type="button" id="sendBtn">제출하기</button></div>
+        <div class="sendmsg" id="sendMsg" role="status" aria-live="polite"></div>
       </div>
       <p class="note" style="margin-top:24px">다음 시간에는 <b>Ⅵ-03. 아시아와 아프리카의 민족 운동</b>을 배웁니다.</p>
     </div>
@@ -725,6 +747,33 @@ table.cmp td{background:var(--surface)}
     ta.value=store(ta.dataset.save)||'';
     ta.addEventListener('input',function(){ store(ta.dataset.save,ta.value); });
   });
+
+  // submit to Google Sheet (same Apps Script web app as lesson 2)
+  var SHEET_API_URL='https://script.google.com/macros/s/AKfycbyfpqz_5eEpNHCmJyu6QdyYyYAaOfNnMo9S0Yd94ZBvp32PFutglQ2HU2_71Z4shqvmHw/exec';
+  [].forEach.call(document.querySelectorAll('input[data-keep]'),function(i){ i.value=store(i.dataset.keep)||''; i.addEventListener('input',function(){ store(i.dataset.keep,i.value); }); });
+  function v(id){ return document.getElementById(id).value.trim(); }
+  document.getElementById('sendBtn').onclick=function(){
+    var btn=this, msg=document.getElementById('sendMsg');
+    msg.className='sendmsg';
+    if(!v('stClass')||!v('stNum')||!v('stName')){ msg.className='sendmsg err'; msg.textContent='학반, 번호, 이름을 모두 써 주세요.'; return; }
+    if(!v('sc1')&&!v('sc2')&&!v('sc3')&&!v('eich')){ msg.className='sendmsg err'; msg.textContent='아직 쓴 글이 없어요. 아이히만 반박 글이나 다큐멘터리 기획안을 먼저 써 주세요.'; return; }
+    var nFill=blanks.filter(ok).length;
+    var pz=sts.every(function(s){return pick[s.dataset.sym];}) ? (sts.every(function(s){return pick[s.dataset.sym]===s.dataset.a;})?'성공(15)':'다시 도전 필요') : '미완료';
+    var sortItems=[].slice.call(document.querySelectorAll('#sort .item'));
+    var sortOk=sortItems.filter(function(it){return it.querySelector('button.ok');}).length;
+    var checks=[].slice.call(document.querySelectorAll('.checks input'));
+    var payload={action:'submit5',className:v('stClass'),studentNumber:v('stNum'),studentName:v('stName'),
+      fillScore:blanks.length+'개 중 '+nFill+'개',puzzle:pz,sortScore:sortItems.length+'개 중 '+sortOk+'개',
+      eichmann:v('eich'),topic:topic||'(미선택)',scene1:v('sc1'),scene2:v('sc2'),scene3:v('sc3'),
+      selfCheck:checks.length+'개 중 '+checks.filter(function(c){return c.checked;}).length+'개'};
+    btn.disabled=true; btn.textContent='제출 중…'; msg.textContent='';
+    var ctrl=window.AbortController?new AbortController():null, timer=setTimeout(function(){ if(ctrl) ctrl.abort(); },30000);
+    fetch(SHEET_API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload),signal:ctrl?ctrl.signal:undefined})
+      .then(function(r){ if(!r.ok) throw new Error('status '+r.status); return r.json(); })
+      .then(function(d){ if(!d||!d.ok) throw new Error(d&&d.error||'server'); msg.className='sendmsg ok'; msg.textContent='제출했어요! ('+d.timestamp+') 고친 뒤 다시 제출해도 됩니다.'; })
+      .catch(function(){ msg.className='sendmsg err'; msg.textContent='제출하지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요. (쓴 글은 그대로 남아 있어요)'; })
+      .then(function(){ clearTimeout(timer); btn.disabled=false; btn.textContent='제출하기'; });
+  };
 
   // click photo to enlarge
   var lb=document.getElementById('lightbox'), lbImg=lb.querySelector('img'), lbP=lb.querySelector('p');

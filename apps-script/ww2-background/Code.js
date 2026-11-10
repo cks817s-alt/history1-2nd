@@ -7,6 +7,7 @@
  *  - polish : 채팅 내용을 반박 글로 다듬기
  *  - auth   : 교사 비밀번호 확인
  *  - list   : 교사 화면에 제출 현황 불러오기 (비밀번호 필요)
+ *  - submit5: 5차시 「인권 회복과 평화 실현」 활동 결과를 '5차시 제출' 시트에 기록
  *
  * 설정은 시트 상단 메뉴 [📚 수업 설정]에서 합니다. (API 키·비밀번호는 코드에 적지 않습니다)
  */
@@ -89,6 +90,7 @@ function doPost(e) {
       case 'polish': return json_(polish_(data));
       case 'auth': return json_({ ok: checkPassword_(data.password) });
       case 'list': return json_(list_(data));
+      case 'submit5': return json_(submit5_(data));
       default: return json_(submit_(data));
     }
   } catch (err) {
@@ -96,12 +98,43 @@ function doPost(e) {
   }
 }
 
+/* ---------------- 5차시 제출 ---------------- */
+
+var SHEET5_NAME = '5차시 제출';
+var HEADERS5 = ['제출일시', '학반', '번호', '이름', '빈칸(맞힌 수)', '숨은 숫자', '연맹/연합 분류',
+  '아이히만 반박 글', '다큐 주제', 'S#1 참상', 'S#2 추모 공간', 'S#3 평화를 위한 노력', '스스로 점검'];
+var FIELDS5 = ['timestamp', 'className', 'studentNumber', 'studentName', 'fillScore', 'puzzle', 'sortScore',
+  'eichmann', 'topic', 'scene1', 'scene2', 'scene3', 'selfCheck'];
+
+function submit5_(data) {
+  if (!data.studentName || !String(data.studentName).trim()) return { ok: false, error: 'no_name' };
+  data.timestamp = Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
+  var row = FIELDS5.map(function (f) { return safeCell_(data[f]); });
+  // '2-3' 같은 학반이 날짜로 바뀌지 않도록 글자로 고정
+  if (/^[0-9]/.test(row[1])) row[1] = "'" + row[1];
+  var lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName(SHEET5_NAME) || ss.insertSheet(SHEET5_NAME);
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(HEADERS5);
+      sheet.setFrozenRows(1);
+      sheet.getRange(1, 1, 1, HEADERS5.length).setFontWeight('bold').setBackground('#fef3c7');
+    }
+    sheet.appendRow(row);
+  } finally {
+    lock.releaseLock();
+  }
+  return { ok: true, timestamp: data.timestamp };
+}
+
 /* ---------------- 제출 ---------------- */
 
 function submit_(data) {
   var row = FIELDS.map(function (f) {
     var v = data[f];
-    if (f === 'timestamp' && !v) v = Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy. M. d. a h:mm:ss');
+    if (f === 'timestamp' && !v) v = Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
     return safeCell_(v);
   });
   var lock = LockService.getScriptLock();
