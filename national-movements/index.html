@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>아시아·아프리카 민족 운동</title>
+<meta name="description" content="중학교 역사① Ⅵ-03. 아시아와 아프리카의 민족 운동 (수업 자료)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* 1~3차시(Tailwind slate + amber)와 같은 분위기로 맞춘 색 */
+:root{
+  --bg:#f8fafc; --surface:#ffffff; --surface-2:#f1f5f9; --ink:#0f172a; --ink-2:#475569; --line:#e2e8f0;
+  --accent:#b45309; --amber:#f59e0b; --accent-soft:#fef3c7; --ok:#047857; --ok-soft:#d1fae5; --no:#be123c; --no-soft:#ffe4e6;
+  --gold:#f59e0b; --navy:#0f172a; --navy-2:#1e293b;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1120; --surface:#111a2e; --surface-2:#1e293b; --ink:#f1f5f9; --ink-2:#94a3b8; --line:#243147;
+    --accent:#fbbf24; --accent-soft:rgba(245,158,11,.14); --ok:#34d399; --ok-soft:rgba(16,185,129,.15); --no:#fb7185; --no-soft:rgba(244,63,94,.15);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1120; --surface:#111a2e; --surface-2:#1e293b; --ink:#f1f5f9; --ink-2:#94a3b8; --line:#243147;
+  --accent:#fbbf24; --accent-soft:rgba(245,158,11,.14); --ok:#34d399; --ok-soft:rgba(16,185,129,.15); --no:#fb7185; --no-soft:rgba(244,63,94,.15);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;font-size:18px;line-height:1.75;word-break:keep-all;overflow-wrap:break-word}
+h1,h2,h3{font-weight:900;line-height:1.35;margin:0 0 .5em;letter-spacing:-.01em}
+a{color:var(--accent)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+
+/* top bar (1~3차시처럼 남색 바 + 앰버 아이콘) */
+.bar{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.bar .top{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.logo{flex:none;width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#ea580c);display:grid;place-items:center;font-size:22px;box-shadow:0 4px 12px rgba(245,158,11,.35)}
+.ttl{flex:1;min-width:0}
+.ttl .badges{display:flex;align-items:center;gap:8px;font-size:12px;color:#fbbf24;white-space:nowrap;overflow:hidden}
+.badge{background:#059669;color:#fff;font-weight:700;padding:1px 8px;border-radius:6px}
+.ttl .name{font-weight:900;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.theme{flex:none;border:1px solid #334155;background:#1e293b;color:#e2e8f0;border-radius:10px;height:34px;padding:0 12px;cursor:pointer;font:inherit;font-size:13px;font-weight:700}
+.steps{display:flex;gap:6px;padding:0 16px 10px;overflow-x:auto;scrollbar-width:none}
+.steps::-webkit-scrollbar{display:none}
+.steps a{flex:none;display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:10px;color:#cbd5e1;text-decoration:none;font-size:14px;font-weight:700;background:#1e293b;border:1px solid #334155}
+.steps a b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#334155;color:#fff;font-size:12px}
+.steps a.on{background:var(--amber);border-color:var(--amber);color:#0f172a}
+.steps a.on b{background:#0f172a;color:#fbbf24}
+.progress{height:3px;background:var(--amber);width:0;transition:width .15s}
+
+/* hero (1~3차시의 남색 시뮬레이션 패널 느낌) */
+.hero{padding:32px 0 8px}
+.hero-card{background:radial-gradient(120% 140% at 0% 0%,#1e293b 0%,#0f172a 60%);color:#fff;border-radius:24px;padding:40px 32px;box-shadow:var(--shadow);border:1px solid #1e293b}
+.hero .unit{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#fbbf24;border:1px solid rgba(251,191,36,.45);background:rgba(245,158,11,.12);padding:3px 12px;border-radius:999px;margin-bottom:16px}
+.hero h1{font-size:clamp(28px,5vw,46px)}
+.hero h1 em{font-style:normal;color:#fbbf24}
+.hero p.lead{font-size:clamp(16px,2.1vw,19px);color:#cbd5e1;max-width:42em;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-size:13px;padding:4px 12px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);font-weight:500}
+.hero-card .chip{background:rgba(255,255,255,.08);color:#e2e8f0;border:1px solid rgba(255,255,255,.12)}
+
+section{padding:48px 0;scroll-margin-top:120px}
+section + section{border-top:1px solid var(--line)}
+.kicker{display:inline-block;font-size:13px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:2px 10px;border-radius:6px;margin-bottom:10px}
+section h2{font-size:clamp(24px,4vw,32px)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:16px}
+@media(min-width:720px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
+
+/* goals */
+.goals-card{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.goals-card .kicker{background:#d1fae5;color:#047857;margin:0}
+:root[data-theme="dark"] .goals-card .kicker{background:rgba(16,185,129,.15);color:#34d399}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .goals-card .kicker{background:rgba(16,185,129,.15);color:#34d399}}
+.goals{list-style:none;padding:0;margin:0;display:grid;gap:10px;flex:1;min-width:240px}
+.goals li{display:flex;gap:12px;align-items:flex-start}
+.goals .n{flex:none;width:28px;height:28px;border-radius:8px;background:var(--navy);color:#fbbf24;display:grid;place-items:center;font-weight:900;font-size:15px;margin-top:2px}
+
+/* hook */
+.diary{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--amber);border-radius:6px 20px 20px 6px;padding:24px 28px;font-size:19px;font-weight:500;box-shadow:var(--shadow)}
+.diary small{display:block;margin-top:12px;font-size:14px;font-weight:400;color:var(--ink-2)}
+.ask{margin-top:20px;display:flex;gap:12px;align-items:flex-start;background:var(--accent-soft);border:1px solid rgba(245,158,11,.35);border-radius:14px;padding:16px 20px;font-weight:700}
+.ask::before{content:"Q";flex:none;width:28px;height:28px;border-radius:50%;background:var(--amber);color:#0f172a;display:grid;place-items:center;font-size:15px;font-weight:900}
+details.reveal{margin-top:12px}
+details.reveal summary{cursor:pointer;color:var(--accent);font-weight:700;font-size:15px}
+details.reveal div{padding:10px 0 0;color:var(--ink-2)}
+
+/* stat */
+.stat{display:flex;flex-direction:column;gap:4px}
+.stat .big{font-size:clamp(30px,4.6vw,40px);font-weight:900;color:var(--accent);line-height:1.15}
+.stat .lbl{color:var(--ink-2);font-size:15px}
+.cause{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:20px 0}
+.cause span{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px 12px;font-weight:700;font-size:16px}
+.cause span:last-child{background:var(--navy);color:#fbbf24;border-color:var(--navy)}
+.cause b{color:var(--amber)}
+
+/* crime tabs (2차시 상단 탭처럼 앰버 알약) */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tabs button{font:inherit;font-size:16px;font-weight:700;padding:10px 20px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--amber);color:#0f172a;border-color:var(--amber);box-shadow:0 4px 12px rgba(245,158,11,.3)}
+.panel{display:none}
+.panel.on{display:block}
+.panel .row{display:grid;gap:8px;padding:14px 0;border-top:1px dashed var(--line)}
+.panel .row:first-of-type{border-top:0}
+@media(min-width:720px){.panel .row{grid-template-columns:110px 1fr;gap:16px}}
+.panel .row dt{font-weight:900;color:var(--accent)}
+.panel .row dd{margin:0}
+.panel ul{margin:0;padding-left:1.2em}
+.where{display:inline-block;font-size:13px;font-weight:700;color:var(--ink-2);background:var(--surface-2);padding:2px 10px;border-radius:6px;vertical-align:middle;margin-left:4px}
+
+/* timeline */
+.tl{position:relative;padding-left:28px;margin:0;list-style:none}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl li{position:relative;padding-bottom:18px}
+.tl li::before{content:"";position:absolute;left:-26px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:3px solid var(--amber)}
+.tl .y{font-weight:900;color:var(--accent);margin-right:8px}
+
+/* fill-in */
+.fill p{margin:0 0 14px}
+.blank{display:inline-flex;align-items:center;gap:4px;vertical-align:baseline}
+.blank input{font:inherit;font-weight:700;width:9em;max-width:60vw;padding:2px 8px;border:0;border-bottom:2px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:8px 8px 0 0;text-align:center}
+.blank input:focus{outline:2px solid var(--amber);outline-offset:1px}
+.blank.ok input{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.blank.no input{border-color:var(--no);background:var(--no-soft)}
+.num{font-weight:900;color:var(--accent)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.btn{font:inherit;font-weight:700;font-size:16px;padding:10px 20px;border-radius:12px;border:1px solid var(--amber);background:var(--amber);color:#0f172a;cursor:pointer}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn.ghost{background:transparent;color:var(--accent)}
+.result{margin-top:10px;font-weight:700;min-height:1.6em}
+
+/* quiz */
+.q{margin-bottom:22px}
+.q .opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.q .opts button{font:inherit;font-size:17px;font-weight:700;padding:10px 22px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;min-width:96px}
+.q .opts button.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.q .opts button.no{border-color:var(--no);background:var(--no-soft);color:var(--no)}
+.q .fb{font-size:15px;color:var(--ink-2);margin-top:6px;min-height:1.5em}
+
+/* reflect */
+textarea{width:100%;min-height:150px;font:inherit;padding:14px;border-radius:16px;border:1px solid var(--line);background:var(--surface);color:var(--ink);resize:vertical}
+textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
+.hint{font-size:14px;color:var(--ink-2)}
+.submit-card{margin-top:24px;border:2px solid var(--amber)}
+.who{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0}
+.who label{display:flex;flex-direction:column;gap:4px;font-size:14px;font-weight:700;color:var(--ink-2)}
+.who input{font:inherit;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);color:var(--ink);min-width:0}
+.who input:focus{outline:2px solid var(--amber);outline-offset:1px}
+.sendmsg{margin-top:8px;font-weight:700}.sendmsg.ok{color:#15803d}.sendmsg.err{color:#b91c1c}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sendmsg.ok{color:#4ade80}:root:not([data-theme="light"]) .sendmsg.err{color:#f87171}}
+:root[data-theme="dark"] .sendmsg.ok{color:#4ade80}:root[data-theme="dark"] .sendmsg.err{color:#f87171}
+@media (max-width:560px){.who{grid-template-columns:1fr 1fr}.who label:last-child{grid-column:1/-1}}
+
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.checks label{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.checks input{width:20px;height:20px;margin-top:5px;accent-color:var(--amber);flex:none}
+
+/* historical photos */
+.photo{margin:0;display:flex;flex-direction:column}
+.photo img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;background:var(--surface-2);cursor:zoom-in;filter:grayscale(.15)}
+.photo figcaption{padding:10px 2px 0;font-size:15px;line-height:1.6;color:var(--ink-2)}
+.photo figcaption b{display:block;color:var(--ink);font-size:16px}
+.photo figcaption b::before{content:"▲ ";color:var(--amber);font-size:12px}
+.photo .credit{display:block;font-size:12px;opacity:.75;margin-top:4px}
+.photo.mid{max-width:620px;margin:4px 0 20px}
+.photo.mid img{aspect-ratio:auto}
+.photo.portrait img{aspect-ratio:auto;max-height:420px;object-fit:contain;background:transparent}
+.strip{display:grid;gap:24px;margin:24px 0}
+@media(min-width:720px){.strip.two{grid-template-columns:1fr 1fr}.strip.three{grid-template-columns:repeat(3,1fr)}}
+.anne{display:grid;gap:24px;align-items:center;margin-bottom:8px}
+@media(min-width:720px){.anne{grid-template-columns:260px 1fr}}
+/* click-to-enlarge */
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(2,6,23,.9);display:none;align-items:center;justify-content:center;padding:16px;cursor:zoom-out;flex-direction:column;gap:12px}
+.lightbox.on{display:flex}
+.lightbox img{max-width:100%;max-height:85vh;border-radius:8px}
+.lightbox p{color:#eee;margin:0;font-size:15px;text-align:center;max-width:800px}
+.credits{list-style:none;padding:0;margin:12px 0 0;font-size:12px;line-height:1.7}
+.credits a{color:inherit}
+.note{font-size:14px;color:var(--ink-2);background:var(--surface-2);border-radius:14px;padding:12px 16px}
+footer{padding:32px 0 72px;color:var(--ink-2);font-size:14px;border-top:1px solid var(--line);background:var(--surface)}
+
+@media (max-width:560px){.hero-card{padding:28px 20px;border-radius:20px}.ttl .badges .sub{display:none}.card{padding:20px}}
+@media print{.bar,.btns,.theme{display:none}section{break-inside:avoid;padding:24px 0}body{font-size:14px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* ---- 5차시 추가 요소 ---- */
+.testi{display:grid;gap:16px}
+@media(min-width:720px){.testi{grid-template-columns:repeat(3,1fr)}}
+.testi .card{display:flex;flex-direction:column;gap:8px}
+.testi .who{font-size:13px;font-weight:700;color:var(--accent)}
+.testi q{font-weight:500;quotes:"“" "”"}
+.testi small{color:var(--ink-2);font-size:14px;line-height:1.6}
+
+.confs{display:grid;gap:12px}
+.conf{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;text-align:left;font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px 20px;box-shadow:var(--shadow);cursor:pointer;width:100%}
+.conf:hover{border-color:var(--amber)}
+.conf .yr{font-weight:900;color:var(--accent);font-size:17px;line-height:1.3}
+.conf .yr small{display:block;font-size:12px;color:var(--ink-2);font-weight:500}
+.conf h3{font-size:19px;margin:0}
+.conf .who{font-size:14px;color:var(--ink-2)}
+.conf .more{display:none;margin-top:10px}
+.conf.open .more{display:block}
+.conf .tap{font-size:13px;font-weight:700;color:var(--accent);margin-top:4px}
+.conf.open .tap{display:none}
+.conf .more img{width:100%;max-width:520px;border-radius:12px;display:block;margin-top:10px;cursor:zoom-in}
+.conf .more .cap{font-size:13px;color:var(--ink-2);margin-top:6px}
+@media(max-width:560px){.conf{grid-template-columns:1fr;gap:6px}}
+
+table.cmp{width:100%;border-collapse:separate;border-spacing:0;font-size:16px;overflow:hidden;border-radius:16px;border:1px solid var(--line)}
+table.cmp th,table.cmp td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.cmp tr:last-child td{border-bottom:0}
+table.cmp thead th{background:var(--navy);color:#fff;font-weight:900}
+table.cmp thead th:last-child{color:#fbbf24}
+table.cmp tbody th{background:var(--surface-2);font-weight:700;width:24%}
+table.cmp td{background:var(--surface)}
+.scroll-x{overflow-x:auto}
+
+.sort .item{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:12px 0;border-top:1px dashed var(--line)}
+.sort .item:first-of-type{border-top:0}
+.sort .item p{margin:0;flex:1;min-width:220px}
+.sort .item .pick{display:flex;gap:8px}
+.sort .item button{font:inherit;font-size:15px;font-weight:700;padding:6px 14px;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.sort .item button.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.sort .item button.no{border-color:var(--no);background:var(--no-soft);color:var(--no)}
+
+.trial-hl{display:grid;gap:12px;margin:16px 0}
+@media(min-width:720px){.trial-hl{grid-template-columns:repeat(3,1fr)}}
+.trial-hl div{background:var(--surface-2);border-radius:14px;padding:14px 16px}
+.trial-hl b{display:block;font-size:24px;font-weight:900;color:var(--accent);line-height:1.2}
+.trial-hl span{font-size:14px;color:var(--ink-2)}
+.limit{border-left:5px solid var(--no);background:var(--no-soft);border-radius:6px 14px 14px 6px;padding:12px 16px;margin-top:12px}
+.limit b{color:var(--no)}
+
+.speech{display:flex;gap:14px;align-items:flex-start;background:var(--navy);color:#e2e8f0;border-radius:20px;padding:20px 22px;margin:16px 0}
+.speech .av{flex:none;width:44px;height:44px;border-radius:50%;background:#334155;display:grid;place-items:center;font-weight:900;color:#fbbf24}
+.speech q{display:block;font-size:18px;font-weight:700;color:#fff;margin-top:4px}
+
+.pz{display:grid;gap:16px}
+@media(min-width:820px){.pz{grid-template-columns:1.2fr 1fr}}
+.pz .st{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-top:1px dashed var(--line)}
+.pz .st:first-child{border-top:0}
+.pz .sym{flex:none;width:34px;height:34px;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;font-size:18px}
+.pz .st p{margin:0 0 6px}
+.pz .st .opts{display:flex;gap:8px}
+.pz .st button{font:inherit;font-weight:900;font-size:15px;width:52px;padding:4px 0;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.pz .st button.sel{background:var(--navy);color:#fbbf24;border-color:var(--navy)}
+.grid7{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;max-width:360px;margin:0 auto}
+.grid7 span{aspect-ratio:1;display:grid;place-items:center;border-radius:8px;background:var(--surface-2);font-size:18px;color:var(--ink-2);transition:background .2s,color .2s}
+.grid7 span.on{background:var(--amber);color:#0f172a}
+.pz .ans{text-align:center;font-weight:900;margin-top:12px;min-height:1.6em}
+
+.topics{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px}
+.topics button{font:inherit;font-size:15px;font-weight:700;padding:8px 16px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer}
+.topics button[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:#0f172a}
+.scene{display:grid;gap:10px;margin-top:10px}
+.scene label{font-weight:700;font-size:15px}
+.scene textarea{min-height:90px}
+.memo{font-size:15px;color:var(--ink-2);background:var(--surface-2);border-radius:14px;padding:12px 16px;min-height:1.6em}
+
+/* ---- 6차시 추가 요소 ---- */
+.person{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:start}
+.person img{width:120px;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:14px;cursor:zoom-in;filter:grayscale(.15);background:var(--surface-2)}
+.person h3{font-size:20px;margin:0 0 4px}.person p{margin:0;font-size:16px}
+.person .kicker{margin-bottom:6px}.person .credit{display:block;font-size:12px;color:var(--ink-2);margin-top:6px}
+@media(max-width:480px){.person{grid-template-columns:90px 1fr}.person img{width:90px}}
+.sort .item .pick{flex-wrap:wrap}
+.ws{display:grid;gap:20px;align-items:start}
+@media(min-width:760px){.ws{grid-template-columns:auto 1fr}}
+.wsg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;width:min(100%,380px);margin:0 auto}
+.wsg button{aspect-ratio:1;border:0;border-radius:8px;background:var(--surface-2);color:var(--ink);font:inherit;font-size:clamp(15px,4.4vw,20px);font-weight:700;cursor:pointer;padding:0}
+.wsg button.sel{background:var(--navy);color:#fbbf24}
+.wsg button.hit{color:#0f172a}
+.wsg button.f0{background:#fcd34d}.wsg button.f1{background:#93c5fd}.wsg button.f2{background:#86efac}
+.wsg button.f3{background:#f9a8d4}.wsg button.f4{background:#c4b5fd}.wsg button.f5{background:#fdba74}
+.wsl{margin:0;padding-left:1.4em;display:grid;gap:6px;font-size:16px}
+.wsl li.done{color:var(--ok);text-decoration:line-through}
+.wsl li.done::after{content:" ✓";font-weight:900}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 12px}
+.flow span{background:var(--surface-2);border-radius:10px;padding:6px 12px;font-size:15px}
+.card > label{display:block;margin:4px 0 8px}
+.flow span+span::before{content:"→ ";color:var(--amber);font-weight:900}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="top">
+    <div class="logo" aria-hidden="true">✊</div>
+    <div class="ttl">
+      <div class="badges"><span class="badge">중학교 역사① Ⅵ-03</span><span class="sub">아시아와 아프리카의 민족 운동</span></div>
+      <div class="name">아시아와 아프리카에서 민족 운동이 일어나다</div>
+    </div>
+    <button class="theme" id="theme" type="button" aria-label="화면 밝기 전환">◐ 화면</button>
+  </div>
+  <nav class="steps" aria-label="수업 단계">
+    <a href="#s1"><b>1</b>도입</a><a href="#s2"><b>2</b>한국·중국</a><a href="#s3"><b>3</b>인도·동남아</a><a href="#s4"><b>4</b>서아시아·아프리카</a><a href="#s5"><b>5</b>확인</a><a href="#s6"><b>6</b>단원 마무리</a>
+  </nav>
+  <div class="progress" id="progress"></div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-card">
+        <div class="unit">Ⅵ. 세계 대전과 사회 변동 · 03. 아시아와 아프리카의 민족 운동</div>
+        <h1>아시아와 아프리카에서<br><em>민족 운동</em>이 일어나다</h1>
+        <p class="lead">제1차 세계 대전이 끝나자 “각 민족의 운명은 스스로 결정해야 한다”는 <b>민족 자결주의</b>가 널리 퍼졌습니다. 식민 지배를 받던 아시아와 아프리카 사람들은 어떻게 독립을 외쳤을까요?</p>
+        <div class="meta"><span class="chip">중학교 2학년</span><span class="chip">역사① (2022 개정)</span><span class="chip">45분</span><span class="chip">교과서 206~213쪽</span></div>
+      </div>
+
+      <div class="card goals-card" style="margin-top:16px">
+        <div class="kicker">◎ 오늘의 학습 목표</div>
+        <ul class="goals">
+          <li><span class="n">1</span><span><b>3·1 운동과 5·4 운동</b>의 관련성을 파악할 수 있다.</span></li>
+          <li><span class="n">2</span><span>제1차 세계 대전 이후 <b>인도와 동남아시아</b>에서 전개된 민족 운동을 설명할 수 있다.</span></li>
+          <li><span class="n">3</span><span>제1차 세계 대전 이후 <b>서아시아와 아프리카</b>에서 전개된 민족 운동을 설명할 수 있다.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 도입 -->
+  <section id="s1">
+    <div class="wrap">
+      <div class="kicker">STEP 1 · 도입 (5분)</div>
+      <h2>그때, 그곳에는? 기차에서 쫓겨난 변호사</h2>
+      <div class="diary">
+        인도에서 태어난 <b>간디</b>는 영국에서 변호사 자격을 얻고, 일자리를 찾아 영국의 식민지였던 남아프리카로 떠났습니다. 어느 날 일등석 표를 사서 기차에 탔지만, <b>“인도인은 일등석에 탈 수 없소!”</b>라는 말과 함께 쫓겨났습니다. 그 뒤 간디는 인도인이 화장실조차 마음대로 쓸 수 없을 만큼 차별받고 있다는 것을 알게 되었습니다.
+        <small>인도로 돌아온 간디는 영국의 식민 지배에 반대하는 민족 운동을 이끌었습니다. (교과서 206쪽)</small>
+      </div>
+      <div class="ask">간디는 어떤 방식으로 영국에 맞섰을까요? 총과 칼이 아니라면 무엇으로 싸울 수 있을까요?</div>
+      <details class="reveal">
+        <summary>생각을 나눈 뒤 열어 보기</summary>
+        <div>간디는 인도 사람들에게 식민 지배에 저항해야 하는 이유를 연설하고, <b>영국 상품을 사지 않는</b> 등 폭력을 쓰지 않는 방법으로 저항했습니다. 이것을 <b>비폭력·불복종 운동</b>이라고 합니다. 오늘은 간디처럼 독립을 위해 싸운 아시아와 아프리카의 사람들을 만나 봅니다.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 2. 한국과 중국 -->
+  <section id="s2">
+    <div class="wrap">
+      <div class="kicker">STEP 2 · 전개 ① 동아시아 (10분)</div>
+      <h2>한국의 3·1 운동과 중국의 5·4 운동</h2>
+
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" aria-controls="ep1" id="et1">한국 · 3·1 운동</button>
+        <button role="tab" aria-selected="false" aria-controls="ep2" id="et2">중국 · 5·4 운동</button>
+      </div>
+
+      <div class="card panel on" id="ep1" role="tabpanel" aria-labelledby="et1">
+        <h3>3·1 운동 <span class="where">1919. 3. 1. · 경성(서울) 탑골 공원에서 시작</span></h3>
+        <dl>
+          <div class="row"><dt>전개</dt><dd>수많은 학생과 시민이 탑골 공원에 모여 <b>독립 선언서</b>를 낭독하고 ‘대한 독립 만세’를 외쳤다. 평양 등 주요 도시로, 다시 <b>만주·연해주·일본·미국</b> 등 해외로 퍼져 나갔다.</dd></div>
+          <div class="row"><dt>일제의 대응</dt><dd>경찰과 군대를 앞세워 만세 시위를 <b>폭력적으로 진압</b>하였다.</dd></div>
+          <div class="row"><dt>결과</dt><dd>독립운동가들이 중국 상하이에 <b>대한민국 임시 정부</b>를 세워 항일 민족 운동을 이어 갔다. 중국의 5·4 운동 등 <b>다른 나라의 민족 운동에 영향</b>을 주었다.</dd></div>
+          <div class="row"><dt>그 뒤</dt><dd>사회주의 사상이 퍼지면서 독립운동가들은 <b>민족주의 진영</b>(실력 양성 운동)과 <b>사회주의 진영</b>(농민·노동자 중심의 사회 운동)으로 나뉘었다.</dd></div>
+        </dl>
+        <div class="strip three">
+          <figure class="photo">
+            <img src="img/independence.jpg" alt="세로쓰기 한자와 한글로 인쇄된 기미 독립 선언서" loading="lazy">
+            <figcaption><b>독립 선언서(1919)</b> 3월 1일 탑골 공원 등에서 낭독되었다.<span class="credit">퍼블릭 도메인</span></figcaption>
+          </figure>
+          <figure class="photo">
+            <img src="img/shinhanchon.jpg" alt="눈 덮인 마을에서 태극기를 들고 모인 한인들" loading="lazy">
+            <figcaption><b>연해주 신한촌의 3·1 운동 1주년 시위(1920)</b> 만세 운동은 국외의 한인 마을로도 퍼졌다.<span class="credit">퍼블릭 도메인</span></figcaption>
+          </figure>
+          <figure class="photo">
+            <img src="img/kpg1921.jpg" alt="건물 앞에 여러 줄로 서서 찍은 대한민국 임시 정부 사람들의 단체 사진" loading="lazy">
+            <figcaption><b>대한민국 임시 정부 신년 축하 기념사진(1921)</b> 중국 상하이에서 찍었다.<span class="credit">퍼블릭 도메인</span></figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="card panel" id="ep2" role="tabpanel" aria-labelledby="et2">
+        <h3>5·4 운동 <span class="where">1919. 5. 4. · 베이징 톈안먼 광장</span></h3>
+        <dl>
+          <div class="row"><dt>배경</dt><dd>제1차 세계 대전 중 일본이 중국에 <b>21개조 요구</b>(독일이 가졌던 산둥반도의 이권을 넘기라는 요구 등)를 강요했고, 중국 정부는 이를 받아들였다. 파리 강화 회의에서 중국이 무효를 주장했지만 승전국들은 받아들이지 않았다.</dd></div>
+          <div class="row"><dt>전개</dt><dd>베이징의 <b>학생</b>들을 중심으로 <b>산둥반도의 이권 반환</b>, 21개조 요구 철폐, 친일파 처벌을 요구하였다.</dd></div>
+          <div class="row"><dt>그 뒤</dt><dd>국민당과 공산당이 결성되어 민족 운동을 이끌었다. (아래 연표)</dd></div>
+        </dl>
+        <figure class="photo mid">
+          <img src="img/may4.jpg" alt="톈안먼 앞 광장을 가득 메운 학생 시위대와 깃발" loading="lazy">
+          <figcaption><b>톈안먼 광장에 모인 베이징의 학생들(1919. 5. 4.)</b> 13개 대학의 학생 약 3,000명이 모였다.<span class="credit">퍼블릭 도메인</span></figcaption>
+        </figure>
+        <ol class="tl">
+          <li><span class="y">1919</span><b>5·4 운동</b> → 이후 국민당과 공산당 결성</li>
+          <li><span class="y">1924</span><b>제1차 국공 합작</b> · 쑨원의 국민당이 군벌과 제국주의 열강을 물리치려고 공산당과 손잡음</li>
+          <li><span class="y">1927</span>쑨원의 뒤를 이은 <b>장제스</b>가 공산당을 탄압 → 제1차 국공 합작이 깨짐</li>
+          <li><span class="y">1928</span>장제스가 군벌을 무너뜨리고 <b>중국 통일</b></li>
+          <li><span class="y">1937</span>일본이 <b>중일 전쟁</b>을 일으킴 → <b>제2차 국공 합작</b>으로 다시 손잡고 일본군에 대항</li>
+        </ol>
+      </div>
+
+      <div class="card" style="margin-top:20px">
+        <div class="kicker">탐구 · 두 운동의 연결 고리</div>
+        <p style="margin:0 0 8px">5·4 운동 때 베이징의 학생들이 뿌린 글의 한 부분입니다.</p>
+        <div class="speech"><div class="av">北</div><div><small>5·4 운동 당시 학생들의 호소 (교과서 208쪽)</small><q>산둥이 망하면 중국도 망합니다. 조선에서는 독립을 꾀하면서 “독립이 아니면 차라리 죽음을 달라.”라고 외쳤습니다.</q></div></div>
+        <label for="link31" style="font-weight:700">3·1 운동과 5·4 운동은 어떤 관련이 있을까요? 공통점과 영향을 함께 써 보세요.</label>
+        <textarea id="link31" data-save="nm-link31" placeholder="예) 두 운동은 모두 1919년에 일어났고… 3·1 운동은 5·4 운동에…"></textarea>
+        <details class="reveal">
+          <summary>예시 답안 보기</summary>
+          <div>두 운동은 모두 <b>1919년</b> 제1차 세계 대전 이후 <b>민족 자결주의</b>의 영향을 받아 <b>일본의 침략과 지배에 맞선</b> 민족 운동이다. 학생과 시민이 앞장섰다는 점도 같다. 중국 학생들은 조선의 3·1 운동을 예로 들며 동포들에게 일어나자고 호소했으므로, <b>3·1 운동은 5·4 운동에 영향</b>을 주었다.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 인도와 동남아시아 -->
+  <section id="s3">
+    <div class="wrap">
+      <div class="kicker">STEP 3 · 전개 ② 인도·동남아시아 (10분)</div>
+      <h2>인도와 동남아시아의 민족 운동</h2>
+      <div class="cause"><span>영국: “전쟁을 도우면 자치를 허용하겠다”</span><b>→</b><span>인도인 참전</span><b>→</b><span>전쟁 뒤 약속을 지키지 않고 민족 운동 탄압</span><b>→</b><span>인도의 민족 운동</span></div>
+
+      <div class="grid g2">
+        <div class="card">
+          <figure class="photo portrait"><img src="img/gandhi.jpg" alt="물레를 돌리는 간디를 그린 그림" loading="lazy"><figcaption><b>물레를 돌리는 간디</b> 영국산 옷을 사지 않으려고 직접 물레로 실을 뽑아 옷감을 짰다.<span class="credit">환등 슬라이드 그림 · 퍼블릭 도메인</span></figcaption></figure>
+          <h3 style="font-size:20px;margin-top:12px">간디 · 비폭력·불복종 운동</h3>
+          <p style="margin:0">영국 상품을 사지 않고, 세금 납부를 거부하는 등 <b>폭력을 쓰지 않고 따르지 않는</b> 방법으로 저항했다.</p>
+        </div>
+        <div class="card">
+          <figure class="photo portrait"><img src="img/nehru.jpg" alt="의자에 앉은 아버지 모틸랄 네루 옆에 선 자와할랄 네루" loading="lazy"><figcaption><b>자와할랄 네루(서 있는 사람, 1929)</b> 옆은 아버지 모틸랄 네루.<span class="credit">퍼블릭 도메인</span></figcaption></figure>
+          <h3 style="font-size:20px;margin-top:12px">네루 · 인도 독립 동맹</h3>
+          <p style="margin:0">인도의 <b>완전한 독립</b>을 주장하며 인도 독립 동맹을 만들었다.</p>
+        </div>
+      </div>
+      <p class="note" style="margin-top:16px"><b>결과</b> · 인도의 민족 운동이 전국으로 퍼지자 영국은 <b>제한된 범위에서 인도 각 주의 자치권</b>을 인정하였다.</p>
+
+      <h3 style="font-size:20px;margin-top:28px">동남아시아: 약속을 어긴 식민 본국에 맞서다</h3>
+      <div class="grid g2">
+        <div class="card person">
+          <img src="img/hochiminh.jpg" alt="호찌민의 얼굴 사진" loading="lazy">
+          <div><div class="kicker">베트남 · 프랑스의 식민지</div><h3>호찌민</h3><p>독립을 조건으로 제1차 세계 대전에서 프랑스를 도왔지만, 프랑스는 약속을 지키지 않았다. 호찌민은 <b>베트남 공산당</b>을 창설하여 프랑스에 저항했다.</p><span class="credit">사진: 1946년 무렵 · 퍼블릭 도메인</span></div>
+        </div>
+        <div class="card person">
+          <img src="img/sukarno.jpg" alt="모자를 쓰고 흰 제복을 입은 수카르노의 초상 사진" loading="lazy">
+          <div><div class="kicker">인도네시아 · 네덜란드의 식민지</div><h3>수카르노</h3><p>오랫동안 네덜란드의 통치를 받았던 인도네시아에서 <b>인도네시아 국민당</b>을 만들어 민족 운동을 이끌었다.</p><span class="credit">사진: 대통령 시절 공식 초상 · 퍼블릭 도메인</span></div>
+        </div>
+      </div>
+      <details class="reveal" style="margin-top:12px">
+        <summary>더 알아보기 · 인물로 보는 동남아시아의 민족 운동 (교과서 209쪽)</summary>
+        <div><b>베트남의 판보이쩌우</b> – 근대화에 성공한 일본의 도움을 얻고자 베트남 청년들의 일본 유학을 장려했다.<br><b>필리핀의 아기날도</b> – 미국·에스파냐 전쟁 때 독립을 약속한 미국을 도왔으나, 미국이 필리핀을 식민지로 삼자 독립운동을 이끌었다.<br><b>인도네시아의 카르티니</b> – 독립하려면 ‘어머니가 될 여성을 위한 교육’이 중요하다며 여학교를 세웠다.</div>
+      </details>
+
+      <div class="card sort" id="sortP" style="margin-top:20px">
+        <div class="kicker">바로 확인 · 누가 어느 나라에서?</div>
+        <div class="item" data-a="인도"><p><b>간디</b> · 비폭력·불복종 운동</p><div class="pick"><button type="button">인도</button><button type="button">베트남</button><button type="button">인도네시아</button></div></div>
+        <div class="item" data-a="베트남"><p><b>호찌민</b> · 공산당을 창설하여 프랑스에 저항</p><div class="pick"><button type="button">인도</button><button type="button">베트남</button><button type="button">인도네시아</button></div></div>
+        <div class="item" data-a="인도네시아"><p><b>수카르노</b> · 국민당을 만들어 네덜란드에 저항</p><div class="pick"><button type="button">인도</button><button type="button">베트남</button><button type="button">인도네시아</button></div></div>
+        <div class="item" data-a="인도"><p><b>네루</b> · 완전한 독립을 주장하며 독립 동맹 창설</p><div class="pick"><button type="button">인도</button><button type="button">베트남</button><button type="button">인도네시아</button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 서아시아와 아프리카 -->
+  <section id="s4">
+    <div class="wrap">
+      <div class="kicker">STEP 4 · 전개 ③ 서아시아·아프리카 (10분)</div>
+      <h2>서아시아와 아프리카의 민족 운동</h2>
+
+      <h3 style="font-size:20px">① 튀르키예 공화국의 수립</h3>
+      <div class="anne">
+        <figure class="photo portrait" style="margin:0"><img src="img/kemal.jpg" alt="야외 칠판에 새 튀르키예 문자를 써 보이는 무스타파 케말" loading="lazy"><figcaption><b>새 문자를 가르치는 무스타파 케말(1928)</b> 어려운 아랍 문자 대신 튀르키예 문자를 만들어 문맹률을 낮추었다.<span class="credit">퍼블릭 도메인</span></figcaption></figure>
+        <div>
+          <p style="margin-top:0">제1차 세계 대전에서 동맹국 편에 섰던 <b>오스만 제국</b>은 패전국이 되어 영토의 많은 부분을 잃고 연합국의 간섭을 받았습니다. 이에 <b>무스타파 케말</b>이 개혁을 이끌었습니다.</p>
+          <ol class="tl">
+            <li><span class="y">1922</span>술탄 제도 폐지</li>
+            <li><span class="y">1923</span><b>튀르키예 공화국</b> 수립, 첫 번째 대통령이 됨</li>
+            <li><span class="y">이후</span>칼리프 제도 폐지, <b>튀르키예 문자</b> 창제, <b>여성 참정권</b> 인정 등 근대화 개혁</li>
+          </ol>
+        </div>
+      </div>
+
+      <h3 style="font-size:20px;margin-top:28px">② 팔레스타인을 둘러싼 갈등: 영국의 두 가지 약속</h3>
+      <p style="margin-top:0">제1차 세계 대전 중 영국은 오스만 제국을 견제하려고 아랍인과 유대인 모두에게 다가갔습니다. 각 약속이 누구에게 한 것인지 골라 봅시다.</p>
+      <div class="card sort" id="sortB">
+        <div class="item" data-a="아랍인"><p><b>1915 · 맥마흔 선언</b> “영국을 도와주면 독립을 지지하겠다.”</p><div class="pick"><button type="button">아랍인</button><button type="button">유대인</button></div></div>
+        <div class="item" data-a="유대인"><p><b>1917 · 밸푸어 선언</b> “팔레스타인에 나라를 세우는 일을 도와주겠다.”</p><div class="pick"><button type="button">아랍인</button><button type="button">유대인</button></div></div>
+      </div>
+      <figure class="photo mid" style="margin-top:16px">
+        <img src="img/balfour.jpg" alt="영국 외무 장관 밸푸어가 로스차일드에게 보낸 타자기 편지" loading="lazy">
+        <figcaption><b>밸푸어 선언(1917. 11. 2.)</b> 영국 외무 장관 밸푸어가 유대인 지도자 로스차일드에게 보낸 편지. “팔레스타인에 유대인의 민족적 고향을 세우는 것”을 지지한다고 썼다.<span class="credit">퍼블릭 도메인</span></figcaption>
+      </figure>
+      <div class="card">
+        <div class="kicker">우리 해 보자 (교과서 210~211쪽)</div>
+        <label for="pal" style="font-weight:700">영국이 한 두 약속을 정리하고, 팔레스타인 갈등이 왜 일어났는지 써 보세요.</label>
+        <textarea id="pal" data-save="nm-pal" placeholder="예) 영국은 아랍인에게… 유대인에게도… 그런데…"></textarea>
+        <details class="reveal">
+          <summary>예시 답안과 오늘날의 모습 보기</summary>
+          <div>영국은 아랍인에게는 영국을 도우면 <b>아랍인의 독립을 지지</b>하겠다고(맥마흔 선언), 유대인에게는 영국을 도우면 <b>유대인의 국가를 세우는 일을 돕겠다</b>고(밸푸어 선언) 약속했다. 같은 땅을 두고 서로 다른 약속을 했지만 <b>둘 다 지키지 않아</b> 아랍인과 유대인이 팔레스타인 지역을 둘러싸고 갈등하게 되었다.<br><br><b>오늘날</b> · 1948년 유대인들이 이스라엘을 세우자 제1차 중동 전쟁이 일어났고, 이스라엘이 이겨 영토를 넓혔다. 이후 팔레스타인 난민들의 저항이 이어졌고, 분쟁은 오늘날까지 계속되고 있다.</div>
+        </details>
+      </div>
+
+      <h3 style="font-size:20px;margin-top:28px">③ 아프리카의 민족 운동</h3>
+      <div class="strip two">
+        <div class="card">
+          <figure class="photo"><img src="img/egypt1919.jpg" alt="카이로 거리를 가득 메운 이집트 시위대" loading="lazy"><figcaption><b>카이로의 반영 시위(1919)</b><span class="credit">퍼블릭 도메인</span></figcaption></figure>
+          <h3 style="font-size:19px;margin-top:12px">이집트 · 반영 운동</h3>
+          <p style="margin:0">영국의 지배에 저항하는 반영 운동이 일어났다. 영국은 <b>수에즈 운하의 관리권과 군대 주둔권</b>을 유지하는 조건으로 이집트의 독립을 인정했다(1922).</p>
+        </div>
+        <div class="card">
+          <figure class="photo"><img src="img/panafrican.jpg" alt="건물 앞에 모여 선 제2차 범아프리카 회의 참석자들" loading="lazy"><figcaption><b>제2차 범아프리카 회의(1921)</b><span class="credit">퍼블릭 도메인</span></figcaption></figure>
+          <h3 style="font-size:19px;margin-top:12px">사하라 남쪽 · 범아프리카주의</h3>
+          <p style="margin:0">아프리카의 통일을 추구하는 <b>범아프리카주의</b>가 퍼졌다. 아프리카인들은 스스로의 힘으로 독립하여 아프리카 대륙을 통일하고자 노력했다.</p>
+        </div>
+      </div>
+      <details class="reveal">
+        <summary>생각해 보기 · 이집트의 독립은 ‘완전한’ 독립이었을까?</summary>
+        <div>영국이 수에즈 운하를 관리하고 군대를 그대로 두었으므로, 이집트는 이름은 독립국이었지만 여전히 영국의 영향력 아래에 있었습니다. 완전한 독립은 그 뒤로도 오랜 노력이 필요했습니다.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 5. 확인 -->
+  <section id="s5">
+    <div class="wrap">
+      <div class="kicker">STEP 5 · 확인 (7분)</div>
+      <h2>배운 내용을 확인해요</h2>
+      <div class="card fill" id="fill">
+        <p><span class="num">1.</span> 한국의 독립운동가들은 3·1 운동 이후 민족주의 진영과 <span class="blank" data-a="사회주의"><input aria-label="빈칸 1" placeholder="❶"></span> 진영으로 나뉘었다.</p>
+        <p><span class="num">2.</span> 3·1 운동 이후 독립운동가들은 중국 상하이에 <span class="blank" data-a="대한민국임시정부|임시정부"><input aria-label="빈칸 2" placeholder="❷"></span>을/를 세웠다.</p>
+        <p><span class="num">3.</span> 인도의 <span class="blank" data-a="간디"><input aria-label="빈칸 3" placeholder="❸"></span>은/는 비폭력·불복종 운동의 방식으로 민족 운동을 이끌었다.</p>
+        <p><span class="num">4.</span> 네덜란드의 통치를 받던 인도네시아에서는 <span class="blank" data-a="수카르노"><input aria-label="빈칸 4" placeholder="❹"></span>이/가 인도네시아 국민당을 만들었다.</p>
+        <p><span class="num">5.</span> 영국이 아랍인의 독립을 지지하겠다고 약속한 것은 <span class="blank" data-a="맥마흔선언|맥마흔"><input aria-label="빈칸 5" placeholder="❺"></span>이다.</p>
+        <p><span class="num">6.</span> 사하라 사막 남쪽에서는 아프리카의 통일을 추구하는 <span class="blank" data-a="범아프리카주의"><input aria-label="빈칸 6" placeholder="❻"></span>이/가 퍼졌다.</p>
+        <div class="btns">
+          <button class="btn" type="button" id="checkFill">확인하기</button>
+          <button class="btn ghost" type="button" id="showFill">정답 보기</button>
+          <button class="btn ghost" type="button" id="resetFill">다시 하기</button>
+        </div>
+        <div class="result" id="fillResult" aria-live="polite"></div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="kicker">문자표에서 찾기 (교과서 211쪽)</div>
+        <p style="margin:0 0 8px">설명에 맞는 말을 문자표에서 찾아 <b>글자를 차례로 눌러</b> 보세요. 맞으면 색이 칠해집니다. (가로 또는 세로)</p>
+        <div class="ws">
+          <div class="wsg" id="wsg" aria-label="문자표"></div>
+          <ol class="wsl" id="wsl">
+            <li data-w="0">1919년 한국에서 일어난 민족 운동</li>
+            <li data-w="1">국민당과 공산당이 제국주의 열강에 맞서려고 두 차례 맺은 연합</li>
+            <li data-w="2">인도 독립 동맹을 만든 인물</li>
+            <li data-w="3">베트남 공산당을 창설한 인물</li>
+            <li data-w="4">인도네시아 국민당을 만들어 민족 운동을 이끈 인물</li>
+            <li data-w="5">제1차 세계 대전 이후 무스타파 케말이 수립한 공화국</li>
+          </ol>
+        </div>
+        <div class="btns"><button class="btn ghost" type="button" id="wsClear">선택 지우기</button><button class="btn ghost" type="button" id="wsShow">정답 보기</button></div>
+        <div class="result" id="wsMsg" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 단원 마무리 -->
+  <section id="s6">
+    <div class="wrap">
+      <div class="kicker">STEP 6 · Ⅵ단원 마무리 (8분)</div>
+      <h2>세계 대전과 사회 변동, 한 번에 정리하기</h2>
+      <div class="grid g3">
+        <div class="card"><h3 style="font-size:18px">세계 대전과 국제 질서</h3><p style="margin:0;font-size:16px">제1차 세계 대전: 3국 동맹과 3국 협상의 대립, <b>사라예보 사건</b> → 베르사유 조약<br>제2차 세계 대전: 전체주의 국가 등장 → <b>국제 연합(UN)</b> 창설</p></div>
+        <div class="card"><h3 style="font-size:18px">전쟁 범죄와 평화 노력</h3><p style="margin:0;font-size:16px">난징 대학살, 홀로코스트, 일본군 ‘위안부’<br>→ 뉘른베르크 재판, 극동 국제 군사 재판, 평화 조약, 박물관·기념관</p></div>
+        <div class="card"><h3 style="font-size:18px">아시아·아프리카의 민족 운동</h3><p style="margin:0;font-size:16px">3·1 운동, 5·4 운동, 비폭력·불복종 운동<br>튀르키예 공화국, <b>범아프리카주의</b></p></div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="kicker">문제로 확인해요</div>
+        <p style="margin:0 0 8px"><b>1.</b> 다음 흐름의 (가), (나)에 들어갈 말을 골라 보세요.</p>
+        <div class="flow"><span>사라예보 사건 → 제1차 세계 대전</span><span>연합국 승리</span><span>파리 강화 회의 → <b>(가)</b> 체제</span><span>대공황</span><span><b>(나)</b> 국가가 제2차 세계 대전을 일으킴</span></div>
+        <div class="q" data-a="베르사유"><p style="margin:0">(가)</p><div class="opts"><button type="button">워싱턴</button><button type="button">베르사유</button><button type="button">국제 연합</button></div><div class="fb"></div></div>
+        <div class="q" data-a="전체주의"><p style="margin:0">(나)</p><div class="opts"><button type="button">민주주의</button><button type="button">전체주의</button><button type="button">제국주의</button></div><div class="fb"></div></div>
+        <p style="margin:12px 0 6px"><b>2.</b> <b>민족, 국가, 개인</b>이라는 단어를 모두 넣어 <b>전체주의</b>의 뜻을 써 보세요. <span class="where">서술형</span></p>
+        <textarea id="totalit" data-save="nm-totalit" placeholder="전체주의는 …"></textarea>
+        <details class="reveal"><summary>예시 답안 보기</summary><div>전체주의는 <b>민족</b>이나 <b>국가</b> 전체의 이익을 가장 앞세우며 <b>개인</b>의 희생을 강요한 사상이다.</div></details>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="kicker">한 줄 성찰</div>
+        <label for="refl" style="font-weight:700">오늘 만난 민족 운동 가운데 가장 인상 깊은 것은 무엇이고, 왜 그런가요?</label>
+        <textarea id="refl" data-save="nm-refl" placeholder="예) 간디의 비폭력·불복종 운동이 인상 깊었다. 왜냐하면…"></textarea>
+      </div>
+
+      <div class="grid g2" style="margin-top:16px">
+        <div class="card">
+          <div class="kicker">스스로 점검하기</div>
+          <ul class="checks">
+            <li><label><input type="checkbox"> 3·1 운동과 5·4 운동의 관련성을 말할 수 있다.</label></li>
+            <li><label><input type="checkbox"> 간디·네루, 호찌민, 수카르노의 민족 운동을 설명할 수 있다.</label></li>
+            <li><label><input type="checkbox"> 튀르키예 공화국 수립과 팔레스타인 갈등의 원인을 설명할 수 있다.</label></li>
+            <li><label><input type="checkbox"> 이집트의 독립과 범아프리카주의를 설명할 수 있다.</label></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="kicker">모둠 활동 예고 · 우리가 완성하는 역사</div>
+          <p style="margin:0;font-size:16px">교과서 213쪽 <b>모의재판</b>: 모둠별로 전쟁 범죄를 일으킨 인물을 골라 검사·변호인·피고인·판사 역할을 나누고, 사건 설명 → 질문과 답 → 최후 변론 → 판결 순서로 재판을 진행합니다. 지난 시간에 쓴 <b>아이히만 반박 글</b>을 검사 원고로 활용해 보세요.</p>
+        </div>
+      </div>
+
+      <div class="card submit-card" id="submitCard">
+        <div class="kicker">📮 선생님께 제출하기</div>
+        <p class="hint">3·1 운동과 5·4 운동의 관련성(STEP 2), 팔레스타인 갈등(STEP 4), 전체주의 서술과 한 줄 성찰, 빈칸·문자표·분류 결과가 한 번에 제출됩니다. 고쳐서 다시 제출해도 괜찮아요(마지막 제출을 기준으로 봅니다).</p>
+        <div class="who">
+          <label>학반 <input id="stClass" data-keep="pc-class" placeholder="예) 2-3" autocomplete="off"></label>
+          <label>번호 <input id="stNum" data-keep="pc-num" inputmode="numeric" placeholder="예) 15" autocomplete="off"></label>
+          <label>이름 <input id="stName" data-keep="pc-name" placeholder="이름" autocomplete="off"></label>
+        </div>
+        <div class="btns"><button class="btn" type="button" id="sendBtn">제출하기</button></div>
+        <div class="sendmsg" id="sendMsg" role="status" aria-live="polite"></div>
+      </div>
+      <p class="note" style="margin-top:24px">다음 시간부터는 <b>Ⅶ. 현대 세계의 전개와 과제</b> — 냉전 체제가 형성되다를 배웁니다.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">중학교 역사①(2022 개정) Ⅵ-03 수업 자료 · 교과서 206~213쪽 내용을 바탕으로 수업용으로 재구성했습니다.
+    <ul class="credits">
+      <li>사진 출처 (모두 위키미디어 공용 · 퍼블릭 도메인, 클릭하면 원본 확인):</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:The_Proclamation_of_Korean_Independence.jpg">독립 선언서</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Shinhanchon_March_1st_Movement_Anniversary_Protest_(1920)_01_(cropped).jpg">신한촌 3·1 운동 1주년 시위</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Provisional_Government_of_the_Republic_of_Korea_1921.jpg">대한민국 임시 정부(1921)</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Chinese_protestors_march_against_the_Treaty_of_Versailles_(May_4,_1919).jpg">5·4 운동</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Gandhi_at_the_spinning_wheel.jpg">물레를 돌리는 간디</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Jawaharlal_Nehru_and_Motilal_Nehru_in_1929.jpg">네루(1929)</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Ho_Chi_Minh_1946.jpg">호찌민</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Presiden_Sukarno.jpg">수카르노</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Mustafa_Kemal_harf_devriminde.jpg">무스타파 케말(1928)</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Balfour_declaration_unmarked.jpg">밸푸어 선언</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Demonstration_in_Egypt_in_1919_(Crescent,_the_Cross_and_Star_of_David).jpg">이집트 시위(1919)</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:The_Second_Pan_African_Conference,_Brussels,_1921.jpg">제2차 범아프리카 회의</a></li>
+    </ul>
+  </div>
+  <div class="lightbox" id="lightbox" role="dialog" aria-label="사진 크게 보기"><img alt=""><p></p></div>
+</footer>
+
+<script>
+(function(){
+  function store(k,v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v); }catch(e){ return null; } }
+  function $(id){ return document.getElementById(id); }
+
+  // theme toggle
+  var root=document.documentElement, KEY='wc-theme';
+  var t=store(KEY); if(t) root.setAttribute('data-theme',t);
+  $('theme').addEventListener('click',function(){
+    var dark = root.getAttribute('data-theme') ? root.getAttribute('data-theme')==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    var next = dark?'light':'dark'; root.setAttribute('data-theme',next); store(KEY,next);
+  });
+
+  // progress + step highlight
+  var bar=$('progress'), links=[].slice.call(document.querySelectorAll('.steps a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  function onScroll(){
+    var h=document.documentElement; bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+    var cur=-1; secs.forEach(function(s,i){ if(s.getBoundingClientRect().top<160) cur=i; });
+    links.forEach(function(a,i){a.classList.toggle('on',i===cur);});
+  }
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // tabs
+  [].forEach.call(document.querySelectorAll('[role=tablist]'),function(list){
+    var tabs=[].slice.call(list.querySelectorAll('[role=tab]'));
+    tabs.forEach(function(tb){ tb.addEventListener('click',function(){
+      tabs.forEach(function(x){ x.setAttribute('aria-selected',x===tb); $(x.getAttribute('aria-controls')).classList.toggle('on',x===tb); });
+    });});
+  });
+
+  // sorters (people / promises)
+  [].forEach.call(document.querySelectorAll('.sort .item'),function(it){
+    var bs=[].slice.call(it.querySelectorAll('button'));
+    bs.forEach(function(b){ b.addEventListener('click',function(){
+      bs.forEach(function(x){x.classList.remove('ok','no');});
+      b.classList.add(b.textContent===it.dataset.a?'ok':'no');
+    });});
+  });
+
+  // fill-in
+  var blanks=[].slice.call(document.querySelectorAll('.blank'));
+  function norm(s){return s.replace(/[\s'‘’"“”·]/g,'');}
+  function ok(b){ return b.dataset.a.split('|').indexOf(norm(b.querySelector('input').value))>-1; }
+  $('checkFill').onclick=function(){
+    var n=0; blanks.forEach(function(b){ var r=ok(b); n+=r; b.classList.toggle('ok',r); b.classList.toggle('no',!r); });
+    $('fillResult').textContent = n===blanks.length ? '모두 맞았어요! 🎉' : blanks.length+'개 중 '+n+'개를 맞혔어요. 빨간 칸을 다시 생각해 보세요.';
+  };
+  $('showFill').onclick=function(){
+    var show={'대한민국임시정부':'대한민국 임시 정부','맥마흔선언':'맥마흔 선언'};
+    blanks.forEach(function(b){ var a=b.dataset.a.split('|')[0]; b.querySelector('input').value=show[a]||a; b.classList.add('ok'); b.classList.remove('no'); });
+    $('fillResult').textContent='정답을 확인하고 공책에 정리해 보세요.';
+  };
+  $('resetFill').onclick=function(){
+    blanks.forEach(function(b){ b.querySelector('input').value=''; b.classList.remove('ok','no'); });
+    $('fillResult').textContent='';
+  };
+
+  // word search (교과서 211쪽 문자표)
+  var G=['튀국공합작네호','르민족간디하찌','키무스타파이민','예서수카르노운','공아831운동','화시네루721','국아수에즈운하'];
+  var W=[ [[4,3],[4,4],[4,5],[4,6]], [[0,1],[0,2],[0,3],[0,4]], [[5,2],[5,3]], [[0,6],[1,6],[2,6]],
+          [[3,2],[3,3],[3,4],[3,5]], [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0]] ];
+  var NAMES=['3·1 운동','국공 합작','네루','호찌민','수카르노','튀르키예 공화국'];
+  var wsg=$('wsg'), cells={}, sel={}, found={};
+  G.forEach(function(row,r){ Array.from(row).forEach(function(ch,c){
+    var b=document.createElement('button'); b.type='button'; b.textContent=ch; b.setAttribute('aria-label',(r+1)+'행 '+(c+1)+'열 '+ch);
+    b.addEventListener('click',function(){ tap(r,c); }); wsg.appendChild(b); cells[r+','+c]=b; }); });
+  var lis=[].slice.call(document.querySelectorAll('#wsl li'));
+  function key(p){ return p[0]+','+p[1]; }
+  function paintWS(){
+    Object.keys(cells).forEach(function(k){ cells[k].classList.toggle('sel',!!sel[k]); });
+    lis.forEach(function(li){ li.classList.toggle('done',!!found[li.dataset.w]); });
+    var n=Object.keys(found).length;
+    $('wsMsg').textContent = n===W.length ? '6개를 모두 찾았어요! 🎉' : n ? '6개 중 '+n+'개를 찾았어요.' : '';
+  }
+  function tap(r,c){
+    var k=r+','+c; if(sel[k]) delete sel[k]; else sel[k]=1;
+    var ks=Object.keys(sel);
+    W.forEach(function(w,i){
+      if(found[i] || w.length!==ks.length) return;
+      if(w.every(function(p){ return sel[key(p)]; })){
+        found[i]=1; w.forEach(function(p){ cells[key(p)].classList.add('f'+i); cells[key(p)].classList.add('hit'); }); sel={};
+        $('wsMsg').textContent='찾았어요: '+NAMES[i];
+      }
+    });
+    if(ks.length>7) sel={};
+    paintWS();
+  }
+  $('wsClear').onclick=function(){ sel={}; paintWS(); };
+  $('wsShow').onclick=function(){ W.forEach(function(w,i){ found[i]=1; w.forEach(function(p){ cells[key(p)].classList.add('f'+i,'hit'); }); }); sel={}; paintWS(); };
+  paintWS();
+
+  // unit-review quiz
+  [].forEach.call(document.querySelectorAll('.q'),function(q){
+    var bs=[].slice.call(q.querySelectorAll('button')), fb=q.querySelector('.fb');
+    bs.forEach(function(b){ b.addEventListener('click',function(){
+      bs.forEach(function(x){x.classList.remove('ok','no');});
+      var r=b.textContent===q.dataset.a; b.classList.add(r?'ok':'no');
+      fb.textContent = r ? '정답!' : '다시 생각해 보세요.';
+    });});
+  });
+
+  // autosave textareas
+  [].forEach.call(document.querySelectorAll('textarea[data-save]'),function(ta){
+    ta.value=store(ta.dataset.save)||'';
+    ta.addEventListener('input',function(){ store(ta.dataset.save,ta.value); });
+  });
+
+  // submit to Google Sheet (same Apps Script web app as lessons 2 and 5)
+  var SHEET_API_URL='https://script.google.com/macros/s/AKfycbyfpqz_5eEpNHCmJyu6QdyYyYAaOfNnMo9S0Yd94ZBvp32PFutglQ2HU2_71Z4shqvmHw/exec';
+  [].forEach.call(document.querySelectorAll('input[data-keep]'),function(i){ i.value=store(i.dataset.keep)||''; i.addEventListener('input',function(){ store(i.dataset.keep,i.value); }); });
+  function v(id){ return $(id).value.trim(); }
+  function sortScore(sel){ var it=[].slice.call(document.querySelectorAll(sel+' .item')); return it.length+'개 중 '+it.filter(function(x){return x.querySelector('button.ok');}).length+'개'; }
+  $('sendBtn').onclick=function(){
+    var btn=this, msg=$('sendMsg');
+    msg.className='sendmsg';
+    if(!v('stClass')||!v('stNum')||!v('stName')){ msg.className='sendmsg err'; msg.textContent='학반, 번호, 이름을 모두 써 주세요.'; return; }
+    if(!v('link31')&&!v('pal')&&!v('totalit')&&!v('refl')){ msg.className='sendmsg err'; msg.textContent='아직 쓴 글이 없어요. STEP 2·4·6의 글쓰기 칸을 먼저 채워 주세요.'; return; }
+    var checks=[].slice.call(document.querySelectorAll('.checks input'));
+    var payload={action:'submit6',className:v('stClass'),studentNumber:v('stNum'),studentName:v('stName'),
+      fillScore:blanks.length+'개 중 '+blanks.filter(ok).length+'개',wordSearch:W.length+'개 중 '+Object.keys(found).length+'개',
+      peopleScore:sortScore('#sortP'),promiseScore:sortScore('#sortB'),
+      link31:v('link31'),palestine:v('pal'),totalitarian:v('totalit'),reflection:v('refl'),
+      selfCheck:checks.length+'개 중 '+checks.filter(function(c){return c.checked;}).length+'개'};
+    btn.disabled=true; btn.textContent='제출 중…'; msg.textContent='';
+    var ctrl=window.AbortController?new AbortController():null, timer=setTimeout(function(){ if(ctrl) ctrl.abort(); },30000);
+    fetch(SHEET_API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload),signal:ctrl?ctrl.signal:undefined})
+      .then(function(r){ if(!r.ok) throw new Error('status '+r.status); return r.json(); })
+      .then(function(d){ if(!d||!d.ok) throw new Error(d&&d.error||'server'); msg.className='sendmsg ok'; msg.textContent='제출했어요! ('+d.timestamp+') 고친 뒤 다시 제출해도 됩니다.'; })
+      .catch(function(){ msg.className='sendmsg err'; msg.textContent='제출하지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요. (쓴 글은 그대로 남아 있어요)'; })
+      .then(function(){ clearTimeout(timer); btn.disabled=false; btn.textContent='제출하기'; });
+  };
+
+  // click photo to enlarge
+  var lb=$('lightbox'), lbImg=lb.querySelector('img'), lbP=lb.querySelector('p');
+  [].forEach.call(document.querySelectorAll('.photo img, .person img'),function(img){
+    img.addEventListener('click',function(e){
+      e.stopPropagation();
+      lbImg.src=img.src; lbImg.alt=img.alt;
+      var b=img.parentNode.querySelector('figcaption b, h3'); lbP.textContent=b?b.textContent:img.alt;
+      lb.classList.add('on');
+    });
+  });
+  lb.addEventListener('click',function(){lb.classList.remove('on');});
+  addEventListener('keydown',function(e){ if(e.key==='Escape') lb.classList.remove('on'); });
+})();
+</script>
+<a href="../" aria-label="수업 목록으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483000;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:rgba(15,23,42,.92);color:#fff;border:1px solid rgba(245,158,11,.55);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.2;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)">← 수업 목록</a>
+</body>
+</html>

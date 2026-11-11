@@ -8,6 +8,7 @@
  *  - auth   : 교사 비밀번호 확인
  *  - list   : 교사 화면에 제출 현황 불러오기 (비밀번호 필요)
  *  - submit5: 5차시 「인권 회복과 평화 실현」 활동 결과를 '5차시 제출' 시트에 기록
+ *  - submit6: 6차시 「아시아와 아프리카의 민족 운동」 활동 결과를 '6차시 제출' 시트에 기록
  *
  * 설정은 시트 상단 메뉴 [📚 수업 설정]에서 합니다. (API 키·비밀번호는 코드에 적지 않습니다)
  */
@@ -91,6 +92,7 @@ function doPost(e) {
       case 'auth': return json_({ ok: checkPassword_(data.password) });
       case 'list': return json_(list_(data));
       case 'submit5': return json_(submit5_(data));
+      case 'submit6': return json_(submit6_(data));
       default: return json_(submit_(data));
     }
   } catch (err) {
@@ -121,6 +123,41 @@ function submit5_(data) {
       sheet.appendRow(HEADERS5);
       sheet.setFrozenRows(1);
       sheet.getRange(1, 1, 1, HEADERS5.length).setFontWeight('bold').setBackground('#fef3c7');
+    }
+    sheet.appendRow(row);
+  } finally {
+    lock.releaseLock();
+  }
+  return { ok: true, timestamp: data.timestamp };
+}
+
+/* ---------------- 6차시 제출 ---------------- */
+
+var SHEET6_NAME = '6차시 제출';
+var HEADERS6 = ['제출일시', '학반', '번호', '이름', '빈칸(맞힌 수)', '문자표 찾기', '인물-나라 분류', '영국의 약속 분류',
+  '3·1 운동과 5·4 운동의 관련성', '팔레스타인 갈등의 원인', '전체주의 서술', '한 줄 성찰', '스스로 점검'];
+var FIELDS6 = ['timestamp', 'className', 'studentNumber', 'studentName', 'fillScore', 'wordSearch', 'peopleScore', 'promiseScore',
+  'link31', 'palestine', 'totalitarian', 'reflection', 'selfCheck'];
+
+function submit6_(data) {
+  return appendLesson_(data, SHEET6_NAME, HEADERS6, FIELDS6);
+}
+
+// 차시별 제출 공통: 이름 확인 → 시각 기록 → 해당 탭에 한 줄 추가(없으면 머리글과 함께 탭 생성)
+function appendLesson_(data, sheetName, headers, fields) {
+  if (!data.studentName || !String(data.studentName).trim()) return { ok: false, error: 'no_name' };
+  data.timestamp = Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
+  var row = fields.map(function (f) { return safeCell_(data[f]); });
+  if (/^[0-9]/.test(row[1])) row[1] = "'" + row[1];
+  var lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName(sheetName) || ss.insertSheet(sheetName);
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(headers);
+      sheet.setFrozenRows(1);
+      sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold').setBackground('#fef3c7');
     }
     sheet.appendRow(row);
   } finally {
