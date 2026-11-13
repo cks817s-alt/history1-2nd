@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>교사 확인·평가</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="중2 역사① 2학기 수업 – 차시별 학생 제출물 실시간 확인과 평가(교사용)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8fafc;--surface:#fff;--surface-2:#f1f5f9;--ink:#0f172a;--ink-2:#475569;--line:#e2e8f0;--accent:#b45309;--amber:#f59e0b;--accent-soft:#fef3c7;--ok:#047857;--ok-soft:#d1fae5;--no:#be123c;--no-soft:#ffe4e6;--new:#fff7d6;--navy:#0f172a;--shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.06)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0b1120;--surface:#111a2e;--surface-2:#1e293b;--ink:#f1f5f9;--ink-2:#94a3b8;--line:#243147;--accent:#fbbf24;--accent-soft:rgba(245,158,11,.14);--ok:#34d399;--ok-soft:rgba(16,185,129,.15);--no:#fb7185;--no-soft:rgba(244,63,94,.15);--new:rgba(245,158,11,.12);--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35)}}
+:root[data-theme="dark"]{--bg:#0b1120;--surface:#111a2e;--surface-2:#1e293b;--ink:#f1f5f9;--ink-2:#94a3b8;--line:#243147;--accent:#fbbf24;--accent-soft:rgba(245,158,11,.14);--ok:#34d399;--ok-soft:rgba(16,185,129,.15);--no:#fb7185;--no-soft:rgba(244,63,94,.15);--new:rgba(245,158,11,.12);--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;font-size:16px;line-height:1.6;word-break:keep-all;overflow-wrap:break-word}
+.bar{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.bar .top{display:flex;align-items:center;gap:12px;padding:10px 16px;max-width:1200px;margin:0 auto}
+.logo{flex:none;width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#ea580c);display:grid;place-items:center;font-size:20px}
+.ttl{flex:1;min-width:0}.ttl small{display:block;color:#fbbf24;font-size:12px;font-weight:700}.ttl b{font-size:17px;font-weight:900}
+.tbtn{flex:none;border:1px solid #334155;background:#1e293b;color:#e2e8f0;border-radius:10px;height:34px;padding:0 12px;cursor:pointer;font:inherit;font-size:13px;font-weight:700}
+.lessons{display:flex;gap:6px;padding:0 16px 10px;overflow-x:auto;max-width:1200px;margin:0 auto;scrollbar-width:none}
+.lessons button{flex:none;font:inherit;font-size:14px;font-weight:700;padding:6px 12px;border-radius:10px;color:#cbd5e1;background:#1e293b;border:1px solid #334155;cursor:pointer}
+.lessons button b{color:#fbbf24;margin-right:4px}
+.lessons button[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:#0f172a}
+.lessons button[aria-pressed="true"] b{color:#0f172a}
+.wrap{max-width:1200px;margin:0 auto;padding:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+.login{max-width:420px;margin:48px auto}
+.login h1{font-size:22px;margin:0 0 6px}
+.login p{color:var(--ink-2);font-size:14px;margin:0 0 14px}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
+.btn{font:inherit;font-weight:700;font-size:15px;padding:9px 16px;border-radius:12px;border:1px solid var(--amber);background:var(--amber);color:#0f172a;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}.btn:disabled{opacity:.6;cursor:wait}
+.msg{font-weight:700;min-height:1.5em;margin-top:8px;color:var(--no)}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.tools label{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--ink-2)}
+.tools input[type=checkbox]{width:18px;height:18px;accent-color:var(--amber)}
+.tools .grow{flex:1}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 16px;min-width:120px}
+.stat b{display:block;font-size:26px;font-weight:900;color:var(--accent);line-height:1.2}
+.stat span{font-size:13px;color:var(--ink-2)}
+.live{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-2)}
+.live i{width:9px;height:9px;border-radius:50%;background:#94a3b8;display:inline-block}
+.live.on i{background:#22c55e;box-shadow:0 0 0 0 rgba(34,197,94,.6);animation:ping 1.6s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 8px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+.list{display:grid;gap:14px}
+.sub{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px;box-shadow:var(--shadow);border-left:5px solid var(--line)}
+.sub.graded{border-left-color:var(--ok)}
+.sub.fresh{background:var(--new);border-left-color:var(--amber)}
+.sub-h{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline;margin-bottom:8px}
+.sub-h .nm{font-size:19px;font-weight:900}
+.sub-h .cl{font-weight:700;color:var(--accent)}
+.sub-h .tm{font-size:13px;color:var(--ink-2)}
+.sub-h .old{font-size:12px;font-weight:700;color:var(--ink-2);background:var(--surface-2);border-radius:6px;padding:1px 8px}
+.sub-h .gtag{margin-left:auto;font-size:13px;font-weight:900;border-radius:8px;padding:2px 10px;background:var(--ok-soft);color:var(--ok)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px}
+.chips span{font-size:13.5px;background:var(--surface-2);border-radius:8px;padding:3px 10px}
+.chips span b{color:var(--ink-2);font-weight:700;margin-right:4px}
+.ans{display:grid;gap:8px}
+.ans div{background:var(--surface-2);border-radius:12px;padding:10px 14px;font-size:15.5px;white-space:pre-wrap}
+.ans div b{display:block;font-size:13px;color:var(--accent);white-space:normal}
+.ans details summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--accent)}
+.ans .empty{color:var(--ink-2);font-style:italic}
+.gr{margin-top:12px;display:grid;gap:8px}
+.grades{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.grades button{font:inherit;font-size:14px;font-weight:700;padding:6px 14px;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.grades button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fbbf24}
+:root[data-theme="dark"] .grades button[aria-pressed="true"]{background:#fbbf24;border-color:#fbbf24;color:#0f172a}
+.quick{display:flex;flex-wrap:wrap;gap:6px}
+.quick button{font:inherit;font-size:12.5px;padding:3px 10px;border-radius:999px;border:1px dashed var(--line);background:transparent;color:var(--ink-2);cursor:pointer}
+.gr textarea{width:100%;min-height:64px;resize:vertical}
+.gr .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.gr .st{font-size:13px;font-weight:700;color:var(--ink-2)}.gr .st.ok{color:var(--ok)}.gr .st.err{color:var(--no)}
+.blur .nm{filter:blur(6px)}
+.empty-state{text-align:center;color:var(--ink-2);padding:40px 16px}
+.hint{font-size:13px;color:var(--ink-2)}
+@media (max-width:560px){.stat{min-width:0;flex:1}}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="top">
+    <div class="logo" aria-hidden="true">📋</div>
+    <div class="ttl"><small>중2 역사① 2학기 · 교사용</small><b>학생 제출 확인·평가</b></div>
+    <button class="tbtn" id="theme" type="button" aria-label="화면 밝기 전환">◐ 화면</button>
+    <button class="tbtn" id="logout" type="button" hidden>잠금</button>
+  </div>
+  <nav class="lessons" id="lessons" aria-label="차시 선택" hidden></nav>
+</header>
+
+<main class="wrap">
+  <div class="card login" id="login">
+    <h1>교사 확인·평가</h1>
+    <p>학생들이 수업 사이트에서 제출한 활동을 차시별로 바로 확인하고, 평가와 피드백을 남기는 화면입니다. 구글 시트 메뉴 [📚 수업 설정]에서 정한 <b>교사 비밀번호</b>를 입력하세요.</p>
+    <form id="loginForm"><input type="password" id="pw" autocomplete="current-password" placeholder="교사 비밀번호" style="width:100%"><div style="margin-top:10px"><button class="btn" type="submit" id="loginBtn">들어가기</button></div></form>
+    <div class="msg" id="loginMsg" role="alert"></div>
+  </div>
+
+  <div id="app" hidden>
+    <div class="tools">
+      <select id="cls" aria-label="학반 고르기"><option value="">모든 반</option></select>
+      <input id="q" type="search" placeholder="이름·번호 찾기" aria-label="이름이나 번호로 찾기" style="width:150px">
+      <label><input type="checkbox" id="latest" checked> 학생별 마지막 제출만</label>
+      <label><input type="checkbox" id="ungraded"> 평가 안 한 것만</label>
+      <label><input type="checkbox" id="hide"> 이름 가리기(화면 공유용)</label>
+      <span class="grow"></span>
+      <span class="live" id="live"><i></i><span id="liveTxt">자동 새로 고침 꺼짐</span></span>
+      <label><input type="checkbox" id="auto" checked> 15초마다 새로 고침</label>
+      <button class="btn ghost" type="button" id="reload">지금 새로 고침</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="stN">0</b><span>제출한 학생</span></div>
+      <div class="stat"><b id="stG">0</b><span>평가 완료</span></div>
+      <div class="stat"><b id="stR">0</b><span>전체 제출 횟수</span></div>
+    </div>
+    <div class="list" id="list"></div>
+    <p class="hint" style="margin-top:20px">평가와 피드백은 구글 시트 「역사① 2학기 수업 제출」의 각 차시 탭 맨 오른쪽(평가·피드백·평가일시) 칸에 저장되고, 학생은 수업 페이지의 [선생님 피드백 확인] 버튼으로 바로 볼 수 있습니다.</p>
+  </div>
+</main>
+
+<script>
+(function(){
+  var API='https://script.google.com/macros/s/AKfycbyfpqz_5eEpNHCmJyu6QdyYyYAaOfNnMo9S0Yd94ZBvp32PFutglQ2HU2_71Z4shqvmHw/exec';
+  var LESSONS=[[1,'제1차 세계 대전'],[2,'2차 대전의 배경'],[3,'2차 대전의 전개'],[4,'전쟁 범죄'],[5,'인권 회복과 평화'],[6,'민족 운동'],[7,'냉전 체제']];
+  var GRADES=['잘함','보통','노력 필요'];
+  var QUICK=['교과서 내용을 정확히 썼어요.','근거가 분명해요.','사례를 하나 더 들어 보세요.','핵심 용어를 넣어 다시 써 보세요.','자기 생각이 잘 드러나요.'];
+  function $(id){ return document.getElementById(id); }
+  function ss(k,v){ try{ if(v===undefined) return sessionStorage.getItem(k); if(v===null) sessionStorage.removeItem(k); else sessionStorage.setItem(k,v); }catch(e){ return null; } }
+  function ls(k,v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v); }catch(e){ return null; } }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function post(p){
+    var ctrl=window.AbortController?new AbortController():null, t=setTimeout(function(){ if(ctrl) ctrl.abort(); },30000);
+    return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(p),signal:ctrl?ctrl.signal:undefined})
+      .then(function(r){ clearTimeout(t); if(!r.ok) throw new Error('status '+r.status); return r.json(); });
+  }
+
+  // theme
+  var root=document.documentElement, TK='wc-theme', th=ls(TK); if(th) root.setAttribute('data-theme',th);
+  $('theme').onclick=function(){ var dark=root.getAttribute('data-theme')?root.getAttribute('data-theme')==='dark':matchMedia('(prefers-color-scheme: dark)').matches; var n=dark?'light':'dark'; root.setAttribute('data-theme',n); ls(TK,n); };
+
+  var pw=ss('t-pw'), lesson=+(ls('t-lesson')||7), data=null, seen={}, drafts={}, timer=null, loading=false;
+
+  // login
+  $('loginForm').onsubmit=function(e){
+    e.preventDefault(); var v=$('pw').value.trim(); if(!v) return;
+    $('loginBtn').disabled=true; $('loginMsg').textContent='';
+    post({action:'auth',password:v}).then(function(d){
+      if(d&&d.ok){ pw=v; ss('t-pw',v); start(); }
+      else $('loginMsg').textContent='비밀번호가 맞지 않아요.';
+    }).catch(function(){ $('loginMsg').textContent='서버에 연결하지 못했어요. 잠시 뒤 다시 시도해 주세요.'; })
+      .then(function(){ $('loginBtn').disabled=false; });
+  };
+  $('logout').onclick=function(){ ss('t-pw',null); location.reload(); };
+
+  function start(){
+    $('login').hidden=true; $('app').hidden=false; $('lessons').hidden=false; $('logout').hidden=false;
+    var nav=$('lessons'); nav.innerHTML='';
+    LESSONS.forEach(function(l){
+      var b=document.createElement('button'); b.type='button'; b.innerHTML='<b>'+l[0]+'차시</b>'+l[1];
+      b.setAttribute('aria-pressed',l[0]===lesson); b.onclick=function(){ lesson=l[0]; ls('t-lesson',lesson); seen={}; data=null; [].forEach.call(nav.children,function(x,i){ x.setAttribute('aria-pressed',LESSONS[i][0]===lesson); }); $('list').innerHTML='<div class="empty-state">불러오는 중…</div>'; load(); };
+      nav.appendChild(b);
+    });
+    load(); setAuto();
+  }
+  function setAuto(){
+    if(timer){ clearInterval(timer); timer=null; }
+    var on=$('auto').checked; $('live').classList.toggle('on',on);
+    if(on) timer=setInterval(function(){ if(!document.hidden) load(true); },15000);
+    $('liveTxt').textContent=on?'실시간 확인 중':'자동 새로 고침 꺼짐';
+  }
+  $('auto').onchange=setAuto;
+  $('reload').onclick=function(){ load(); };
+  ['cls','q','latest','ungraded','hide'].forEach(function(id){ $(id).addEventListener(id==='q'?'input':'change',render); });
+
+  function load(quiet){
+    if(loading) return; loading=true;
+    if(!quiet) $('reload').disabled=true;
+    var want=lesson;
+    post({action:'rows',lesson:want,password:pw}).then(function(d){
+      if(want!==lesson) return;
+      if(!d||!d.ok){ if(d&&d.error==='unauthorized'){ ss('t-pw',null); location.reload(); return; } throw new Error(d&&d.error); }
+      var first=!data; data=d;
+      if(first) d.rows.forEach(function(r){ seen[r.row]=1; });
+      render();
+      var now=new Date(); $('liveTxt').textContent=($('auto').checked?'실시간 확인 중 · ':'')+now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'})+' 기준';
+    }).catch(function(){ $('liveTxt').textContent='불러오지 못했어요. 잠시 뒤 다시 시도합니다.'; })
+      .then(function(){ loading=false; $('reload').disabled=false; });
+  }
+
+  function key(r){ return [r.values[1],r.values[2],r.values[3]].map(function(s){return String(s).replace(/\s/g,'');}).join('|'); }
+  function isShort(h,v){ return v.length<=40 && /개 중|점|완성|확인|배지|사건 수|점검|분류|퀴즈|빈칸|표|순서|찾기|숫자/.test(h+v) && !/글|서술|성찰|까닭|생각|반박|기록|S#|관련성|원인|주제/.test(h); }
+  // 2차시 탭은 머리글이 이 수업과 다를 수 있어, 4번째 칸 뒤를 모두 답안으로 본다
+  function render(){
+    if(!data) return;
+    var rows=data.rows.slice(), H=data.headers;
+    // 반 목록
+    var sel=$('cls'), cur=sel.value, classes={};
+    rows.forEach(function(r){ if(r.values[1]) classes[r.values[1]]=1; });
+    var opts='<option value="">모든 반</option>'+Object.keys(classes).sort().map(function(c){return '<option'+(c===cur?' selected':'')+'>'+esc(c)+'</option>';}).join('');
+    if(sel.innerHTML!==opts) sel.innerHTML=opts;
+    var count={}; rows.forEach(function(r){ var k=key(r); count[k]=(count[k]||0)+1; });
+    var stu={}; rows.forEach(function(r){ stu[key(r)]=stu[key(r)]||r; });
+    $('stN').textContent=Object.keys(stu).length;
+    $('stG').textContent=Object.keys(stu).filter(function(k){return stu[k].grade;}).length;
+    $('stR').textContent=rows.length;
+    if($('latest').checked){ var got={}; rows=rows.filter(function(r){ var k=key(r); if(got[k]) return false; got[k]=1; return true; }); }
+    if(sel.value) rows=rows.filter(function(r){ return r.values[1]===sel.value; });
+    var q=$('q').value.trim(); if(q) rows=rows.filter(function(r){ return (r.values[2]+' '+r.values[3]).indexOf(q)>-1; });
+    if($('ungraded').checked) rows=rows.filter(function(r){ return !r.grade; });
+    var list=$('list');
+    list.classList.toggle('blur',$('hide').checked);
+    if(!rows.length){ list.innerHTML='<div class="empty-state">'+(data.rows.length?'조건에 맞는 제출이 없어요.':'아직 제출한 학생이 없어요. 학생이 제출하면 15초 안에 여기에 나타납니다.')+'</div>'; return; }
+    // 작성 중인 피드백을 지키기 위해 이미 있는 카드는 내용만 갱신
+    var html=rows.map(function(r){
+      var v=r.values, chips=[], longs=[];
+      for(var i=4;i<v.length;i++){
+        var h=H[i]||('항목 '+(i+1)), val=String(v[i]||'');
+        if(isShort(h,val)) chips.push('<span><b>'+esc(h)+'</b>'+esc(val||'-')+'</span>');
+        else { var body=val?esc(val):'<span class="empty">(비어 있음)</span>';
+          longs.push(val.length>500?'<div><b>'+esc(h)+'</b><details><summary>'+esc(val.slice(0,160))+'… 펼치기</summary>'+body+'</details></div>':'<div><b>'+esc(h)+'</b>'+body+'</div>'); }
+      }
+      var fresh=!seen[r.row], k=key(r), multi=count[k]>1;
+      var d=drafts[r.row]||{g:r.grade,f:r.feedback};
+      return '<article class="sub'+(r.grade?' graded':'')+(fresh?' fresh':'')+'" data-row="'+r.row+'">'+
+        '<div class="sub-h"><span class="cl">'+esc(v[1])+' · '+esc(v[2])+'번</span><span class="nm">'+esc(v[3])+'</span><span class="tm">'+esc(v[0])+'</span>'+
+        (multi?'<span class="old">'+count[k]+'번 제출</span>':'')+(fresh?'<span class="old" style="background:var(--amber);color:#0f172a">새 제출</span>':'')+
+        (r.grade?'<span class="gtag">'+esc(r.grade)+'</span>':'')+'</div>'+
+        (chips.length?'<div class="chips">'+chips.join('')+'</div>':'')+
+        '<div class="ans">'+longs.join('')+'</div>'+
+        '<div class="gr"><div class="grades">'+GRADES.map(function(g){ return '<button type="button" data-g="'+g+'" aria-pressed="'+(d.g===g)+'">'+g+'</button>'; }).join('')+'</div>'+
+        '<div class="quick">'+QUICK.map(function(t){ return '<button type="button" data-q="'+esc(t)+'">+ '+esc(t)+'</button>'; }).join('')+'</div>'+
+        '<textarea placeholder="학생에게 보낼 피드백 (학생이 수업 페이지에서 바로 볼 수 있어요)">'+esc(d.f||'')+'</textarea>'+
+        '<div class="row"><button class="btn" type="button" data-save>평가 저장</button><span class="st">'+(r.gradedAt?'저장됨 '+esc(r.gradedAt):'')+'</span></div></div>'+
+        '</article>';
+    }).join('');
+    var focused=document.activeElement && document.activeElement.closest && document.activeElement.closest('.sub');
+    var keepRow=focused?focused.dataset.row:null, caret=keepRow&&document.activeElement.tagName==='TEXTAREA'?document.activeElement.selectionStart:null;
+    list.innerHTML=html;
+    if(keepRow){ var ta=list.querySelector('.sub[data-row="'+keepRow+'"] textarea'); if(ta&&caret!==null){ ta.focus(); ta.setSelectionRange(caret,caret); } }
+  }
+
+  // 카드 안 버튼 (위임)
+  $('list').addEventListener('click',function(e){
+    var card=e.target.closest('.sub'); if(!card) return;
+    var row=+card.dataset.row, ta=card.querySelector('textarea');
+    if(!drafts[row]){ var gp=card.querySelector('.grades [aria-pressed="true"]'); drafts[row]={g:gp?gp.dataset.g:'',f:ta.value}; }
+    var b=e.target.closest('button'); if(!b) return;
+    if(b.dataset.g){ drafts[row].g=b.dataset.g; [].forEach.call(card.querySelectorAll('.grades button'),function(x){ x.setAttribute('aria-pressed',x===b); }); }
+    else if(b.dataset.q){ ta.value=(ta.value.trim()?ta.value.trim()+' ':'')+b.dataset.q; drafts[row].f=ta.value; ta.focus(); }
+    else if(b.hasAttribute('data-save')) save(card,row,b);
+  });
+  $('list').addEventListener('input',function(e){
+    if(e.target.tagName!=='TEXTAREA') return; var card=e.target.closest('.sub'), row=+card.dataset.row;
+    var g=card.querySelector('.grades [aria-pressed="true"]');
+    drafts[row]={g:g?g.dataset.g:'',f:e.target.value};
+  });
+  function save(card,row,btn){
+    var d=drafts[row]||{}, st=card.querySelector('.st');
+    var g=card.querySelector('.grades [aria-pressed="true"]'); d.g=g?g.dataset.g:''; d.f=card.querySelector('textarea').value.trim();
+    if(!d.g && !d.f){ st.className='st err'; st.textContent='등급을 고르거나 피드백을 써 주세요.'; return; }
+    btn.disabled=true; st.className='st'; st.textContent='저장 중…';
+    post({action:'grade',lesson:lesson,row:row,grade:d.g,feedback:d.f,password:pw}).then(function(res){
+      if(!res||!res.ok) throw new Error(res&&res.error);
+      delete drafts[row]; seen[row]=1;
+      data.rows.forEach(function(r){ if(r.row===row){ r.grade=d.g; r.feedback=d.f; r.gradedAt=res.gradedAt; } });
+      render();
+      var c=$('list').querySelector('.sub[data-row="'+row+'"] .st'); if(c){ c.className='st ok'; c.textContent='저장했어요 ✓ 학생이 바로 확인할 수 있어요.'; }
+    }).catch(function(){ st.className='st err'; st.textContent='저장하지 못했어요. 다시 눌러 주세요.'; btn.disabled=false; });
+  }
+  // 새 제출 표시는 카드를 한 번 누르면 사라짐
+  $('list').addEventListener('pointerdown',function(e){ var c=e.target.closest('.sub.fresh'); if(c){ seen[c.dataset.row]=1; c.classList.remove('fresh'); } });
+
+  if(pw) start();
+})();
+</script>
+</body>
+</html>

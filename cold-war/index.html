@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>냉전 체제의 형성</title>
+<meta name="description" content="중학교 역사① Ⅶ-01-1. 냉전 체제가 형성되다 (수업 자료)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* 1~3차시(Tailwind slate + amber)와 같은 분위기로 맞춘 색 */
+:root{
+  --bg:#f8fafc; --surface:#ffffff; --surface-2:#f1f5f9; --ink:#0f172a; --ink-2:#475569; --line:#e2e8f0;
+  --accent:#b45309; --amber:#f59e0b; --accent-soft:#fef3c7; --ok:#047857; --ok-soft:#d1fae5; --no:#be123c; --no-soft:#ffe4e6;
+  --gold:#f59e0b; --navy:#0f172a; --navy-2:#1e293b;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1120; --surface:#111a2e; --surface-2:#1e293b; --ink:#f1f5f9; --ink-2:#94a3b8; --line:#243147;
+    --accent:#fbbf24; --accent-soft:rgba(245,158,11,.14); --ok:#34d399; --ok-soft:rgba(16,185,129,.15); --no:#fb7185; --no-soft:rgba(244,63,94,.15);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1120; --surface:#111a2e; --surface-2:#1e293b; --ink:#f1f5f9; --ink-2:#94a3b8; --line:#243147;
+  --accent:#fbbf24; --accent-soft:rgba(245,158,11,.14); --ok:#34d399; --ok-soft:rgba(16,185,129,.15); --no:#fb7185; --no-soft:rgba(244,63,94,.15);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;font-size:18px;line-height:1.75;word-break:keep-all;overflow-wrap:break-word}
+h1,h2,h3{font-weight:900;line-height:1.35;margin:0 0 .5em;letter-spacing:-.01em}
+a{color:var(--accent)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+
+/* top bar (1~3차시처럼 남색 바 + 앰버 아이콘) */
+.bar{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.bar .top{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.logo{flex:none;width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#ea580c);display:grid;place-items:center;font-size:22px;box-shadow:0 4px 12px rgba(245,158,11,.35)}
+.ttl{flex:1;min-width:0}
+.ttl .badges{display:flex;align-items:center;gap:8px;font-size:12px;color:#fbbf24;white-space:nowrap;overflow:hidden}
+.badge{background:#059669;color:#fff;font-weight:700;padding:1px 8px;border-radius:6px}
+.ttl .name{font-weight:900;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.theme{flex:none;border:1px solid #334155;background:#1e293b;color:#e2e8f0;border-radius:10px;height:34px;padding:0 12px;cursor:pointer;font:inherit;font-size:13px;font-weight:700}
+.steps{display:flex;gap:6px;padding:0 16px 10px;overflow-x:auto;scrollbar-width:none}
+.steps::-webkit-scrollbar{display:none}
+.steps a{flex:none;display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:10px;color:#cbd5e1;text-decoration:none;font-size:14px;font-weight:700;background:#1e293b;border:1px solid #334155}
+.steps a b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#334155;color:#fff;font-size:12px}
+.steps a.on{background:var(--amber);border-color:var(--amber);color:#0f172a}
+.steps a.on b{background:#0f172a;color:#fbbf24}
+.progress{height:3px;background:var(--amber);width:0;transition:width .15s}
+
+/* hero (1~3차시의 남색 시뮬레이션 패널 느낌) */
+.hero{padding:32px 0 8px}
+.hero-card{background:radial-gradient(120% 140% at 0% 0%,#1e293b 0%,#0f172a 60%);color:#fff;border-radius:24px;padding:40px 32px;box-shadow:var(--shadow);border:1px solid #1e293b}
+.hero .unit{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#fbbf24;border:1px solid rgba(251,191,36,.45);background:rgba(245,158,11,.12);padding:3px 12px;border-radius:999px;margin-bottom:16px}
+.hero h1{font-size:clamp(28px,5vw,46px)}
+.hero h1 em{font-style:normal;color:#fbbf24}
+.hero p.lead{font-size:clamp(16px,2.1vw,19px);color:#cbd5e1;max-width:42em;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-size:13px;padding:4px 12px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);font-weight:500}
+.hero-card .chip{background:rgba(255,255,255,.08);color:#e2e8f0;border:1px solid rgba(255,255,255,.12)}
+
+section{padding:48px 0;scroll-margin-top:120px}
+section + section{border-top:1px solid var(--line)}
+.kicker{display:inline-block;font-size:13px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:2px 10px;border-radius:6px;margin-bottom:10px}
+section h2{font-size:clamp(24px,4vw,32px)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:16px}
+@media(min-width:720px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
+
+/* goals */
+.goals-card{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.goals-card .kicker{background:#d1fae5;color:#047857;margin:0}
+:root[data-theme="dark"] .goals-card .kicker{background:rgba(16,185,129,.15);color:#34d399}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .goals-card .kicker{background:rgba(16,185,129,.15);color:#34d399}}
+.goals{list-style:none;padding:0;margin:0;display:grid;gap:10px;flex:1;min-width:240px}
+.goals li{display:flex;gap:12px;align-items:flex-start}
+.goals .n{flex:none;width:28px;height:28px;border-radius:8px;background:var(--navy);color:#fbbf24;display:grid;place-items:center;font-weight:900;font-size:15px;margin-top:2px}
+
+/* hook */
+.diary{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--amber);border-radius:6px 20px 20px 6px;padding:24px 28px;font-size:19px;font-weight:500;box-shadow:var(--shadow)}
+.diary small{display:block;margin-top:12px;font-size:14px;font-weight:400;color:var(--ink-2)}
+.ask{margin-top:20px;display:flex;gap:12px;align-items:flex-start;background:var(--accent-soft);border:1px solid rgba(245,158,11,.35);border-radius:14px;padding:16px 20px;font-weight:700}
+.ask::before{content:"Q";flex:none;width:28px;height:28px;border-radius:50%;background:var(--amber);color:#0f172a;display:grid;place-items:center;font-size:15px;font-weight:900}
+details.reveal{margin-top:12px}
+details.reveal summary{cursor:pointer;color:var(--accent);font-weight:700;font-size:15px}
+details.reveal div{padding:10px 0 0;color:var(--ink-2)}
+
+/* stat */
+.stat{display:flex;flex-direction:column;gap:4px}
+.stat .big{font-size:clamp(30px,4.6vw,40px);font-weight:900;color:var(--accent);line-height:1.15}
+.stat .lbl{color:var(--ink-2);font-size:15px}
+.cause{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:20px 0}
+.cause span{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px 12px;font-weight:700;font-size:16px}
+.cause span:last-child{background:var(--navy);color:#fbbf24;border-color:var(--navy)}
+.cause b{color:var(--amber)}
+
+/* crime tabs (2차시 상단 탭처럼 앰버 알약) */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tabs button{font:inherit;font-size:16px;font-weight:700;padding:10px 20px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--amber);color:#0f172a;border-color:var(--amber);box-shadow:0 4px 12px rgba(245,158,11,.3)}
+.panel{display:none}
+.panel.on{display:block}
+.panel .row{display:grid;gap:8px;padding:14px 0;border-top:1px dashed var(--line)}
+.panel .row:first-of-type{border-top:0}
+@media(min-width:720px){.panel .row{grid-template-columns:110px 1fr;gap:16px}}
+.panel .row dt{font-weight:900;color:var(--accent)}
+.panel .row dd{margin:0}
+.panel ul{margin:0;padding-left:1.2em}
+.where{display:inline-block;font-size:13px;font-weight:700;color:var(--ink-2);background:var(--surface-2);padding:2px 10px;border-radius:6px;vertical-align:middle;margin-left:4px}
+
+/* timeline */
+.tl{position:relative;padding-left:28px;margin:0;list-style:none}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl li{position:relative;padding-bottom:18px}
+.tl li::before{content:"";position:absolute;left:-26px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:3px solid var(--amber)}
+.tl .y{font-weight:900;color:var(--accent);margin-right:8px}
+
+/* fill-in */
+.fill p{margin:0 0 14px}
+.blank{display:inline-flex;align-items:center;gap:4px;vertical-align:baseline}
+.blank input{font:inherit;font-weight:700;width:9em;max-width:60vw;padding:2px 8px;border:0;border-bottom:2px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:8px 8px 0 0;text-align:center}
+.blank input:focus{outline:2px solid var(--amber);outline-offset:1px}
+.blank.ok input{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.blank.no input{border-color:var(--no);background:var(--no-soft)}
+.num{font-weight:900;color:var(--accent)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.btn{font:inherit;font-weight:700;font-size:16px;padding:10px 20px;border-radius:12px;border:1px solid var(--amber);background:var(--amber);color:#0f172a;cursor:pointer}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn.ghost{background:transparent;color:var(--accent)}
+.result{margin-top:10px;font-weight:700;min-height:1.6em}
+
+/* quiz */
+.q{margin-bottom:22px}
+.q .opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.q .opts button{font:inherit;font-size:17px;font-weight:700;padding:10px 22px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;min-width:96px}
+.q .opts button.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.q .opts button.no{border-color:var(--no);background:var(--no-soft);color:var(--no)}
+.q .fb{font-size:15px;color:var(--ink-2);margin-top:6px;min-height:1.5em}
+
+/* reflect */
+textarea{width:100%;min-height:150px;font:inherit;padding:14px;border-radius:16px;border:1px solid var(--line);background:var(--surface);color:var(--ink);resize:vertical}
+textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
+.hint{font-size:14px;color:var(--ink-2)}
+.submit-card{margin-top:24px;border:2px solid var(--amber)}
+.who{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0}
+.who label{display:flex;flex-direction:column;gap:4px;font-size:14px;font-weight:700;color:var(--ink-2)}
+.who input{font:inherit;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);color:var(--ink);min-width:0}
+.who input:focus{outline:2px solid var(--amber);outline-offset:1px}
+.sendmsg{margin-top:8px;font-weight:700}.sendmsg.ok{color:#15803d}.sendmsg.err{color:#b91c1c}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sendmsg.ok{color:#4ade80}:root:not([data-theme="light"]) .sendmsg.err{color:#f87171}}
+:root[data-theme="dark"] .sendmsg.ok{color:#4ade80}:root[data-theme="dark"] .sendmsg.err{color:#f87171}
+@media (max-width:560px){.who{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.who label:last-child{grid-column:1/-1}}
+
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.checks label{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.checks input{width:20px;height:20px;margin-top:5px;accent-color:var(--amber);flex:none}
+
+/* historical photos */
+.photo{margin:0;display:flex;flex-direction:column}
+.photo img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;background:var(--surface-2);cursor:zoom-in;filter:grayscale(.15)}
+.photo figcaption{padding:10px 2px 0;font-size:15px;line-height:1.6;color:var(--ink-2)}
+.photo figcaption b{display:block;color:var(--ink);font-size:16px}
+.photo figcaption b::before{content:"▲ ";color:var(--amber);font-size:12px}
+.photo .credit{display:block;font-size:12px;opacity:.75;margin-top:4px}
+.photo.mid{max-width:620px;margin:4px 0 20px}
+.photo.mid img{aspect-ratio:auto}
+.photo.portrait img{aspect-ratio:auto;max-height:420px;object-fit:contain;background:transparent}
+.strip{display:grid;gap:24px;margin:24px 0}
+@media(min-width:720px){.strip.two{grid-template-columns:1fr 1fr}.strip.three{grid-template-columns:repeat(3,1fr)}}
+.anne{display:grid;gap:24px;align-items:center;margin-bottom:8px}
+@media(min-width:720px){.anne{grid-template-columns:260px 1fr}}
+/* click-to-enlarge */
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(2,6,23,.9);display:none;align-items:center;justify-content:center;padding:16px;cursor:zoom-out;flex-direction:column;gap:12px}
+.lightbox.on{display:flex}
+.lightbox img{max-width:100%;max-height:85vh;border-radius:8px}
+.lightbox p{color:#eee;margin:0;font-size:15px;text-align:center;max-width:800px}
+.credits{list-style:none;padding:0;margin:12px 0 0;font-size:12px;line-height:1.7}
+.credits a{color:inherit}
+.note{font-size:14px;color:var(--ink-2);background:var(--surface-2);border-radius:14px;padding:12px 16px}
+footer{padding:32px 0 72px;color:var(--ink-2);font-size:14px;border-top:1px solid var(--line);background:var(--surface)}
+
+@media (max-width:560px){.hero-card{padding:28px 20px;border-radius:20px}.ttl .badges .sub{display:none}.card{padding:20px}}
+@media print{.bar,.btns,.theme{display:none}section{break-inside:avoid;padding:24px 0}body{font-size:14px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* ---- 5차시 추가 요소 ---- */
+.testi{display:grid;gap:16px}
+@media(min-width:720px){.testi{grid-template-columns:repeat(3,1fr)}}
+.testi .card{display:flex;flex-direction:column;gap:8px}
+.testi .who{font-size:13px;font-weight:700;color:var(--accent)}
+.testi q{font-weight:500;quotes:"“" "”"}
+.testi small{color:var(--ink-2);font-size:14px;line-height:1.6}
+
+.confs{display:grid;gap:12px}
+.conf{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;text-align:left;font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px 20px;box-shadow:var(--shadow);cursor:pointer;width:100%}
+.conf:hover{border-color:var(--amber)}
+.conf .yr{font-weight:900;color:var(--accent);font-size:17px;line-height:1.3}
+.conf .yr small{display:block;font-size:12px;color:var(--ink-2);font-weight:500}
+.conf h3{font-size:19px;margin:0}
+.conf .who{font-size:14px;color:var(--ink-2)}
+.conf .more{display:none;margin-top:10px}
+.conf.open .more{display:block}
+.conf .tap{font-size:13px;font-weight:700;color:var(--accent);margin-top:4px}
+.conf.open .tap{display:none}
+.conf .more img{width:100%;max-width:520px;border-radius:12px;display:block;margin-top:10px;cursor:zoom-in}
+.conf .more .cap{font-size:13px;color:var(--ink-2);margin-top:6px}
+@media(max-width:560px){.conf{grid-template-columns:1fr;gap:6px}}
+
+table.cmp{width:100%;border-collapse:separate;border-spacing:0;font-size:16px;overflow:hidden;border-radius:16px;border:1px solid var(--line)}
+table.cmp th,table.cmp td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.cmp tr:last-child td{border-bottom:0}
+table.cmp thead th{background:var(--navy);color:#fff;font-weight:900}
+table.cmp thead th:last-child{color:#fbbf24}
+table.cmp tbody th{background:var(--surface-2);font-weight:700;width:24%}
+table.cmp td{background:var(--surface)}
+.scroll-x{overflow-x:auto}
+
+.sort .item{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:12px 0;border-top:1px dashed var(--line)}
+.sort .item:first-of-type{border-top:0}
+.sort .item p{margin:0;flex:1;min-width:220px}
+.sort .item .pick{display:flex;gap:8px}
+.sort .item button{font:inherit;font-size:15px;font-weight:700;padding:6px 14px;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.sort .item button.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.sort .item button.no{border-color:var(--no);background:var(--no-soft);color:var(--no)}
+
+.trial-hl{display:grid;gap:12px;margin:16px 0}
+@media(min-width:720px){.trial-hl{grid-template-columns:repeat(3,1fr)}}
+.trial-hl div{background:var(--surface-2);border-radius:14px;padding:14px 16px}
+.trial-hl b{display:block;font-size:24px;font-weight:900;color:var(--accent);line-height:1.2}
+.trial-hl span{font-size:14px;color:var(--ink-2)}
+.limit{border-left:5px solid var(--no);background:var(--no-soft);border-radius:6px 14px 14px 6px;padding:12px 16px;margin-top:12px}
+.limit b{color:var(--no)}
+
+.speech{display:flex;gap:14px;align-items:flex-start;background:var(--navy);color:#e2e8f0;border-radius:20px;padding:20px 22px;margin:16px 0}
+.speech .av{flex:none;width:44px;height:44px;border-radius:50%;background:#334155;display:grid;place-items:center;font-weight:900;color:#fbbf24}
+.speech q{display:block;font-size:18px;font-weight:700;color:#fff;margin-top:4px}
+
+.pz{display:grid;gap:16px}
+@media(min-width:820px){.pz{grid-template-columns:1.2fr 1fr}}
+.pz .st{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-top:1px dashed var(--line)}
+.pz .st:first-child{border-top:0}
+.pz .sym{flex:none;width:34px;height:34px;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;font-size:18px}
+.pz .st p{margin:0 0 6px}
+.pz .st .opts{display:flex;gap:8px}
+.pz .st button{font:inherit;font-weight:900;font-size:15px;width:52px;padding:4px 0;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.pz .st button.sel{background:var(--navy);color:#fbbf24;border-color:var(--navy)}
+.grid7{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;max-width:360px;margin:0 auto}
+.grid7 span{aspect-ratio:1;display:grid;place-items:center;border-radius:8px;background:var(--surface-2);font-size:18px;color:var(--ink-2);transition:background .2s,color .2s}
+.grid7 span.on{background:var(--amber);color:#0f172a}
+.pz .ans{text-align:center;font-weight:900;margin-top:12px;min-height:1.6em}
+
+.topics{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px}
+.topics button{font:inherit;font-size:15px;font-weight:700;padding:8px 16px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer}
+.topics button[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:#0f172a}
+.scene{display:grid;gap:10px;margin-top:10px}
+.scene label{font-weight:700;font-size:15px}
+.scene textarea{min-height:90px}
+.memo{font-size:15px;color:var(--ink-2);background:var(--surface-2);border-radius:14px;padding:12px 16px;min-height:1.6em}
+
+/* ---- 6차시 추가 요소 ---- */
+.person{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:start}
+.person img{width:120px;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:14px;cursor:zoom-in;filter:grayscale(.15);background:var(--surface-2)}
+.person h3{font-size:20px;margin:0 0 4px}.person p{margin:0;font-size:16px}
+.person .kicker{margin-bottom:6px}.person .credit{display:block;font-size:12px;color:var(--ink-2);margin-top:6px}
+@media(max-width:480px){.person{grid-template-columns:90px 1fr}.person img{width:90px}}
+.sort .item .pick{flex-wrap:wrap}
+.ws{display:grid;gap:20px;align-items:start}
+@media(min-width:760px){.ws{grid-template-columns:auto 1fr}}
+.wsg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;width:min(100%,380px);margin:0 auto}
+.wsg button{aspect-ratio:1;border:0;border-radius:8px;background:var(--surface-2);color:var(--ink);font:inherit;font-size:clamp(15px,4.4vw,20px);font-weight:700;cursor:pointer;padding:0}
+.wsg button.sel{background:var(--navy);color:#fbbf24}
+.wsg button.hit{color:#0f172a}
+.wsg button.f0{background:#fcd34d}.wsg button.f1{background:#93c5fd}.wsg button.f2{background:#86efac}
+.wsg button.f3{background:#f9a8d4}.wsg button.f4{background:#c4b5fd}.wsg button.f5{background:#fdba74}
+.wsl{margin:0;padding-left:1.4em;display:grid;gap:6px;font-size:16px}
+.wsl li.done{color:var(--ok);text-decoration:line-through}
+.wsl li.done::after{content:" ✓";font-weight:900}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 12px}
+.flow span{background:var(--surface-2);border-radius:10px;padding:6px 12px;font-size:15px}
+.card > label{display:block;margin:4px 0 8px}
+.flow span+span::before{content:"→ ";color:var(--amber);font-weight:900}
+
+/* ---- 7차시 추가 요소 ---- */
+.meet{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.meet p{margin:0;font-weight:700}
+.race{list-style:none;padding:0;margin:0;display:grid;gap:16px}
+.race li{display:grid;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+@media(min-width:720px){.race li{grid-template-columns:260px 1fr}.race li:nth-child(2) .race-t{grid-column:1/-1}}
+.race .photo img{aspect-ratio:4/3}
+.race .photo img.contain{object-fit:contain;background:#000}
+.race .yr{display:inline-block;font-weight:900;color:#0f172a;background:var(--amber);border-radius:8px;padding:1px 10px;font-size:15px;margin-bottom:6px}
+.race p{margin:0 0 8px}
+.race q{display:block;font-size:16px;color:var(--ink-2);border-left:3px solid var(--line);padding-left:12px;quotes:"“" "”"}
+.race q small{font-size:13px}
+.def{background:var(--navy);color:#e2e8f0;border-radius:16px;padding:16px 20px;margin:8px 0 20px;font-size:17px}
+.def b{color:#fbbf24;margin-right:8px;font-size:19px}
+.def .where{background:#1e293b;color:#cbd5e1}
+.duel{display:grid;gap:12px;align-items:stretch}
+@media(min-width:820px){.duel{grid-template-columns:1fr 56px 1fr}}
+.side{border-radius:20px;padding:20px;border:2px solid;background:var(--surface)}
+.side.us{border-color:var(--c-us)}.side.su{border-color:var(--c-su)}
+.side-h{font-size:17px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.side.us .side-h b{color:var(--c-us)}.side.su .side-h b{color:var(--c-su)}
+.flagdot{width:14px;height:14px;border-radius:50%;display:inline-block}
+.side.us .flagdot{background:var(--c-us)}.side.su .flagdot{background:var(--c-su)}
+.side ol{margin:0;padding-left:1.3em;display:grid;gap:10px;font-size:16px}
+.side ol b{display:block}
+.side small{display:block;color:var(--ink-2);font-size:14px}
+.vs{display:grid;place-items:center;font-weight:900;font-size:22px;color:var(--accent)}
+.bloc{margin-top:24px;border:2px solid var(--amber)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px;min-height:44px}
+.chips button{font:inherit;font-size:15px;font-weight:700;padding:8px 14px;border-radius:12px;border:2px solid var(--line);background:var(--surface-2);color:var(--ink);cursor:pointer}
+.chips button.pick{border-color:var(--amber);background:var(--accent-soft);box-shadow:0 0 0 3px rgba(245,158,11,.25)}
+table.bt{width:100%;border-collapse:separate;border-spacing:6px;min-width:420px}
+table.bt th{font-size:15px;padding:6px;text-align:center}
+table.bt thead th{background:var(--navy);color:#fff;border-radius:10px}
+table.bt thead th:nth-child(2){color:#93c5fd}table.bt thead th:nth-child(3){color:#fca5a5}
+table.bt tbody th{background:var(--surface-2);border-radius:10px;width:64px}
+.slot{width:100%;min-height:52px;font:inherit;font-size:15px;font-weight:700;border-radius:12px;border:2px dashed var(--line);background:var(--surface);color:var(--ink);cursor:pointer;padding:6px}
+.slot.filled{border-style:solid;border-color:var(--ink-2)}
+.slot.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.slot.no{border-color:var(--no);background:var(--no-soft);color:var(--no)}
+.slot.wait{border-color:var(--amber)}
+.ord{display:flex;flex-wrap:wrap;gap:8px}
+.ord button{font:inherit;font-size:15px;font-weight:700;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;text-align:left;max-width:100%}
+.ord button:hover{border-color:var(--amber)}
+.ord button.shake{animation:shake .4s;border-color:var(--no);background:var(--no-soft)}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.ord-done{margin:12px 0 0;padding-left:1.6em;display:grid;gap:6px}
+.ord-done li{color:var(--ok);font-weight:700}
+.case{display:grid;gap:20px;align-items:start}
+@media(min-width:760px){.case{grid-template-columns:minmax(0,380px) 1fr}}
+.case h3{font-size:21px}
+.case p{margin:0 0 10px}
+.flowlist{margin:0 0 10px;padding-left:1.2em;display:grid;gap:4px}
+.sidebox{background:var(--surface-2);border-radius:14px;padding:12px 16px;font-size:15.5px;margin:8px 0 12px}
+.sidebox b:first-child{display:block;color:var(--accent);margin-bottom:2px}
+.photo.small{max-width:360px}
+.photo.small img{aspect-ratio:auto}
+.iron{margin-top:12px}
+#sortCH{margin-top:16px;border:2px solid var(--amber)}
+.sort .item .why{flex-basis:100%;font-size:14.5px;color:var(--ink-2);min-height:0}
+.sort .item .why:empty{display:none}
+.q .fb b{color:var(--ink)}
+.fbbox{margin-top:12px;background:var(--surface-2);border-radius:14px;padding:14px 16px;font-size:16px}
+.fbbox .g{display:inline-block;font-weight:900;color:#0f172a;background:var(--amber);border-radius:8px;padding:1px 10px;margin-right:6px}
+/* 지도 */
+:root{--sea:#dbeafe;--land:#e7e5e4;--land-line:#fff;--c-us:#2563eb;--c-su:#dc2626;--mk:#0f172a;--mk-ink:#fbbf24;--mk-on:#f59e0b}
+:root[data-theme="dark"]{--sea:#0c1a33;--land:#334155;--land-line:#1e293b;--c-us:#60a5fa;--c-su:#f87171;--mk:#fbbf24;--mk-ink:#0f172a;--mk-on:#ffffff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sea:#0c1a33;--land:#334155;--land-line:#1e293b;--c-us:#60a5fa;--c-su:#f87171;--mk:#fbbf24;--mk-ink:#0f172a;--mk-on:#ffffff}}
+.mapcard{margin-top:16px;scroll-margin-top:120px;border:2px solid var(--amber)}
+.mapwrap{display:grid;gap:16px;align-items:start}
+@media(min-width:900px){.mapwrap{grid-template-columns:1fr 290px}}
+.mapbox{min-width:0}
+.wmap{display:block;width:100%;height:auto;border-radius:16px;overflow:hidden;user-select:none}
+.wmap .sea{fill:var(--sea)}
+.wmap .land path{fill:var(--land);stroke:var(--land-line);stroke-width:.6}
+.wmap .land path.us{fill:var(--c-us);opacity:.75}
+.wmap .land path.su{fill:var(--c-su);opacity:.7}
+.wmap .ocean{font-size:17px;font-style:italic;fill:#64748b;letter-spacing:.25em;text-anchor:middle;opacity:.8}
+.wmap .big{font-size:22px;font-weight:900;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:rgba(15,23,42,.35);stroke-width:3px;pointer-events:none}
+.wmap .mk{cursor:pointer;outline:none}
+.wmap .mk .dot{fill:var(--mk);stroke:#fff;stroke-width:2.5}
+.wmap .mk .num{fill:var(--mk-ink);font-size:15px;font-weight:900;pointer-events:none}
+.wmap .mk .pulse{fill:var(--amber);opacity:0}
+.wmap .mk.on .pulse{animation:pulse 1.6s ease-out infinite}
+.wmap .mk.on .dot{fill:var(--mk-on);stroke:#0f172a;stroke-width:3}
+.wmap .mk.on .num{fill:#0f172a}
+.wmap .mk:focus-visible .dot{stroke:var(--amber);stroke-width:4}
+@keyframes pulse{0%{opacity:.6;transform:scale(.6)}100%{opacity:0;transform:scale(2.2)}}
+.wmap .lbl{font-size:16px;font-weight:900;fill:var(--ink);paint-order:stroke;stroke:var(--sea);stroke-width:4px;stroke-linejoin:round;pointer-events:none}
+.wmap .lbl .ly{font-weight:700;fill:var(--accent);font-size:14px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:13px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:14px;height:14px;border-radius:4px;display:inline-block;opacity:.8}
+.legend i.mk-i{border-radius:50%;background:var(--mk);opacity:1;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.mapinfo{background:var(--surface-2);border-radius:16px;padding:14px;min-height:200px}
+.mapinfo img{width:100%;height:150px;object-fit:cover;border-radius:12px;display:block;filter:grayscale(.15);margin-bottom:10px}
+.mi-top{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.mi-n{width:26px;height:26px;border-radius:50%;background:var(--amber);color:#0f172a;display:grid;place-items:center;font-weight:900;font-size:14px}
+.mi-y{font-weight:900;color:var(--accent)}
+.mapinfo h4{font-size:19px;margin:8px 0 2px;font-weight:900}
+.mapinfo p{font-size:15.5px;line-height:1.65;margin:8px 0}
+.mi-go{font-weight:700;font-size:15px}
+.tline{display:flex;gap:8px;overflow-x:auto;padding:12px 2px 4px;scrollbar-width:thin}
+.tline button{flex:none;font:inherit;font-size:14px;font-weight:700;padding:8px 12px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;text-align:left;line-height:1.35}
+.tline button b{display:block;color:var(--accent);font-size:13px}
+.tline button.on{background:var(--amber);color:#0f172a;border-color:var(--amber)}
+.tline button.on b{color:#7c2d12}
+@media(max-width:560px){.wmap .lbl,.wmap .ocean{display:none}.wmap .mk .dot{r:24px}.wmap .mk .num{font-size:28px}.wmap .big{font-size:34px}.meet{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.wmap .mk.on .pulse,.ord button.shake{animation:none}}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="top">
+    <div class="logo" aria-hidden="true">🧊</div>
+    <div class="ttl">
+      <div class="badges"><span class="badge">중학교 역사① Ⅶ-01-1</span><span class="sub">냉전 체제와 제3 세계의 형성</span></div>
+      <div class="name">냉전 체제가 형성되다</div>
+    </div>
+    <button class="theme" id="theme" type="button" aria-label="화면 밝기 전환">◐ 화면</button>
+  </div>
+  <nav class="steps" aria-label="수업 단계">
+    <a href="#s1"><b>1</b>도입</a><a href="#s2"><b>2</b>냉전의 시작</a><a href="#s3"><b>3</b>독일의 분단</a><a href="#s4"><b>4</b>냉전의 심화</a><a href="#s5"><b>5</b>확인</a><a href="#s6"><b>6</b>정리·제출</a>
+  </nav>
+  <div class="progress" id="progress"></div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-card">
+        <div class="unit">Ⅶ. 현대 세계의 전개와 과제 · 01. 냉전 체제와 제3 세계의 형성</div>
+        <h1><em>냉전</em> 체제가<br>형성되다</h1>
+        <p class="lead">제2차 세계 대전이 끝나자 함께 싸웠던 미국과 소련이 서로 맞서기 시작했습니다. 총을 직접 겨누지 않았는데도 ‘전쟁’이라고 불린 이 대립은 세계를 어떻게 바꾸어 놓았을까요?</p>
+        <div class="meta"><span class="chip">중학교 2학년</span><span class="chip">역사① (2022 개정)</span><span class="chip">45분</span><span class="chip">교과서 216~219쪽</span></div>
+      </div>
+
+      <div class="grid g2" style="margin-top:16px">
+        <div class="card goals-card">
+          <div class="kicker">◎ 오늘의 학습 목표</div>
+          <ul class="goals">
+            <li><span class="n">1</span><span><b>냉전 체제의 대립 구도</b>를 살펴볼 수 있다.</span></li>
+            <li><span class="n">2</span><span><b>냉전의 전개</b>에 따라 세계에서 벌어진 현상을 파악할 수 있다.</span></li>
+          </ul>
+        </div>
+        <div class="card meet">
+          <div><div class="kicker">만날 사람</div><p>트루먼, 마오쩌둥</p></div>
+          <div><div class="kicker">살펴볼 전쟁</div><p>6·25 전쟁, 베트남 전쟁</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 도입 -->
+  <section id="s1">
+    <div class="wrap">
+      <div class="kicker">STEP 1 · 도입 (5분)</div>
+      <h2>그때, 그곳에는? 우주로 간 경쟁</h2>
+      <ol class="race">
+        <li>
+          <figure class="photo"><img src="img/sputnik.png" alt="세계 최초의 인공위성 스푸트니크 1호 복제품" class="contain"><figcaption><b>소련이 쏘아 올린 세계 최초의 인공위성(복제품)</b><span class="credit">미국 국립 항공 우주 박물관 · 퍼블릭 도메인</span></figcaption></figure>
+          <div class="race-t"><span class="yr">1957년</span><p>소련이 세계 최초로 우주에 <b>인공위성</b>을 쏘아 보냈습니다. 인공위성은 미국 상공을 네 번이나 지나갔습니다. 이 소식을 들은 미국은 충격에 빠졌습니다.</p>
+            <q>미국이 소련한테 지다니 자존심 상하는데……. 그러고 보니 소련이 저 로켓으로 핵미사일을 쏘면 어쩌지?</q></div>
+        </li>
+        <li>
+          <div class="race-t"><span class="yr">1958년</span><p>미국은 소련과의 경쟁에서 이기고자 <b>미국 항공 우주국(NASA)</b>을 세우고 본격적으로 우주 개발 경쟁에 뛰어들었습니다. 당시 미국 대통령은 소련의 도전에 맞서야 한다고 말하였습니다.</p>
+            <q>앞으로 10년 동안 미국의 우주 개발을 이끌 과학자가 필요합니다. <small>(미국 백악관 국무 회의)</small></q></div>
+        </li>
+        <li>
+          <figure class="photo"><img src="img/apollo11.jpg" alt="달 표면에 선 아폴로 11호 우주 비행사"><figcaption><b>달 표면에 선 아폴로 11호 우주 비행사(1969)</b><span class="credit">미국 항공 우주국(NASA) · 퍼블릭 도메인</span></figcaption></figure>
+          <div class="race-t"><span class="yr">1969년</span><p>미국은 세계 최초로 <b>인간을 달에 보내는 데</b> 성공하였습니다.</p>
+            <q>아깝다. 달에 우주선을 최초로 보낸 건 소련이었는데! <small>(소련 지도자)</small></q></div>
+        </li>
+      </ol>
+      <p class="hint">교과서 216쪽 ‘그때, 그곳에는?’ 만화 내용을 정리했습니다.</p>
+
+      <div class="card" style="margin-top:16px">
+        <div class="ask" style="margin-top:0">미국과 소련은 왜 우주 개발 경쟁에 뛰어들었을까요? 내 생각을 한두 문장으로 써 보세요.</div>
+        <textarea id="spaceWhy" data-save="cw-space" placeholder="예) 미국과 소련은 서로를 …" style="margin-top:12px;min-height:100px"></textarea>
+        <details class="reveal">
+          <summary>생각을 쓴 뒤 열어 보기</summary>
+          <div>제2차 세계 대전 이후 미국과 소련이 대립하면서 <b>냉전</b>의 분위기가 만들어졌습니다. 두 나라는 서로를 견제할 무기를 개발하는 데 힘썼고, 그 과정에서 인공위성을 개발하면서 <b>우주 개발 분야에서까지</b> 경쟁이 이어졌습니다. 오늘은 이 ‘냉전’이 무엇이고, 세계에 어떤 일을 일으켰는지 알아봅니다.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 냉전의 시작 -->
+  <section id="s2">
+    <div class="wrap">
+      <div class="kicker">STEP 2 · 냉전의 시작 (10분)</div>
+      <h2>미국 vs 소련, 두 진영이 갈라서다</h2>
+      <div class="def"><b>냉전</b> 직접적인 무력 충돌보다는 정치, 군사, 외교 등에서 경쟁과 대립을 유지하던 상황을 말한다. <span class="where">교과서 217쪽</span></div>
+
+      <div class="duel">
+        <div class="side us">
+          <div class="side-h"><span class="flagdot"></span>미국 중심 · <b>자본주의 진영</b></div>
+          <ol>
+            <li><b>트루먼 독트린(1947)</b> 소련의 영향으로 동유럽 여러 나라에 공산주의 정권이 들어서자, 미국의 트루먼 대통령은 공산주의 세력의 확산을 막겠다고 선언하였다.</li>
+            <li><b>마셜 계획</b> 미국은 마셜 계획을 추진하여 서유럽에 경제적인 도움을 주었다. <small>총 130억 달러를 16개국(후에 18개국)에 원조(1948~1951)</small></li>
+            <li><b>북대서양 조약 기구(NATO, 1949)</b> 미국이 서유럽 국가들과 만든 군사 동맹</li>
+          </ol>
+        </div>
+        <div class="vs" aria-hidden="true">VS</div>
+        <div class="side su">
+          <div class="side-h"><span class="flagdot"></span>소련 중심 · <b>공산주의 진영</b></div>
+          <ol>
+            <li><b>코민포름</b> 소련은 이에 맞서 공산당 정보국인 코민포름을 만들었다.</li>
+            <li><b>코메콘(경제 상호 원조 회의)</b> 소련이 동유럽 국가들과 상호 경제 지원을 위해 만든 기구</li>
+            <li><b>바르샤바 조약 기구(WTO)</b> 소련이 동유럽 국가들과 조직한 군사 동맹</li>
+          </ol>
+        </div>
+      </div>
+      <p class="note">그 결과 미국 중심의 자본주의 세력과 소련 중심의 공산주의 세력이 대립하는 <b>냉전 체제</b>가 형성되었습니다. ※ 바르샤바 조약 기구(WTO)는 오늘날의 세계 무역 기구(WTO)와 영문 약자만 같은 다른 기구입니다.</p>
+
+      <div class="strip two">
+        <figure class="photo"><img src="img/truman1947.jpg" alt="의회에서 연설하는 트루먼 대통령(1947)"><figcaption><b>의회에서 연설하는 트루먼 대통령(1947)</b>그리스와 튀르키예에 대한 원조를 요청한 이 연설이 트루먼 독트린으로 알려졌다.<span class="credit">미국 국립 문서 기록 관리청 · 퍼블릭 도메인</span></figcaption></figure>
+        <figure class="photo"><img src="img/marshall.jpg" alt="마셜 계획 홍보 포스터"><figcaption><b>마셜 계획 홍보 포스터</b>미국 정부 기관(경제 협력청)이 유럽에 마셜 계획을 알리려고 만든 포스터이다.<span class="credit">미국 경제 협력청 · 퍼블릭 도메인</span></figcaption></figure>
+      </div>
+
+      <div class="card bloc" id="bloc">
+        <div class="kicker">활동 1 · 대립 구도 표 완성하기</div>
+        <p style="margin:0 0 6px">아래 카드를 하나 누른 뒤, 표에서 알맞은 칸을 누르세요. 6장을 모두 넣고 <b>확인하기</b>를 누릅니다.</p>
+        <div class="chips" id="blocChips"></div>
+        <div class="scroll-x">
+          <table class="bt">
+            <thead><tr><th scope="col">구분</th><th scope="col">자본주의 진영 (미국)</th><th scope="col">공산주의 진영 (소련)</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">정치</th><td><button type="button" class="slot" data-cell="cap-pol"></button></td><td><button type="button" class="slot" data-cell="com-pol"></button></td></tr>
+              <tr><th scope="row">경제</th><td><button type="button" class="slot" data-cell="cap-eco"></button></td><td><button type="button" class="slot" data-cell="com-eco"></button></td></tr>
+              <tr><th scope="row">군사</th><td><button type="button" class="slot" data-cell="cap-mil"></button></td><td><button type="button" class="slot" data-cell="com-mil"></button></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="btns"><button class="btn" type="button" id="blocCheck">확인하기</button><button class="btn ghost" type="button" id="blocReset">다시 하기</button></div>
+        <div class="result" id="blocMsg" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 독일의 분단 -->
+  <section id="s3">
+    <div class="wrap">
+      <div class="kicker">STEP 3 · 독일의 분단 (7분)</div>
+      <h2>베를린, 냉전의 최전선이 되다</h2>
+      <p>냉전 체제가 형성되는 과정에서 독일은 <b>자본주의 진영의 서독</b>과 <b>공산주의 진영의 동독</b>으로 분단되었습니다.</p>
+      <div class="grid g2">
+        <div class="card">
+          <ol class="tl">
+            <li><span class="y">1945~</span>제2차 세계 대전 이후 독일은 <b>미국, 영국, 프랑스, 소련</b>이 분할하여 점령하였다.</li>
+            <li><span class="y">1948</span>미국, 영국, 프랑스가 점령한 지역에서 공동으로 <b>화폐 개혁</b>을 추진하였다.</li>
+            <li><span class="y">1948~1949</span>소련은 이에 항의하며 베를린으로 가는 육로를 약 1년간 봉쇄하였다(<b>베를린 봉쇄</b>).</li>
+            <li><span class="y">이후</span>독일은 서독과 동독으로 <b>분단</b>되었다.</li>
+            <li><span class="y">1961</span><b>베를린 장벽</b>이 세워졌다.</li>
+          </ol>
+        </div>
+        <div class="grid">
+          <figure class="photo"><img src="img/airlift.jpg" alt="베를린 템펠호프 공항에 내리는 수송기를 지켜보는 베를린 시민들(1948)"><figcaption><b>베를린 봉쇄 때 보급품을 전달한 비행기(1948)</b>육로가 막히자 비행기가 베를린에 보급품을 실어 날랐다.<span class="credit">미 공군 · 퍼블릭 도메인</span></figcaption></figure>
+        </div>
+      </div>
+      <figure class="photo mid"><img src="img/wall1961.jpg" alt="베를린 장벽을 쌓는 동독 노동자들(1961년 11월)"><figcaption><b>베를린 장벽을 쌓는 동독 노동자들(1961. 11.)</b>장벽은 베를린을 동서로 나누었다. 교과서 214쪽에서 보았듯이, 훗날 이념 대립이 완화되면서 독일 시민들은 이 장벽을 무너뜨렸다.<span class="credit">퍼블릭 도메인</span></figcaption></figure>
+
+      <div class="card" id="order">
+        <div class="kicker">활동 2 · 독일 분단 순서 맞히기</div>
+        <p style="margin:0 0 8px">일어난 순서대로 카드를 차례로 누르세요. 틀리면 카드가 흔들리고 처음부터 다시 시작합니다.</p>
+        <div class="ord" id="ordPool"></div>
+        <ol class="ord-done" id="ordDone"></ol>
+        <div class="btns"><button class="btn ghost" type="button" id="ordReset">다시 하기</button></div>
+        <div class="result" id="ordMsg" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 냉전의 심화 -->
+  <section id="s4">
+    <div class="wrap">
+      <div class="kicker">STEP 4 · 냉전의 심화 (13분)</div>
+      <h2>세계 곳곳에서 두 진영이 부딪치다</h2>
+      <p>냉전이 진행되는 동안 자본주의 진영과 공산주의 진영은 세계 각지에서 충돌하였습니다. 지도의 번호를 누르거나 <b>연도 순서로 둘러보기</b>를 눌러 보세요.</p>
+
+      <div class="card mapcard" id="mapcard">
+        <div class="kicker">지도로 보기 · 냉전의 전개 (교과서 218~219쪽)</div>
+        <div class="mapwrap">
+          <div class="mapbox">
+            <svg class="wmap" id="map7" viewBox="0 0 1000 520" role="img" aria-label="냉전 시기 주요 분쟁 지도"></svg>
+            <div class="legend"><span><i style="background:var(--c-us)"></i>미국</span><span><i style="background:var(--c-su)"></i>소련</span><span><i class="mk-i"></i>냉전 시기 주요 분쟁</span></div>
+          </div>
+          <div class="mapinfo" id="mapinfo" aria-live="polite"></div>
+        </div>
+        <div class="tline" id="tline"></div>
+        <div class="btns" style="margin-top:4px"><button class="btn ghost" type="button" id="mapPlay">▶ 연도 순서로 둘러보기</button></div>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="냉전의 심화 사례" style="margin-top:24px">
+        <button type="button" role="tab" id="tb-cn" aria-controls="p-cn" aria-selected="true">중국</button>
+        <button type="button" role="tab" id="tb-kr" aria-controls="p-kr" aria-selected="false">한국</button>
+        <button type="button" role="tab" id="tb-cu" aria-controls="p-cu" aria-selected="false">쿠바</button>
+        <button type="button" role="tab" id="tb-vn" aria-controls="p-vn" aria-selected="false">베트남</button>
+      </div>
+      <div class="panel on card" id="p-cn" role="tabpanel">
+        <div class="case">
+          <figure class="photo"><img src="img/mao1949.jpg" alt="중화 인민 공화국의 수립을 선포하는 마오쩌둥(1949)"><figcaption><b>중화 인민 공화국의 수립을 선포하는 마오쩌둥(1949)</b><span class="credit">퍼블릭 도메인</span></figcaption></figure>
+          <div>
+            <h3>국공 내전과 중화 인민 공화국 수립 <span class="where">1949</span></h3>
+            <p>중국에서는 <b>장제스</b>가 이끄는 <b>국민당</b>과 <b>마오쩌둥</b>이 이끄는 <b>공산당</b>이 전쟁을 벌였다(<b>국공 내전</b>). 이 전쟁에서 승리한 마오쩌둥은 <b>중화 인민 공화국</b>을 수립하였다(1949).</p>
+          </div>
+        </div>
+      </div>
+      <div class="panel card" id="p-kr" role="tabpanel">
+        <div class="case">
+          <figure class="photo"><img src="img/inchon.jpg" alt="인천 상륙 작전 다음 날 인천 해안에서 병력과 장비를 내리는 상륙함들(1950)"><figcaption><b>인천 상륙 작전 때 인천 해안에 닿은 상륙함(1950. 9.)</b>썰물로 드러난 해안에서 병력과 장비를 내리고 있다.<span class="credit">미 해군 · 퍼블릭 도메인</span></figcaption></figure>
+          <div>
+            <h3>6·25 전쟁 <span class="where">1950~1953</span></h3>
+            <p>1945년에 광복을 맞은 한국은 냉전의 영향을 받아 <b>남북으로 갈라졌다</b>. 이후 <b>소련의 지원을 받은 북한이 남한을 침략</b>하여 전쟁이 일어났다(<b>6·25 전쟁</b>, 1950).</p>
+            <ul class="flowlist">
+              <li>6·25 전쟁이 일어나자 자본주의 진영의 국가들이 <b>국제 연합군</b>으로 참여하여 남한을 도왔다.</li>
+              <li>국군과 국제 연합군이 <b>인천 상륙 작전</b>에 성공하여 북으로 나아갔다.</li>
+              <li>그러자 <b>중국군</b>이 참전하여 북한을 도왔다.</li>
+            </ul>
+            <p>이 전쟁으로 <b>동아시아에서 냉전이 더욱 심해졌다.</b></p>
+          </div>
+        </div>
+      </div>
+      <div class="panel card" id="p-cu" role="tabpanel">
+        <div class="case">
+          <figure class="photo"><img src="img/cuba.jpg" alt="미국 정찰기가 찍은 쿠바의 미사일 발사 기지(1962)"><figcaption><b>미국 정찰기가 찍은 쿠바의 미사일 기지(1962. 11. 1.)</b><span class="credit">미국 정부 · 퍼블릭 도메인</span></figcaption></figure>
+          <div>
+            <h3>쿠바 미사일 위기 <span class="where">1962</span></h3>
+            <p>미국과 지리적으로 가까운 쿠바에서는 <b>소련이 핵미사일 기지</b>를 세우려고 하였다. 그러자 미국이 이에 반발하여 <b>쿠바 해상을 봉쇄</b>하면서 세계는 <b>핵전쟁의 위기</b>에 처하기도 하였다. 결국 소련이 쿠바에서 미사일을 철수하기로 발표하여 전쟁은 일어나지 않았다.</p>
+            <div class="sidebox"><b>교과서 219쪽 풍자화 읽기</b> 소련 서기장 <b>흐루쇼프</b>와 미국 대통령 <b>케네디</b>가 핵무기를 깔고 앉아 팔씨름을 하면서, 상대가 앉아 있는 핵무기 스위치를 누르려 하고 있다. → 작은 실수 하나로도 핵전쟁이 날 수 있었던 아슬아슬한 상황을 비꼬았다.</div>
+            <figure class="photo small"><img src="img/vienna1961.jpg" alt="빈에서 만난 케네디와 흐루쇼프(1961)"><figcaption><b>위기 한 해 전, 빈에서 만난 케네디(오른쪽)와 흐루쇼프(1961)</b><span class="credit">미국 국무부 · 퍼블릭 도메인</span></figcaption></figure>
+          </div>
+        </div>
+      </div>
+      <div class="panel card" id="p-vn" role="tabpanel">
+        <div class="case">
+          <figure class="photo"><img src="img/vietnam.jpg" alt="남베트남에서 헬리콥터 착륙을 유도하는 미군(1966)"><figcaption><b>베트남 전쟁에 참여한 미군(1966)</b>남베트남에서 헬리콥터의 착륙을 유도하고 있다.<span class="credit">미 육군 · 퍼블릭 도메인</span></figcaption></figure>
+          <div>
+            <h3>베트남 전쟁 <span class="where">1964~1975</span></h3>
+            <p>베트남에서는 <b>공산주의 정권이 들어선 북베트남</b>과 <b>미국의 지원을 받는 남베트남</b>이 대립하다가 전쟁이 일어났다(<b>베트남 전쟁</b>, 1964).</p>
+            <p>북베트남이 베트남 전체를 통일하려 하자 공산주의의 확산을 우려한 미국은 남베트남을 지원하였다. 이후 여러 나라가 참전하며 베트남 전쟁은 <b>국제전</b>이 되었다. 이 전쟁에서 <b>북베트남이 승리</b>하면서 베트남은 통일되었다(1975).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="speech"><span class="av">💬</span><div><small>교과서 219쪽</small><q>아시아에서 냉전은 군사적 충돌인 <b>열전</b>으로 나타나기도 하였어.</q></div></div>
+      <div class="card iron">
+        <div class="kicker">‘철의 장막’이란? (교과서 218쪽 풍자화)</div>
+        <p style="margin:0">영국의 <b>처칠</b>이 소련의 폐쇄적이고 비밀스러운 태도를 비유하며 한 말이다. 풍자화에서는 처칠이 유럽을 가로막은 벽 아래를 들여다보고, 벽에는 “조(스탈린)의 명령에 따른 입장 금지”라는 글과 소련 국기가 그려져 있다.</p>
+      </div>
+
+      <div class="card sort" id="sortCH">
+        <div class="kicker">활동 3 · 냉전일까, 열전일까?</div>
+        <p style="margin:0 0 4px">각 사건이 실제 전쟁(군사적 충돌)으로 번진 <b>열전</b>인지, 직접 싸우지 않고 맞선 <b>냉전</b> 속 대립인지 골라 보세요.</p>
+        <div class="item" data-a="냉전" data-why="소련이 육로를 막았지만 두 진영이 서로 전쟁을 벌이지는 않았다."><p>베를린 봉쇄 (1948~1949)</p><div class="pick"><button type="button">냉전</button><button type="button">열전</button></div><div class="why"></div></div>
+        <div class="item" data-a="열전" data-why="국민당과 공산당이 실제로 전쟁을 벌였다."><p>국공 내전</p><div class="pick"><button type="button">냉전</button><button type="button">열전</button></div><div class="why"></div></div>
+        <div class="item" data-a="열전" data-why="북한의 침략으로 전쟁이 일어났고 국제 연합군과 중국군까지 참전하였다."><p>6·25 전쟁 (1950~1953)</p><div class="pick"><button type="button">냉전</button><button type="button">열전</button></div><div class="why"></div></div>
+        <div class="item" data-a="냉전" data-why="핵전쟁 직전까지 갔지만 소련이 미사일 철수를 발표하여 전쟁은 일어나지 않았다."><p>쿠바 미사일 위기 (1962)</p><div class="pick"><button type="button">냉전</button><button type="button">열전</button></div><div class="why"></div></div>
+        <div class="item" data-a="열전" data-why="여러 나라가 참전한 국제전이 되었다."><p>베트남 전쟁 (1964~1975)</p><div class="pick"><button type="button">냉전</button><button type="button">열전</button></div><div class="why"></div></div>
+        <div class="item" data-a="냉전" data-why="무기와 기술로 서로를 견제한 경쟁이었다."><p>미국과 소련의 우주 개발 경쟁</p><div class="pick"><button type="button">냉전</button><button type="button">열전</button></div><div class="why"></div></div>
+        <div class="result" id="chMsg" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 확인 -->
+  <section id="s5">
+    <div class="wrap">
+      <div class="kicker">STEP 5 · 확인 (5분)</div>
+      <h2>배운 내용을 확인해요</h2>
+      <div class="card fill" id="fill">
+        <p><span class="num">1.</span> 미국의 트루먼 대통령은 공산주의 세력의 확산을 막겠다고 선언하였다. 이를 <span class="blank" data-a="트루먼독트린"><input aria-label="빈칸 1" placeholder="❶"></span>(1947)이라고 한다.</p>
+        <p><span class="num">2.</span> 미국은 <span class="blank" data-a="마셜계획"><input aria-label="빈칸 2" placeholder="❷"></span>을/를 추진하여 서유럽에 경제적인 도움을 주었다.</p>
+        <p><span class="num">3.</span> 제2차 세계 대전 이후 세계는 미국 중심의 자본주의 세력과 소련 중심의 공산주의 세력이 대립하는 <span class="blank" data-a="냉전"><input aria-label="빈칸 3" placeholder="❸"></span> 체제가 형성되었다.</p>
+        <p><span class="num">4.</span> 소련은 화폐 개혁에 항의하며 베를린으로 가는 육로를 약 1년간 막았다. 이를 <span class="blank" data-a="베를린봉쇄"><input aria-label="빈칸 4" placeholder="❹"></span>(1948~1949)라고 한다.</p>
+        <p><span class="num">5.</span> 국공 내전에서 승리한 마오쩌둥은 <span class="blank" data-a="중화인민공화국"><input aria-label="빈칸 5" placeholder="❺"></span>을/를 수립하였다(1949).</p>
+        <p><span class="num">6.</span> 1964년 공산주의 정권이 들어선 북베트남과 미국의 지원을 받은 남베트남 사이에 일어난 전쟁은 <span class="blank" data-a="베트남전쟁"><input aria-label="빈칸 6" placeholder="❻"></span>이다.</p>
+        <div class="btns">
+          <button class="btn" type="button" id="checkFill">확인하기</button>
+          <button class="btn ghost" type="button" id="showFill">정답 보기</button>
+          <button class="btn ghost" type="button" id="resetFill">다시 하기</button>
+        </div>
+        <div class="result" id="fillResult" aria-live="polite"></div>
+      </div>
+
+      <div class="card" style="margin-top:16px" id="ox">
+        <div class="kicker">O / X 퀴즈</div>
+        <div class="q" data-a="X" data-why="냉전은 직접적인 무력 충돌보다는 정치, 군사, 외교 등에서 경쟁과 대립을 유지하던 상황이다."><p style="margin:0"><b>1.</b> 냉전은 미국과 소련이 직접 전면전을 벌인 상황을 말한다.</p><div class="opts"><button type="button">O</button><button type="button">X</button></div><div class="fb"></div></div>
+        <div class="q" data-a="O" data-why="코메콘(경제 상호 원조 회의)은 상호 경제 지원을 위한 기구이다."><p style="margin:0"><b>2.</b> 소련은 동유럽 국가들과 상호 경제 지원을 위해 코메콘을 만들었다.</p><div class="opts"><button type="button">O</button><button type="button">X</button></div><div class="fb"></div></div>
+        <div class="q" data-a="O" data-why="국군과 국제 연합군이 북으로 나아가자 중국군이 참전하여 북한을 도왔다."><p style="margin:0"><b>3.</b> 6·25 전쟁 때 국군과 국제 연합군이 인천 상륙 작전에 성공하여 북으로 나아가자 중국군이 참전하였다.</p><div class="opts"><button type="button">O</button><button type="button">X</button></div><div class="fb"></div></div>
+        <div class="q" data-a="X" data-why="소련이 쿠바에서 미사일을 철수하기로 발표하여 전쟁은 일어나지 않았다."><p style="margin:0"><b>4.</b> 쿠바 미사일 위기는 결국 미국과 소련의 핵전쟁으로 이어졌다.</p><div class="opts"><button type="button">O</button><button type="button">X</button></div><div class="fb"></div></div>
+        <div class="q" data-a="X" data-why="북베트남이 승리하면서 베트남은 통일되었다(1975)."><p style="margin:0"><b>5.</b> 베트남 전쟁은 남베트남의 승리로 끝나 베트남이 통일되었다.</p><div class="opts"><button type="button">O</button><button type="button">X</button></div><div class="fb"></div></div>
+        <div class="result" id="oxMsg" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 정리·제출 -->
+  <section id="s6">
+    <div class="wrap">
+      <div class="kicker">STEP 6 · 정리하고 제출하기 (5분)</div>
+      <h2>오늘 배운 냉전, 내 말로 정리하기</h2>
+      <div class="card">
+        <div class="kicker">서술형</div>
+        <label for="asia" style="font-weight:700">아시아에서 냉전은 어떻게 나타났나요? 교과서에 나온 <b>사례 두 가지</b>를 들어 써 보세요.</label>
+        <textarea id="asia" data-save="cw-asia" placeholder="예) 아시아에서 냉전은 … 으로 나타나기도 하였다. 예를 들어 …"></textarea>
+        <details class="reveal"><summary>예시 답안 보기</summary><div>아시아에서 냉전은 군사적 충돌인 <b>열전</b>으로 나타나기도 하였다. 예를 들어 한국에서는 소련의 지원을 받은 북한이 남한을 침략하여 <b>6·25 전쟁</b>(1950)이 일어났고, 베트남에서는 공산주의 정권의 북베트남과 미국의 지원을 받는 남베트남 사이에 <b>베트남 전쟁</b>(1964)이 일어났다. (중국의 <b>국공 내전</b>도 사례로 들 수 있다.)</div></details>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="kicker">한 줄 성찰</div>
+        <label for="refl" style="font-weight:700">냉전 체제 속에서 살았던 사람들(베를린 시민, 6·25 전쟁을 겪은 사람들 등)의 입장이 되어 한 줄로 느낌을 써 보세요.</label>
+        <textarea id="refl" data-save="cw-refl" placeholder="예) 하루아침에 장벽이 생겨 가족을 만나지 못한 베를린 시민이라면…" style="min-height:100px"></textarea>
+      </div>
+
+      <div class="grid g2" style="margin-top:16px">
+        <div class="card">
+          <div class="kicker">스스로 점검하기</div>
+          <ul class="checks">
+            <li><label><input type="checkbox"> 냉전의 뜻을 말할 수 있다.</label></li>
+            <li><label><input type="checkbox"> 자본주의 진영과 공산주의 진영이 만든 기구를 구분할 수 있다.</label></li>
+            <li><label><input type="checkbox"> 독일이 분단된 과정을 순서대로 설명할 수 있다.</label></li>
+            <li><label><input type="checkbox"> 국공 내전, 6·25 전쟁, 쿠바 미사일 위기, 베트남 전쟁을 설명할 수 있다.</label></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="kicker">다음 시간 예고</div>
+          <p style="margin:0;font-size:16px">미국과 소련, 어느 쪽에도 속하지 않겠다는 나라들이 있었습니다. 다음 시간에는 <b>제3 세계가 나타나다</b>(교과서 220~221쪽)를 배웁니다.</p>
+        </div>
+      </div>
+
+      <div class="card submit-card" id="submitCard">
+        <div class="kicker">📮 선생님께 제출하기</div>
+        <p class="hint">도입 생각(STEP 1), 대립 구도 표·분단 순서·냉전/열전 결과, 빈칸·O/X 점수, 서술형과 한 줄 성찰이 한 번에 제출됩니다. 선생님 화면에 바로 나타나요. 고쳐서 다시 제출해도 괜찮아요(마지막 제출을 기준으로 봅니다).</p>
+        <div class="who">
+          <label>학반 <input id="stClass" data-keep="pc-class" placeholder="예) 2-3" autocomplete="off"></label>
+          <label>번호 <input id="stNum" data-keep="pc-num" inputmode="numeric" placeholder="예) 15" autocomplete="off"></label>
+          <label>이름 <input id="stName" data-keep="pc-name" placeholder="이름" autocomplete="off"></label>
+        </div>
+        <div class="btns"><button class="btn" type="button" id="sendBtn">제출하기</button><button class="btn ghost" type="button" id="fbBtn">선생님 피드백 확인</button></div>
+        <div class="sendmsg" id="sendMsg" role="status" aria-live="polite"></div>
+        <div class="fbbox" id="fbBox" hidden></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">중학교 역사①(2022 개정) Ⅶ-01-1 수업 자료 · 교과서 216~219쪽 내용을 바탕으로 수업용으로 재구성했습니다. 지도의 국경선은 Natural Earth(퍼블릭 도메인) 자료로 그린 오늘날 국경이며, 소련은 옛 소련을 이룬 15개 공화국 영역을 합쳐 표시했습니다.
+    <ul class="credits">
+      <li>사진 출처 (모두 위키미디어 공용 · 퍼블릭 도메인, 클릭하면 원본 확인):</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Sputnik_1_satellite_replica.png">스푸트니크 1호 복제품</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Aldrin_Apollo_11_original.jpg">아폴로 11호</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Special_Message_to_Congress_on_Greece_and_Turkey_The_Truman_Doctrine.jpg">트루먼의 의회 연설</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Marshall_Plan_poster_(cropped).JPG">마셜 계획 포스터</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:C-54_landing_at_Tempelhof_(cropped).jpg">베를린 봉쇄 때의 수송기</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Berlin_Wall_1961-11-20.jpg">베를린 장벽 건설</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Mao_Proclaiming_New_China.JPG">중화 인민 공화국 수립 선포</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:80-G-420027_Inchon_Invasion,_September_1950.jpg">인천 상륙 작전</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:Cuban_missiles.jpg">쿠바 미사일 기지</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:John_Kennedy,_Nikita_Khrushchev_1961.jpg">케네디와 흐루쇼프</a> ·
+        <a href="https://commons.wikimedia.org/wiki/File:US_soldier_directs_UH-1_to_land_Vietnam_1966.jpg">베트남 전쟁</a></li>
+    </ul>
+  </div>
+  <div class="lightbox" id="lightbox" role="dialog" aria-label="사진 크게 보기"><img alt=""><p></p></div>
+</footer>
+
+<script>
+var MAP7={"W":1000,"H":520,"c":[["","M989,360L990,359L990,360L989,362L988,363L986,362L986,361L988,359ZM995,355L996,355L995,356L995,357L993,357L991,358L991,357L992,356L993,356L995,355Z"],["","M568,303L568,303L579,310L579,312L583,316L582,320L582,322L584,323L584,324L583,326L583,327L583,329L584,331L585,334L586,335L584,337L581,338L579,338L578,339L576,339L575,340L571,339L569,339L568,335L567,333L567,332L564,331L562,330L560,330L559,329L558,328L556,324L555,322L554,320L555,318L554,315L555,315L556,314L558,312L558,311L558,310L558,309L557,308L558,307L558,305L557,304L558,303L562,303Z"],["","M443,204L443,205L443,205L443,210L434,210L433,219L430,219L430,221L430,226L419,226L418,227L418,226L418,226L425,226L425,224L426,223L428,218L432,214L433,210L434,210L435,207L438,207L439,207L440,207L441,206L443,206L443,204Z"],["","M149,131L149,131L146,128L145,126L141,125L141,122L143,120L141,119L142,116L141,114L142,112L145,111L146,109L143,106L144,103L144,101L143,99L142,98L142,96L139,97L135,99L135,97L134,96L133,95L130,95L147,77L158,66L162,67L164,68L166,69L169,67L173,66L176,67L180,66L185,65L185,66L187,65L189,64L191,64L192,67L197,65L195,67L198,67L200,66L202,66L205,67L209,68L211,69L214,69L216,70L211,71L215,72L221,72L224,71L225,73L228,72L227,70L229,69L232,69L234,69L235,70L236,71L239,71L242,72L246,72L249,72L250,70L253,70L256,70L254,73L257,71L258,71L262,68L261,66L259,65L261,62L266,60L268,60L270,62L270,65L267,66L271,67L269,70L273,68L275,69L273,72L273,74L277,71L281,69L283,66L286,66L289,66L291,68L290,69L288,71L288,72L287,74L281,76L278,76L276,75L274,77L270,80L269,81L265,83L261,83L259,84L257,86L254,87L250,89L245,93L242,95L240,99L243,99L243,102L243,105L246,104L250,106L252,107L253,108L256,109L258,110L262,111L264,111L263,114L262,117L262,121L264,124L267,123L270,119L271,114L270,113L275,111L278,109L281,107L282,104L281,102L279,99L284,96L284,93L286,88L288,88L292,88L294,89L297,88L298,89L300,91L301,92L305,92L303,95L302,99L304,99L305,101L310,99L314,96L316,94L316,97L318,101L319,105L317,107L320,109L322,111L325,112L327,113L327,115L328,116L329,117L328,121L326,122L324,123L319,124L315,127L310,128L305,127L301,127L298,127L295,130L291,131L286,135L282,139L284,138L290,134L296,131L301,130L302,132L299,134L299,138L299,140L302,142L306,142L310,138L309,140L311,142L307,144L300,146L297,147L294,150L292,149L292,146L298,144L294,144L290,144L289,142L291,138L290,137L288,137L287,136L285,139L283,142L281,143L280,144L279,144L279,145L274,145L270,145L268,145L265,148L264,148L263,149L260,149L258,149L256,150L257,151L256,152L256,152L252,154L249,154L245,156L245,156L244,155L244,155L244,155L245,153L247,152L248,150L249,147L250,143L247,142L248,141L248,141L247,141L247,140L247,140L246,140L246,140L246,139L245,139L245,138L244,137L242,136L240,135L238,134L235,134L235,135L232,134L229,134L227,133L225,133L223,132L223,132L223,130L222,130L221,131L216,131L207,131L198,131L190,131L182,131L175,131L167,131L164,131L156,131ZM272,88L275,86L278,87L278,87L274,89L272,89ZM301,57L300,56L301,55L302,55L307,55L309,57L309,57L307,57L304,57L302,58ZM281,89L282,88L283,88L283,89L281,90L280,90L280,89ZM276,51L274,52L271,52L269,52L271,50L275,50L276,51ZM282,45L281,45L277,45L277,44L281,44L282,44ZM279,41L280,42L279,43L275,44L274,43L274,42L275,41L278,41ZM286,53L283,53L278,52L279,50L280,49L279,48L275,47L273,47L275,46L279,46L280,47L285,47L286,47L284,48L286,49L287,50L290,50L293,50L296,49L301,49L304,49L306,50L305,52L303,52L300,53L297,53L291,53ZM248,43L250,43L248,44L244,45L242,44L244,43ZM250,41L252,42L249,42L246,42L246,42L249,41ZM327,124L325,126L323,129L325,127L326,128L325,129L327,130L328,129L331,130L329,133L331,132L331,134L331,136L329,139L328,139L327,139L328,136L327,135L323,138L322,138L324,137L322,136L319,136L314,136L314,135L316,134L315,133L318,131L322,125L324,124L327,122L328,123ZM278,80L279,81L282,82L281,83L283,83L284,84L281,85L278,84L278,83L274,84L270,86L270,84L267,85L270,83L272,81L274,78L276,78L275,79L277,79ZM303,59L305,58L309,59L312,60L311,62L316,61L317,63L321,64L323,65L323,68L318,69L323,71L326,72L328,74L331,75L330,77L324,80L322,79L320,76L316,76L315,78L317,80L319,81L320,82L320,85L318,87L315,86L311,84L313,87L314,88L314,90L308,88L304,87L302,85L303,84L301,83L298,81L297,82L290,82L289,81L292,79L296,79L301,79L301,78L303,76L307,73L307,72L307,71L304,70L301,69L302,68L301,66L299,66L298,65L296,66L292,66L284,65L280,65L277,64L276,63L279,62L276,62L277,59L281,56L284,55L290,55L287,56L288,58L291,56L298,55L299,58L298,59ZM272,54L277,54L280,54L275,57L272,57L268,60L266,59L266,57L267,56L270,54ZM217,48L223,46L229,45L233,45L236,44L233,46L231,47L229,47L223,48L220,49ZM135,115L137,114L134,118L134,121L133,121L133,119L133,118L132,117L133,115L134,114ZM263,40L266,40L271,41L271,43L271,44L268,43L265,42L261,42L263,42L262,41ZM146,133L145,133L141,132L141,131L140,129L140,128L137,128L138,126L138,125L141,126L142,127L144,127L144,128L145,130L146,131ZM215,53L218,53L223,54L224,54L225,56L222,56L215,58L210,60L209,61L202,63L202,62L198,60L200,59L204,57L208,55L207,53ZM248,49L251,49L253,49L252,50L249,51L242,52L235,53L232,53L232,52L238,51L228,51L226,51L231,48L234,47L239,48L241,50L245,50L244,47L247,47L249,47L248,48ZM244,57L245,58L244,61L243,63L246,64L249,65L247,67L244,67L244,68L242,69L239,69L235,68L233,68L228,69L222,69L217,70L217,68L215,67L213,68L212,65L214,65L218,65L221,65L224,64L220,64L215,64L212,64L212,63L218,62L215,62L212,61L216,59L218,58L226,56L227,57L225,58L231,57L232,58L236,57L237,58L237,61L239,59L240,57L242,56ZM256,58L255,56L259,54L261,55L265,55L265,56L262,57L264,58L262,61L257,62L255,61L255,60L251,58L252,57ZM245,55L248,55L249,56L245,58L244,56ZM270,47L270,48L269,49L266,51L263,52L261,51L262,50L259,50L261,48L263,48L267,47L270,47ZM285,37L288,36L290,36L290,36L294,35L296,37L298,37L301,38L301,39L303,40L299,41L294,43L290,43L286,42L285,41L286,41L288,40L284,40L283,39L283,38ZM298,34L301,34L304,33L308,33L312,32L314,32L316,33L319,32L321,32L325,31L331,31L332,31L338,31L342,31L346,31L351,32L355,32L358,32L357,33L351,34L346,34L344,35L348,35L342,36L338,37L333,39L329,39L327,40L321,40L323,40L321,41L322,42L319,43L316,44L314,45L310,45L310,46L314,46L313,47L306,48L301,47L295,48L292,48L288,47L289,46L294,46L294,44L296,43L300,45L299,43L296,42L298,41L303,41L304,40L302,39L303,38L308,38L309,38L313,37L309,37L302,37L299,36L299,35L297,35ZM302,73L300,74L297,74L297,72L299,71L302,70L303,71L302,72ZM258,67L259,68L256,69L254,68L252,68L250,67L253,66L255,65L257,66L258,66ZM303,128L304,128L307,129L309,130L309,131L308,131L305,130ZM301,138L301,139L303,140L306,140L304,141L303,141L300,140L299,139Z"],["","M886,309L891,311L896,313L898,315L900,316L900,318L905,321L905,322L903,323L903,325L905,327L907,331L909,331L908,332L911,333L910,334L913,335L912,336L910,336L910,335L907,335L904,334L902,332L901,330L899,327L896,326L893,327L891,328L891,330L889,332L887,331L884,331L885,320ZM920,312L921,313L921,315L920,316L920,314L919,313L918,312L916,310L914,309L915,308L917,309L918,310L919,311ZM916,320L914,321L912,321L911,321L908,320L907,319L907,318L910,319L911,319L912,317L912,317L912,319L914,318L915,317L917,316L917,314L918,314L919,314L919,316L918,318L916,319ZM926,318L927,319L928,321L929,322L929,323L928,323L927,322L926,320L925,317L926,317Z"],["","M886,309L885,320L884,331L882,328L879,327L878,328L874,329L876,326L878,325L877,321L876,318L870,315L868,315L864,312L863,313L862,314L861,312L861,311L859,309L862,308L864,308L864,307L860,307L858,305L856,305L855,303L859,302L860,301L865,302L865,304L866,309L869,311L872,308L875,305L878,305L880,307L882,308ZM837,330L837,331L837,332L835,334L832,335L832,335L832,334L834,332ZM865,323L865,321L865,319L866,318L866,319L866,321ZM817,285L815,289L817,292L817,293L820,297L817,297L816,299L816,302L813,305L813,308L812,313L811,312L808,314L807,312L805,311L803,310L800,312L799,310L797,310L794,310L794,305L792,304L791,301L790,298L791,295L793,293L793,295L795,297L797,296L799,297L801,295L802,294L805,295L807,295L809,290L810,289L811,285L814,285ZM851,309L854,310L855,313L853,311L850,311L849,311L847,311L847,309ZM843,313L841,312L841,311L844,310L845,312ZM847,292L847,294L849,294L849,296L849,299L847,298L847,300L848,302L847,303L846,301L845,296L846,293ZM832,297L835,296L838,294L839,295L836,298L834,299L831,298L826,298L824,299L823,301L826,304L828,303L833,302L833,303L832,303L830,305L828,306L830,311L830,312L832,316L832,318L831,319L829,318L831,315L828,316L827,315L828,314L826,312L826,309L824,310L824,314L824,319L822,319L821,318L822,315L822,312L820,312L819,309L821,307L821,304L823,299L823,298L826,295L828,296ZM823,335L819,332L822,332L823,333L824,334L824,335ZM826,329L828,329L831,327L830,329L826,330L822,330L822,329L824,328ZM817,328L819,328L820,330L816,330L814,331L812,331L814,329L815,329L816,327ZM789,322L789,323L795,323L795,322L801,323L802,326L806,326L810,328L806,330L803,328L800,328L797,328L794,328L791,326L789,326L788,326L782,325L782,323L779,323L781,320L785,320L787,321ZM777,303L777,306L778,308L781,308L782,310L781,314L781,320L777,320L775,317L771,314L770,312L768,309L767,307L764,302L762,299L761,296L760,293L757,291L755,288L753,286L750,283L750,281L751,281L756,282L759,285L761,287L763,289L766,292L769,292L771,295L773,298L775,299L774,302L776,303Z"],["","M295,480L297,482L299,484L303,486L307,487L307,488L304,489L303,487L301,487L298,487ZM305,404L304,407L304,410L305,414L304,414L305,417L305,418L309,421L309,424L311,425L311,427L310,431L306,433L301,434L298,433L299,436L299,438L300,440L298,441L296,442L293,440L292,441L293,445L295,446L297,445L298,446L296,447L294,449L295,453L295,455L292,455L291,456L291,459L294,461L297,462L297,465L294,467L294,471L292,472L292,474L294,477L296,479L295,479L293,478L286,478L284,476L283,474L282,474L280,473L279,469L280,468L280,466L279,464L280,461L279,456L278,454L279,454L278,453L277,452L277,450L276,449L274,445L275,445L273,440L273,437L273,434L274,433L272,429L271,426L273,424L272,421L273,418L272,414L271,414L269,408L270,404L269,401L269,398L270,394L272,392L271,391L271,390L270,384L273,382L274,379L273,378L275,375L279,376L281,378L282,375L285,375L286,376L292,382L294,382L298,385L301,386L302,388L300,393L303,394L306,395L309,394L311,391L311,388L312,388L314,390L314,392L312,394L310,396L308,399Z"],["","M295,480L298,487L301,487L303,487L302,489L301,490L299,490L298,489L295,488L293,488L289,486L285,484L280,481L283,481L287,484L291,485L292,483L292,481L293,480ZM264,360L265,362L266,365L268,366L267,370L269,374L271,378L273,378L274,379L273,382L270,384L271,390L271,391L272,392L270,394L269,398L269,401L270,404L269,408L271,414L272,414L273,418L272,421L273,424L271,426L272,429L274,433L273,434L273,437L273,440L275,445L274,445L276,449L277,450L277,452L278,453L279,454L278,454L279,456L280,461L279,464L280,466L280,468L279,469L280,473L282,474L283,474L284,476L286,478L293,478L295,479L293,479L292,480L290,481L291,484L290,484L287,483L283,481L279,479L277,477L277,475L275,473L272,467L272,464L274,461L270,460L271,457L270,452L273,453L273,446L270,445L271,449L269,449L268,444L267,437L268,435L266,432L265,428L266,428L266,422L267,417L267,411L265,406L265,403L264,399L265,395L264,388L264,381L264,373L263,368L262,363L263,362Z"],["","M554,315L555,318L554,320L555,322L556,324L558,328L557,328L553,329L552,329L551,331L552,333L551,337L551,340L552,341L554,342L555,341L555,345L552,345L551,343L550,342L548,341L547,340L545,341L543,340L542,339L540,338L539,338L539,337L538,337L536,337L535,337L533,337L533,338L533,334L532,332L532,330L532,328L531,327L531,325L528,325L528,323L527,323L526,324L525,324L524,326L523,327L522,327L521,327L519,327L518,326L517,324L516,322L515,320L507,320L506,320L505,320L504,321L503,320L504,319L504,318L504,317L506,316L506,316L507,315L509,315L509,316L510,317L512,315L514,313L514,312L514,309L516,306L517,304L519,302L519,301L519,300L520,299L520,297L520,294L521,292L522,290L522,288L522,285L523,283L525,282L527,284L529,285L531,285L533,286L534,284L535,283L536,284L539,282L541,283L542,283L542,282L543,282L545,282L547,282L548,282L550,284L551,285L552,284L553,285L555,284L556,285L558,288L558,292L560,292L559,293L557,294L556,296L556,298L556,300L555,302L555,304L554,305L554,307L553,308L553,309L554,311Z"],["","M590,305L589,303L589,290L591,286L592,285L594,285L596,283L600,282L609,272L611,269L612,267L612,265L612,262L612,260L612,260L613,260L614,260L615,259L617,258L618,258L618,259L618,261L618,263L617,264L617,268L615,272L614,276L611,281L609,285L605,290L602,293L598,296L595,299L592,303L591,305Z"],["","M583,316L579,312L579,310L568,303L568,303L568,299L568,298L570,296L571,293L570,289L569,287L568,285L570,283L572,281L573,281L573,283L574,284L576,284L580,287L581,287L582,287L582,288L584,288L585,286L588,285L589,286L591,286L589,290L589,303L590,305L588,307L588,308L586,308L586,311L585,312L584,315Z"],["","M540,271L538,270L536,269L536,268L537,266L537,265L535,263L535,261L535,260L534,259L534,257L533,256L532,256L532,255L533,254L533,252L533,251L533,250L534,248L535,246L537,246L537,232L537,231L540,231L540,224L552,224L563,224L575,224L576,227L575,228L576,231L577,236L578,236L580,238L578,240L576,240L575,241L575,244L574,249L574,250L574,253L573,256L571,258L570,261L570,262L568,263L568,267L568,270L568,267L567,267L567,265L567,264L565,263L565,260L565,258L564,258L564,258L562,258L563,259L563,262L561,263L560,266L558,266L556,264L555,265L554,266L553,267L553,267L550,267L549,267L547,267L546,267L545,267L544,265L543,264L541,264L540,266L540,269L539,270L538,270Z"],["","M537,232L537,246L535,246L534,248L533,250L533,251L533,252L533,254L532,255L532,256L533,256L534,257L534,259L535,260L535,261L533,262L531,263L529,267L526,269L524,268L523,269L523,270L521,271L520,273L517,274L516,273L515,273L515,274L512,274L513,273L512,271L511,269L510,269L508,267L509,265L510,266L511,265L513,265L511,262L511,260L511,258L510,255L510,254L508,254L508,252L507,250L508,246L512,242L512,238L513,231L514,229L513,228L513,227L511,226L511,221L514,219L525,226Z"],["","M258,232L258,234L258,235L257,236L258,237L258,238L256,237L254,237L253,237L251,238L250,237L250,235L253,236L255,236L256,235L255,234L255,233L253,232L254,231L256,231Z"],["","M258,238L258,237L257,236L258,235L258,234L258,232L259,231L261,231L263,232L264,232L264,233L266,233L265,234L267,234L268,236L267,237L265,236L264,236L263,236L262,237L261,237L261,236L260,237L258,239L258,239Z"],["","M241,207L243,207L245,207L245,208L241,209ZM245,206L247,208L246,210L246,210L246,208L245,207ZM243,213L243,213L244,216L244,218L243,218L243,216L242,215Z"],["","M314,477L316,476L318,476L320,475L322,477L322,478L319,479L317,477L315,479Z"],["","M507,39L508,38L511,38L513,39L520,41L515,42L514,44L512,44L512,46L509,47L504,45L506,44L503,43L499,41L498,39L503,38L504,39ZM544,67L540,68L539,68L539,66L536,65L533,66L532,68L530,69L528,69L525,69L522,67L521,68L519,68L519,70L515,70L514,71L512,71L511,73L508,77L505,81L506,82L505,83L503,83L501,86L501,90L503,91L502,95L500,97L499,99L498,97L493,101L489,102L486,100L485,97L485,89L487,87L493,85L498,82L502,78L508,72L511,70L517,66L522,65L526,65L529,62L533,63L537,62L544,64L541,65ZM532,38L529,40L523,40L517,39L517,39L514,39L511,38L517,37L520,38L522,37L528,37ZM527,44L523,45L519,44L520,44L519,43L523,42L524,43Z"],["","M387,32L394,31L401,31L404,30L411,30L426,30L437,32L433,33L426,33L415,33L416,34L423,33L428,34L432,34L434,34L431,36L436,35L446,34L452,34L453,35L444,37L443,38L436,38L441,38L438,40L436,41L435,44L437,46L434,46L430,47L434,48L434,51L432,51L434,53L429,53L431,55L430,56L427,56L424,56L426,58L426,59L422,58L421,59L423,59L426,61L426,63L422,64L421,63L418,61L419,63L416,65L421,65L424,65L418,68L411,70L404,71L402,71L399,72L395,75L389,77L388,77L384,78L381,79L378,81L377,83L376,85L371,87L371,90L369,92L367,95L363,95L361,93L356,93L354,91L354,88L351,84L351,82L351,80L349,77L351,75L350,74L354,70L358,69L359,68L361,66L357,67L356,67L354,67L352,66L352,65L354,63L356,63L360,64L357,62L356,61L353,61L352,61L356,58L355,57L354,55L353,52L351,51L352,50L347,48L342,48L337,48L331,48L330,48L327,46L333,45L338,45L329,44L325,43L326,42L335,41L343,40L345,39L340,38L343,37L351,36L354,35L354,34L359,34L366,33L372,33L373,34L379,33L383,34L386,34L390,34L386,33Z"],["","M651,467L653,468L655,468L655,469L654,470L650,471L650,469L651,467Z"],["","M837,330L837,329L840,329L842,328L843,328L844,328L843,329L840,331L837,332L837,331Z"],["","M515,398L516,396L517,397L518,399L519,399L521,400L522,399L525,398L525,385L526,385L528,389L527,391L528,392L530,392L531,390L533,389L534,387L535,387L536,387L538,388L540,388L542,387L542,386L543,385L544,384L545,383L546,381L549,378L553,376L554,376L556,376L557,376L558,376L559,381L560,384L559,387L559,389L558,388L557,388L557,389L556,391L556,392L558,394L559,393L560,392L562,392L561,394L561,397L560,399L558,400L557,401L556,403L555,404L553,407L550,411L548,413L546,414L543,416L541,416L541,417L539,416L538,417L535,416L533,417L532,416L529,418L527,418L525,420L524,420L522,418L521,418L520,417L520,417L520,416L520,414L519,412L520,411L520,409L518,406L517,403L517,403ZM551,399L550,398L548,399L547,400L545,403L547,405L548,405L549,404L550,403L551,402L552,400Z"],["","M551,399L552,400L551,402L550,403L549,404L548,405L547,405L545,403L547,400L548,399L550,398Z"],["","M138,187L142,187L145,187L145,188L148,189L154,192L160,192L162,192L162,190L167,190L168,191L169,192L170,194L171,196L171,198L172,199L174,200L177,197L179,197L181,198L181,201L182,203L183,205L183,207L184,209L186,210L187,211L189,211L187,214L186,216L185,221L184,222L184,224L185,226L185,229L186,231L187,233L187,235L190,236L191,237L194,236L196,236L199,235L201,235L203,233L204,231L204,228L205,227L207,226L210,226L213,226L215,225L215,226L215,228L213,230L212,232L212,233L212,234L211,237L210,236L209,236L209,236L208,238L207,238L207,238L207,238L204,238L201,238L201,240L200,240L201,241L202,242L202,243L202,243L202,244L198,244L196,247L197,248L196,249L196,250L193,246L192,245L190,244L188,244L185,245L184,246L182,245L180,244L177,243L175,242L172,241L170,239L169,238L168,238L165,237L164,235L161,233L160,231L160,229L161,229L161,228L162,227L162,226L161,224L161,223L161,221L159,218L156,215L156,213L153,212L153,211L154,209L153,208L152,206L152,204L150,203L149,202L148,200L148,199L148,196L147,194L148,192L146,191L145,191L144,190L143,191L143,193L142,196L143,197L144,199L145,200L145,201L145,202L146,202L145,204L146,205L146,206L148,208L148,211L148,213L149,214L148,216L150,216L151,218L151,219L151,220L149,221L149,221L149,219L147,217L146,215L144,214L145,212L145,210L144,209L142,207L142,208L141,207L140,206L139,204L139,204L140,204L142,203L142,201L141,199L139,198L139,196L139,193L138,191Z"],["","M305,404L306,403L310,406L311,406L314,408L317,410L319,412L318,414L319,416L318,418L315,420L313,419L312,420L309,418L307,418L305,417L304,414L305,414L304,410L304,407Z"],["","M319,416L318,414L319,412L317,410L314,408L311,406L310,406L306,403L305,404L308,399L310,396L312,394L314,392L314,390L312,388L311,388L311,386L311,384L311,382L310,382L309,382L308,382L307,381L307,378L306,377L304,376L303,376L300,376L299,371L298,369L299,368L298,366L299,365L299,362L298,360L297,359L296,358L297,356L291,356L289,352L290,351L290,350L289,349L289,347L287,346L286,346L284,345L282,344L281,343L278,342L274,339L274,337L274,336L274,333L270,334L269,335L266,336L266,337L264,338L262,337L260,338L259,337L259,332L256,334L254,334L253,332L251,332L251,331L249,329L248,325L249,325L249,323L250,322L250,321L251,319L251,318L254,315L257,315L257,314L260,314L261,305L261,303L260,302L259,300L259,298L261,297L261,298L261,296L260,296L260,294L265,294L266,293L267,294L268,296L268,295L270,297L272,297L273,296L275,295L276,294L277,293L279,292L279,291L276,291L276,289L276,287L275,286L275,285L277,286L280,287L281,286L283,285L286,284L287,283L287,282L288,282L289,282L289,284L290,284L290,286L289,287L289,290L290,292L290,293L292,295L293,295L293,295L294,294L296,294L297,293L298,293L299,293L301,293L301,293L301,292L301,291L302,291L303,291L305,292L306,292L307,291L308,292L308,293L310,292L311,291L312,288L314,285L315,285L315,287L317,293L319,294L319,296L316,299L317,300L323,300L323,304L325,302L329,303L334,305L335,307L335,309L338,308L344,310L348,309L353,312L357,316L359,317L361,317L363,318L364,323L364,325L363,331L362,333L358,338L356,341L354,344L353,345L353,347L353,353L353,359L353,361L352,362L352,367L349,372L349,375L347,377L346,379L343,379L339,380L337,382L334,383L330,385L328,389L328,391L329,393L329,397L329,398L327,400L325,406L323,409L321,411L320,414Z"],["","M262,337L264,338L266,337L266,336L269,335L270,334L274,333L274,336L274,337L274,339L278,342L281,343L282,344L284,345L286,346L287,346L289,347L289,349L290,350L290,351L289,352L291,356L297,356L296,358L297,359L298,360L299,362L299,365L298,366L299,368L298,369L298,368L295,366L292,366L287,367L286,370L286,372L286,376L285,375L282,375L281,378L279,376L275,375L273,378L271,378L269,374L267,370L268,366L266,365L265,362L264,360L265,356L264,353L264,352L264,351L265,349L264,346L264,344L265,343Z"],["","M260,314L257,314L257,315L254,315L251,318L251,319L250,321L250,322L249,323L249,325L248,325L249,329L251,331L251,332L253,332L254,334L256,334L259,332L259,337L260,338L262,337L265,343L264,344L264,346L265,349L264,351L264,352L264,353L265,356L264,360L263,362L262,363L259,361L258,359L252,356L246,352L244,350L242,347L243,346L240,342L236,335L233,328L232,327L231,324L228,322L226,321L227,319L226,316L226,313L229,311L229,313L228,314L228,315L230,315L231,315L232,317L234,315L234,313L236,310L240,309L243,305L244,303L243,300L244,300L246,301L247,303L248,304L250,308L252,308L254,307L255,308L257,307L259,309L257,312L258,313Z"],["","M268,295L268,296L267,294L266,293L265,294L260,294L260,296L261,296L261,298L261,297L259,298L259,300L260,302L261,303L261,305L260,314L258,313L257,312L259,309L257,307L255,308L254,307L252,308L250,308L248,304L247,303L246,301L244,300L243,300L242,299L240,298L240,299L237,298L236,297L236,297L233,295L232,294L234,294L233,292L234,291L236,290L237,288L238,286L237,286L238,284L237,280L238,280L237,277L236,275L237,273L238,273L238,272L238,270L238,270L240,270L242,268L243,267L243,266L244,263L246,262L248,261L248,261L250,261L253,259L254,259L256,257L257,257L257,258L257,259L255,260L254,261L253,262L252,264L251,266L250,268L252,268L252,270L253,271L253,272L252,273L252,274L253,274L254,276L258,275L259,276L261,279L263,278L265,278L266,278L267,279L267,281L266,282L266,284L266,286L267,287L267,288L266,290L267,291L268,292Z"],["","M238,270L238,270L238,272L238,273L237,273L236,275L235,274L235,272L236,271L235,271L234,270L233,269L232,269L231,270L230,271L229,271L229,272L230,274L229,274L229,275L227,275L227,273L227,273L226,273L225,272L224,272L223,271L222,271L222,272L221,271L222,271L222,270L222,269L222,269L222,268L222,267L223,267L224,268L224,269L225,269L225,269L226,269L228,269L229,268L231,268L232,267L233,267L233,267L235,267L236,268L237,269Z"],["","M223,267L222,267L222,268L222,269L222,269L222,270L222,271L221,271L220,271L219,270L220,269L220,269L219,268L218,267L217,267L217,266L216,265L216,266L215,267L215,266L214,265L214,265L214,264L214,263L213,262L214,262L215,261L216,262L217,262L218,262L219,263L219,263L220,262L221,264L222,265Z"],["","M220,262L219,263L219,263L218,262L217,262L216,262L215,261L214,262L213,260L212,259L211,258L210,257L209,255L209,255L210,255L210,255L211,255L211,254L212,254L212,252L213,252L213,252L214,251L215,252L215,252L216,251L217,250L217,250L217,250L218,249L218,249L218,249L219,249L220,249L220,249L222,248L222,248L223,248L223,248L222,249L223,250L222,252L221,253L221,255L221,255L221,257L221,257L220,259L220,260L220,261L220,261Z"],["","M223,248L222,248L222,248L220,249L220,249L219,249L218,249L218,249L218,249L217,250L217,250L217,250L216,251L215,252L215,252L214,251L213,252L213,252L212,252L212,254L211,254L211,255L210,255L210,254L209,254L209,252L209,252L208,252L207,252L207,252L206,251L205,250L205,250L205,249L205,248L205,248L207,247L208,246L209,246L209,245L210,245L210,245L211,245L212,245L214,245L215,245L215,245L216,245L217,245L217,245L218,245L219,245L220,245L221,246L221,247L222,247Z"],["","M205,250L205,250L206,251L207,252L207,252L208,252L209,252L209,252L209,254L208,254L207,254L206,254L204,253L203,253L202,252L202,252L203,251L204,251L204,250Z"],["","M196,250L196,249L197,248L196,247L198,244L202,244L202,243L202,243L202,242L201,241L200,240L201,240L201,238L204,238L207,238L206,241L205,245L206,245L207,246L208,245L208,246L207,247L205,248L205,248L205,249L205,250L204,250L204,251L203,251L202,252L202,252L201,252L199,252L198,251Z"],["","M207,238L207,238L207,238L208,238L209,236L209,236L209,236L210,237L210,237L209,239L209,239L209,241L209,241L208,243L208,244L207,244L206,245L205,245L206,241Z"],["","M287,282L287,283L286,284L283,285L281,286L280,287L277,286L275,285L275,286L276,287L276,289L276,291L279,291L279,292L277,293L276,294L275,295L273,296L272,297L270,297L268,295L268,292L267,291L266,290L267,288L267,287L266,286L266,284L266,282L267,281L267,279L266,278L265,278L263,278L261,279L259,276L258,275L254,276L253,274L252,274L252,273L253,272L253,271L252,270L252,268L250,268L251,266L252,264L253,262L254,261L255,260L257,259L257,260L255,260L256,262L256,264L254,266L255,268L256,268L257,266L256,265L256,262L260,261L260,259L261,258L262,260L264,260L266,262L266,263L268,263L272,263L273,265L275,265L277,264L277,263L281,263L284,263L282,264L283,265L285,266L287,267L288,270L289,270L290,271L288,273L287,274L288,275L288,276L286,277L286,278L285,279Z"],["","M299,293L298,293L297,293L296,294L294,294L293,295L293,295L292,295L290,293L290,292L289,290L289,287L290,286L290,284L289,284L289,282L288,282L287,282L285,279L286,278L286,277L288,276L288,275L287,274L288,273L290,271L292,272L294,274L294,276L295,276L296,278L298,279L297,282L295,283L295,284L295,286L296,288L297,288L297,290Z"],["","M305,292L303,291L302,291L301,291L301,292L301,293L301,293L299,293L297,290L297,288L296,288L295,286L295,284L295,283L297,282L298,279L301,280L301,279L304,279L307,280L305,283L306,285L307,287L306,289L306,290Z"],["","M314,285L312,288L311,291L310,292L308,293L308,292L307,291L306,292L305,292L306,290L306,289L307,287L306,285L305,283L307,280L308,280L310,281L313,284ZM487,130L488,131L492,131L490,133L490,136L489,136L488,136L488,137L486,139L486,140L487,140L488,141L488,142L489,144L488,145L489,147L490,148L490,149L487,151L482,150L478,151L478,153L475,154L472,152L471,153L466,151L465,150L466,148L467,141L464,138L462,136L459,135L458,132L462,132L466,132L466,129L468,130L474,127L475,125L477,124L478,125L479,125L480,127L482,128L483,128L485,129L486,130ZM493,153L495,151L495,154L495,157L493,156L493,154Z"],["","M243,300L244,303L243,305L240,309L236,310L234,313L234,315L232,317L231,315L230,315L228,315L228,314L229,313L229,311L230,309L230,307L228,309L227,307L227,306L227,303L228,303L228,301L229,298L229,297L231,296L233,295L236,297L236,297L237,298L240,299L240,298L242,299Z"],["","M274,236L275,236L276,237L275,238L273,238L271,238L271,236L271,236Z"],["","M241,236L243,236L244,237L245,238L242,238L242,239L240,238L238,237L239,236L240,236Z"],["","M230,220L232,220L234,220L237,221L238,223L241,222L241,223L244,225L245,227L246,227L248,227L247,228L250,228L252,230L251,231L249,231L247,231L245,231L241,231L243,229L242,228L240,228L239,227L239,225L237,225L235,224L234,224L230,223L229,223L231,222L228,222L225,223L224,223L224,224L222,225L221,224L223,223L224,222L225,221L227,221L229,220Z"],["","M558,376L557,376L556,376L554,376L553,376L551,374L549,374L548,371L548,370L547,370L544,366L543,364L542,363L541,361L545,361L546,361L547,361L548,359L551,356L552,356L552,355L554,353L556,353L556,354L559,354L560,355L561,356L562,356L564,357L563,361L563,364L563,366L563,367L563,369L562,370L561,372Z"],["","M553,376L549,378L546,381L545,383L544,384L543,385L542,386L542,387L540,388L538,388L536,387L535,387L534,387L533,389L531,390L530,392L528,392L527,391L528,389L526,385L525,385L525,375L528,375L529,362L531,362L535,361L536,363L538,361L539,361L541,360L541,361L542,363L543,364L544,366L547,370L548,370L548,371L549,374L551,374Z"],["","M525,385L525,398L522,399L521,400L519,399L518,399L517,397L516,396L515,398L513,395L512,393L511,390L510,387L509,382L509,378L509,376L508,374L506,371L505,367L504,365L502,362L502,359L503,358L505,358L507,358L509,360L509,359L521,359L523,361L530,361L535,360L538,359L540,359L541,360L541,360L539,361L538,361L536,363L535,361L531,362L529,362L528,375L525,375Z"],["","M418,253L417,250L415,249L417,248L418,246L419,244L420,243L422,243L423,243L425,243L426,244L428,244L430,247L431,249L432,252L432,253L433,254L433,256L433,257L433,257L431,257L431,257L430,257L428,256L427,256L421,256L421,257L420,256L418,257L418,254L420,254L421,254L422,254L423,253L424,254L425,254L426,253L426,252L425,253L424,253L423,252L422,252L421,253Z"],["","M433,257L433,256L433,254L432,253L432,252L431,249L432,249L433,247L434,247L436,248L438,247L439,247L439,246L451,246L452,244L451,243L450,229L449,214L454,214L463,221L473,229L474,230L475,231L477,232L477,234L480,234L480,242L478,244L478,246L475,247L471,247L470,248L468,248L467,248L466,248L464,248L461,250L461,251L458,252L458,253L457,254L455,253L455,254L454,257L452,259L452,261L451,262L451,264L450,264L449,265L449,263L448,264L447,264L447,265L445,265L444,264L443,265L442,264L443,263L442,262L442,262L442,261L442,260L441,259L441,258L440,257L440,257L439,258L438,258L437,259L436,259L435,258L435,258L434,258L433,258Z"],["","M418,227L419,226L430,226L430,221L430,219L433,219L434,210L443,210L443,205L454,214L449,214L450,229L451,243L452,244L451,246L439,246L439,247L438,247L436,248L434,247L433,247L432,249L431,249L430,247L428,244L426,244L425,243L423,243L422,243L420,243L419,244L419,242L420,241L420,237L420,234L420,232L420,230L419,229Z"],["","M475,278L473,279L472,276L472,268L471,268L471,266L470,265L469,264L470,262L471,261L471,260L473,260L474,259L475,258L476,258L478,260L478,261L478,263L478,264L478,265L477,267L476,268L475,270L475,273Z"],["","M511,221L511,226L513,227L513,228L514,229L513,231L512,238L512,242L508,246L507,250L508,252L508,254L510,254L510,255L509,256L509,257L508,257L506,253L506,253L503,255L501,254L500,254L499,254L497,254L495,255L494,256L490,254L489,255L487,255L486,253L483,252L480,252L479,253L479,255L478,256L478,260L476,258L475,258L474,259L474,256L470,255L470,254L469,252L468,250L468,248L470,248L471,247L475,247L478,246L478,244L480,242L480,234L484,232L493,225L502,219L507,220L509,222Z"],["","M475,278L475,273L475,270L476,268L477,267L478,265L478,264L478,263L478,261L478,260L478,256L479,255L479,253L480,252L483,252L486,253L487,255L489,255L490,254L494,256L495,255L497,254L499,254L500,254L501,254L503,255L506,253L506,253L508,257L509,257L510,258L510,259L510,260L507,263L506,265L506,266L505,267L505,270L503,271L503,273L502,274L502,276L500,277L498,275L497,275L495,277L494,277L493,281L492,283L489,284L488,284L487,285L484,285L483,283L482,280L480,278L478,278Z"],["","M510,255L511,258L511,260L511,262L513,265L511,265L510,266L509,265L508,267L510,269L511,269L512,271L513,273L512,274L511,278L510,278L510,281L510,282L510,283L511,285L512,286L513,288L514,289L514,291L515,292L514,294L512,293L510,292L506,292L505,292L504,292L502,292L500,292L496,292L496,289L495,287L494,286L493,285L492,284L492,283L493,281L494,277L495,277L497,275L498,275L500,277L502,276L502,274L503,273L503,271L505,270L505,267L506,266L506,265L507,263L510,260L510,259L510,258L509,257L509,256Z"],["","M470,262L469,264L470,265L471,266L471,268L472,268L472,276L473,279L470,279L470,278L469,276L469,274L469,271L468,270L468,267L468,265L467,263L467,262Z"],["","M467,262L467,263L468,265L468,267L468,270L469,271L469,274L469,276L470,278L470,279L465,281L464,282L461,283L459,282L459,281L457,278L458,274L459,271L459,266L458,264L458,262L464,262L465,262L466,261Z"],["","M443,265L444,264L445,265L447,265L447,264L448,264L449,263L449,265L450,264L451,264L452,265L453,266L454,267L455,266L457,266L459,266L459,271L458,274L457,278L459,281L459,282L457,283L455,282L453,282L450,282L448,283L445,285L444,285L444,282L445,281L445,280L443,279L442,278L442,277L442,276L442,274L442,273L443,273L443,272L443,271L443,271L444,270L443,267L443,266L443,265Z"],["","M427,256L428,256L430,257L431,257L431,257L433,257L433,257L433,258L434,258L435,258L435,258L436,259L437,259L438,258L439,258L440,257L440,257L441,258L441,259L442,260L442,261L442,262L442,262L443,263L442,264L443,265L443,265L443,266L443,267L444,270L443,271L443,271L443,272L443,273L442,273L441,273L441,275L440,274L439,274L439,272L438,270L437,271L437,271L436,271L436,270L436,269L436,268L435,266L434,265L432,265L431,266L430,266L430,267L429,268L428,269L427,267L426,266L425,265L424,265L424,263L423,262L422,262L424,260L425,260L425,259L426,259L427,259L426,258L427,258Z"],["","M418,257L420,256L421,257L421,256L427,256L427,258L426,258L427,259L426,259L425,259L425,260L424,260L422,262L421,260L420,260L419,259L419,259L418,258Z"],["","M442,273L442,274L442,276L442,277L442,278L443,279L445,280L445,281L444,282L444,285L443,285L440,283L438,280L435,279L433,276L434,275L434,274L435,272L437,271L437,271L438,270L439,272L439,274L440,274L441,275L441,273Z"],["","M428,269L429,268L430,267L430,266L431,266L432,265L434,265L435,266L436,268L436,269L436,270L436,271L437,271L435,272L434,274L434,275L433,276L432,276L430,275L429,273L428,272Z"],["","M451,264L451,262L452,261L452,259L454,257L455,254L455,253L457,254L458,253L458,252L461,251L461,250L464,248L466,248L467,248L468,248L468,250L469,252L470,254L470,255L474,256L474,259L473,260L471,260L471,261L470,262L467,262L466,261L465,262L464,262L458,262L458,264L459,266L457,266L455,266L454,267L453,266L452,265Z"],["","M548,282L547,282L545,282L543,282L542,282L542,283L541,283L539,282L536,284L535,283L534,284L533,286L531,285L529,285L527,284L525,282L523,283L522,285L522,288L520,287L518,287L516,289L515,292L514,291L514,289L513,288L512,286L511,285L510,283L510,282L510,281L510,278L511,278L512,274L515,274L515,273L516,273L517,274L520,273L521,271L523,270L523,269L524,268L526,269L529,267L531,263L533,262L535,261L535,263L537,265L537,266L536,268L536,269L538,270L540,271L541,273L541,274L543,276L545,277L545,279L548,281Z"],["","M522,288L522,290L521,292L520,294L520,297L520,299L519,300L519,301L519,302L517,304L516,306L514,309L514,312L514,313L512,315L510,317L509,316L509,315L507,315L506,316L506,316L504,315L504,315L502,317L500,313L502,311L501,309L502,308L504,308L504,306L506,308L509,308L509,306L510,304L509,302L508,299L509,296L509,295L506,295L506,293L506,292L510,292L512,293L514,294L515,292L516,289L518,287L520,287Z"],["","M500,292L502,292L504,292L505,292L506,292L506,293L506,295L509,295L509,296L508,299L509,302L510,304L509,306L509,308L506,308L504,306L504,308L502,308L501,309L502,311L500,313L497,310L495,307L493,303L493,302L494,301L495,299L495,296L496,296L500,296Z"],["","M496,292L500,292L500,296L496,296L495,296L495,296Z"],["","M558,328L559,329L560,330L562,330L564,331L565,333L566,336L566,337L565,340L565,342L564,344L563,347L565,348L556,350L556,353L554,353L552,355L552,356L551,356L548,359L547,361L546,361L545,361L541,361L541,360L541,360L540,359L538,359L535,360L533,358L532,355L532,344L538,344L538,343L538,342L538,340L538,338L538,337L539,337L539,338L540,338L542,339L543,340L545,341L547,340L548,341L550,342L551,343L552,345L555,345L555,341L554,342L552,341L551,340L551,337L552,333L551,331L552,329L553,329L557,328Z"],["","M564,331L567,332L567,333L568,335L569,339L568,342L569,346L570,346L571,347L572,350L572,354L571,355L570,357L568,355L568,353L569,351L569,350L567,349L567,349L565,348L563,347L564,344L565,342L565,340L566,337L566,336L565,333Z"],["","M569,339L571,339L575,340L576,339L578,339L579,338L581,338L584,337L586,335L587,337L586,340L587,343L587,348L587,350L586,353L585,355L583,357L580,358L577,360L573,364L572,364L570,367L569,368L569,370L570,373L570,375L570,376L571,376L571,379L570,381L571,381L570,383L569,384L566,385L563,387L562,388L562,390L563,390L562,392L560,392L560,390L559,389L559,387L560,384L559,381L558,376L561,372L562,370L563,369L563,367L563,366L563,364L563,361L564,357L562,356L561,356L560,355L559,354L556,354L556,353L556,350L565,348L567,349L567,349L569,350L569,351L568,353L568,355L570,357L571,355L572,354L572,350L571,347L570,346L569,346L568,342Z"],["","M560,392L559,393L558,394L556,392L556,391L557,389L557,388L558,388L559,389L560,390Z"],["","M506,316L504,317L504,318L504,319L503,320L502,317L504,315L504,315ZM504,321L505,320L506,320L507,320L515,320L516,322L517,324L518,326L519,327L521,327L522,327L523,327L524,326L525,324L526,324L527,323L528,323L528,325L531,325L531,327L532,328L532,330L532,332L533,334L533,338L533,337L535,337L536,337L538,337L538,338L538,340L538,342L538,343L538,344L532,344L532,355L533,358L535,360L530,361L523,361L521,359L509,359L509,360L507,358L505,358L503,358L502,359L501,357L502,354L503,351L503,349L504,346L505,345L506,343L507,341L508,338L508,336L507,335L506,333L505,331L505,330L506,329L505,326L505,323L503,321Z"],["","M557,308L558,309L558,310L558,311L558,312L556,314L555,315L554,315L554,311L553,309L555,310L556,308Z"],["","M569,187L569,188L568,187L567,190L568,190L567,191L567,192L569,191L569,192L568,198L567,197L565,192L566,191L566,191L567,189L567,186L567,186L567,186L568,186L569,185L569,185L569,186L569,187Z"],["","M569,185L569,185L568,186L567,186L568,183L569,180L569,180L571,180L571,182L570,183Z"],["","M613,342L614,344L615,346L615,350L616,352L615,354L615,355L614,353L613,354L614,356L613,358L612,358L612,361L611,365L609,370L607,377L605,382L604,386L601,386L599,388L597,387L595,386L594,384L594,381L593,378L593,376L594,373L595,372L595,371L597,369L597,366L597,365L596,363L596,360L597,358L598,355L599,355L601,355L602,354L603,354L605,352L608,350L608,348L608,347L609,347L611,345L611,343L612,341Z"],["","M569,191L567,192L567,191L568,190L567,190L568,187L569,188L569,190Z"],["","M418,253L421,253L422,252L423,252L424,253L425,253L426,252L426,253L425,254L424,254L423,253L422,254L421,254L420,254L418,254Z"],["","M495,195L494,189L492,188L492,187L490,185L490,182L491,180L492,177L492,174L492,172L495,171L497,171L497,173L500,172L500,172L498,174L498,176L499,177L499,180L497,181L498,183L499,183L500,185L501,185L501,188L499,189L498,190L497,191L497,193L497,194Z"],["","M443,205L443,205L443,204L443,200L448,198L451,197L453,196L454,195L458,193L458,191L460,190L461,189L465,188L465,187L465,186L464,183L464,181L463,178L465,176L468,176L470,174L473,173L478,173L482,173L484,173L486,172L489,172L490,172L492,172L492,174L492,177L491,180L490,182L490,185L492,187L492,188L494,189L495,195L496,198L496,200L496,203L496,204L496,206L496,208L495,210L496,212L497,214L498,216L499,215L501,217L502,219L493,225L484,232L480,234L477,234L477,232L475,231L474,230L473,229L463,221L454,214Z"],["","M569,188L569,187L572,188L578,185L579,189L579,189L573,191L576,194L575,195L575,196L573,197L572,198L571,199L568,198L568,198L569,192L569,191L569,190Z"],["","M617,216L617,216L617,217L620,216L622,216L624,217L626,214L627,212L629,210L630,211L630,214L629,214L629,216L629,217L628,217L628,219L628,220L628,221L627,222L618,220L617,217Z"],["","M614,214L614,212L615,210L615,210L616,211L617,213L616,215L615,215Z"],["","M605,196L605,198L605,199L606,201L604,201L603,200L601,199L603,196Z"],["","M579,189L578,185L584,181L584,177L584,174L585,173L586,171L587,171L591,171L592,172L593,171L595,176L597,177L598,179L596,180L596,183L598,186L602,188L604,190L603,193L604,193L605,195L606,196L605,196L603,196L601,199L596,199L587,192L583,190Z"],["","M628,221L628,220L628,219L628,217L629,217L629,216L629,214L630,214L632,216L634,217L636,218L638,218L639,220L640,222L641,222L641,223L640,225L640,226L639,227L638,229L636,229L636,230L636,232L636,234L636,234L635,234L633,236L633,237L632,238L630,238L629,239L629,240L628,241L626,241L624,242L623,242L622,240L619,234L628,231L629,224ZM630,211L629,210L630,209L630,209L630,210Z"],["","M958,354L959,356L958,357L958,355ZM957,354L957,353L957,350L958,351L958,354L958,353Z"],["","M770,258L769,254L770,251L774,250L777,251L779,252L780,250L783,251L784,253L784,257L779,260L781,262L778,262L775,264L773,263L771,261Z"],["","M777,251L774,250L770,251L769,254L770,258L767,256L764,256L765,254L762,254L762,257L761,262L760,265L761,268L762,268L764,271L765,274L766,276L768,276L770,278L769,280L767,280L767,278L764,277L764,277L762,276L762,274L760,272L759,271L758,273L758,271L758,269L758,265L760,262L761,259L759,256L759,254L759,252L757,249L756,248L757,247L757,244L756,242L754,239L752,236L753,236L754,232L756,232L757,230L759,229L760,230L761,233L763,233L763,236L763,239L766,237L767,238L769,238L769,237L771,237L774,240L775,243L777,246L777,249Z"],["","M783,251L780,250L779,252L777,251L777,249L777,246L775,243L774,240L771,237L769,237L769,238L767,238L766,237L763,239L763,236L763,233L761,233L760,230L759,229L759,228L762,226L762,227L764,227L762,223L764,222L766,225L768,228L771,228L773,231L771,232L771,233L774,235L777,239L780,243L782,245L783,247Z"],["","M759,229L757,230L756,232L754,232L753,236L752,236L754,239L756,242L757,244L757,247L756,248L757,249L759,252L759,254L759,256L761,259L760,262L758,265L758,263L759,260L757,258L757,255L756,253L755,249L754,244L752,241L750,243L747,246L746,245L744,244L744,240L743,237L740,233L741,232L739,231L736,228L736,226L737,226L737,224L738,223L737,221L738,220L737,217L740,218L741,215L740,213L741,210L741,208L744,206L746,206L746,204L747,204L746,202L748,202L749,204L751,205L751,208L752,210L749,213L750,217L753,217L754,220L756,221L756,223L758,225L759,225L761,224L762,226L759,228Z"],["","M775,264L778,262L781,262L779,260L784,257L784,253L783,251L783,247L782,245L780,243L777,239L774,235L771,233L771,232L773,231L771,228L768,228L766,225L764,222L765,221L768,221L770,221L772,219L774,221L777,221L777,223L778,225L781,225L778,228L776,232L776,234L779,238L782,242L785,244L787,247L789,253L789,260L787,262L784,264L782,267L778,270L777,268L778,266Z"],["","M824,154L824,154L824,154ZM824,154L824,154L823,154L822,155L822,156L823,159L822,159L822,160L821,161L820,162L819,163L819,164L819,164L821,165L823,166L823,167L822,168L820,168L819,169L818,169L818,169L816,169L816,169L816,170L815,169L814,169L813,168L814,167L814,166L814,166L814,164L813,163L811,163L810,162L811,160L813,158L814,156L816,157L818,157L817,155L821,153L821,152Z"],["","M818,169L818,169L819,169L820,168L822,168L823,167L823,166L827,171L828,173L830,177L829,179L827,179L825,181L823,181L822,179L822,177L819,173L821,172Z"],["","M700,130L702,130L706,127L710,125L712,126L715,126L717,128L720,128L724,129L726,126L724,125L725,121L728,122L731,123L734,124L736,126L740,128L742,127L746,127L748,127L752,129L754,130L756,130L760,131L762,130L765,129L768,127L770,127L771,129L774,128L774,131L774,134L775,135L777,135L780,136L781,134L784,135L787,138L787,139L785,139L781,139L780,140L779,142L776,144L774,145L771,145L769,144L768,147L770,148L771,149L769,150L768,152L765,153L761,153L757,154L755,156L753,155L750,155L745,153L742,153L739,153L733,152L730,152L728,150L726,147L724,147L720,145L716,144L713,144L711,142L711,138L708,136L704,134L701,133Z"],["","M746,202L747,204L746,204L746,206L744,206L741,208L741,210L740,213L741,215L740,218L737,217L738,220L737,221L738,223L737,224L734,218L733,218L733,220L731,219L732,217L733,217L734,214L732,213L730,213L727,213L726,210L725,210L722,209L722,211L724,213L722,214L722,215L724,216L724,218L725,221L726,224L726,225L724,225L720,226L721,228L719,230L716,233L713,237L711,239L708,241L708,243L707,244L704,245L703,245L702,248L703,252L704,255L703,258L703,264L702,264L700,267L701,268L699,269L698,271L697,272L694,269L692,264L691,261L690,259L688,256L687,252L686,249L683,245L681,238L680,234L680,229L679,226L675,228L673,228L668,224L670,222L669,221L665,218L666,216L673,216L672,213L670,211L669,208L667,207L670,203L673,203L676,200L677,196L679,193L679,190L681,188L678,187L677,184L675,181L676,180L681,181L684,180L686,177L690,181L690,184L691,186L692,188L690,187L691,191L694,193L699,196L697,197L697,200L700,202L703,203L707,205L711,206L713,208L715,208L718,209L721,209L721,207L720,205L720,204L722,203L722,206L723,206L725,208L727,207L730,207L732,207L732,205L730,204L733,204L735,201L738,199L740,200L742,198L744,200L743,202Z"],["","M737,224L737,226L736,226L736,228L735,227L735,225L734,223L733,221L730,221L730,223L730,224L728,224L728,224L727,224L726,224L725,221L724,218L724,216L722,215L722,214L724,213L722,211L722,209L725,210L726,210L727,213L730,213L732,213L734,214L733,217L732,217L731,219L733,220L733,218L734,218Z"],["","M730,204L732,205L732,207L730,207L727,207L725,208L723,206L722,206L724,203L725,202L727,203L729,203Z"],["","M720,204L720,205L721,207L721,209L718,209L715,208L713,208L711,206L707,205L703,203L700,202L697,200L697,197L699,196L700,195L702,196L705,198L707,199L708,200L711,201L713,202L717,203Z"],["","M686,177L684,180L681,181L676,180L675,181L677,184L678,187L681,188L679,190L679,193L677,196L676,200L673,203L670,203L667,207L669,208L670,211L672,213L673,216L666,216L665,218L663,217L661,215L659,212L654,213L649,213L645,213L646,209L650,207L649,206L648,205L647,202L644,201L643,199L641,197L646,199L649,198L651,199L651,198L653,198L657,197L657,194L658,192L660,192L660,191L662,190L663,191L664,190L664,188L665,185L666,185L665,182L667,182L668,181L668,180L669,178L668,177L667,175L669,174L671,173L674,173L676,172L677,172L680,173L681,176Z"],["","M653,171L655,171L657,172L658,172L660,171L661,172L661,170L663,170L663,170L663,168L664,167L666,168L666,169L667,169L667,172L668,173L669,172L670,172L672,170L674,171L677,171L677,172L676,172L674,173L671,173L669,174L667,175L668,177L669,178L668,180L668,181L667,182L665,182L666,185L665,185L664,188L664,190L663,191L662,190L660,191L660,192L658,192L657,194L657,197L653,198L651,198L651,199L649,198L646,199L641,197L644,194L643,191L641,191L640,189L639,186L640,184L639,184L639,181L639,177L642,178L645,178L645,176L647,175L648,174L648,172L651,171L651,170L652,171Z"],["","M606,196L605,195L604,193L603,193L604,190L602,188L598,186L596,183L596,180L598,179L597,177L595,176L593,171L591,169L592,168L590,164L592,163L593,164L594,166L596,166L597,166L600,163L601,163L602,164L601,166L603,168L604,168L605,170L608,171L610,172L614,173L618,172L618,171L621,171L622,169L624,169L625,168L627,169L631,170L633,171L637,174L639,174L639,177L639,181L639,184L640,184L639,186L640,189L641,191L643,191L644,194L641,197L643,199L644,201L647,202L648,205L649,206L650,207L646,209L645,213L640,212L636,211L633,211L631,207L630,206L628,207L625,208L621,207L618,205L615,204L613,200L611,196L609,196L607,195Z"],["","M569,187L569,187L569,186L569,185L570,183L571,182L571,180L569,180L569,178L570,176L570,175L571,175L571,173L572,173L575,172L576,173L579,173L582,172L583,172L586,171L585,173L584,174L584,177L584,181L578,185L572,188Z"],["","M499,99L500,97L502,95L503,91L501,90L501,86L503,83L505,83L506,82L505,81L508,77L511,73L512,71L514,71L515,70L519,70L519,68L521,68L524,69L527,71L528,76L529,77L525,78L523,80L523,82L520,84L515,87L514,91L516,94L518,95L516,99L513,100L513,105L511,108L508,108L507,110L504,110L503,107L501,104Z"],["","M531,115L531,116L532,118L532,119L530,120L531,121L532,123L533,126L533,126L532,127L529,130L530,131L530,131L527,130L525,130L524,130L522,130L521,129L520,130L520,130L519,128L517,128L516,127L514,126L514,127L513,126L513,126L511,125L510,124L509,122L509,121L508,119L507,118L508,117L507,116L509,115L513,113L516,112L518,112L519,113L521,113L524,114L529,114L530,114Z"],["","M515,134L515,136L513,136L514,136L513,138L513,139L510,139L509,140L507,140L503,139L502,138L500,138L499,139L498,138L496,138L495,138L496,137L496,136L496,136L498,137L498,136L500,136L502,136L504,136L504,136L505,136L504,134L505,133L506,132L508,133L509,131L510,131L512,132L514,132L515,133L515,133Z"],["","M528,133L530,134L530,135L529,136L527,138L526,140L524,141L522,141L520,142L519,142L517,141L515,140L514,140L514,138L513,138L514,136L513,136L515,136L515,134L516,135L517,135L520,135L520,134L521,134L522,134L522,134L524,133L524,133L525,132L528,133Z"],["","M545,143L547,144L548,143L549,144L549,145L548,145L547,145L547,149L545,149L543,147L540,148L539,149L535,149L533,148L531,149L531,147L530,147L531,146L530,146L529,146L528,145L527,144L526,143L525,142L524,141L526,140L527,138L529,136L530,135L531,134L533,135L535,135L536,135L537,135L539,135L539,134L540,134L541,134L542,135L543,137L545,139L545,140L545,141Z"],["","M507,116L508,117L507,118L508,119L509,121L509,122L510,124L508,125L508,124L507,125L505,125L504,126L502,127L503,128L503,129L505,130L506,132L505,133L504,134L505,136L504,136L504,136L502,136L500,136L498,136L498,137L496,136L496,136L493,135L492,136L490,136L490,133L492,131L488,131L487,130L487,128L486,127L487,125L486,122L488,122L489,121L489,118L489,116L489,116L491,116L492,116L494,115L493,113L493,112L495,112L496,112L497,113L499,114L499,115L502,114L503,113L506,114Z"],["","M531,147L531,149L533,148L535,149L539,149L540,148L543,147L545,149L547,149L545,150L545,153L546,155L543,154L540,155L541,157L538,158L536,156L534,157L532,157L532,155L530,154L531,153L530,153L531,152L532,151L530,149L530,148Z"],["","M542,178L542,179L538,179L538,179L534,178L535,177L536,178L539,177L541,178L541,178ZM532,157L534,157L536,156L538,158L541,157L540,155L542,156L541,159L540,159L539,159L537,158L534,159L536,161L535,162L533,162L532,160L531,161L532,163L533,165L532,165L534,167L535,168L535,170L533,169L534,171L532,171L533,174L531,174L529,173L528,170L527,168L526,166L525,164L525,163L526,161L526,160L527,160L527,159L529,159L530,158L531,158L531,157Z"],["","M593,171L592,172L591,171L587,171L586,171L583,172L582,172L579,173L576,173L575,172L572,173L571,173L571,175L570,175L570,176L568,175L569,173L568,174L565,173L564,175L559,175L557,173L554,173L553,175L551,175L549,173L546,173L544,170L542,168L543,165L541,164L544,160L548,160L549,158L554,158L557,156L560,155L565,155L570,157L574,158L577,158L579,158L582,156L585,156L588,158L589,159L589,161L591,162L592,163L590,164L592,168L591,169ZM540,155L543,154L546,155L546,156L548,157L548,158L545,158L544,159L541,161L540,160L540,159L541,159L542,156Z"],["","M527,159L527,160L526,160L526,161L525,163L524,163L524,162L522,161L522,159L522,157L523,156L522,155L522,154L523,153L523,153L524,153L525,154L525,154L525,155L525,157L526,158Z"],["","M514,140L515,140L517,141L519,142L520,142L521,143L522,144L521,145L520,144L518,144L515,144L514,144L514,145L513,144L512,145L513,147L514,148L515,149L516,150L517,151L520,153L520,153L517,152L515,151L513,150L511,147L511,147L510,146L510,144L508,144L507,145L506,144L506,143L507,143L508,143L509,143L510,143L511,143L511,142L512,142L512,140Z"],["","M496,136L496,137L495,138L496,138L498,138L498,140L496,140L494,140L494,141L493,141L492,141L491,142L489,142L488,141L487,140L486,140L486,139L488,137L488,136L489,136L490,136L492,136L493,135Z"],["","M486,127L487,128L487,130L486,130L485,129L486,128Z"],["","M487,125L486,127L486,128L485,129L483,128L482,128L480,127L479,125L478,125L477,124L479,123L481,124L484,123L485,124Z"],["","M489,116L489,118L489,121L488,122L486,122L487,125L485,124L484,123L481,124L479,123L481,123L483,118L487,116Z"],["","M445,155L446,154L447,154L448,156L449,156L450,155L451,155L452,157L451,158L451,161L450,161L450,163L449,163L450,165L449,167L450,168L449,169L448,171L448,172L447,173L446,172L444,172L445,170L445,168L443,167L443,166L443,164L444,163L445,161L445,159L445,158L445,156Z"],["","M448,172L448,171L449,169L450,168L449,167L450,165L449,163L450,163L450,161L451,161L451,158L452,157L451,155L450,155L449,156L448,156L447,154L446,154L445,155L445,153L444,151L448,149L452,150L455,150L458,150L460,150L465,150L466,151L471,153L472,152L475,154L478,153L478,155L475,158L472,158L471,159L470,161L468,164L469,166L468,168L467,170L465,171L463,173L459,173L457,173L455,174L454,176L452,175L452,174L451,172Z"],["","M456,115L456,117L454,120L449,122L445,122L448,118L447,115L450,113L452,111L453,113L452,115L454,114Z"],["","M950,372L951,374L952,376L951,377L950,376L948,374L947,372L945,370L945,369L947,369L948,370L949,371Z"],["","M946,336L947,337L945,337L944,335L945,336ZM945,333L945,333L943,330L942,328L943,328L944,331ZM943,334L941,334L940,333L939,333L939,331L941,332L942,333ZM940,327L940,328L940,329L938,328L937,326L936,325L936,325L937,326ZM933,324L934,325L933,325L932,324L931,323L931,322Z"],["","M954,438L952,440L949,442L946,443L946,442L945,442L948,439L948,437L946,436L947,435L950,433L952,431L953,429L953,426L953,426L953,424L952,421L952,419L953,418L954,420L955,421L955,424L955,428L956,426L957,427L956,429L958,430L959,431L962,429L963,430L960,433L958,435L956,435L955,436L954,437ZM927,450L930,448L933,446L936,444L937,443L939,441L942,439L941,441L941,442L944,441L944,442L943,444L941,445L938,448L935,449L935,451L933,451L930,452L928,454L924,458L921,459L919,460L917,460L916,459L913,459L913,457L916,455L922,452L924,451Z"],["","M872,440L874,441L872,445L871,446L869,449L868,448L865,450L865,450L863,450L863,447L864,444L864,442L865,440L866,440L868,441L870,441ZM824,411L821,412L818,413L817,415L816,416L813,417L811,417L809,416L807,417L805,417L803,419L802,418L800,419L799,421L797,420L795,420L792,418L791,418L792,416L793,415L794,414L794,413L795,411L796,409L795,405L795,403L796,401L795,399L795,398L794,397L795,394L794,391L794,390L795,391L794,388L795,389L796,390L796,388L796,386L796,385L795,384L796,382L797,381L797,379L797,377L799,375L799,377L800,375L803,374L805,372L807,371L809,371L809,371L812,370L814,369L814,369L815,368L817,368L820,367L822,366L823,364L825,362L825,361L826,359L828,356L829,359L830,358L829,357L831,355L832,356L832,353L834,351L835,350L837,350L837,349L838,349L838,348L840,348L841,347L843,349L844,351L846,351L848,351L848,349L850,346L851,346L851,345L852,343L854,342L856,342L858,341L858,340L856,338L858,338L860,339L861,340L864,341L864,341L866,342L868,341L869,341L870,340L871,342L870,344L869,345L868,345L868,347L867,349L865,350L865,351L867,353L870,354L871,355L873,357L873,357L875,358L875,359L878,361L880,359L881,358L882,356L882,354L884,351L883,350L884,349L884,347L885,344L885,343L885,342L886,340L887,339L887,338L888,336L889,338L889,340L889,341L889,342L890,344L890,346L890,347L890,350L892,348L893,350L894,351L894,353L894,356L894,357L895,358L895,361L894,363L895,365L898,367L899,368L901,370L900,371L901,373L902,377L903,376L904,377L905,377L904,380L906,383L907,384L908,387L908,389L907,391L907,394L907,396L906,400L905,401L903,404L902,406L901,409L898,412L895,414L893,416L892,418L890,421L888,423L886,425L885,428L884,429L882,430L879,430L876,431L874,433L872,434L870,433L869,432L870,430L868,431L864,433L863,432L861,432L860,432L857,431L857,429L857,426L857,424L856,423L854,422L855,421L856,418L854,421L851,421L853,419L854,417L856,416L857,413L853,416L851,417L849,420L847,418L848,417L847,414L846,413L847,412L844,410L842,410L840,408L835,409L831,410L827,411Z"],["","M709,274L709,277L708,278L705,279L704,276L703,271L704,266L706,268L708,270Z"],["","M787,237L785,236L784,233L786,231L789,230L790,231L791,232L790,233L790,235ZM687,154L686,152L688,151L684,145L689,144L690,143L690,137L696,138L697,136L696,133L698,133L699,130L700,130L701,133L704,134L708,136L711,138L711,142L713,144L716,144L720,145L724,147L726,147L728,150L730,152L733,152L739,153L742,153L745,153L750,155L753,155L755,156L757,154L761,153L765,153L768,152L769,150L771,149L770,148L768,147L769,144L771,145L774,145L776,144L779,142L780,140L781,139L785,139L787,139L787,138L784,135L781,134L780,136L777,135L775,135L774,134L774,131L774,128L778,130L781,127L780,126L780,122L781,121L780,120L778,119L780,117L783,117L786,116L790,117L793,119L797,122L798,123L800,125L803,129L808,130L813,132L815,135L819,135L821,134L825,133L825,136L825,137L826,141L826,144L822,144L820,145L823,148L824,152L823,152L824,154L821,152L821,153L817,155L818,157L816,157L814,156L813,158L811,160L810,162L806,163L805,165L802,166L803,164L802,163L803,160L801,158L799,160L797,162L796,164L794,164L793,166L795,168L798,169L798,171L801,172L803,169L806,170L808,170L809,172L805,173L805,175L802,177L802,179L805,181L808,185L810,188L813,190L814,193L812,194L813,196L815,197L816,200L816,202L814,203L813,206L812,211L810,215L807,218L803,221L800,222L799,223L798,222L796,224L792,225L789,226L789,230L788,230L786,227L787,226L783,225L781,225L778,225L777,223L777,221L774,221L772,219L770,221L768,221L765,221L764,222L762,223L764,227L762,227L762,226L761,224L759,225L758,225L756,223L756,221L754,220L753,217L750,217L749,213L752,210L751,208L751,205L749,204L748,202L746,202L743,202L744,200L742,198L740,200L738,199L735,201L733,204L730,204L729,203L727,203L725,202L724,203L722,206L722,203L720,204L717,203L713,202L711,201L708,200L707,199L705,198L702,196L700,195L699,196L694,193L691,191L690,187L692,188L691,186L690,184L690,181L686,177L681,176L680,173L677,172L677,171L676,169L676,167L674,167L673,167L672,164L672,163L672,162L674,160L676,160L679,160L679,158L682,158L683,156L687,154Z"],["","M819,216L819,221L818,224L816,221L815,219L816,215L818,213L819,214Z"],["","M498,138L499,139L500,138L502,138L503,139L507,140L506,141L507,143L505,142L503,143L503,145L503,146L504,148L506,149L508,152L511,155L513,155L513,156L513,156L515,158L517,159L520,161L520,161L519,162L518,161L515,160L514,162L516,164L516,166L515,166L514,169L512,169L512,168L513,166L513,165L512,163L511,162L510,161L510,160L508,159L507,158L505,157L502,156L500,154L498,152L497,148L496,148L494,147L492,147L491,149L490,149L490,148L489,147L488,145L489,144L488,142L488,141L489,142L491,142L492,141L493,141L494,141L494,140L496,140L498,140ZM510,168L512,168L511,171L511,172L511,173L509,172L507,172L503,170L504,168L507,168ZM493,159L495,158L496,160L496,165L495,164L493,165L492,165L492,160L492,158Z"],["","M496,112L495,112L493,112L492,110L492,106L492,106L493,105L495,104L496,104L498,103L498,104L497,105L498,106L499,107L498,108L498,108L496,110ZM503,108L503,109L502,112L499,110L499,109Z"],["","M456,115L454,114L452,115L453,113L452,111L455,111L457,113ZM463,117L463,117L464,115L462,113L462,113L459,112L459,111L460,110L459,109L457,110L458,107L456,106L458,102L460,100L462,100L465,100L462,103L464,103L467,103L466,105L464,108L466,109L467,109L469,113L470,113L472,117L472,118L475,119L475,121L474,122L475,124L472,125L469,125L464,126L463,126L461,127L459,127L457,128L456,127L460,124L462,123L462,123L458,123L457,121L460,120L459,118L460,116Z"],["","M440,76L439,78L442,80L438,82L431,84L429,85L426,84L419,83L422,82L417,80L422,80L422,79L417,78L419,76L422,76L426,78L430,76L432,77L436,76Z"],["","M823,256L821,253L824,253L825,255L825,258ZM829,265L830,264L830,262L832,262L832,264L833,261L833,264L832,265L832,268L831,269L829,266ZM841,271L842,273L842,275L841,278L840,275L838,276L840,279L839,280L835,278L834,276L835,274L833,273L832,274L831,274L829,276L828,275L829,272L831,271L832,270L834,271L836,270L836,269L838,269L838,266L840,268L841,269ZM818,268L814,271L815,268L817,266L819,264L820,261L821,263L819,265ZM825,237L825,238L826,241L826,244L824,245L824,248L825,250L827,251L828,250L832,252L832,254L833,255L833,257L830,255L829,253L829,254L826,252L824,253L822,252L822,251L823,250L822,249L822,250L820,248L819,247L819,243L820,244L820,239L820,236L822,236L824,237L825,236ZM827,260L827,259L829,260L830,260L831,261L829,263L828,264L827,262ZM837,258L839,262L836,261L836,262L837,264L836,265L836,262L835,262L834,260L836,260L836,259L833,256L836,257Z"],["","M764,277L764,277L767,278L767,280L769,280L770,278L770,279L772,281L774,283L774,285L774,287L774,288L774,290L775,291L776,294L776,295L774,295L771,293L768,290L768,288L766,286L765,283L764,281L764,279ZM817,285L814,285L811,285L810,289L809,290L807,295L805,295L802,294L801,295L799,297L797,296L795,297L793,295L793,293L795,294L797,293L798,290L799,290L802,289L804,286L806,284L807,286L808,285L809,285L809,283L809,281L812,279L813,276L814,276L816,278L816,279L818,280L820,281L820,282L818,283L819,284Z"],["","M809,281L809,283L809,285L808,285L807,286L806,284L807,283Z"],["","M507,140L509,140L510,139L513,139L513,138L514,138L514,140L512,140L512,142L511,142L511,143L510,143L509,143L508,143L507,143L507,143L506,141Z"],["","M539,68L539,70L542,72L540,74L544,78L542,80L545,83L544,85L548,87L547,88L545,90L540,94L536,94L532,95L528,96L526,94L524,93L524,90L523,87L524,86L526,84L531,80L533,80L532,79L529,77L528,76L527,71L524,69L521,68L522,67L525,69L528,69L530,69L532,68L533,66L536,65L539,66Z"],["","M530,131L529,132L528,133L528,133L525,132L524,133L524,133L522,134L522,134L521,134L520,134L520,135L517,135L516,135L515,134L515,133L515,133L515,132L516,132L517,132L517,131L518,131L518,130L519,130L519,130L520,130L520,130L521,129L522,130L524,130L525,130L527,130Z"],["","M510,124L511,125L513,126L513,126L514,127L514,126L516,127L517,128L519,128L520,130L519,130L519,130L518,130L518,131L517,131L517,132L516,132L515,132L515,133L514,132L512,132L510,131L509,131L508,133L506,132L505,130L503,129L503,128L502,127L504,126L505,125L507,125L508,124L508,125Z"],["","M574,250L574,249L575,244L575,241L576,240L578,240L580,238L582,242L583,245L584,247L588,250L590,252L592,254L593,255L594,256L593,257L592,257L591,255L590,253L588,252L588,251L585,250L583,250L582,249L580,250L579,248L578,251Z"],["","M859,165L858,168L860,172L860,174L861,176L861,178L858,180L853,180L850,184L848,183L847,180L842,181L839,183L836,183L840,185L840,191L839,193L837,191L836,188L834,187L832,185L835,184L835,182L838,180L839,177L844,176L847,177L848,171L850,173L853,169L854,168L854,164L852,160L852,158L854,157L858,162ZM859,148L860,147L862,151L859,152L858,155L853,153L853,156L850,156L848,153L848,150L851,150L849,145L849,143L854,146L856,147ZM841,184L841,182L843,183L844,181L846,182L847,183L846,185L844,184L843,185L843,187L841,186Z"],["","M298,369L299,371L300,376L303,376L304,376L306,377L307,378L307,381L308,382L309,382L310,382L311,382L311,384L311,386L311,388L311,391L309,394L306,395L303,394L300,393L302,388L301,386L298,385L294,382L292,382L286,376L286,372L286,370L287,367L292,366L295,366L298,368Z"],["","M619,234L622,240L623,242L621,243L620,245L620,246L618,247L613,249L610,251L609,252L608,251L607,253L605,254L602,254L602,254L601,255L600,255L600,256L598,256L597,256L595,256L595,254L595,252L594,251L593,249L592,247L593,247L593,246L593,245L593,243L594,242L594,241L594,239L596,240L596,240L600,240L600,240L603,240L604,240L605,241L606,241L608,237L611,236Z"],["","M568,198L571,199L572,198L573,197L575,196L575,195L576,194L573,191L579,189L579,189L583,190L587,192L596,199L601,199L603,200L604,201L606,201L608,204L609,205L610,206L612,208L612,209L612,210L612,211L613,212L614,214L614,214L615,215L616,215L617,216L617,217L618,220L627,222L628,221L629,224L628,231L619,234L611,236L608,237L606,241L605,241L604,240L603,240L600,240L600,240L596,240L596,240L594,239L594,241L594,242L593,243L592,242L591,241L591,240L590,238L588,235L587,233L585,230L583,230L581,226L581,224L581,222L579,218L578,217L576,216L575,214L575,213L574,211L573,211L572,208L570,205L569,203L567,203L567,201L567,200Z"],["","M560,178L560,178L561,178L563,178L565,177L563,178L564,179L563,179L563,179L562,179L562,179L562,179L562,178L561,178L561,179Z"],["","M560,178L561,179L561,178L562,178L562,179L562,179L562,179L563,179L563,179L564,179L564,179L561,180L560,180L559,179Z"],["","M463,178L464,181L464,183L465,186L465,187L465,188L461,189L460,190L458,191L458,193L454,195L453,196L451,197L448,198L443,200L443,204L443,204L443,206L441,206L440,207L439,207L438,207L435,207L434,210L433,210L432,214L428,218L426,223L425,224L425,226L418,226L418,226L418,224L420,223L421,222L420,220L422,218L423,216L424,215L425,213L425,211L426,209L428,208L430,204L430,204L432,203L435,203L437,200L439,199L441,196L441,192L442,189L442,187L444,185L447,183L449,182L451,178L452,176L454,176L456,178L459,178L461,178Z"],["","M575,224L563,224L552,224L540,224L540,211L539,199L538,196L539,194L539,192L540,191L543,191L546,192L549,193L550,193L552,192L554,191L556,191L558,191L559,193L559,192L562,193L564,193L565,192L567,197L568,198L567,199L566,202L566,204L565,204L564,203L563,202L560,197L560,197L562,201L563,204L566,210L567,211L568,213L571,217L570,218L571,220L574,223Z"],["","M540,224L540,231L537,231L537,232L525,226L514,219L511,221L509,222L507,220L502,219L501,217L499,215L498,216L497,214L496,212L495,210L496,208L496,206L496,204L496,203L496,200L496,198L495,195L497,194L497,193L497,191L498,190L499,189L501,188L501,185L504,187L505,186L508,187L511,188L513,191L515,192L519,194L522,195L524,194L525,193L524,190L525,188L527,187L529,186L533,187L534,189L535,189L536,189L539,190L540,191L539,192L539,194L538,196L539,199L540,211Z"],["","M609,272L600,282L596,283L594,285L592,285L591,286L589,286L588,285L585,286L584,288L582,288L582,287L581,287L580,287L576,284L574,284L573,283L573,281L572,281L570,277L569,276L568,275L566,273L565,273L566,271L567,271L568,270L568,267L568,263L570,262L570,261L571,258L573,256L574,253L574,250L578,251L579,248L580,250L582,249L583,250L585,250L588,251L588,252L590,253L591,255L592,257L591,258L590,260L590,261L590,262L592,262L593,261L593,262L593,263L594,265L595,267L596,268L606,272Z"],["","M592,257L593,257L594,256L595,257L595,258L593,259L594,260L593,262L593,261L592,262L590,262L590,261L590,260L591,258Z"],["","M612,260L612,260L612,262L612,265L612,267L611,269L609,272L606,272L596,268L595,267L594,265L593,263L593,262L594,260L595,261L596,262L597,264L599,264L602,263L605,262L607,261L609,261L610,261Z"],["","M568,303L562,303L558,303L557,304L556,305L555,304L555,302L556,300L556,298L556,296L557,294L559,293L560,292L558,292L558,288L560,287L562,287L564,287L566,287L568,285L569,287L570,289L571,293L570,296L568,298L568,299Z"],["","M557,304L558,305L558,307L557,308L556,308L555,310L553,309L553,308L554,307L554,305L555,304L556,305Z"],["","M520,153L517,151L516,150L515,149L514,148L513,147L512,145L513,144L514,145L514,144L515,144L518,144L520,144L521,145L522,145L521,147L522,148L522,150L522,150L521,150L520,151Z"],["","M530,154L532,155L532,157L531,157L531,158L530,158L529,159L527,159L526,158L525,157L525,155L526,155L526,155L527,154L528,154L529,154Z"],["","M520,142L522,141L524,141L525,142L526,143L527,144L528,145L529,146L530,146L531,146L530,147L531,147L530,148L530,149L532,151L531,152L530,153L531,153L530,154L529,154L528,154L528,154L528,153L529,153L528,153L528,152L527,152L527,151L526,151L526,151L525,151L525,152L524,152L525,152L524,151L523,151L522,150L522,150L522,150L522,148L521,147L522,145L521,145L522,144L521,143Z"],["","M524,153L523,153L523,153L522,154L522,155L522,155L521,154L520,153L520,153L520,151L521,150L522,150L522,150L523,151L524,151L525,152L524,152Z"],["","M525,155L525,154L525,154L524,153L524,152L525,152L525,151L526,151L526,151L527,151L527,152L528,152L528,153L529,153L528,153L528,154L528,154L527,154L526,155L526,155Z"],["","M285,263L287,262L287,262L287,265L285,265L284,265L285,264Z"],["","M558,288L556,285L555,284L553,285L552,284L551,285L550,284L548,282L548,281L545,279L545,277L543,276L541,274L541,273L540,271L538,270L539,270L540,269L540,266L541,264L543,264L544,265L545,267L546,267L547,267L549,267L550,267L553,267L553,267L554,266L555,265L556,264L558,266L560,266L561,263L563,262L563,259L562,258L564,258L564,258L565,258L565,260L565,263L567,264L567,265L567,267L568,267L568,270L567,271L566,271L565,273L566,273L568,275L569,276L570,277L572,281L570,283L568,285L566,287L564,287L562,287L560,287Z"],["us","M149,131L156,131L164,131L167,131L175,131L182,131L190,131L198,131L207,131L216,131L221,131L222,130L223,130L223,132L223,132L225,133L227,133L229,134L232,134L235,135L235,134L238,134L240,135L242,136L244,137L245,138L245,139L246,139L246,140L246,140L247,140L247,140L247,141L248,141L248,141L247,142L250,143L249,147L248,150L247,152L245,153L244,155L244,155L244,155L245,156L245,156L249,154L252,154L256,152L256,152L257,151L256,150L258,149L260,149L263,149L264,148L265,148L268,145L270,145L274,145L279,145L279,144L280,144L281,143L283,142L285,139L287,136L288,137L290,137L291,138L289,142L290,144L291,145L287,147L284,148L281,149L279,151L278,152L278,154L278,156L279,156L279,154L280,155L279,156L277,157L276,157L274,157L273,157L271,158L268,159L273,158L273,159L269,160L267,160L267,159L266,160L267,160L266,163L263,165L263,164L263,164L262,163L262,165L262,166L262,167L261,169L259,171L258,171L260,169L259,168L259,165L258,166L258,168L257,168L258,169L257,172L258,172L258,174L258,177L255,180L252,181L250,183L248,183L246,184L246,185L242,188L240,189L238,191L237,194L237,196L237,199L238,202L238,203L238,207L238,209L237,211L236,213L235,213L234,213L234,211L233,211L232,208L231,205L231,204L232,201L232,199L230,196L229,196L226,197L226,197L225,196L223,195L220,195L217,195L215,195L214,196L214,197L214,198L214,199L213,199L212,199L211,199L209,199L208,197L205,198L203,197L201,197L199,198L195,201L192,202L190,204L189,205L189,208L188,209L189,211L187,211L186,210L184,209L183,207L183,205L182,203L181,201L181,198L179,197L177,197L174,200L172,199L171,198L171,196L170,194L169,192L168,191L167,190L162,190L162,192L160,192L154,192L148,189L145,188L145,187L142,187L138,187L138,186L137,184L136,183L136,182L135,182L134,181L132,181L131,180L131,178L130,175L130,170L130,169L130,168L129,165L130,163L129,161L131,158L132,155L133,152L136,149L138,146L140,143L142,138L142,135L143,134L143,133L146,134L146,138L147,137L148,134ZM15,231L15,231L16,231L16,233L16,233L15,233L13,234L13,235L12,234L13,233L13,232L13,231L13,231L13,230L14,230L14,230ZM14,228L13,229L12,229L12,228L12,228L12,228L12,227L13,228ZM12,227L12,227L10,227L11,227ZM9,225L9,225L9,226L9,226L9,226L8,226L8,225L8,225ZM5,223L5,224L5,224L4,224L4,223L5,223ZM69,94L70,95L69,96L67,96L66,96L66,95ZM94,102L95,102L95,103L92,105L88,106L88,105L89,104L92,102ZM158,66L147,77L130,95L133,95L134,96L135,97L135,99L139,97L142,96L142,98L143,99L144,101L144,103L143,106L146,109L145,111L142,112L142,111L140,110L142,107L140,104L141,101L139,101L135,101L133,100L131,97L129,96L126,95L122,96L119,94L117,93L114,93L112,96L111,96L107,96L104,98L101,98L102,96L106,93L110,92L110,92L105,93L102,95L96,98L96,99L92,101L88,103L85,104L83,105L77,107L75,108L71,110L69,109L66,110L63,111L60,112L54,113L54,113L59,111L62,110L66,109L70,108L72,107L77,105L79,104L81,103L84,101L87,99L83,100L83,99L81,100L81,99L79,100L80,98L76,100L74,100L76,98L78,97L77,96L73,96L73,95L72,94L74,92L73,91L76,89L80,87L83,86L85,86L86,86L89,85L91,85L94,84L95,82L94,82L97,81L96,81L92,81L91,82L90,81L86,82L83,81L84,80L83,78L88,77L95,75L96,75L94,77L99,77L100,75L98,74L98,72L98,71L96,70L99,69L103,69L107,67L110,66L114,64L116,64L122,63L124,63L129,61L132,62L132,63L133,63L137,63L136,64L139,64L141,64L145,65L149,65L150,65L154,65L156,66ZM71,85L71,85L73,85L73,86L70,86L70,86L71,85ZM924,86L923,86L921,85L919,85L919,85L917,84L917,84L919,84L921,84L922,85L924,86Z"],["su","M80,77L80,77L79,77L80,77ZM914,77L913,79L910,79L913,82L913,82L911,82L908,81L903,80L901,79L899,79L896,79L894,78L893,77L891,78L894,79L894,80L894,80L892,82L889,81L893,83L897,85L899,86L901,88L901,88L896,88L891,90L890,90L888,93L886,94L887,96L881,94L877,96L875,95L874,96L870,96L871,98L871,101L872,102L876,103L879,108L877,108L878,111L880,112L877,114L879,117L876,118L878,121L876,125L874,122L869,117L862,110L860,106L861,104L859,102L863,102L864,98L865,94L867,92L865,88L862,88L863,90L860,94L855,90L849,91L848,96L852,98L847,99L843,99L842,97L837,97L836,98L828,98L820,99L817,105L813,112L817,113L819,115L822,116L823,114L826,114L832,118L834,120L834,124L836,128L838,133L837,138L837,140L836,144L834,148L833,150L831,152L829,152L827,151L824,153L824,154L824,154L823,152L824,152L823,148L820,145L822,144L826,144L826,141L825,137L825,136L825,133L821,134L819,135L815,135L813,132L808,130L803,129L800,125L798,123L797,122L793,119L790,117L786,116L783,117L780,117L778,119L780,120L781,121L780,122L780,126L781,127L778,130L774,128L771,129L770,127L768,127L765,129L762,130L760,131L756,130L754,130L752,129L748,127L746,127L742,127L740,128L736,126L734,124L731,123L728,122L725,121L724,125L726,126L724,129L720,128L717,128L715,126L712,126L710,125L706,127L702,130L700,130L699,130L698,133L696,133L697,136L696,138L690,137L690,143L689,144L684,145L688,151L686,152L687,154L687,154L683,156L682,158L679,158L679,160L676,160L674,160L672,162L672,163L672,164L672,164L673,167L674,167L676,167L676,169L677,171L674,171L672,170L670,172L669,172L668,173L667,172L667,169L666,169L666,168L664,167L663,168L663,170L663,170L661,170L661,172L660,171L658,172L657,172L655,171L653,171L652,171L651,170L651,171L648,172L648,174L647,175L645,176L645,178L642,178L639,177L639,174L637,174L633,171L631,170L627,169L625,168L624,169L622,169L621,171L618,171L618,169L617,165L615,164L615,162L614,162L614,159L616,160L619,158L616,156L615,154L613,155L613,158L612,156L612,155L612,153L612,152L608,151L607,148L605,147L605,146L607,146L607,144L609,143L612,144L612,140L611,138L608,139L606,138L603,139L600,140L600,142L597,142L595,146L598,149L598,152L601,156L603,157L605,160L606,160L607,161L605,161L605,164L605,165L604,166L604,168L603,168L601,166L602,164L601,163L600,163L597,166L596,166L594,166L593,164L592,163L591,162L589,161L589,159L588,158L585,156L582,156L583,155L582,153L580,151L579,151L577,150L574,147L570,146L568,144L570,143L572,140L570,139L574,138L574,137L571,138L569,138L568,139L565,139L563,140L563,142L563,142L565,143L567,143L567,144L564,145L561,147L559,146L560,145L557,144L557,143L559,142L559,141L559,141L554,140L554,139L552,139L551,141L549,144L548,143L547,144L545,143L545,141L545,140L545,139L543,137L542,135L541,134L540,134L539,134L539,135L537,135L536,135L535,135L533,135L531,134L530,135L530,134L528,133L529,132L530,131L530,131L529,130L532,127L533,126L533,126L532,123L531,121L530,120L532,119L532,118L531,116L531,115L530,114L529,114L524,114L521,113L522,112L525,111L524,108L524,106L525,104L528,103L530,105L532,105L532,102L532,101L531,101L530,100L529,98L532,97L535,97L538,97L541,97L543,95L540,94L545,90L547,88L548,87L544,85L545,83L542,80L544,78L540,74L542,72L539,70L539,68L540,68L544,67L546,66L550,67L556,68L566,71L568,73L568,75L566,76L562,77L552,75L550,75L554,77L555,79L555,82L558,83L560,84L560,82L559,81L560,80L566,82L568,81L566,79L571,76L573,76L575,77L576,75L574,73L575,71L572,70L579,70L581,72L578,72L578,74L580,75L584,75L584,73L588,71L595,69L597,69L595,71L598,71L600,70L604,70L607,69L610,70L612,68L609,67L610,66L617,67L620,68L630,71L631,69L628,68L627,67L625,67L625,66L623,63L622,62L625,60L625,57L627,57L633,57L634,59L633,61L635,62L637,64L638,68L641,70L641,72L638,76L641,77L642,76L644,75L644,73L645,72L643,70L643,68L641,68L639,66L640,64L636,61L639,59L637,57L638,57L640,59L641,62L643,62L641,60L644,59L649,59L654,60L651,58L649,55L652,54L658,55L662,54L659,53L661,51L663,51L666,50L672,49L672,48L677,48L679,49L683,47L687,47L687,46L688,45L692,44L696,45L694,46L699,46L700,47L702,47L708,47L714,48L716,49L717,50L715,51L711,53L710,54L713,54L717,55L718,54L721,56L721,55L724,55L732,55L733,57L743,57L741,55L746,55L749,55L754,57L757,59L757,60L761,62L766,63L765,60L770,61L773,61L778,62L779,61L783,61L779,58L780,57L802,59L806,61L814,63L822,62L827,63L830,64L832,66L836,67L838,66L842,66L847,67L851,67L858,69L859,68L855,66L855,65L863,66L868,66L876,67L880,68L889,71L898,74L900,75L902,76L899,74L906,74L914,77L914,77ZM663,36L666,35L671,37L678,39L680,41L676,41L669,41L665,40L662,38L659,38ZM685,40L691,42L692,43L681,44L682,40L683,40ZM767,48L773,48L782,50L783,52L775,52L772,52L766,51L765,49ZM790,50L796,51L795,52L791,52L786,51L785,50ZM778,56L779,55L781,54L785,56L786,56L783,56L778,56ZM566,37L570,37L573,37L573,37L574,37L576,36L579,37L579,37L576,37L574,38L574,38L572,38L570,38L571,37ZM590,55L595,52L594,51L598,50L604,48L611,47L614,46L618,46L620,47L619,48L612,49L606,51L601,53L598,56L596,59L597,61L602,63L601,64L594,63L593,62L588,61L588,60L590,59L589,57L593,55ZM835,116L838,119L840,122L843,125L849,131L845,130L846,135L850,138L852,141L848,139L848,141L846,139L845,135L842,132L841,129L839,125L835,121L832,117L834,115L832,114L832,114ZM871,61L871,61L873,61L878,62L878,62L876,63L874,63L871,63L870,62Z"]],"p":{"berlin":[505,120],"beijing":[788,162],"seoul":[820,170],"havana":[229,220],"hanoi":[775,227],"saigon":[782,263],"washington":[257,166],"moscow":[566,109],"us_c":[195,162],"su_c":[688,89],"vn_c":[779,245],"lbl_pacific":[22,282],"lbl_pacific2":[952,248],"lbl_atlantic":[367,214],"lbl_indian":[695,368]}};
+</script>
+<script>
+(function(){
+  function store(k,v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v); }catch(e){ return null; } }
+  function $(id){ return document.getElementById(id); }
+  function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+
+  // theme toggle
+  var root=document.documentElement, KEY='wc-theme';
+  var t=store(KEY); if(t) root.setAttribute('data-theme',t);
+  $('theme').addEventListener('click',function(){
+    var dark = root.getAttribute('data-theme') ? root.getAttribute('data-theme')==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    var next = dark?'light':'dark'; root.setAttribute('data-theme',next); store(KEY,next);
+  });
+
+  // progress + step highlight
+  var bar=$('progress'), links=[].slice.call(document.querySelectorAll('.steps a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  function onScroll(){
+    var h=document.documentElement; bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+    var cur=-1; secs.forEach(function(s,i){ if(s.getBoundingClientRect().top<160) cur=i; });
+    links.forEach(function(a,i){a.classList.toggle('on',i===cur);});
+  }
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // tabs
+  [].forEach.call(document.querySelectorAll('[role=tablist]'),function(list){
+    var tabs=[].slice.call(list.querySelectorAll('[role=tab]'));
+    tabs.forEach(function(tb){ tb.addEventListener('click',function(){
+      tabs.forEach(function(x){ x.setAttribute('aria-selected',x===tb); $(x.getAttribute('aria-controls')).classList.toggle('on',x===tb); });
+    });});
+  });
+
+  // ===== 활동 1: 대립 구도 표 =====
+  var BLOC=[['트루먼 독트린','cap-pol'],['마셜 계획','cap-eco'],['북대서양 조약 기구(NATO)','cap-mil'],
+            ['코민포름','com-pol'],['코메콘','com-eco'],['바르샤바 조약 기구(WTO)','com-mil']];
+  var chipsBox=$('blocChips'), slots=[].slice.call(document.querySelectorAll('#bloc .slot')), picked=null, placed={}, blocTries=0, blocBest=0;
+  function blocRender(){
+    chipsBox.innerHTML='';
+    shuffleOrder.forEach(function(i){
+      if(Object.keys(placed).some(function(c){ return placed[c]===i; })) return;
+      var b=document.createElement('button'); b.type='button'; b.textContent=BLOC[i][0]; if(picked===i) b.classList.add('pick');
+      b.addEventListener('click',function(){ picked=(picked===i?null:i); blocRender(); });
+      chipsBox.appendChild(b);
+    });
+    if(!chipsBox.children.length){ var s=document.createElement('span'); s.className='hint'; s.textContent='카드를 모두 넣었어요. 확인하기를 누르세요.'; chipsBox.appendChild(s); }
+    slots.forEach(function(sl){
+      var i=placed[sl.dataset.cell]; sl.classList.remove('ok','no');
+      sl.textContent = i===undefined ? (picked!==null?'여기에 넣기':'') : BLOC[i][0];
+      sl.classList.toggle('filled',i!==undefined); sl.classList.toggle('wait',picked!==null && i===undefined);
+    });
+  }
+  var shuffleOrder=shuffle([0,1,2,3,4,5]);
+  slots.forEach(function(sl){ sl.addEventListener('click',function(){
+    var c=sl.dataset.cell;
+    if(picked!==null){ placed[c]=picked; picked=null; }        // 넣기(이미 있으면 바꾸기)
+    else if(placed[c]!==undefined){ delete placed[c]; }        // 빼기
+    blocRender(); $('blocMsg').textContent='';
+  });});
+  $('blocCheck').onclick=function(){
+    var n=Object.keys(placed).length;
+    if(n<6){ $('blocMsg').textContent='아직 '+(6-n)+'장이 남았어요.'; return; }
+    blocTries++; var right=0;
+    slots.forEach(function(sl){ var i=placed[sl.dataset.cell], r=BLOC[i][1]===sl.dataset.cell; right+=r; sl.classList.add(r?'ok':'no'); });
+    blocBest=Math.max(blocBest,right);
+    $('blocMsg').textContent = right===6 ? '모두 맞았어요! 🎉 자본주의 진영과 공산주의 진영이 정치·경제·군사 모든 면에서 맞섰어요.' : '6개 중 '+right+'개가 맞았어요. 빨간 칸을 눌러 빼고 다시 넣어 보세요.';
+  };
+  $('blocReset').onclick=function(){ placed={}; picked=null; shuffleOrder=shuffle([0,1,2,3,4,5]); blocRender(); $('blocMsg').textContent=''; };
+  blocRender();
+
+  // ===== 활동 2: 독일 분단 순서 =====
+  var ORD=['미국·영국·프랑스·소련이 독일을 분할 점령','미국·영국·프랑스 점령 지역에서 공동 화폐 개혁','소련이 베를린으로 가는 육로를 봉쇄','독일이 서독과 동독으로 분단','베를린 장벽 설치'];
+  var ordPos=0, ordMiss=0, ordDone=false;
+  function ordRender(){
+    var pool=$('ordPool'); pool.innerHTML='';
+    ordShuffled.forEach(function(i){
+      if(i<ordPos) return;
+      var b=document.createElement('button'); b.type='button'; b.textContent=ORD[i];
+      b.addEventListener('click',function(){
+        if(i===ordPos){ ordPos++; ordRender(); if(ordPos===ORD.length){ ordDone=true; $('ordMsg').textContent='정답! 🎉 '+(ordMiss?'틀린 횟수 '+ordMiss+'번':'한 번에 맞혔어요.'); } }
+        else { ordMiss++; b.classList.add('shake'); $('ordMsg').textContent='순서가 달라요. 처음부터 다시 생각해 보세요.'; setTimeout(function(){ ordPos=0; ordRender(); },450); }
+      });
+      pool.appendChild(b);
+    });
+    $('ordDone').innerHTML=ORD.slice(0,ordPos).map(function(s){return '<li>'+s+'</li>';}).join('');
+  }
+  var ordShuffled=shuffle([0,1,2,3,4]);
+  $('ordReset').onclick=function(){ ordPos=0; ordMiss=0; ordDone=false; ordShuffled=shuffle([0,1,2,3,4]); ordRender(); $('ordMsg').textContent=''; };
+  ordRender();
+
+  // ===== 활동 3: 냉전/열전 분류, O/X =====
+  function chScore(){ var it=[].slice.call(document.querySelectorAll('#sortCH .item')); return it.filter(function(x){return x.dataset.first==='ok';}).length; }
+  [].forEach.call(document.querySelectorAll('#sortCH .item'),function(it){
+    var bs=[].slice.call(it.querySelectorAll('button'));
+    bs.forEach(function(b){ b.addEventListener('click',function(){
+      bs.forEach(function(x){x.classList.remove('ok','no');});
+      var r=b.textContent===it.dataset.a; b.classList.add(r?'ok':'no');
+      if(!it.dataset.first) it.dataset.first=r?'ok':'no';
+      it.querySelector('.why').textContent=(r?'맞아요. ':'다시 생각해 보세요. ')+(r?it.dataset.why:'');
+      var done=[].slice.call(document.querySelectorAll('#sortCH .item')).filter(function(x){return x.dataset.first;}).length;
+      if(done===6) $('chMsg').textContent='처음 고른 답 기준 6개 중 '+chScore()+'개를 맞혔어요.';
+    });});
+  });
+  function oxScore(){ return [].slice.call(document.querySelectorAll('#ox .q')).filter(function(q){return q.dataset.first==='ok';}).length; }
+  [].forEach.call(document.querySelectorAll('#ox .q'),function(q){
+    var bs=[].slice.call(q.querySelectorAll('button')), fb=q.querySelector('.fb');
+    bs.forEach(function(b){ b.addEventListener('click',function(){
+      bs.forEach(function(x){x.classList.remove('ok','no');});
+      var r=b.textContent===q.dataset.a; b.classList.add(r?'ok':'no');
+      if(!q.dataset.first) q.dataset.first=r?'ok':'no';
+      fb.innerHTML = r ? '<b>정답!</b> '+q.dataset.why : '다시 생각해 보세요.';
+      var done=[].slice.call(document.querySelectorAll('#ox .q')).filter(function(x){return x.dataset.first;}).length;
+      if(done===5) $('oxMsg').textContent='처음 고른 답 기준 5개 중 '+oxScore()+'개를 맞혔어요.';
+    });});
+  });
+
+  // ===== 빈칸 =====
+  var blanks=[].slice.call(document.querySelectorAll('.blank'));
+  function norm(s){return s.replace(/[\s'‘’"“”·()]/g,'');}
+  function ok(b){ return b.dataset.a.split('|').indexOf(norm(b.querySelector('input').value))>-1; }
+  $('checkFill').onclick=function(){
+    var n=0; blanks.forEach(function(b){ var r=ok(b); n+=r; b.classList.toggle('ok',r); b.classList.toggle('no',!r); });
+    $('fillResult').textContent = n===blanks.length ? '모두 맞았어요! 🎉' : blanks.length+'개 중 '+n+'개를 맞혔어요. 빨간 칸을 다시 생각해 보세요.';
+  };
+  $('showFill').onclick=function(){
+    var show={'트루먼독트린':'트루먼 독트린','마셜계획':'마셜 계획','베를린봉쇄':'베를린 봉쇄','중화인민공화국':'중화 인민 공화국','베트남전쟁':'베트남 전쟁'};
+    blanks.forEach(function(b){ var a=b.dataset.a.split('|')[0]; b.querySelector('input').value=show[a]||a; b.classList.add('ok'); b.classList.remove('no'); });
+    $('fillResult').textContent='정답을 확인하고 공책에 정리해 보세요.'; fillShown=true;
+  };
+  var fillShown=false;
+  $('resetFill').onclick=function(){ blanks.forEach(function(b){ b.querySelector('input').value=''; b.classList.remove('ok','no'); }); $('fillResult').textContent=''; fillShown=false; };
+
+  // autosave textareas
+  [].forEach.call(document.querySelectorAll('textarea[data-save]'),function(ta){
+    ta.value=store(ta.dataset.save)||'';
+    ta.addEventListener('input',function(){ store(ta.dataset.save,ta.value); });
+  });
+
+  // ===== 제출 (2·5·6차시와 같은 Apps Script 웹 앱) =====
+  var SHEET_API_URL='https://script.google.com/macros/s/AKfycbyfpqz_5eEpNHCmJyu6QdyYyYAaOfNnMo9S0Yd94ZBvp32PFutglQ2HU2_71Z4shqvmHw/exec';
+  [].forEach.call(document.querySelectorAll('input[data-keep]'),function(i){ i.value=store(i.dataset.keep)||''; i.addEventListener('input',function(){ store(i.dataset.keep,i.value); }); });
+  function v(id){ return $(id).value.trim(); }
+  function post(payload){
+    var ctrl=window.AbortController?new AbortController():null, timer=setTimeout(function(){ if(ctrl) ctrl.abort(); },30000);
+    return fetch(SHEET_API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload),signal:ctrl?ctrl.signal:undefined})
+      .then(function(r){ clearTimeout(timer); if(!r.ok) throw new Error('status '+r.status); return r.json(); });
+  }
+  $('sendBtn').onclick=function(){
+    var btn=this, msg=$('sendMsg');
+    msg.className='sendmsg';
+    if(!v('stClass')||!v('stNum')||!v('stName')){ msg.className='sendmsg err'; msg.textContent='학반, 번호, 이름을 모두 써 주세요.'; return; }
+    if(!v('spaceWhy')&&!v('asia')&&!v('refl')){ msg.className='sendmsg err'; msg.textContent='아직 쓴 글이 없어요. STEP 1과 STEP 6의 글쓰기 칸을 먼저 채워 주세요.'; return; }
+    var checks=[].slice.call(document.querySelectorAll('.checks input'));
+    var blocNow=slots.filter(function(sl){ var i=placed[sl.dataset.cell]; return i!==undefined && BLOC[i][1]===sl.dataset.cell; }).length;
+    var payload={action:'submit7',className:v('stClass'),studentNumber:v('stNum'),studentName:v('stName'),
+      spaceWhy:v('spaceWhy'),
+      blocScore:'6개 중 '+Math.max(blocNow,blocBest)+'개'+(blocTries?' (확인 '+blocTries+'번)':' (확인 안 함)'),
+      orderResult:ordDone?('완성 · 틀린 횟수 '+ordMiss+'번'):('미완성 ('+ordPos+'단계까지)'),
+      coldHot:'6개 중 '+chScore()+'개 (처음 고른 답)',
+      fillScore:'6개 중 '+blanks.filter(ok).length+'개'+(fillShown?' (정답 보기 누름)':''),
+      oxScore:'5개 중 '+oxScore()+'개 (처음 고른 답)',
+      asia:v('asia'),reflection:v('refl'),
+      selfCheck:checks.length+'개 중 '+checks.filter(function(c){return c.checked;}).length+'개'};
+    btn.disabled=true; btn.textContent='제출 중…'; msg.textContent='';
+    post(payload)
+      .then(function(d){ if(!d||!d.ok) throw new Error(d&&d.error||'server'); msg.className='sendmsg ok'; msg.textContent='제출했어요! ('+d.timestamp+') 선생님 화면에 바로 나타납니다. 고친 뒤 다시 제출해도 됩니다.'; })
+      .catch(function(){ msg.className='sendmsg err'; msg.textContent='제출하지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요. (쓴 글은 그대로 남아 있어요)'; })
+      .then(function(){ btn.disabled=false; btn.textContent='제출하기'; });
+  };
+  $('fbBtn').onclick=function(){
+    var btn=this, box=$('fbBox'), msg=$('sendMsg');
+    if(!v('stClass')||!v('stNum')||!v('stName')){ msg.className='sendmsg err'; msg.textContent='학반, 번호, 이름을 먼저 써 주세요.'; return; }
+    btn.disabled=true; box.hidden=false; box.textContent='불러오는 중…';
+    post({action:'myFeedback',lesson:7,className:v('stClass'),studentNumber:v('stNum'),studentName:v('stName')})
+      .then(function(d){
+        if(!d||!d.ok) throw new Error('server');
+        if(!d.found){ box.textContent='아직 제출 기록이 없어요. 먼저 제출해 주세요.'; return; }
+        if(!d.grade && !d.feedback){ box.textContent='제출은 확인되었어요('+d.timestamp+'). 선생님이 아직 평가하지 않았어요. 잠시 뒤 다시 눌러 보세요.'; return; }
+        box.innerHTML='';
+        if(d.grade){ var g=document.createElement('span'); g.className='g'; g.textContent=d.grade; box.appendChild(g); }
+        box.appendChild(document.createTextNode(d.feedback||''));
+      })
+      .catch(function(){ box.textContent='불러오지 못했어요. 잠시 뒤 다시 눌러 주세요.'; })
+      .then(function(){ btn.disabled=false; });
+  };
+
+  // click photo to enlarge
+  var lb=$('lightbox'), lbImg=lb.querySelector('img'), lbP=lb.querySelector('p');
+  function bindZoom(img){
+    img.addEventListener('click',function(e){
+      e.stopPropagation();
+      lbImg.src=img.src; lbImg.alt=img.alt;
+      var b=img.parentNode.querySelector('figcaption b'); lbP.textContent=b?b.textContent:img.alt;
+      lb.classList.add('on');
+    });
+  }
+  [].forEach.call(document.querySelectorAll('.photo img'),bindZoom);
+  lb.addEventListener('click',function(){lb.classList.remove('on');});
+  addEventListener('keydown',function(e){ if(e.key==='Escape') lb.classList.remove('on'); });
+
+  // ===== 냉전의 전개 지도 =====
+  (function(){
+    var NS='http://www.w3.org/2000/svg', svg=$('map7'); if(!svg) return;
+    var M=[
+      {k:'de',n:1,p:'berlin',y:1948,yl:'1948~1949 · 1961',c:'독일 베를린',t:'베를린 봉쇄와 베를린 장벽',img:'wall1961.jpg',
+        d:'소련이 베를린으로 가는 육로를 약 1년간 봉쇄하였다(1948~1949). 이후 독일은 서독과 동독으로 분단되었고, 1961년에는 베를린 장벽이 세워졌다.',go:'s3',lx:-12,ly:-14,anc:'end'},
+      {k:'cn',n:2,p:'beijing',y:1949,yl:'1949',c:'중국',t:'중국의 공산화',img:'mao1949.jpg',
+        d:'국민당(장제스)과 공산당(마오쩌둥)이 전쟁을 벌였다(국공 내전). 승리한 마오쩌둥은 중화 인민 공화국을 수립하였다.',go:'tb-cn',lx:-14,ly:-14,anc:'end'},
+      {k:'kr',n:3,p:'seoul',y:1950,yl:'1950~1953',c:'한국',t:'6·25 전쟁',img:'inchon.jpg',
+        d:'소련의 지원을 받은 북한이 남한을 침략하였다. 국제 연합군이 남한을, 중국군이 북한을 도왔다. 동아시아에서 냉전이 더욱 심해졌다.',go:'tb-kr',lx:16,ly:-8,anc:'start'},
+      {k:'cu',n:4,p:'havana',y:1962,yl:'1962',c:'쿠바',t:'쿠바 미사일 위기',img:'cuba.jpg',
+        d:'소련이 쿠바에 핵미사일 기지를 세우려 하자 미국이 쿠바 해상을 봉쇄하였다. 세계가 핵전쟁의 위기에 처했지만, 소련이 미사일 철수를 발표하였다.',go:'tb-cu',lx:16,ly:22,anc:'start'},
+      {k:'vn',n:5,p:'vn_c',y:1964,yl:'1964~1975',c:'베트남',t:'베트남 전쟁',img:'vietnam.jpg',
+        d:'북베트남(공산주의 정권)과 남베트남(미국의 지원)이 대립하다 전쟁이 일어나 국제전이 되었다. 북베트남이 승리하여 베트남이 통일되었다(1975).',go:'tb-vn',lx:-14,ly:20,anc:'end'}
+    ];
+    function el(tag,attrs,parent){ var e=document.createElementNS(NS,tag); for(var a in attrs) e.setAttribute(a,attrs[a]); if(parent) parent.appendChild(e); return e; }
+    function P(k){ return MAP7.p[k]; }
+    el('rect',{x:-20,y:-20,width:1040,height:560,class:'sea'},svg);
+    var gl=el('g',{class:'land'},svg);
+    MAP7.c.forEach(function(c){ el('path',{d:c[1],class:c[0]},gl); });
+    [[110,300,'태평양'],[930,330,'태평양'],[395,300,'대서양'],[P('lbl_indian')[0],P('lbl_indian')[1],'인도양']].forEach(function(o){ var tx=el('text',{x:o[0],y:o[1],class:'ocean'},svg); tx.textContent=o[2]; });
+    [['us_c','미국'],['su_c','소련']].forEach(function(o){ var q=P(o[0]); var tx=el('text',{x:q[0],y:q[1]+8,class:'big'},svg); tx.textContent=o[1]; });
+    var gm=el('g',{},svg);
+    M.forEach(function(m){
+      var q=P(m.p), g=el('g',{class:'mk','data-k':m.k,transform:'translate('+q[0]+','+q[1]+')',tabindex:0,role:'button','aria-label':m.n+'. '+m.c+' '+m.t},gm);
+      el('circle',{r:20,class:'pulse'},g); el('circle',{r:13,class:'dot'},g);
+      var n=el('text',{class:'num','text-anchor':'middle',dy:'.35em'},g); n.textContent=m.n;
+      var lb2=el('text',{x:m.lx*1.2,y:m.ly*1.2,'text-anchor':m.anc,class:'lbl'},g);
+      var b1=el('tspan',{},lb2); b1.textContent=m.t+' ';
+      var b2=el('tspan',{class:'ly'},lb2); b2.textContent=m.yl;
+    });
+    var tl=$('tline'), info=$('mapinfo');
+    M.forEach(function(m){
+      var b=document.createElement('button'); b.type='button'; b.dataset.k=m.k;
+      b.innerHTML='<b>'+m.yl+'</b>'+m.c+' · '+m.t; b.addEventListener('click',function(){ stop(); select(m.k); }); tl.appendChild(b);
+    });
+    function select(k){
+      var m=M.filter(function(x){return x.k===k;})[0]; if(!m) return;
+      [].forEach.call(svg.querySelectorAll('.mk'),function(g){ g.classList.toggle('on',g.dataset.k===k); });
+      [].forEach.call(tl.children,function(b){ b.classList.toggle('on',b.dataset.k===k); });
+      info.innerHTML='<img src="img/'+m.img+'" alt="">'+
+        '<div class="mi-top"><span class="mi-n">'+m.n+'</span><span class="mi-y">'+m.yl+'</span></div>'+
+        '<h4>'+m.c+' · '+m.t+'</h4><p>'+m.d+'</p>'+
+        '<a class="mi-go" href="#'+(m.go.indexOf('tb-')===0?'s4':m.go)+'">본문에서 자세히 보기 →</a>';
+      var go=info.querySelector('.mi-go');
+      go.addEventListener('click',function(e){
+        if(m.go.indexOf('tb-')===0){ e.preventDefault(); $(m.go).click(); $(m.go).scrollIntoView({behavior:'smooth',block:'center'}); }
+      });
+      bindZoom(info.querySelector('img'));
+    }
+    [].forEach.call(svg.querySelectorAll('.mk'),function(g){
+      g.addEventListener('click',function(){ stop(); select(g.dataset.k); });
+      g.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); stop(); select(g.dataset.k); } });
+    });
+    var timer=null, playBtn=$('mapPlay');
+    function stop(){ if(timer){ clearInterval(timer); timer=null; playBtn.textContent='▶ 연도 순서로 둘러보기'; } }
+    playBtn.addEventListener('click',function(){
+      if(timer){ stop(); return; }
+      var i=0; select(M[0].k); playBtn.textContent='■ 멈추기';
+      timer=setInterval(function(){ i++; if(i>=M.length){ stop(); return; } select(M[i].k); },3000);
+    });
+    select('de');
+  })();
+})();
+</script>
+<a href="../" aria-label="수업 목록으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483000;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:rgba(15,23,42,.92);color:#fff;border:1px solid rgba(245,158,11,.55);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.2;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)">← 수업 목록</a>
+</body>
+</html>

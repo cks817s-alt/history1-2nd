@@ -207,8 +207,8 @@ footer{padding:32px 0 72px;color:var(--ink-2);font-size:14px;border-top:1px soli
       <div class="card goals-card" style="margin-top:16px">
         <div class="kicker">◎ 오늘의 학습 목표</div>
         <ul class="goals">
-          <li><span class="n">1</span><span>두 차례 세계 대전 중에 일어난 <b>대량 학살</b>의 사례를 설명할 수 있다.</span></li>
-          <li><span class="n">2</span><span>두 차례 세계 대전 중에 벌어진 <b>인권 침해</b>의 실상을 말할 수 있다.</span></li>
+          <li><span class="n">1</span><span>세계 대전 중에 일어난 <b>대량 학살</b>의 내용을 설명할 수 있다.</span></li>
+          <li><span class="n">2</span><span>세계 대전 중에 벌어진 <b>인권 침해</b>의 실상을 파악할 수 있다.</span></li>
         </ul>
       </div>
     </div>
@@ -428,7 +428,7 @@ footer{padding:32px 0 72px;color:var(--ink-2);font-size:14px;border-top:1px soli
       <div class="grid g2">
         <div>
           <textarea id="reflect" placeholder="예) 내가 고른 전쟁 범죄는 ○○이다. 이 사건을 기억해야 하는 이유는…"></textarea>
-          <div class="hint">이 화면에서 쓴 글은 지금 사용하는 기기에만 저장됩니다.</div>
+          <div class="hint">쓴 글은 이 기기에 임시 저장되고, 오른쪽 아래 [📮 활동 제출]을 누르면 선생님께 전달됩니다.</div>
         </div>
         <div class="card">
           <div class="kicker">스스로 점검하기</div>
@@ -541,6 +541,20 @@ footer{padding:32px 0 72px;color:var(--ink-2);font-size:14px;border-top:1px soli
   ta.addEventListener('input',function(){ try{localStorage.setItem(RK,ta.value);}catch(e){} });
 })();
 </script>
+<script>
+window.LESSON_SUBMIT={lesson:4,action:'submit4',
+  intro:'STEP 4 빈칸·STEP 5 퀴즈 결과와 STEP 6에서 쓴 글이 함께 제출됩니다.',
+  questions:[{key:'essay',label:'오늘 배운 전쟁 범죄 중 하나를 골라, 이를 알리는 짧은 글을 써 보세요. (STEP 6)',placeholder:'예) 내가 고른 전쟁 범죄는 ○○이다. 이 사건을 기억해야 하는 이유는…',
+    prefill:function(){ return document.getElementById('reflect').value.trim(); }}],
+  resultNames:{fillScore:'빈칸(확인하기 기준)',quizScore:'확인 퀴즈(현재 맞힌 수)',selfCheck:'스스로 점검'},
+  collect:function(){
+    var b=[].slice.call(document.querySelectorAll('.blank')), q=[].slice.call(document.querySelectorAll('#quiz .q')), c=[].slice.call(document.querySelectorAll('.checks input'));
+    return {fillScore:b.length+'개 중 '+b.filter(function(x){return x.classList.contains('ok');}).length+'개',
+      quizScore:q.length+'개 중 '+q.filter(function(x){return x.querySelector('button.ok');}).length+'개',
+      selfCheck:c.length+'개 중 '+c.filter(function(x){return x.checked;}).length+'개'};
+  }};
+</script>
+<script src="../assets/submit-widget.js"></script>
 <a href="../" aria-label="수업 목록으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483000;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:rgba(15,23,42,.92);color:#fff;border:1px solid rgba(245,158,11,.55);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.2;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)">← 수업 목록</a>
 </body>
 </html>

@@ -153,7 +153,7 @@ textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
 .sendmsg{margin-top:8px;font-weight:700}.sendmsg.ok{color:#15803d}.sendmsg.err{color:#b91c1c}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sendmsg.ok{color:#4ade80}:root:not([data-theme="light"]) .sendmsg.err{color:#f87171}}
 :root[data-theme="dark"] .sendmsg.ok{color:#4ade80}:root[data-theme="dark"] .sendmsg.err{color:#f87171}
-@media (max-width:560px){.who{grid-template-columns:1fr 1fr}.who label:last-child{grid-column:1/-1}}
+@media (max-width:560px){.who{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.who label:last-child{grid-column:1/-1}}
 
 .checks{list-style:none;padding:0;margin:0;display:grid;gap:10px}
 .checks label{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
@@ -688,7 +688,7 @@ table.cmp td{background:var(--surface)}
         <div class="btns"><button class="btn" type="button" id="sendBtn">제출하기</button></div>
         <div class="sendmsg" id="sendMsg" role="status" aria-live="polite"></div>
       </div>
-      <p class="note" style="margin-top:24px">다음 시간부터는 <b>Ⅶ. 현대 세계의 전개와 과제</b> — 냉전 체제가 형성되다를 배웁니다.</p>
+      <p class="note" style="margin-top:24px">다음 시간부터는 <b>Ⅶ. 현대 세계의 전개와 과제</b> — <a href="../cold-war/"><b>냉전 체제가 형성되다</b></a>를 배웁니다.</p>
     </div>
   </section>
 </main>

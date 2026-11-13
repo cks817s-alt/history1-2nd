@@ -9,6 +9,9 @@
  *  - list   : 교사 화면에 제출 현황 불러오기 (비밀번호 필요)
  *  - submit5: 5차시 「인권 회복과 평화 실현」 활동 결과를 '5차시 제출' 시트에 기록
  *  - submit6: 6차시 「아시아와 아프리카의 민족 운동」 활동 결과를 '6차시 제출' 시트에 기록
+ *  - submit1·submit3·submit4·submit7: 1·3·4·7차시 활동 결과를 각 차시 제출 탭에 기록
+ *  - rows / grade: 교사 확인·평가 화면(teacher/)에서 차시별 제출 목록 불러오기, 평가·피드백 저장 (비밀번호 필요)
+ *  - myFeedback: 학생이 학반·번호·이름으로 자기 평가·피드백 확인
  *
  * 설정은 시트 상단 메뉴 [📚 수업 설정]에서 합니다. (API 키·비밀번호는 코드에 적지 않습니다)
  */
@@ -93,6 +96,12 @@ function doPost(e) {
       case 'list': return json_(list_(data));
       case 'submit5': return json_(submit5_(data));
       case 'submit6': return json_(submit6_(data));
+      case 'submit1': case 'submit3': case 'submit4': case 'submit7':
+        var L = LESSONS[data.action.slice(6)];
+        return json_(appendLesson_(data, L.sheet, L.headers, L.fields));
+      case 'rows': return json_(rows_(data));
+      case 'grade': return json_(grade_(data));
+      case 'myFeedback': return json_(myFeedback_(data));
       default: return json_(submit_(data));
     }
   } catch (err) {
@@ -141,6 +150,98 @@ var FIELDS6 = ['timestamp', 'className', 'studentNumber', 'studentName', 'fillSc
 
 function submit6_(data) {
   return appendLesson_(data, SHEET6_NAME, HEADERS6, FIELDS6);
+}
+
+/* ---------------- 1·3·4·7차시 제출 + 교사 평가 ---------------- */
+
+// 차시별 제출 탭. 모든 탭의 앞 4칸은 제출일시·학반·번호·이름으로 같고,
+// 교사 평가(평가·피드백·평가일시)는 각 탭의 맨 오른쪽 칸에 기록한다.
+var LESSONS = {
+  1: { sheet: '1차시 제출', headers: ['제출일시', '학반', '번호', '이름', '마스터 퀴즈', '사료 배지', '베르사유 조약 생각 쓰기'],
+       fields: ['timestamp', 'className', 'studentNumber', 'studentName', 'quizScore', 'badges', 'essay'] },
+  2: { sheet: SHEET_NAME, headers: HEADERS, fields: FIELDS },
+  3: { sheet: '3차시 제출', headers: ['제출일시', '학반', '번호', '이름', '핵심 정리 퀴즈', '둘러본 사건 수', '가장 중요한 사건과 까닭'],
+       fields: ['timestamp', 'className', 'studentNumber', 'studentName', 'quizScore', 'visited', 'essay'] },
+  4: { sheet: '4차시 제출', headers: ['제출일시', '학반', '번호', '이름', '빈칸(맞힌 수)', '확인 퀴즈', '전쟁 범죄를 알리는 글', '스스로 점검'],
+       fields: ['timestamp', 'className', 'studentNumber', 'studentName', 'fillScore', 'quizScore', 'essay', 'selfCheck'] },
+  5: { sheet: SHEET5_NAME, headers: HEADERS5, fields: FIELDS5 },
+  6: { sheet: SHEET6_NAME, headers: HEADERS6, fields: FIELDS6 },
+  7: { sheet: '7차시 제출', headers: ['제출일시', '학반', '번호', '이름', '우주 경쟁의 까닭(도입)', '대립 구도 표', '독일 분단 순서', '냉전/열전 분류',
+         '빈칸(맞힌 수)', 'O/X 퀴즈', '아시아의 냉전 서술', '한 줄 성찰', '스스로 점검'],
+       fields: ['timestamp', 'className', 'studentNumber', 'studentName', 'spaceWhy', 'blocScore', 'orderResult', 'coldHot',
+         'fillScore', 'oxScore', 'asia', 'reflection', 'selfCheck'] }
+};
+var GRADE_HEADERS = ['평가', '피드백', '평가일시'];
+
+function lessonSheet_(n) {
+  var L = LESSONS[n];
+  if (!L) return null;
+  return SpreadsheetApp.getActiveSpreadsheet().getSheetByName(L.sheet);
+}
+
+// 평가 칸 위치(1부터): 머리글에 '평가'가 없으면 마지막 칸 뒤에 세 칸을 만든다
+function gradeCol_(sheet, create) {
+  var w = Math.max(sheet.getLastColumn(), 1);
+  var head = sheet.getRange(1, 1, 1, w).getDisplayValues()[0];
+  var i = head.indexOf(GRADE_HEADERS[0]);
+  if (i > -1) return i + 1;
+  if (!create) return 0;
+  sheet.getRange(1, w + 1, 1, 3).setValues([GRADE_HEADERS]).setFontWeight('bold').setBackground('#d1fae5');
+  return w + 1;
+}
+
+// 교사 화면: 한 차시의 제출 목록(최신순). 학생 글과 평가를 함께 돌려준다.
+function rows_(data) {
+  if (!checkPassword_(data.password)) return { ok: false, error: 'unauthorized' };
+  var L = LESSONS[data.lesson];
+  if (!L) return { ok: false, error: 'no_lesson' };
+  var sheet = lessonSheet_(data.lesson);
+  if (!sheet || sheet.getLastRow() < 2) return { ok: true, headers: L.headers, rows: [] };
+  var gc = gradeCol_(sheet, false);
+  var w = Math.max(sheet.getLastColumn(), L.headers.length);
+  var head = sheet.getRange(1, 1, 1, w).getDisplayValues()[0];
+  var vals = sheet.getRange(2, 1, sheet.getLastRow() - 1, w).getDisplayValues();
+  var nf = gc ? gc - 1 : L.headers.length;
+  var rows = vals.map(function (v, i) {
+    return { row: i + 2, values: v.slice(0, nf), grade: gc ? v[gc - 1] : '', feedback: gc ? v[gc] : '', gradedAt: gc ? v[gc + 1] : '' };
+  }).filter(function (r) { return r.values.join('').trim(); }).reverse();
+  return { ok: true, headers: head.slice(0, nf), rows: rows };
+}
+
+// 교사 화면: 평가·피드백 저장
+function grade_(data) {
+  if (!checkPassword_(data.password)) return { ok: false, error: 'unauthorized' };
+  var sheet = lessonSheet_(data.lesson);
+  var row = parseInt(data.row, 10);
+  if (!sheet || !(row >= 2) || row > sheet.getLastRow()) return { ok: false, error: 'no_row' };
+  var lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    var gc = gradeCol_(sheet, true);
+    var at = Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
+    sheet.getRange(row, gc, 1, 3).setValues([[safeCell_(clip_(data.grade, 20)), safeCell_(clip_(data.feedback, 1000)), at]]);
+    return { ok: true, gradedAt: at };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+// 학생 화면: 내 마지막 제출의 평가·피드백 (학반·번호·이름이 모두 같아야 보여 준다)
+function myFeedback_(data) {
+  var L = LESSONS[data.lesson];
+  var sheet = lessonSheet_(data.lesson);
+  if (!L || !sheet || sheet.getLastRow() < 2) return { ok: true, found: false };
+  function n(s) { return String(s || '').replace(/[\s'’-]/g, '').toLowerCase(); }
+  var gc = gradeCol_(sheet, false);
+  var w = Math.max(sheet.getLastColumn(), 4);
+  var vals = sheet.getRange(2, 1, sheet.getLastRow() - 1, w).getDisplayValues();
+  for (var i = vals.length - 1; i >= 0; i--) {
+    var v = vals[i];
+    if (n(v[1]) === n(data.className) && n(v[2]) === n(data.studentNumber) && n(v[3]) === n(data.studentName)) {
+      return { ok: true, found: true, timestamp: v[0], grade: gc ? v[gc - 1] : '', feedback: gc ? v[gc] : '' };
+    }
+  }
+  return { ok: true, found: false };
 }
 
 // 차시별 제출 공통: 이름 확인 → 시각 기록 → 해당 탭에 한 줄 추가(없으면 머리글과 함께 탭 생성)
