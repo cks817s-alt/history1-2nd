@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>세계사 타임라인 지구본</title>
+<meta name="description" content="중학교 역사① 교과서를 바탕으로, 타임라인을 움직이며 3D 지구본 위에서 시기별 주요 사건·제국의 영역·교류 경로를 확인하고 나만의 세계사 연표를 만드는 활동">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0f172a;--navy2:#1e293b;--line:#334155;--ink:#e2e8f0;--muted:#94a3b8;--amber:#f59e0b;--amber2:#fbbf24;
+  --east:#fb923c;--west:#38bdf8;--world:#a78bfa;--korea:#facc15;--mine:#34d399;
+  --card:#fff;--cardink:#0f172a;--cardmuted:#475569;--cardline:#e2e8f0;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#020617;color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;word-break:keep-all;-webkit-tap-highlight-color:transparent}
+button{font:inherit;cursor:pointer}
+.app{display:grid;grid-template-rows:auto 1fr auto;height:100dvh;height:100vh}
+@supports(height:100dvh){.app{height:100dvh}}
+
+/* 상단 */
+.top{display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--navy);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.top h1{margin:0;font-size:18px;font-weight:900;white-space:nowrap}
+.top h1 span{color:var(--amber)}
+.units{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.units::-webkit-scrollbar{display:none}
+.units button{flex:none;border:1px solid var(--line);background:var(--navy2);color:#cbd5e1;border-radius:10px;padding:5px 10px;font-size:13px;font-weight:700}
+.units button b{color:var(--amber2);margin-right:4px}
+.units button[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.units button[aria-pressed="true"] b{color:var(--navy)}
+.mybtn{border:0;background:var(--amber);color:var(--navy);font-weight:900;border-radius:999px;padding:8px 14px;font-size:14px;white-space:nowrap;box-shadow:0 4px 14px rgba(245,158,11,.35)}
+.mybtn .n{display:inline-block;min-width:20px;padding:0 6px;margin-left:4px;border-radius:999px;background:var(--navy);color:var(--amber2);font-size:12px}
+
+/* 가운데: 지구본 + 패널 */
+.main{position:relative;display:grid;grid-template-columns:1fr 380px;min-height:0}
+.globe-wrap{position:relative;min-width:0;min-height:0;overflow:hidden}
+#globe{position:absolute;inset:0}
+.hud{position:absolute;left:14px;top:12px;pointer-events:none;max-width:calc(100% - 28px)}
+.hud .yr{font-size:40px;font-weight:900;line-height:1;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.hud .yr small{font-size:18px;font-weight:700;color:var(--amber2);margin-right:6px}
+.hud .era{margin-top:6px;font-size:15px;font-weight:700;color:#fde68a;text-shadow:0 1px 8px #000}
+.layers{position:absolute;right:12px;top:12px;display:flex;flex-direction:column;gap:6px}
+.layers button{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:rgba(15,23,42,.85);color:var(--ink);border-radius:10px;padding:6px 10px;font-size:13px;font-weight:700;backdrop-filter:blur(4px)}
+.layers button .sw{width:12px;height:12px;border-radius:3px}
+.layers button[aria-pressed="false"]{opacity:.5}
+.layers button[aria-pressed="false"] .sw{background:transparent!important;border:1px solid #64748b}
+.legend{position:absolute;left:12px;bottom:12px;max-width:min(520px,calc(100% - 24px));display:flex;flex-wrap:wrap;gap:5px}
+.legend button{display:inline-flex;align-items:center;gap:5px;border:0;border-radius:8px;padding:3px 8px;font-size:12.5px;font-weight:700;background:rgba(15,23,42,.82);color:var(--ink)}
+.legend button i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.legend .rt i{height:3px;width:14px;border-radius:2px}
+.src{position:absolute;right:12px;bottom:8px;font-size:10.5px;color:#64748b;text-align:right;max-width:46%}
+.pickbar{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:var(--mine);color:#022c22;font-weight:900;padding:10px 16px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.4);display:none;z-index:5;gap:10px;align-items:center}
+.pickbar.on{display:flex}
+.pickbar button{border:0;border-radius:8px;padding:4px 10px;background:#022c22;color:#a7f3d0;font-weight:700}
+
+/* 지구본 위 핀 */
+.pin{pointer-events:auto;cursor:pointer;display:flex;align-items:center;gap:4px;transform:translate(-6px,-50%);white-space:nowrap;transition:opacity .25s}
+.pin .dot{width:12px;height:12px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 3px rgba(0,0,0,.35),0 0 12px currentColor;flex:none}
+.pin .lb{font-size:12px;font-weight:700;color:#fff;background:rgba(2,6,23,.8);padding:1px 7px;border-radius:6px;box-shadow:inset 0 -2px 0 currentColor;max-width:180px;overflow:hidden;text-overflow:ellipsis}
+.pin.k .dot{border-radius:2px;transform:rotate(45deg)}
+.pin.mine .dot{width:14px;height:14px;border-radius:3px}
+.pin.sel .dot{width:18px;height:18px;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(255,255,255,.15),0 0 16px currentColor}}
+.tlabel.sm{font-size:10.5px;font-weight:700}
+.tlabel{pointer-events:none;font-size:13px;font-weight:900;color:#fff;text-shadow:0 0 4px #000,0 0 8px #000,0 0 2px #000;transform:translate(-50%,-50%);white-space:nowrap;letter-spacing:-.2px;transition:opacity .25s}
+
+/* 오른쪽 패널 */
+.panel{background:var(--navy);border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.panel .ph{padding:12px 14px 8px;border-bottom:1px solid var(--line)}
+.panel .ph h2{margin:0;font-size:16px;font-weight:900}
+.panel .ph p{margin:4px 0 0;font-size:12.5px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0;flex:1;min-height:0;overflow:auto}
+.col{padding:8px 8px 12px;min-width:0}
+.col+.col{border-left:1px solid var(--line)}
+.col h3{position:sticky;top:0;margin:0 0 6px;padding:6px 4px;font-size:14px;font-weight:900;background:var(--navy);z-index:1;display:flex;align-items:center;gap:6px}
+.col h3 i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.col h3 small{font-weight:500;color:var(--muted);font-size:11px}
+.ev{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--navy2);color:var(--ink);border-radius:10px;padding:7px 9px;margin-bottom:6px;border-left:4px solid var(--c)}
+.ev:hover,.ev:focus-visible{border-color:var(--c);outline:none;background:#273449}
+.ev .y{font-size:11.5px;font-weight:700;color:var(--c)}
+.ev .t{font-size:13.5px;font-weight:700;line-height:1.35}
+.ev.k{border-style:dashed;border-left-style:solid}
+.ev.k .t::before{content:"우리나라 ";font-size:10.5px;color:var(--korea);font-weight:900}
+.ev.mine .t::before{content:"내 카드 ";font-size:10.5px;color:var(--mine);font-weight:900}
+.ev.near{opacity:.55}
+.world{border-top:1px solid var(--line);padding:8px 10px;max-height:28%;overflow:auto}
+.world h3{margin:0 0 6px;font-size:13px;font-weight:900;color:#c4b5fd}
+.empty{font-size:12.5px;color:var(--muted);padding:6px 4px;line-height:1.5}
+
+/* 아래 타임라인 */
+.tl{background:var(--navy);border-top:1px solid var(--line);padding:8px 14px 10px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
+.tl .ctrl{display:flex;gap:6px}
+.tl .ctrl button{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--navy2);color:var(--ink);font-size:16px;font-weight:900}
+.tl .ctrl button.play{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.track{position:relative;height:58px;user-select:none;touch-action:none}
+.track .bar{position:absolute;left:0;right:0;top:24px;height:10px;border-radius:6px;background:linear-gradient(90deg,#334155,#475569)}
+.track .unit{position:absolute;top:24px;height:10px;border-radius:0;opacity:.55}
+.track .mk{position:absolute;width:2px;border-radius:1px}
+.track .mk.e{top:12px;height:10px;background:var(--east)}
+.track .mk.w{top:36px;height:10px;background:var(--west)}
+.track .mk.g{top:21px;height:16px;background:var(--world)}
+.track .mk.m{top:4px;height:8px;width:4px;background:var(--mine);border-radius:2px}
+.track .tick{position:absolute;top:48px;font-size:10.5px;color:var(--muted);transform:translateX(-50%);white-space:nowrap}
+.track .knob{position:absolute;top:14px;width:22px;height:30px;margin-left:-11px;border-radius:8px;background:var(--amber);border:2px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.6);cursor:grab}
+.track:focus-visible{outline:2px solid var(--amber);outline-offset:4px;border-radius:6px}
+.tl .lanes{font-size:11px;color:var(--muted);line-height:1.6;white-space:nowrap}
+.tl .lanes i{display:inline-block;width:10px;height:3px;border-radius:2px;margin-right:4px;vertical-align:middle}
+
+/* 모달 공통 */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(2,6,23,.72);display:none;align-items:center;justify-content:center;padding:14px}
+.modal.on{display:flex}
+.sheet{background:var(--card);color:var(--cardink);border-radius:18px;width:min(560px,100%);max-height:calc(100dvh - 28px);overflow:auto;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.sheet .sh{padding:16px 18px 10px;border-bottom:1px solid var(--cardline);position:sticky;top:0;background:var(--card);z-index:2;display:flex;align-items:flex-start;gap:10px}
+.sheet .sh h2{margin:0;font-size:19px;font-weight:900;flex:1;line-height:1.35}
+.sheet .x{border:0;background:#f1f5f9;border-radius:10px;width:36px;height:36px;font-size:18px;color:var(--cardink);flex:none}
+.sheet .sb{padding:14px 18px 18px;font-size:15.5px;line-height:1.7}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;margin:0 4px 4px 0;color:#fff;background:var(--c,#64748b)}
+.badge.l{background:#f1f5f9;color:#334155}
+.sheet .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.b1{border:0;border-radius:12px;padding:10px 16px;font-weight:900;background:var(--amber);color:var(--navy)}
+.b2{border:1px solid #cbd5e1;border-radius:12px;padding:10px 16px;font-weight:700;background:#fff;color:var(--cardink)}
+.b3{border:0;border-radius:12px;padding:10px 16px;font-weight:700;background:#0f172a;color:#fff}
+.note{font-size:13px;color:var(--cardmuted);background:#f8fafc;border-radius:10px;padding:8px 12px;margin-top:10px}
+
+/* 나의 연표 */
+.my{width:min(1180px,100%);height:calc(100dvh - 28px);max-height:none;display:flex;flex-direction:column}
+.my .tabs{display:flex;gap:6px;padding:0 18px 10px;border-bottom:1px solid var(--cardline);position:sticky;top:62px;background:#fff;z-index:2}
+.my .tabs button{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:7px 14px;font-weight:700;color:var(--cardink)}
+.my .tabs button[aria-selected="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.my .body{flex:1;overflow:auto;padding:14px 18px 20px}
+.mission{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:14px}
+.mission div{border:1px solid var(--cardline);border-radius:12px;padding:8px 10px;font-size:13px;line-height:1.45;background:#f8fafc}
+.mission div b{display:block;font-size:14px}
+.mission div.ok{background:#ecfdf5;border-color:#6ee7b7}
+.mission div.ok b::before{content:"✔ ";color:#059669}
+.grid2{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:18px;align-items:start}
+.form label{display:block;font-weight:700;font-size:14px;margin:10px 0 5px}
+.form label small{font-weight:500;color:var(--cardmuted)}
+.form input[type=text],.form input[type=number],.form textarea,.form select{width:100%;font:inherit;font-size:15px;padding:9px 11px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:var(--cardink)}
+.form textarea{min-height:84px;resize:vertical}
+.form input:focus,.form textarea:focus,.form select:focus{outline:2px solid var(--amber);outline-offset:1px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.row>*{flex:1;min-width:0}
+.seg{display:flex;border:1px solid #cbd5e1;border-radius:10px;overflow:hidden}
+.seg button{flex:1;border:0;background:#fff;padding:9px 6px;font-weight:700;color:var(--cardink);font-size:14px}
+.seg button+button{border-left:1px solid #cbd5e1}
+.seg button[aria-pressed="true"]{background:var(--c);color:#fff}
+.chk{display:flex!important;align-items:center;gap:6px;font-weight:700;margin:0!important;flex:none!important;font-size:14px}
+.chk input{width:18px;height:18px}
+.loc{font-size:13px;color:var(--cardmuted);margin-top:6px}
+.err{color:#b91c1c;font-weight:700;font-size:14px;min-height:1.4em;margin-top:8px}
+.cardlist .mc{border:1px solid var(--cardline);border-left:5px solid var(--c);border-radius:12px;padding:9px 12px;margin-bottom:8px;background:#fff}
+.mc .hd{display:flex;gap:6px;align-items:baseline;flex-wrap:wrap}
+.mc .hd b{font-size:15px}
+.mc .hd .y{font-size:12.5px;font-weight:700;color:var(--c)}
+.mc p{margin:4px 0 0;font-size:13.5px;line-height:1.55;color:#334155}
+.mc p em{font-style:normal;font-weight:700;color:#0f172a}
+.mc .acts{display:flex;gap:6px;margin-top:6px}
+.mc .acts button{border:1px solid #cbd5e1;background:#fff;border-radius:8px;padding:3px 10px;font-size:12.5px;color:var(--cardink)}
+
+/* 연표 보기 */
+.chron{position:relative;padding:4px 0 10px}
+.chron::before{content:"";position:absolute;left:50%;top:40px;bottom:0;width:4px;margin-left:-2px;background:linear-gradient(#fb923c,#a78bfa,#38bdf8);border-radius:2px;opacity:.35}
+.chron .heads{display:grid;grid-template-columns:1fr 110px 1fr;text-align:center;font-weight:900;margin-bottom:10px;position:relative}
+.chron .heads span:first-child{color:#ea580c}.chron .heads span:last-child{color:#0284c7}
+.crow{display:grid;grid-template-columns:1fr 110px 1fr;align-items:start;margin-bottom:10px;position:relative}
+.crow .yr{justify-self:center;background:#0f172a;color:#fff;font-weight:900;font-size:13px;border-radius:999px;padding:4px 10px;margin-top:8px;text-align:center;z-index:1}
+.crow .side{display:flex;flex-direction:column;gap:6px}
+.crow .side.e{align-items:flex-end}
+.crow .tc{width:min(100%,380px);border:1px solid var(--cardline);border-top:4px solid var(--c);border-radius:12px;padding:8px 11px;background:#fff;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.crow .tc b{font-size:14.5px}
+.crow .tc .pl{font-size:12px;color:var(--cardmuted)}
+.crow .tc p{margin:3px 0 0;font-size:13px;line-height:1.55;color:#334155}
+.crow .tc .lk{font-size:12px;font-weight:700;color:#7c3aed;margin-top:4px}
+.crow.g .side.w{grid-column:3}
+.crow .gwide{grid-column:1/-1;justify-self:center;margin-top:6px}
+.endbox{margin-top:16px;border:2px dashed #cbd5e1;border-radius:14px;padding:12px 14px}
+.endbox h4{margin:0 0 6px;font-size:16px}
+.who{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.who label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:700;color:var(--cardmuted)}
+.who input{font:inherit;font-size:15px;padding:8px 10px;border:1px solid #cbd5e1;border-radius:10px;min-width:0}
+.msg{font-weight:700;margin-top:8px;min-height:1.4em}.msg.ok{color:#15803d}.msg.err{color:#b91c1c}
+.fbbox{margin-top:8px;background:#f1f5f9;border-radius:12px;padding:10px 12px;font-size:14px}
+.fbbox .g{display:inline-block;font-weight:900;background:var(--amber);border-radius:8px;padding:1px 10px;margin-right:6px}
+
+.home{color:var(--amber2);text-decoration:none;font-weight:900;font-size:18px;padding:2px 6px;border-radius:8px;border:1px solid var(--line)}
+
+/* 반응형 */
+@media (max-width:900px){
+  .main{grid-template-columns:1fr;grid-template-rows:minmax(300px,1fr) auto}
+  .panel{border-left:0;border-top:1px solid var(--line);max-height:38vh}
+  .hud .yr{font-size:30px}
+  .tl{grid-template-columns:1fr;gap:6px}
+  .tl .ctrl{justify-content:center}
+  .tl .lanes{display:none}
+  .grid2{grid-template-columns:1fr}
+  .mission{grid-template-columns:1fr 1fr}
+  .src{display:none}
+  .legend{bottom:8px;max-width:calc(100% - 16px)}
+}
+@media (max-width:560px){
+  .top h1{font-size:16px}
+  .units{order:3;flex-basis:100%}
+  .mybtn{margin-left:auto;padding:7px 12px;font-size:13px}
+  .track .tick.mi{display:none}
+  .layers button .t{display:none}
+  .chron::before{left:12px}
+  .chron .heads{display:none}
+  .crow{grid-template-columns:1fr;padding-left:26px}
+  .crow .yr{justify-self:start;margin:0 0 4px -22px}
+  .crow .side.e{align-items:stretch}
+  .crow .side.w,.crow.g .side.w{grid-column:1}
+  .crow .tc{width:100%}
+  .who{grid-template-columns:1fr 1fr}.who label:last-child{grid-column:1/-1}
+  .legend{display:none}
+}
+@media print{
+  body{background:#fff}
+  .app,.modal:not(#myModal),.back{display:none!important}
+  #myModal{position:static;display:block!important;background:#fff;padding:0}
+  #myModal .sheet{box-shadow:none;height:auto;max-height:none;width:100%}
+  #myModal .tabs,#myModal .sh .x,#myModal .noprint{display:none!important}
+  #myModal .body{overflow:visible}
+  .crow{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <a href="../" class="home" title="수업 목록으로">←</a><h1>세계사 <span>타임라인</span> 지구본</h1>
+    <nav class="units" id="units" aria-label="교과서 단원으로 이동"></nav>
+    <button class="mybtn" id="openMy" type="button">📝 나의 연표 만들기 <span class="n" id="myCount">0</span></button>
+  </header>
+
+  <main class="main">
+    <section class="globe-wrap" aria-label="3D 세계 지도">
+      <div id="globe"></div>
+      <div class="hud" aria-live="polite"><div class="yr" id="yr"></div><div class="era" id="era"></div></div>
+      <div class="layers" role="group" aria-label="지도에 보일 내용">
+        <button type="button" data-l="terr" aria-pressed="true"><span class="sw" style="background:#e11d48"></span><span class="t">제국의 영역</span></button>
+        <button type="button" data-l="route" aria-pressed="true"><span class="sw" style="background:#38bdf8"></span><span class="t">교류 경로</span></button>
+        <button type="button" data-l="event" aria-pressed="true"><span class="sw" style="background:#fb923c;border-radius:50%"></span><span class="t">주요 사건</span></button>
+        <button type="button" data-l="korea" aria-pressed="true"><span class="sw" style="background:#facc15;transform:rotate(45deg) scale(.8)"></span><span class="t">우리나라</span></button>
+        <button type="button" data-l="mine" aria-pressed="true"><span class="sw" style="background:#34d399"></span><span class="t">내 카드</span></button>
+        <button type="button" id="spin" aria-pressed="false">🌏 <span class="t">자동 회전</span></button>
+      </div>
+      <div class="legend" id="legend" aria-label="지금 지도에 보이는 나라와 교류 경로"></div>
+      <div class="src">영역은 대략적인 범위입니다(원자료: historical-basemaps, GPL-3.0 — 교과서 연표에 맞춰 이름·시기 조정). 사건·경로: 비상교육 중학교 역사① 교과서.</div>
+      <div class="pickbar" id="pickbar">🌏 지구본에서 사건이 일어난 곳을 눌러 주세요 <button type="button" id="pickCancel">취소</button></div>
+    </section>
+
+    <aside class="panel" aria-label="같은 시기 동양과 서양">
+      <div class="ph"><h2 id="phTitle">같은 시기, 동양과 서양에서는?</h2><p id="phSub">슬라이더를 움직이면 이 시기 앞뒤의 사건이 나타나요. 사건을 누르면 지도가 그곳으로 이동해요.</p></div>
+      <div class="cols">
+        <div class="col"><h3><i style="background:var(--east)"></i>동양 <small>아시아</small></h3><div id="colE"></div></div>
+        <div class="col"><h3><i style="background:var(--west)"></i>서양 <small>유럽·아메리카</small></h3><div id="colW"></div></div>
+      </div>
+      <div class="world"><h3>🌍 세계 · 아프리카</h3><div id="colG"></div></div>
+    </aside>
+  </main>
+
+  <footer class="tl">
+    <div class="ctrl">
+      <button type="button" id="prev" aria-label="이전 사건으로">◀</button>
+      <button type="button" id="play" class="play" aria-label="재생">▶</button>
+      <button type="button" id="next" aria-label="다음 사건으로">▶|</button>
+    </div>
+    <div class="track" id="track" tabindex="0" role="slider" aria-label="연도 선택 슬라이더" aria-valuemin="-3500" aria-valuemax="2025">
+      <div class="bar"></div><div id="marks"></div><div class="knob" id="knob"></div>
+    </div>
+    <div class="lanes"><div><i style="background:var(--east)"></i>위: 동양 사건</div><div><i style="background:var(--world)"></i>가운데: 세계</div><div><i style="background:var(--west)"></i>아래: 서양 사건</div></div>
+  </footer>
+</div>
+
+<!-- 사건 자세히 -->
+<div class="modal" id="evModal" role="dialog" aria-modal="true" aria-labelledby="evTitle">
+  <div class="sheet">
+    <div class="sh"><h2 id="evTitle"></h2><button class="x" type="button" data-close aria-label="닫기">✕</button></div>
+    <div class="sb" id="evBody"></div>
+  </div>
+</div>
+
+<!-- 나의 연표 -->
+<div class="modal" id="myModal" role="dialog" aria-modal="true" aria-labelledby="myTitle">
+  <div class="sheet my">
+    <div class="sh"><h2 id="myTitle">📝 나의 세계사 연표 <small style="font-size:13px;font-weight:500;color:#64748b" id="printWho"></small></h2><button class="x" type="button" data-close aria-label="닫기">✕</button></div>
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" aria-selected="true" data-tab="write">① 사건 카드 쓰기</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="chron">② 나의 연표 보기</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="send">③ 정리하고 제출하기</button>
+    </div>
+    <div class="body">
+      <div class="mission noprint" id="mission"></div>
+
+      <section data-pane="write">
+        <div class="grid2">
+          <form class="form" id="cardForm" autocomplete="off">
+            <input type="hidden" id="fId">
+            <label for="fTitle">사건 이름</label>
+            <input type="text" id="fTitle" maxlength="40" placeholder="예) 진의 중국 통일">
+            <label for="fYear">연도 <small>(끝난 해는 선택)</small></label>
+            <div class="row">
+              <label class="chk"><input type="checkbox" id="fBC"> 기원전</label>
+              <input type="number" id="fYear" min="1" max="2030" placeholder="시작 연도" inputmode="numeric">
+              <input type="number" id="fYear2" min="1" max="2030" placeholder="끝 연도" inputmode="numeric">
+            </div>
+            <label>지역</label>
+            <div class="seg" id="fLane" role="group" aria-label="지역">
+              <button type="button" data-v="E" style="--c:#ea580c" aria-pressed="true">동양(아시아)</button>
+              <button type="button" data-v="W" style="--c:#0284c7" aria-pressed="false">서양(유럽·아메리카)</button>
+              <button type="button" data-v="G" style="--c:#7c3aed" aria-pressed="false">세계·아프리카</button>
+            </div>
+            <label for="fPlace">장소</label>
+            <div class="row">
+              <input type="text" id="fPlace" maxlength="30" placeholder="예) 중국 셴양">
+              <button type="button" class="b2" id="fPick" style="flex:none">🌏 지구본에서 고르기</button>
+            </div>
+            <div class="loc" id="fLoc">아직 지구본 위치를 고르지 않았어요.</div>
+            <label for="fWhat">무슨 일이 있었나요? <small>(교과서를 참고해 내 말로)</small></label>
+            <textarea id="fWhat" maxlength="400" placeholder="누가, 무엇을, 어떻게 했는지 써 보세요."></textarea>
+            <label for="fWhy">왜 중요할까요? <small>(결과·영향·의의)</small></label>
+            <textarea id="fWhy" maxlength="300" placeholder="이 사건 뒤에 무엇이 달라졌나요?"></textarea>
+            <label for="fLink">같은 시기 다른 지역과 비교하기 <small>(선택)</small></label>
+            <select id="fLink"><option value="">— 비교할 사건 고르기 —</option></select>
+            <div class="err" id="fErr" role="alert"></div>
+            <div class="btns">
+              <button type="submit" class="b1" id="fSave">카드 저장하기</button>
+              <button type="button" class="b2" id="fReset">새 카드</button>
+            </div>
+            <p class="note">💡 지구본 화면에서 사건을 누르고 <b>[이 사건으로 카드 쓰기]</b>를 누르면 이름·연도·장소가 채워져요. 설명은 꼭 <b>자신의 말</b>로 써 주세요.</p>
+          </form>
+          <div>
+            <h3 style="margin:4px 0 8px;font-size:16px">내가 만든 카드 <span id="cardN" style="color:#b45309"></span></h3>
+            <div class="cardlist" id="cardList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section data-pane="chron" hidden>
+        <div class="chron" id="chron"></div>
+        <div class="btns noprint"><button type="button" class="b3" id="printBtn">🖨️ 인쇄 · PDF로 저장</button></div>
+      </section>
+
+      <section data-pane="send" hidden>
+        <div class="endbox">
+          <h4>같은 시기, 동양과 서양을 비교해 보니</h4>
+          <p style="margin:0 0 8px;font-size:14px;color:#475569">내 연표에서 비슷한 시기의 동양 사건과 서양 사건을 하나씩 골라, 공통점이나 차이점(또는 서로 주고받은 영향)을 써 보세요.</p>
+          <textarea id="cmp" maxlength="800" style="width:100%;min-height:110px;font:inherit;font-size:15px;padding:10px 12px;border:1px solid #cbd5e1;border-radius:12px" placeholder="예) 기원전 3세기 말에 동양에서는 ○○이, 서양에서는 ○○이 일어났다. 두 사건 모두 …"></textarea>
+          <h4 style="margin-top:12px">연표를 만들며 새롭게 알게 된 점</h4>
+          <textarea id="refl" maxlength="500" style="width:100%;min-height:80px;font:inherit;font-size:15px;padding:10px 12px;border:1px solid #cbd5e1;border-radius:12px" placeholder="한두 문장으로 써 보세요."></textarea>
+          <div class="who">
+            <label>학반 <input id="wClass" placeholder="예) 2-3"></label>
+            <label>번호 <input id="wNum" inputmode="numeric" placeholder="예) 15"></label>
+            <label>이름 <input id="wName" placeholder="이름"></label>
+          </div>
+          <div class="btns noprint">
+            <button type="button" class="b1" id="send">📮 선생님께 제출하기</button>
+            <button type="button" class="b2" id="fb">선생님 피드백 확인</button>
+          </div>
+          <div class="msg" id="sendMsg" role="status" aria-live="polite"></div>
+          <div class="fbbox" id="fbBox" hidden></div>
+          <p class="note">제출하면 선생님 화면에 바로 나타나요. 고쳐서 다시 제출해도 괜찮아요(마지막 제출을 기준으로 봅니다). 카드는 이 기기에 자동 저장됩니다.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+
+<script src="lib/globe.gl.min.js"></script>
+<script src="territories.js"></script>
+<script src="data.js"></script>
+<script>
+(function(){
+'use strict';
+var API='https://script.google.com/macros/s/AKfycbyfpqz_5eEpNHCmJyu6QdyYyYAaOfNnMo9S0Yd94ZBvp32PFutglQ2HU2_71Z4shqvmHw/exec';
+var LANE={E:{n:'동양',c:'#fb923c',d:'#ea580c'},W:{n:'서양',c:'#38bdf8',d:'#0284c7'},G:{n:'세계',c:'#a78bfa',d:'#7c3aed'}};
+var EV=window.EVENTS.map(function(e,i){e.id='e'+i;return e;}).sort(function(a,b){return a.y-b.y;});
+var RT=window.ROUTES, TR=window.TERRITORIES, UN=window.UNITS;
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){return null;}}
+function fy(y){return y<0?'기원전 '+(-y)+'년':y+'년';}
+function fyr(e){return fy(e.y)+(e.y2?' ~ '+(e.y2<0?'기원전 '+(-e.y2):e.y2)+'년':'');}
+
+/* ---------- 연도 ↔ 슬라이더 위치 (시대별로 다른 눈금) ---------- */
+var SEG=[[-3500,0],[-1000,.11],[0,.25],[1000,.44],[1500,.59],[1800,.74],[1900,.85],[2025,1]];
+function y2p(y){for(var i=1;i<SEG.length;i++){if(y<=SEG[i][0]){var a=SEG[i-1],b=SEG[i];return a[1]+(y-a[0])/(b[0]-a[0])*(b[1]-a[1]);}}return 1;}
+function p2y(p){p=Math.max(0,Math.min(1,p));for(var i=1;i<SEG.length;i++){if(p<=SEG[i][1]){var a=SEG[i-1],b=SEG[i];return Math.round(a[0]+(p-a[1])/(b[1]-a[1])*(b[0]-a[0]));}}return 2025;}
+function win(y){return y<-1000?250:y<0?100:y<1000?50:y<1500?30:y<1800?15:y<1900?6:4;}
+function step(y){return y<-1000?50:y<0?10:y<1000?10:y<1500?5:y<1800?2:1;}
+
+/* ---------- 상태 ---------- */
+var S={year:+(store('wt-year')||-221),show:{terr:true,route:true,event:true,korea:true,mine:true},sel:null,picking:false,playing:null};
+if(isNaN(S.year))S.year=-221;
+var cards=[];try{cards=JSON.parse(store('wt-cards')||'[]')||[];}catch(e){cards=[];}
+
+/* ---------- 지구본 ---------- */
+var el=$('globe');
+var G=new Globe(el,{animateIn:false})
+  .globeImageUrl('img/earth-blue-marble.jpg')
+  .bumpImageUrl('img/earth-topology.png')
+  .backgroundImageUrl('img/night-sky.png')
+  .showAtmosphere(true).atmosphereColor('#93c5fd').atmosphereAltitude(0.18)
+  .polygonGeoJsonGeometry('geometry')
+  .polygonCapColor(function(f){return hexA(f.c,f===S.hoverPoly?0.62:0.42);})
+  .polygonSideColor(function(f){return hexA(f.c,0.25);})
+  .polygonStrokeColor(function(f){return f.c;})
+  .polygonAltitude(function(f){return f===S.hoverPoly?0.014:0.007;})
+  .polygonsTransitionDuration(250)
+  .polygonLabel(function(f){return '<div style="font-family:Noto Sans KR,sans-serif;background:rgba(15,23,42,.92);color:#fff;padding:6px 10px;border-radius:8px;border-left:4px solid '+f.c+';font-weight:700">'+esc(f.n)+'<div style="font-weight:400;font-size:12px;color:#cbd5e1">'+esc(f.era)+'</div></div>';})
+  .onPolygonHover(function(f){S.hoverPoly=f;G.polygonCapColor(G.polygonCapColor()).polygonAltitude(G.polygonAltitude());el.style.cursor=f?'pointer':'';})
+  .pathPoints('pts').pathPointLat(function(p){return p[0];}).pathPointLng(function(p){return p[1];})
+  .pathColor(function(r){return [hexA(r.c,0.95),hexA(r.c,0.95)];})
+  .pathStroke(function(r){return r.w?2.2:3.4;})
+  .pathDashLength(0.06).pathDashGap(0.015).pathDashAnimateTime(function(r){return 9000;})
+  .pathResolution(3).pathTransitionDuration(0)
+  .pathLabel(function(r){return '<div style="font-family:Noto Sans KR,sans-serif;max-width:280px;background:rgba(15,23,42,.94);color:#fff;padding:8px 10px;border-radius:8px;border-left:4px solid '+r.c+'"><b>'+esc(r.n)+'</b><div style="font-size:12.5px;color:#cbd5e1;margin-top:2px">'+esc(r.d)+'</div><div style="font-size:11px;color:#fbbf24;margin-top:3px">교과서 '+r.p+'쪽</div></div>';})
+  .onPathClick(function(r){openRoute(r);})
+  .htmlLat('lat').htmlLng('lng').htmlAltitude(function(d){return d.alt||0.012;})
+  .htmlElement(function(d){return d.el;})
+  .htmlElementVisibilityModifier(function(node,vis){node.style.opacity=vis?1:0;node.style.pointerEvents=vis&&!node.classList.contains('tlabel')?'auto':'none';})
+  .htmlTransitionDuration(0)
+  .onGlobeClick(function(c){pickAt(c);})
+  .onPolygonClick(function(f,ev,c){if(S.picking){pickAt(c);return;}openTerr(f);});
+G.controls().autoRotateSpeed=0.35;
+G.pointOfView({lat:30,lng:90,altitude:2.3});
+function size(){var r=el.parentNode.getBoundingClientRect();G.width(r.width).height(r.height);}
+addEventListener('resize',size);size();
+function hexA(h,a){var n=parseInt(h.slice(1),16);return 'rgba('+(n>>16&255)+','+(n>>8&255)+','+(n&255)+','+a+')';}
+
+/* ---------- 영역 도형 준비 ---------- */
+function ringCenter(ring){var a=0,x=0,y=0;for(var i=0,j=ring.length-1;i<ring.length;j=i++){var f=ring[j][0]*ring[i][1]-ring[i][0]*ring[j][1];a+=f;x+=(ring[j][0]+ring[i][0])*f;y+=(ring[j][1]+ring[i][1])*f;}a*=3;return a?[x/a,y/a,Math.abs(a/6)]:[ring[0][0],ring[0][1],0];}
+TR.forEach(function(s){s.feats=s.e.map(function(e){
+  var best=null;e.p.forEach(function(poly){var c=ringCenter(poly[0]);if(!best||c[2]>best[2])best=c;});
+  return {n:e.n,c:e.c,era:s.title,geometry:{type:'MultiPolygon',coordinates:e.p},lng:best[0],lat:best[1],size:best[2]};
+});});
+function snap(y){for(var i=0;i<TR.length;i++)if(y>=TR[i].from&&y<TR[i].to)return TR[i];return TR[TR.length-1];}
+
+/* ---------- 그리기 ---------- */
+var curSnap=null,curRoutesKey='';
+function render(){
+  var y=S.year;store('wt-year',y);
+  $('yr').innerHTML=y<0?'<small>기원전</small>'+(-y)+'년':y+'<small style="margin-left:4px;margin-right:0">년</small>';
+  var sn=snap(y);
+  $('era').textContent='🗺️ '+sn.title;
+  // 영역
+  var feats=S.show.terr?sn.feats:[];
+  if(sn!==curSnap||G.polygonsData().length!==feats.length){curSnap=sn;G.polygonsData(feats);}
+  // 경로
+  var rs=S.show.route?RT.filter(function(r){return y>=r.from&&y<=r.to;}):[];
+  var key=rs.map(function(r){return r.id;}).join();
+  if(key!==curRoutesKey){curRoutesKey=key;G.pathsData(rs);}
+  // 사건
+  var w=win(y),near=EV.filter(function(e){var end=e.y2||e.y;return end>=y-w&&e.y<=y+w;});
+  var mine=cardsAsEvents().filter(function(e){var end=e.y2||e.y;return end>=y-w&&e.y<=y+w;});
+  var pins=[];
+  near.forEach(function(e){if(!S.show.event&&!e.k)return;if(e.k&&!S.show.korea)return;pins.push(e);});
+  if(S.show.mine)mine.forEach(function(e){pins.push(e);});
+  if(S.sel&&pins.indexOf(S.sel)<0&&S.sel.lat!=null)pins.push(S.sel);
+  var html=pins.map(pinData);
+  if(S.show.terr)feats.forEach(function(f){html.push({lat:f.lat,lng:f.lng,alt:0.02,el:tlabel(f)});});
+  G.htmlElementsData(html);
+  // 패널
+  listCol('colE',near.concat(mine).filter(function(e){return e.lane==='E'&&(S.show.korea||!e.k);}),y);
+  listCol('colW',near.concat(mine).filter(function(e){return e.lane==='W';}),y);
+  listCol('colG',near.concat(mine).filter(function(e){return e.lane==='G';}),y,true);
+  $('phTitle').textContent=fy(y-w).replace('년','')+' ~ '+fy(y+w)+' 무렵';
+  legend(feats,rs);
+  // 슬라이더
+  $('knob').style.left=(y2p(y)*100)+'%';
+  $('track').setAttribute('aria-valuenow',y);$('track').setAttribute('aria-valuetext',fy(y));
+  [].forEach.call($('units').children,function(b,i){b.setAttribute('aria-pressed',y>=UN[i].start&&(i===UN.length-1||y<UN[i+1].start));});
+}
+var pinCache={};
+function pinData(e){
+  var k=e.id+(S.sel===e?'s':'')+(e.mine?e.t:'');
+  if(!pinCache[k]){
+    var d=document.createElement('div'),c=e.mine?'#34d399':e.k?'#facc15':LANE[e.lane].c;
+    d.className='pin'+(e.k?' k':'')+(e.mine?' mine':'')+(S.sel===e?' sel':'');d.style.color=c;
+    d.innerHTML='<span class="dot" style="background:'+c+'"></span><span class="lb">'+esc((e.mine?'✎ ':'')+e.t)+'</span>';
+    d.title=fyr(e)+' '+e.t;
+    d.addEventListener('click',function(ev){ev.stopPropagation();if(S.picking)return;openEvent(e);});
+    pinCache[k]=d;
+  }
+  return {lat:e.lat,lng:e.lng,alt:0.015,el:pinCache[k]};
+}
+var labCache={};
+function tlabel(f){var k=f.era+f.n;if(!labCache[k]){var d=document.createElement('div');d.className='tlabel'+(f.size<40?' sm':'');d.textContent=f.n;d.style.borderBottom='2px solid '+f.c;labCache[k]=d;}return labCache[k];}
+function listCol(id,arr,y,compact){
+  arr.sort(function(a,b){return a.y-b.y;});
+  var box=$(id);
+  if(!arr.length){box.innerHTML='<div class="empty">'+(compact?'이 시기 세계 공통 사건은 없어요.':'이 무렵 교과서에 나오는 사건이 없어요. ◀ ▶|로 가까운 사건을 찾아보세요.')+'</div>';return;}
+  box.innerHTML=arr.map(function(e){var c=e.mine?'#34d399':e.k?'#facc15':LANE[e.lane].c;
+    return '<button type="button" class="ev'+(e.k?' k':'')+(e.mine?' mine':'')+'" style="--c:'+c+'" data-id="'+e.id+'"><div class="y">'+fyr(e)+'</div><div class="t">'+esc(e.t)+'</div></button>';}).join('');
+}
+['colE','colW','colG'].forEach(function(id){$(id).addEventListener('click',function(ev){var b=ev.target.closest('.ev');if(!b)return;var e=findEv(b.dataset.id);if(e){openEvent(e);}});});
+function findEv(id){for(var i=0;i<EV.length;i++)if(EV[i].id===id)return EV[i];var m=cardsAsEvents();for(i=0;i<m.length;i++)if(m[i].id===id)return m[i];return null;}
+function legend(feats,rs){
+  var h=feats.map(function(f,i){return '<button type="button" data-f="'+i+'"><i style="background:'+f.c+'"></i>'+esc(f.n)+'</button>';}).join('');
+  h+=rs.map(function(r,i){return '<button type="button" class="rt" data-r="'+i+'"><i style="background:'+r.c+'"></i>'+esc(r.n)+'</button>';}).join('');
+  $('legend').innerHTML=h;
+  $('legend').onclick=function(ev){var b=ev.target.closest('button');if(!b)return;
+    if(b.dataset.f!=null){var f=feats[+b.dataset.f];G.pointOfView({lat:f.lat,lng:f.lng,altitude:1.6},900);}
+    else{var r=rs[+b.dataset.r];openRoute(r);}};
+}
+
+/* ---------- 자세히 보기 ---------- */
+function openModal(id){$(id).classList.add('on');var x=$(id).querySelector('[data-close]');if(x)x.focus();}
+function closeModal(id){$(id).classList.remove('on');}
+[].forEach.call(document.querySelectorAll('[data-close]'),function(b){b.addEventListener('click',function(){closeModal(b.closest('.modal').id);});});
+[].forEach.call(document.querySelectorAll('.modal'),function(m){m.addEventListener('click',function(ev){if(ev.target===m)closeModal(m.id);});});
+addEventListener('keydown',function(ev){if(ev.key==='Escape'){if(S.picking)stopPick();[].forEach.call(document.querySelectorAll('.modal.on'),function(m){m.classList.remove('on');});}});
+
+function sameTime(e){
+  var w=Math.max(win(e.y),5),other=EV.filter(function(o){return o!==e&&o.lane!==e.lane&&o.lane!=='G'&&!o.k&&Math.abs(o.y-e.y)<=w*2;});
+  other.sort(function(a,b){return Math.abs(a.y-e.y)-Math.abs(b.y-e.y);});return other.slice(0,3);
+}
+function openEvent(e){
+  S.sel=e;
+  if(e.lat!=null){G.pointOfView({lat:e.lat,lng:e.lng,altitude:1.5},1000);}
+  if(S.year<e.y-win(e.y)||S.year>(e.y2||e.y)+win(e.y)){S.year=e.y;}
+  render();
+  var c=e.mine?'#059669':e.k?'#ca8a04':LANE[e.lane].d;
+  $('evTitle').textContent=e.t;
+  var h='<span class="badge" style="--c:'+c+'">'+fyr(e)+'</span><span class="badge" style="--c:'+c+'">'+(e.mine?'내 카드':LANE[e.lane].n)+(e.reg?' · '+esc(e.reg):'')+'</span>'+(e.k?'<span class="badge" style="--c:#ca8a04">우리나라</span>':'')+(e.p?'<span class="badge l">교과서 '+e.p+'쪽</span>':'');
+  if(e.mine){h+='<p style="margin:10px 0 0">'+esc(e.d)+'</p>'+(e.why?'<p style="margin:6px 0 0"><b>왜 중요할까?</b> '+esc(e.why)+'</p>':'');}
+  else h+='<p style="margin:10px 0 0">'+esc(e.d)+'</p>';
+  if(!e.mine){
+    var st=sameTime(e);
+    if(st.length)h+='<div class="note"><b>같은 시기 '+(e.lane==='E'?'서양':'동양')+'에서는?</b><br>'+st.map(function(o){return '<a href="#" data-go="'+o.id+'" style="color:#0369a1;font-weight:700">'+fyr(o)+' '+esc(o.t)+'</a>';}).join('<br>')+'</div>';
+  }
+  h+='<div class="btns">'+(e.mine?'<button type="button" class="b1" data-edit="'+e.cid+'">카드 고치기</button>':'<button type="button" class="b1" id="toCard">✎ 이 사건으로 카드 쓰기</button>')+'<button type="button" class="b2" data-close2>지도 보기</button></div>';
+  $('evBody').innerHTML=h;
+  var t=$('toCard');if(t)t.onclick=function(){closeModal('evModal');startCardFrom(e);};
+  var ed=$('evBody').querySelector('[data-edit]');if(ed)ed.onclick=function(){closeModal('evModal');openMy('write');editCard(ed.dataset.edit);};
+  $('evBody').querySelector('[data-close2]').onclick=function(){closeModal('evModal');};
+  [].forEach.call($('evBody').querySelectorAll('[data-go]'),function(a){a.onclick=function(ev){ev.preventDefault();var o=findEv(a.dataset.go);if(o)openEvent(o);};});
+  openModal('evModal');
+}
+function openRoute(r){
+  $('evTitle').textContent='🧭 '+r.n;
+  $('evBody').innerHTML='<span class="badge" style="--c:'+r.c+';color:#0f172a">교류 경로</span><span class="badge l">교과서 '+r.p+'쪽</span><p style="margin:10px 0 0">'+esc(r.d)+'</p><p class="note">지도의 움직이는 점선이 이 경로예요. 경로 위에 마우스를 올리거나 눌러도 설명이 나와요.</p><div class="btns"><button type="button" class="b2" data-close2>지도 보기</button></div>';
+  $('evBody').querySelector('[data-close2]').onclick=function(){closeModal('evModal');};
+  var m=r.pts[Math.floor(r.pts.length/2)];G.pointOfView({lat:m[0],lng:m[1],altitude:2.1},1000);
+  openModal('evModal');
+}
+function openTerr(f){
+  $('evTitle').textContent=f.n;
+  $('evBody').innerHTML='<span class="badge" style="--c:'+f.c+'">제국·나라의 영역</span><span class="badge l">'+esc(f.era)+'</span><p style="margin:10px 0 0">'+fy(S.year)+' 무렵 <b>'+esc(f.n)+'</b>의 대략적인 영역이에요. 이 시기 전후의 사건은 오른쪽 목록에서 찾아보세요.</p><p class="note">지도의 경계는 연구 자료를 단순하게 나타낸 것이라 교과서 지도와 조금 다를 수 있어요. 정확한 범위는 교과서 지도를 함께 확인하세요.</p><div class="btns"><button type="button" class="b2" data-close2>지도 보기</button></div>';
+  $('evBody').querySelector('[data-close2]').onclick=function(){closeModal('evModal');};
+  openModal('evModal');
+}
+
+/* ---------- 단원 버튼 ---------- */
+$('units').innerHTML=UN.map(function(u,i){return '<button type="button" data-i="'+i+'" title="'+esc(u.name)+'"><b>'+u.id+'</b>'+esc(u.name.length>9?u.name.slice(0,9)+'…':u.name)+'</button>';}).join('');
+$('units').addEventListener('click',function(ev){var b=ev.target.closest('button');if(!b)return;var u=UN[+b.dataset.i];S.year=u.start;S.sel=null;render();
+  var v={'Ⅱ':[32,60],'Ⅲ':[35,75],'Ⅳ':[35,80],'Ⅴ':[35,10],'Ⅵ':[40,40],'Ⅶ':[35,20]}[u.id];G.pointOfView({lat:v[0],lng:v[1],altitude:2.3},1200);});
+
+/* ---------- 층 켜고 끄기 ---------- */
+[].forEach.call(document.querySelectorAll('.layers [data-l]'),function(b){b.addEventListener('click',function(){var k=b.dataset.l;S.show[k]=!S.show[k];b.setAttribute('aria-pressed',S.show[k]);curSnap=null;curRoutesKey='x';render();});});
+$('spin').addEventListener('click',function(){var c=G.controls();c.autoRotate=!c.autoRotate;this.setAttribute('aria-pressed',c.autoRotate);});
+
+/* ---------- 슬라이더 ---------- */
+var tr=$('track');
+function drawMarks(){
+  var h='';
+  UN.forEach(function(u,i){var a=y2p(u.start),b=y2p(UN[i+1]?UN[i+1].start:2025);h+='<div class="unit" style="left:'+(a*100)+'%;width:'+((b-a)*100)+'%;background:'+(i%2?'#64748b':'#475569')+'" title="'+esc(u.id+'. '+u.name)+'"></div>';});
+  EV.forEach(function(e){if(e.k)return;h+='<div class="mk '+e.lane.toLowerCase()+'" style="left:'+(y2p(e.y)*100)+'%"></div>';});
+  cardsAsEvents().forEach(function(e){h+='<div class="mk m" style="left:'+(y2p(e.y)*100)+'%" title="내 카드: '+esc(e.t)+'"></div>';});
+  [-3000,-1000,-500,0,500,1000,1300,1500,1700,1800,1900,1950,2000].forEach(function(y){var lab=y<0?'BC'+(-y):y===0?'기원':String(y);h+='<div class="tick'+([-500,1300,1700,1950].indexOf(y)>=0?' mi':'')+'" style="left:'+(y2p(y)*100)+'%">'+lab+'</div>';});
+  $('marks').innerHTML=h;
+}
+function setFromX(x){var r=tr.getBoundingClientRect();var y=p2y((x-r.left)/r.width);if(y===0)y=1;if(y!==S.year){S.year=y;S.sel=null;render();}}
+var drag=false;
+tr.addEventListener('pointerdown',function(ev){drag=true;tr.setPointerCapture(ev.pointerId);stopPlay();setFromX(ev.clientX);});
+tr.addEventListener('pointermove',function(ev){if(drag)setFromX(ev.clientX);});
+tr.addEventListener('pointerup',function(){drag=false;});
+tr.addEventListener('pointercancel',function(){drag=false;});
+tr.addEventListener('keydown',function(ev){var d=0;if(ev.key==='ArrowRight'||ev.key==='ArrowUp')d=1;if(ev.key==='ArrowLeft'||ev.key==='ArrowDown')d=-1;
+  if(ev.key==='PageUp')return jump(1),ev.preventDefault();if(ev.key==='PageDown')return jump(-1),ev.preventDefault();
+  if(d){ev.preventDefault();var y=S.year+d*step(S.year);if(y===0)y=d;S.year=Math.max(-3500,Math.min(2025,y));S.sel=null;render();}});
+function jump(d){
+  var list=EV.filter(function(e){return (S.show.korea||!e.k);}).concat(cardsAsEvents());
+  list.sort(function(a,b){return a.y-b.y;});
+  var t=null;
+  if(d>0){for(var i=0;i<list.length;i++)if(list[i].y>S.year){t=list[i];break;}}
+  else{for(i=list.length-1;i>=0;i--)if(list[i].y<S.year){t=list[i];break;}}
+  if(t){S.year=t.y;S.sel=t;render();if(t.lat!=null)G.pointOfView({lat:t.lat,lng:t.lng,altitude:1.8},900);}
+}
+$('prev').onclick=function(){stopPlay();jump(-1);};
+$('next').onclick=function(){stopPlay();jump(1);};
+function stopPlay(){if(S.playing){clearInterval(S.playing);S.playing=null;$('play').textContent='▶';$('play').setAttribute('aria-label','재생');}}
+$('play').onclick=function(){
+  if(S.playing)return stopPlay();
+  if(S.year>=2025)S.year=-3500;
+  $('play').textContent='❚❚';$('play').setAttribute('aria-label','멈춤');
+  S.playing=setInterval(function(){var p=y2p(S.year)+0.0025;var y=p2y(p);if(y<=S.year)y=S.year+1;if(y===0)y=1;if(y>=2025){y=2025;stopPlay();}S.year=y;S.sel=null;render();},90);
+};
+
+/* ======================= 나의 연표 ======================= */
+function saveCards(){store('wt-cards',JSON.stringify(cards));$('myCount').textContent=cards.length;pinCache={};drawMarks();}
+function cardsAsEvents(){return cards.map(function(c){return {id:'m'+c.id,cid:c.id,mine:1,y:c.y,y2:c.y2||0,t:c.t,d:c.what,why:c.why,lane:c.lane,lat:c.lat,lng:c.lng,reg:c.place};}).filter(function(e){return e.lat!=null;});}
+
+var lane='E',pick=null;
+function setLane(v){lane=v;[].forEach.call($('fLane').children,function(b){b.setAttribute('aria-pressed',b.dataset.v===v);});}
+$('fLane').addEventListener('click',function(ev){var b=ev.target.closest('button');if(b)setLane(b.dataset.v);});
+function setLoc(lat,lng){pick=lat==null?null:{lat:+lat.toFixed(2),lng:+lng.toFixed(2)};$('fLoc').textContent=pick?'📍 지구본 위치: 위도 '+pick.lat+', 경도 '+pick.lng+' (다시 고를 수 있어요)':'아직 지구본 위치를 고르지 않았어요.';}
+function fillLinks(sel){
+  var opts='<option value="">— 비교할 사건 고르기 —</option>';
+  opts+='<optgroup label="내 카드">'+cards.filter(function(c){return c.id!==$('fId').value;}).map(function(c){return '<option value="c:'+c.id+'">'+esc(fy(c.y)+' '+c.t)+'</option>';}).join('')+'</optgroup>';
+  opts+='<optgroup label="교과서 사건">'+EV.map(function(e){return '<option value="e:'+e.id+'">'+esc(fy(e.y)+' ['+LANE[e.lane].n+'] '+e.t)+'</option>';}).join('')+'</optgroup>';
+  $('fLink').innerHTML=opts;$('fLink').value=sel||'';
+}
+function resetForm(){$('cardForm').reset();$('fId').value='';setLane('E');setLoc(null);$('fErr').textContent='';$('fSave').textContent='카드 저장하기';fillLinks('');}
+$('fReset').onclick=resetForm;
+function startCardFrom(e){
+  openMy('write');resetForm();
+  $('fTitle').value=e.t;$('fBC').checked=e.y<0;$('fYear').value=Math.abs(e.y);$('fYear2').value=e.y2?Math.abs(e.y2):'';
+  setLane(e.lane);$('fPlace').value=e.reg||'';setLoc(e.lat,e.lng);
+  $('fWhat').placeholder='교과서 '+(e.p||'')+'쪽을 읽고, 무슨 일이 있었는지 자신의 말로 써 보세요.';
+  $('fWhat').focus();
+}
+function editCard(id){
+  var c=cards.filter(function(x){return x.id===id;})[0];if(!c)return;
+  resetForm();$('fId').value=c.id;$('fTitle').value=c.t;$('fBC').checked=c.y<0;$('fYear').value=Math.abs(c.y);$('fYear2').value=c.y2?Math.abs(c.y2):'';
+  setLane(c.lane);$('fPlace').value=c.place||'';setLoc(c.lat,c.lng);$('fWhat').value=c.what||'';$('fWhy').value=c.why||'';fillLinks(c.link||'');
+  $('fSave').textContent='고친 내용 저장하기';$('fTitle').focus();
+}
+$('cardForm').addEventListener('submit',function(ev){
+  ev.preventDefault();var err=$('fErr');err.textContent='';
+  var t=$('fTitle').value.trim(),yv=parseInt($('fYear').value,10),y2v=parseInt($('fYear2').value,10),what=$('fWhat').value.trim(),why=$('fWhy').value.trim();
+  if(!t)return err.textContent='사건 이름을 써 주세요.';
+  if(!(yv>0))return err.textContent='연도를 숫자로 써 주세요. 기원전이면 [기원전]에 체크해요.';
+  var bc=$('fBC').checked,y=bc?-yv:yv,y2=y2v>0?(bc&&y2v<=yv?-y2v:y2v):0;
+  if(y2&&y2<y)return err.textContent='끝 연도는 시작 연도보다 뒤여야 해요.';
+  if(y<-3500||y>2030)return err.textContent='연도는 기원전 3500년부터 2030년 사이로 써 주세요.';
+  if(what.length<10)return err.textContent='무슨 일이 있었는지 10자 이상 써 주세요.';
+  if(!pick)return err.textContent='[🌏 지구본에서 고르기]로 사건이 일어난 곳을 골라 주세요.';
+  var id=$('fId').value||('c'+Date.now().toString(36));
+  var c={id:id,t:t,y:y,y2:y2,lane:lane,place:$('fPlace').value.trim(),lat:pick.lat,lng:pick.lng,what:what,why:why,link:$('fLink').value};
+  var i=cards.findIndex(function(x){return x.id===id;});if(i>=0)cards[i]=c;else cards.push(c);
+  cards.sort(function(a,b){return a.y-b.y;});saveCards();resetForm();drawCards();mission();
+  err.style.color='#15803d';err.textContent='저장했어요! 지구본에 초록색 ✎ 핀으로 나타나요.';setTimeout(function(){err.style.color='';if(err.textContent.indexOf('저장')===0)err.textContent='';},2500);
+  render();
+});
+function linkText(v){if(!v)return '';var p=v.split(':');if(p[0]==='c'){var c=cards.filter(function(x){return x.id===p[1];})[0];return c?fy(c.y)+' '+c.t:'';}var e=findEv(p[1]);return e?fy(e.y)+' '+e.t:'';}
+function drawCards(){
+  $('cardN').textContent=cards.length?cards.length+'장':'';
+  if(!cards.length){$('cardList').innerHTML='<p class="empty" style="color:#64748b">아직 카드가 없어요. 왼쪽에서 첫 카드를 만들어 보세요!</p>';return;}
+  $('cardList').innerHTML=cards.map(function(c){var col=LANE[c.lane].d;return '<div class="mc" style="--c:'+col+'"><div class="hd"><span class="y">'+fyr(c)+' · '+LANE[c.lane].n+'</span><b>'+esc(c.t)+'</b></div><p>'+esc(c.what)+'</p>'+(c.why?'<p><em>왜 중요할까?</em> '+esc(c.why)+'</p>':'')+(c.link?'<p style="color:#7c3aed"><em style="color:#7c3aed">↔ 비교</em> '+esc(linkText(c.link))+'</p>':'')+'<div class="acts"><button type="button" data-e="'+c.id+'">고치기</button><button type="button" data-g="'+c.id+'">지구본에서 보기</button><button type="button" data-d="'+c.id+'">지우기</button></div></div>';}).join('');
+}
+$('cardList').addEventListener('click',function(ev){var b=ev.target.closest('button');if(!b)return;
+  if(b.dataset.e)editCard(b.dataset.e);
+  if(b.dataset.d&&confirm('이 카드를 지울까요?')){cards=cards.filter(function(c){return c.id!==b.dataset.d;});saveCards();drawCards();mission();render();}
+  if(b.dataset.g){var c=cards.filter(function(x){return x.id===b.dataset.g;})[0];if(c){closeModal('myModal');S.year=c.y;render();openEvent(findEv('m'+c.id));}}
+});
+
+/* 위치 고르기 */
+$('fPick').onclick=function(){S.picking=true;closeModal('myModal');$('pickbar').classList.add('on');G.controls().autoRotate=false;$('spin').setAttribute('aria-pressed','false');};
+function stopPick(){S.picking=false;$('pickbar').classList.remove('on');openModal('myModal');}
+$('pickCancel').onclick=stopPick;
+function pickAt(c){if(!S.picking||!c)return;setLoc(c.lat,c.lng);stopPick();}
+
+/* 연표 보기 */
+function drawChron(){
+  var box=$('chron');
+  if(!cards.length){box.innerHTML='<p class="empty" style="color:#64748b;text-align:center">카드를 만들면 여기에 동양·서양 두 줄 연표가 그려져요.</p>';return;}
+  var groups=[];cards.forEach(function(c){var g=groups[groups.length-1];if(g&&g.y===c.y)g.list.push(c);else groups.push({y:c.y,list:[c]});});
+  function tc(c){var col=LANE[c.lane].d;return '<div class="tc" style="--c:'+col+'"><b>'+esc(c.t)+'</b>'+(c.place?' <span class="pl">· '+esc(c.place)+'</span>':'')+'<p>'+esc(c.what)+'</p>'+(c.why?'<p><b style="font-size:12.5px">의의</b> '+esc(c.why)+'</p>':'')+(c.link?'<div class="lk">↔ 같은 시기 비교: '+esc(linkText(c.link))+'</div>':'')+'</div>';}
+  box.innerHTML='<div class="heads"><span>동양 (아시아)</span><span></span><span>서양 (유럽·아메리카)</span></div>'+groups.map(function(g){
+    var e=g.list.filter(function(c){return c.lane==='E';}),w=g.list.filter(function(c){return c.lane==='W';}),gw=g.list.filter(function(c){return c.lane==='G';});
+    return '<div class="crow"><div class="side e">'+e.map(tc).join('')+'</div><div class="yr">'+fyr(g.list[0]).replace(' ~ ','<br>~ ')+'</div><div class="side w">'+w.map(tc).join('')+'</div>'+(gw.length?'<div class="gwide">'+gw.map(tc).join('')+'</div>':'')+'</div>';
+  }).join('');
+}
+$('printBtn').onclick=function(){var n=[$('wClass').value,$('wNum').value,$('wName').value].filter(Boolean).join(' ');$('printWho').textContent=n?'— '+n:'';window.print();};
+
+/* 미션 */
+function mission(){
+  var e=cards.filter(function(c){return c.lane==='E';}).length,w=cards.filter(function(c){return c.lane==='W';}).length,l=cards.filter(function(c){return c.link;}).length,cm=$('cmp').value.trim().length>=30;
+  var m=[[e>=3,'동양 카드 3장','지금 '+e+'장'],[w>=3,'서양 카드 3장','지금 '+w+'장'],[l>=1,'같은 시기 비교 1개','카드의 ‘비교하기’ 칸'],[cm,'비교 글 쓰기','③ 탭에서 30자 이상']];
+  $('mission').innerHTML=m.map(function(x){return '<div class="'+(x[0]?'ok':'')+'"><b>'+x[1]+'</b>'+x[2]+'</div>';}).join('');
+  return m.every(function(x){return x[0];});
+}
+
+/* 탭 */
+function tab(name){[].forEach.call(document.querySelectorAll('.my .tabs button'),function(b){b.setAttribute('aria-selected',b.dataset.tab===name);});
+  [].forEach.call(document.querySelectorAll('[data-pane]'),function(p){p.hidden=p.dataset.pane!==name;});
+  if(name==='chron')drawChron();if(name==='write'){drawCards();}mission();}
+document.querySelector('.my .tabs').addEventListener('click',function(ev){var b=ev.target.closest('button');if(b)tab(b.dataset.tab);});
+function openMy(t){fillLinks($('fLink').value);drawCards();tab(t||'write');openModal('myModal');}
+$('openMy').onclick=function(){openMy('write');};
+
+/* 정리 글·학생 정보 저장 */
+[['cmp','wt-cmp'],['refl','wt-refl'],['wClass','pc-class'],['wNum','pc-num'],['wName','pc-name']].forEach(function(p){var i=$(p[0]);i.value=store(p[1])||'';i.addEventListener('input',function(){store(p[1],i.value);if(p[0]==='cmp')mission();});});
+
+/* 제출 */
+function post(payload){
+  var ctrl=window.AbortController?new AbortController():null,t=setTimeout(function(){if(ctrl)ctrl.abort();},30000);
+  return fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload),signal:ctrl?ctrl.signal:undefined})
+    .then(function(r){clearTimeout(t);if(!r.ok)throw new Error('status');return r.json();});
+}
+function who(){return {className:$('wClass').value.trim(),studentNumber:$('wNum').value.trim(),studentName:$('wName').value.trim()};}
+function needWho(m){var w=who();if(w.className&&w.studentNumber&&w.studentName)return false;m.className='msg err';m.textContent='학반, 번호, 이름을 모두 써 주세요.';return true;}
+$('send').onclick=function(){
+  var m=$('sendMsg'),btn=this;m.className='msg';m.textContent='';
+  if(needWho(m))return;
+  if(!cards.length){m.className='msg err';m.textContent='카드를 1장 이상 만든 뒤 제출해 주세요.';return;}
+  var e=cards.filter(function(c){return c.lane==='E';}).length,w=cards.filter(function(c){return c.lane==='W';}).length,g=cards.length-e-w;
+  var p=who();p.action='submittl';
+  p.cardCount=cards.length+'장';
+  p.laneCount='동양 '+e+' · 서양 '+w+(g?' · 세계 '+g:'');
+  p.mission=(mission()?'완료':'진행 중')+' (비교 연결 '+cards.filter(function(c){return c.link;}).length+'개)';
+  p.cards=cards.map(function(c,i){return (i+1)+'. ['+fyr(c)+' · '+LANE[c.lane].n+(c.place?' · '+c.place:'')+'] '+c.t+'\n   - 내용: '+c.what+(c.why?'\n   - 의의: '+c.why:'')+(c.link?'\n   - 비교: '+linkText(c.link):'');}).join('\n');
+  p.compare=$('cmp').value.trim();p.reflection=$('refl').value.trim();
+  btn.disabled=true;btn.textContent='제출 중…';
+  post(p).then(function(d){if(!d||!d.ok)throw new Error('server');m.className='msg ok';m.textContent='제출했어요! ('+d.timestamp+') 선생님 화면에 바로 나타납니다.';})
+    .catch(function(){m.className='msg err';m.textContent='제출하지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요. (카드는 그대로 남아 있어요)';})
+    .then(function(){btn.disabled=false;btn.textContent='📮 선생님께 제출하기';});
+};
+$('fb').onclick=function(){
+  var m=$('sendMsg'),box=$('fbBox'),btn=this;m.textContent='';if(needWho(m))return;
+  btn.disabled=true;box.hidden=false;box.textContent='불러오는 중…';
+  var p=who();p.action='myFeedback';p.lesson='tl';
+  post(p).then(function(d){if(!d||!d.ok)throw new Error('x');
+    if(!d.found){box.textContent='아직 제출 기록이 없어요. 먼저 제출해 주세요.';return;}
+    if(!d.grade&&!d.feedback){box.textContent='제출은 확인되었어요('+d.timestamp+'). 선생님이 아직 평가하지 않았어요.';return;}
+    box.innerHTML=(d.grade?'<span class="g">'+esc(d.grade)+'</span>':'')+esc(d.feedback||'');})
+  .catch(function(){box.textContent='불러오지 못했어요. 잠시 뒤 다시 눌러 주세요.';}).then(function(){btn.disabled=false;});
+};
+
+/* 수업 목록 링크: 허브 안에 있을 때만 */
+if(/\/history1-2nd\//.test(location.pathname)){$('back').style.display='inline-block';}
+
+/* 시작 */
+$('myCount').textContent=cards.length;
+drawMarks();render();
+})();
+</script>
+</body>
+</html>

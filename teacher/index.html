@@ -125,7 +125,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-o
 <script>
 (function(){
   var API='https://script.google.com/macros/s/AKfycbyfpqz_5eEpNHCmJyu6QdyYyYAaOfNnMo9S0Yd94ZBvp32PFutglQ2HU2_71Z4shqvmHw/exec';
-  var LESSONS=[[1,'제1차 세계 대전'],[2,'2차 대전의 배경'],[3,'2차 대전의 전개'],[4,'전쟁 범죄'],[5,'인권 회복과 평화'],[6,'민족 운동'],[7,'냉전 체제']];
+  var LESSONS=[[1,'제1차 세계 대전'],[2,'2차 대전의 배경'],[3,'2차 대전의 전개'],[4,'전쟁 범죄'],[5,'인권 회복과 평화'],[6,'민족 운동'],[7,'냉전 체제'],['tl','세계사 연표']];
   var GRADES=['잘함','보통','노력 필요'];
   var QUICK=['교과서 내용을 정확히 썼어요.','근거가 분명해요.','사례를 하나 더 들어 보세요.','핵심 용어를 넣어 다시 써 보세요.','자기 생각이 잘 드러나요.'];
   function $(id){ return document.getElementById(id); }
@@ -142,7 +142,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-o
   var root=document.documentElement, TK='wc-theme', th=ls(TK); if(th) root.setAttribute('data-theme',th);
   $('theme').onclick=function(){ var dark=root.getAttribute('data-theme')?root.getAttribute('data-theme')==='dark':matchMedia('(prefers-color-scheme: dark)').matches; var n=dark?'light':'dark'; root.setAttribute('data-theme',n); ls(TK,n); };
 
-  var pw=ss('t-pw'), lesson=+(ls('t-lesson')||7), data=null, seen={}, drafts={}, timer=null, loading=false;
+  var pw=ss('t-pw'), lesson=(function(v){ v=v||'7'; return isNaN(+v)?v:+v; })(ls('t-lesson')), data=null, seen={}, drafts={}, timer=null, loading=false;
 
   // login
   $('loginForm').onsubmit=function(e){
@@ -160,7 +160,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-o
     $('login').hidden=true; $('app').hidden=false; $('lessons').hidden=false; $('logout').hidden=false;
     var nav=$('lessons'); nav.innerHTML='';
     LESSONS.forEach(function(l){
-      var b=document.createElement('button'); b.type='button'; b.innerHTML='<b>'+l[0]+'차시</b>'+l[1];
+      var b=document.createElement('button'); b.type='button'; b.innerHTML='<b>'+(typeof l[0]==='number'?l[0]+'차시':'🌏 활동')+'</b>'+l[1];
       b.setAttribute('aria-pressed',l[0]===lesson); b.onclick=function(){ lesson=l[0]; ls('t-lesson',lesson); seen={}; data=null; [].forEach.call(nav.children,function(x,i){ x.setAttribute('aria-pressed',LESSONS[i][0]===lesson); }); $('list').innerHTML='<div class="empty-state">불러오는 중…</div>'; load(); };
       nav.appendChild(b);
     });

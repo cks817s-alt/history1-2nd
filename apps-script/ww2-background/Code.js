@@ -96,7 +96,7 @@ function doPost(e) {
       case 'list': return json_(list_(data));
       case 'submit5': return json_(submit5_(data));
       case 'submit6': return json_(submit6_(data));
-      case 'submit1': case 'submit3': case 'submit4': case 'submit7':
+      case 'submit1': case 'submit3': case 'submit4': case 'submit7': case 'submittl':
         var L = LESSONS[data.action.slice(6)];
         return json_(appendLesson_(data, L.sheet, L.headers, L.fields));
       case 'rows': return json_(rows_(data));
@@ -169,7 +169,10 @@ var LESSONS = {
   7: { sheet: '7차시 제출', headers: ['제출일시', '학반', '번호', '이름', '우주 경쟁의 까닭(도입)', '대립 구도 표', '독일 분단 순서', '냉전/열전 분류',
          '빈칸(맞힌 수)', 'O/X 퀴즈', '아시아의 냉전 서술', '한 줄 성찰', '스스로 점검'],
        fields: ['timestamp', 'className', 'studentNumber', 'studentName', 'spaceWhy', 'blocScore', 'orderResult', 'coldHot',
-         'fillScore', 'oxScore', 'asia', 'reflection', 'selfCheck'] }
+         'fillScore', 'oxScore', 'asia', 'reflection', 'selfCheck'] },
+  // 세계사 타임라인 지구본 — 나의 세계사 연표 만들기 (차시와 별도인 단원 공통 활동)
+  tl: { sheet: '세계사 연표 제출', headers: ['제출일시', '학반', '번호', '이름', '카드 수', '동양·서양 카드', '미션', '나의 연표(카드)', '동서 비교 글', '새롭게 알게 된 점'],
+        fields: ['timestamp', 'className', 'studentNumber', 'studentName', 'cardCount', 'laneCount', 'mission', 'cards', 'compare', 'reflection'] }
 };
 var GRADE_HEADERS = ['평가', '피드백', '평가일시'];
 
@@ -315,7 +318,7 @@ function getSheet_() {
 
 function safeCell_(v) {
   var s = (v === undefined || v === null) ? '' : String(v);
-  if (s.length > 5000) s = s.slice(0, 5000);
+  if (s.length > 20000) s = s.slice(0, 20000);
   // 시트 수식으로 해석되지 않도록
   if (/^[=+\-@]/.test(s)) s = "'" + s;
   return s;
