@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>수업 도구 · 역사 수업실</title>
+<meta name="description" content="역사 수업 시간에 모둠 활동으로 쓰는 실시간 수업 도구">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8fafc; --surface:#ffffff; --surface-2:#f1f5f9; --ink:#0f172a; --ink-2:#475569; --line:#e2e8f0;
+  --accent:#b45309; --amber:#f59e0b; --accent-soft:#fef3c7; --navy:#0f172a;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.07);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1120; --surface:#111a2e; --surface-2:#1e293b; --ink:#f1f5f9; --ink-2:#94a3b8; --line:#243147;
+    --accent:#fbbf24; --accent-soft:rgba(245,158,11,.14); --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1120; --surface:#111a2e; --surface-2:#1e293b; --ink:#f1f5f9; --ink-2:#94a3b8; --line:#243147;
+  --accent:#fbbf24; --accent-soft:rgba(245,158,11,.14); --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;font-size:17px;line-height:1.7;word-break:keep-all}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px}
+.bar{background:var(--navy);color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.bar .wrap{display:flex;align-items:center;gap:12px;padding-top:12px;padding-bottom:12px}
+.logo{flex:none;width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#ea580c);display:grid;place-items:center;font-size:22px;box-shadow:0 4px 12px rgba(245,158,11,.35);text-decoration:none}
+.bar .t{flex:1;min-width:0;line-height:1.35}
+.bar .t small{display:block;font-size:12px;color:#fbbf24;font-weight:700}
+.bar .t b{font-size:17px;font-weight:900}
+.theme{flex:none;border:1px solid #334155;background:#1e293b;color:#e2e8f0;border-radius:10px;height:34px;padding:0 12px;cursor:pointer;font:inherit;font-size:13px;font-weight:700}
+.hero{margin:28px 0 8px;background:radial-gradient(120% 140% at 0% 0%,#1e293b 0%,#0f172a 60%);color:#fff;border-radius:24px;padding:32px;border:1px solid #1e293b;box-shadow:var(--shadow)}
+.hero .unit{display:inline-block;font-size:13px;font-weight:700;color:#fbbf24;border:1px solid rgba(251,191,36,.45);background:rgba(245,158,11,.12);padding:3px 12px;border-radius:999px}
+.hero h1{font-weight:900;font-size:clamp(30px,5.5vw,44px);line-height:1.3;margin:14px 0 10px}
+.hero h1 em{font-style:normal;color:#fbbf24}
+.hero p{color:#cbd5e1;margin:0;max-width:36em}
+h2.sec{font-weight:900;font-size:22px;margin:36px 0 4px}
+.sec-sub{color:var(--ink-2);font-size:15px;margin:0 0 18px}
+
+.tool{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:var(--shadow)}
+.tool-head{display:flex;gap:18px;align-items:flex-start}
+.ticon{flex:none;width:64px;height:64px;border-radius:16px;background:var(--navy);color:#fbbf24;display:grid;place-items:center;font-size:30px;border:1px solid #1e293b}
+.tool h3{font-weight:900;font-size:24px;line-height:1.35;margin:2px 0 4px}
+.tool .lead{margin:0;color:var(--ink-2);font-size:15.5px}
+.live{display:inline-block;font-size:12.5px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:1px 10px;border-radius:6px}
+
+.modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}
+.mode{border:1px solid var(--line);border-radius:16px;padding:16px 18px;background:var(--surface-2);display:flex;flex-direction:column;gap:6px;min-width:0}
+.mode b{font-size:18px;font-weight:900}
+.mode p{margin:0;color:var(--ink-2);font-size:14.5px}
+.mode .set{font-size:13px;color:var(--ink-2)}
+.mode .set strong{color:var(--ink)}
+
+.go-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}
+.btn{display:flex;flex-direction:column;gap:2px;text-decoration:none;border-radius:16px;padding:16px 18px;font-weight:900;font-size:19px;line-height:1.35;transition:transform .15s,box-shadow .15s}
+.btn small{font-weight:500;font-size:13.5px}
+.btn:hover,.btn:focus-visible{transform:translateY(-2px);outline:none;box-shadow:var(--shadow)}
+.btn.student{background:var(--amber);color:#0f172a}
+.btn.student small{color:#3b2a06}
+.btn.teacher{background:var(--navy);color:#fff;border:1px solid #334155}
+.btn.teacher small{color:#cbd5e1}
+.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.steps{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;counter-reset:st}
+.steps li{counter-increment:st;border:1px dashed var(--line);border-radius:14px;padding:12px 14px;font-size:14.5px;color:var(--ink-2)}
+.steps li::before{content:counter(st);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fbbf24;font-weight:900;font-size:13px;margin-right:6px}
+.steps li b{color:var(--ink)}
+.teacher-links{margin-top:14px;font-size:14px;color:var(--ink-2)}
+.teacher-links a{color:var(--accent);font-weight:700}
+
+.tip{margin:32px 0 0;padding:18px 20px;border-radius:16px;border:1px dashed var(--line);background:var(--surface);color:var(--ink-2);font-size:15px}
+.tip strong{color:var(--ink)}
+footer{padding:36px 0 72px;color:var(--ink-2);font-size:13px}
+@media (max-width:640px){
+  .modes,.go-row,.steps{grid-template-columns:1fr}
+  .tool{padding:20px}
+  .tool-head{gap:12px}
+  .ticon{width:48px;height:48px;font-size:24px;border-radius:12px}
+  .hero{padding:26px 20px;border-radius:20px}
+}
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap">
+  <a class="logo" href="../" aria-label="역사 수업실 처음으로">🏛️</a>
+  <div class="t"><small>중2 역사① · 2학기</small><b>역사 수업실 · 수업 도구</b></div>
+  <button class="theme" id="theme" type="button">◐ 화면</button>
+</div></header>
+<div class="wrap">
+  <section class="hero">
+    <div class="unit">모둠 활동 · 실시간</div>
+    <h1>수업 <em>도구</em></h1>
+    <p>수업 시간에 선생님 화면과 모둠 휴대폰을 연결해 함께 하는 활동입니다. 선생님이 입장 코드를 알려 주면 들어오세요.</p>
+  </section>
+
+  <h2 class="sec">역사 문장 경매</h2>
+  <p class="sec-sub">모둠이 받은 예산으로 역사 문장을 사고팔며, 개념을 판단하고 사건의 흐름을 정리합니다</p>
+
+  <article class="tool">
+    <div class="tool-head">
+      <div class="ticon" aria-hidden="true">⚖</div>
+      <div>
+        <span class="live">실시간 · 모둠별 휴대폰 1대</span>
+        <h3>역사 문장 경매</h3>
+        <p class="lead">선생님 화면(프로젝터)에 문장이 뜨면 모둠이 휴대폰으로 입찰합니다. 경매 방식은 두 가지입니다.</p>
+      </div>
+    </div>
+
+    <div class="modes">
+      <div class="mode">
+        <b>① 옳은 문장 경매</b>
+        <p>문장이 옳은지 판단해 옳은 문장만 삽니다. 낙찰받으면 교과서 근거를 쓰고, 틀린 문장을 샀다면 바르게 고쳐 씁니다.</p>
+        <span class="set">문장 세트: <strong>냉전 체제와 제3 세계</strong> (교과서 217~223쪽) · 화폐 단위 냥</span>
+      </div>
+      <div class="mode">
+        <b>② 순서 경매</b>
+        <p>사건의 흐름을 나눈 문장 카드를 모둠마다 섞어 받습니다. 겹치는 카드는 팔고 없는 카드는 사서, 사건이 일어난 순서대로 가장 먼저 맞힌 모둠이 이깁니다.</p>
+        <span class="set">문장 세트: <strong>프랑스 혁명의 전개 과정</strong> (교과서 148~149쪽) · 화폐 단위 원</span>
+      </div>
+    </div>
+
+    <div class="go-row">
+      <a class="btn student" href="https://yeoksa-auction-2611.web.app/student.html" target="_blank" rel="noopener">
+        학생 · 경매장 들어가기 →
+        <small>입장 코드 4자리와 학년·반·번호·이름을 넣어요</small>
+      </a>
+      <a class="btn teacher" href="https://yeoksa-auction-2611.web.app/teacher.html" target="_blank" rel="noopener">
+        선생님 · 경매장 열기 →
+        <small>문장 세트와 규칙을 고르고 입장 코드·QR을 띄웁니다</small>
+      </a>
+    </div>
+    <p class="teacher-links">선생님 바로 가기: <a href="https://yeoksa-auction-2611.web.app/teacher.html" target="_blank" rel="noopener">① 옳은 문장 경매로 열기</a> · <a href="https://yeoksa-auction-2611.web.app/teacher.html?mode=order" target="_blank" rel="noopener">② 순서 경매로 열기</a></p>
+
+    <ol class="steps">
+      <li><b>입장</b> · 선생님 화면의 QR을 찍거나 위 학생 버튼을 누르고 입장 코드를 넣어요.</li>
+      <li><b>로그인·모둠</b> · 학년·반·번호·이름을 넣고 우리 모둠 번호를 골라요. 이름은 선생님만 봐요.</li>
+      <li><b>입찰</b> · 모둠에서 경매인 한 명을 정해 그 사람만 입찰 버튼을 눌러요.</li>
+    </ol>
+  </article>
+
+  <p class="tip"><strong>사용 방법</strong> · 한 번호는 기기 한 대로만 접속할 수 있어요. 번호를 잘못 골랐다면 선생님께 말씀하세요. 선생님 화면에서 접속을 풀어 주면 다시 들어올 수 있습니다. 왼쪽 아래 <strong>← 수업 목록</strong>을 누르면 처음 화면으로 돌아갑니다.</p>
+
+  <footer>문장은 모두 교과서 본문으로 확인했습니다. 경매 기록은 수업이 끝나면 선생님이 정리합니다.</footer>
+</div>
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('theme');
+  try{var s=localStorage.getItem('theme'); if(s) root.setAttribute('data-theme',s);}catch(e){}
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    var next=cur==='dark'?'light':'dark'; root.setAttribute('data-theme',next);
+    try{localStorage.setItem('theme',next);}catch(e){}
+  });
+})();
+</script>
+<a href="../" aria-label="수업 목록으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483000;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:rgba(15,23,42,.92);color:#fff;border:1px solid rgba(245,158,11,.55);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.2;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)">← 수업 목록</a>
+</body>
+</html>
