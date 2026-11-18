@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>유물 분장 투표 · 역사 수업실</title>
+<meta name="description" content="국립중앙박물관 유물 분장 대회 — 반별 유물 후보를 보고 투표해 우리 반 유물 1~2개를 고릅니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8fafc; --surface:#ffffff; --surface-2:#f1f5f9; --ink:#0f172a; --ink-2:#475569; --line:#e2e8f0;
+  --accent:#b45309; --amber:#f59e0b; --accent-soft:#fef3c7; --navy:#0f172a; --ok:#047857; --ok-soft:#d1fae5; --bad:#b91c1c;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.07);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1120; --surface:#111a2e; --surface-2:#1e293b; --ink:#f1f5f9; --ink-2:#94a3b8; --line:#243147;
+    --accent:#fbbf24; --accent-soft:rgba(245,158,11,.14); --ok:#34d399; --ok-soft:rgba(16,185,129,.15); --bad:#f87171;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1120; --surface:#111a2e; --surface-2:#1e293b; --ink:#f1f5f9; --ink-2:#94a3b8; --line:#243147;
+  --accent:#fbbf24; --accent-soft:rgba(245,158,11,.14); --ok:#34d399; --ok-soft:rgba(16,185,129,.15); --bad:#f87171;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;font-size:16px;line-height:1.7;word-break:keep-all;padding-bottom:96px}
+button,select,input,textarea{font:inherit;color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+.bar{background:var(--navy);color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.bar .wrap{display:flex;align-items:center;gap:12px;padding-top:12px;padding-bottom:12px}
+.logo{flex:none;width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#ea580c);display:grid;place-items:center;font-size:22px;text-decoration:none}
+.bar .t{flex:1;min-width:0;line-height:1.35}
+.bar .t small{display:block;font-size:12px;color:#fbbf24;font-weight:700}
+.bar .t b{font-size:17px;font-weight:900}
+.theme{flex:none;border:1px solid #334155;background:#1e293b;color:#e2e8f0;border-radius:10px;height:34px;padding:0 12px;cursor:pointer;font-size:13px;font-weight:700}
+.hero{margin:24px 0 8px;background:radial-gradient(120% 140% at 0% 0%,#1e293b 0%,#0f172a 60%);color:#fff;border-radius:22px;padding:28px;border:1px solid #1e293b;box-shadow:var(--shadow)}
+.hero .unit{display:inline-block;font-size:13px;font-weight:700;color:#fbbf24;border:1px solid rgba(251,191,36,.45);background:rgba(245,158,11,.12);padding:3px 12px;border-radius:999px}
+.hero h1{font-weight:900;font-size:clamp(26px,5vw,38px);line-height:1.3;margin:12px 0 8px}
+.hero h1 em{font-style:normal;color:#fbbf24}
+.hero p{margin:0;color:#cbd5e1;max-width:680px}
+.steps{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;padding:0;list-style:none}
+.steps li{font-size:13px;font-weight:700;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:4px 12px;color:#e2e8f0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;margin:18px 0;box-shadow:var(--shadow)}
+.panel h2{margin:0 0 12px;font-size:19px;font-weight:900}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.lbl{font-weight:700;color:var(--ink-2);font-size:14px;min-width:42px}
+.cls{display:flex;gap:6px;flex-wrap:wrap}
+.cls button{border:1.5px solid var(--line);background:var(--surface-2);border-radius:12px;min-width:56px;height:44px;font-weight:900;cursor:pointer}
+.cls button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .cls button[aria-pressed="true"]{background:#fbbf24;color:#0f172a;border-color:#fbbf24}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cls button[aria-pressed="true"]{background:#fbbf24;color:#0f172a;border-color:#fbbf24}}
+select,input[type=text],input[type=password],textarea{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;height:44px;padding:0 12px}
+textarea{height:auto;padding:10px 12px;width:100%;resize:vertical}
+.btn{border:0;border-radius:12px;height:44px;padding:0 18px;font-weight:900;cursor:pointer;background:var(--amber);color:#0f172a}
+.btn.ghost{background:var(--surface-2);color:var(--ink);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.msg{margin:10px 0 0;font-weight:700;font-size:14px}
+.msg.err{color:var(--bad)} .msg.ok{color:var(--ok)}
+.banner{border-radius:14px;padding:12px 16px;font-weight:700;margin:14px 0;background:var(--accent-soft);color:var(--accent);border:1px solid rgba(245,158,11,.35)}
+.banner.ok{background:var(--ok-soft);color:var(--ok);border-color:rgba(16,185,129,.35)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:8px}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:border-color .15s,transform .15s}
+.card.on{border-color:var(--amber);transform:translateY(-2px)}
+.ph{position:relative;background:#e9edf2;aspect-ratio:4/3;overflow:hidden;display:grid;grid-auto-flow:column;grid-auto-columns:1fr}
+.ph img{min-width:0;min-height:0;width:100%;height:100%;object-fit:contain;cursor:zoom-in}
+.ph .chip{position:absolute;left:10px;top:10px;font-size:12px;font-weight:900;padding:2px 10px;border-radius:999px;background:#0f172a;color:#fbbf24}
+.ph .chip.cand{background:rgba(15,23,42,.6);color:#e2e8f0}
+.ph .mine{position:absolute;right:10px;top:10px;font-size:12px;font-weight:900;padding:2px 10px;border-radius:999px;background:var(--amber);color:#0f172a}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.body h3{margin:0;font-size:19px;font-weight:900;line-height:1.35}
+.meta{font-size:13px;color:var(--ink-2);font-weight:500}
+.sec{font-size:14.5px}
+.sec b{display:block;font-size:12px;color:var(--accent);font-weight:900;letter-spacing:.02em}
+.intent{background:var(--surface-2);border-radius:12px;padding:8px 12px}
+.more{font-size:13px;font-weight:700;color:var(--accent);text-decoration:none}
+.more:hover{text-decoration:underline}
+.pick{margin-top:auto;border:2px solid var(--amber);background:transparent;color:var(--accent);border-radius:12px;height:46px;font-weight:900;cursor:pointer}
+.card.on .pick{background:var(--amber);color:#0f172a}
+.pick:disabled{opacity:.4;cursor:not-allowed}
+.res{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700}
+.res .track{flex:1;height:10px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.res .fill{height:100%;background:var(--amber);border-radius:99px}
+.dock{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -6px 24px rgba(15,23,42,.12);z-index:20}
+.dock .wrap{display:flex;align-items:center;gap:12px;padding-top:12px;padding-bottom:12px}
+.dock .info{flex:1;min-width:0;font-size:14px;font-weight:700;line-height:1.4}
+.dock .info small{display:block;color:var(--ink-2);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.winners{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.winner{display:flex;gap:10px;align-items:center;background:var(--accent-soft);border-radius:14px;padding:10px}
+.winner img{width:64px;height:64px;object-fit:cover;border-radius:10px;background:#fff}
+.winner b{display:block;font-size:15px;line-height:1.3}
+.winner span{font-size:13px;color:var(--ink-2);font-weight:700}
+.empty{color:var(--ink-2);text-align:center;padding:28px 10px}
+.zoom{position:fixed;inset:0;background:rgba(2,6,23,.88);display:none;align-items:center;justify-content:center;z-index:50;padding:16px;cursor:zoom-out}
+.zoom.show{display:flex}
+.zoom img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;background:#fff}
+footer{color:var(--ink-2);font-size:12.5px;margin:30px 0 10px;line-height:1.6}
+footer a{color:inherit}
+.backlink{display:inline-block;margin-top:6px;font-weight:700;color:var(--accent)}
+/* 교사 화면 */
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl td,.tbl th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:middle}
+.tbl th{font-size:12px;color:var(--ink-2)}
+.nums{display:flex;flex-wrap:wrap;gap:6px}
+.nums span{min-width:34px;text-align:center;border-radius:8px;padding:2px 6px;font-size:13px;font-weight:700;background:var(--surface-2);color:var(--ink-2)}
+.nums span.v{background:var(--ok-soft);color:var(--ok)}
+.toggle{display:flex;gap:8px;flex-wrap:wrap}
+.form{display:grid;gap:8px;grid-template-columns:1fr 1fr}
+.form .full{grid-column:1/-1}
+.form input{width:100%}
+@media (max-width:560px){.form{grid-template-columns:1fr}.hero{padding:22px}.grid{grid-template-columns:1fr}}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap">
+  <a class="logo" href="../" aria-label="수업 목록">🏛️</a>
+  <div class="t"><small>국립중앙박물관 유물 분장 대회</small><b id="barTitle">우리 반 유물 고르기</b></div>
+  <button class="theme" id="themeBtn" type="button">화면 밝기</button>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <span class="unit">유물 분장 대회 · 반별 투표</span>
+    <h1>우리 반이 분장할 <em>유물</em>을 골라요</h1>
+    <p>모둠 활동지에서 고른 유물을 한자리에 모았습니다. 사진과 소개, 모둠의 의도를 읽고 우리 반에서 분장하면 좋을 유물에 투표하세요. 한 사람이 <b>최대 2개</b>까지 고를 수 있고, 마감 전에는 다시 바꿀 수 있어요.</p>
+    <ul class="steps"><li>① 반·번호 고르기</li><li>② 후보 유물 살펴보기</li><li>③ 1~2개 골라 투표</li></ul>
+  </section>
+
+  <!-- 학생 화면 -->
+  <div id="studentView">
+    <section class="panel" id="whoPanel">
+      <h2>누가 투표하나요?</h2>
+      <div class="row" style="margin-bottom:10px"><span class="lbl">반</span><div class="cls" id="clsBtns"></div></div>
+      <div class="row"><span class="lbl">번호</span>
+        <select id="numSel" aria-label="번호"><option value="">번호 선택</option></select>
+        <button class="btn" id="enterBtn" type="button">후보 보기</button>
+      </div>
+      <p class="msg" id="whoMsg" role="status"></p>
+    </section>
+
+    <section id="listArea" hidden>
+      <div id="stateBanner"></div>
+      <section class="panel" id="winnerPanel" hidden>
+        <h2>우리 반 투표 결과</h2>
+        <div class="winners" id="winners"></div>
+        <p class="meta" id="voterCount" style="margin:10px 0 0"></p>
+      </section>
+      <div class="row" style="justify-content:space-between;margin-top:6px">
+        <h2 style="margin:0;font-size:20px;font-weight:900" id="listTitle">후보 유물</h2>
+        <button class="btn ghost" id="reloadBtn" type="button">새로고침</button>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+  </div>
+
+  <!-- 교사 화면 (?teacher) -->
+  <div id="teacherView" hidden>
+    <section class="panel" id="loginPanel">
+      <h2>선생님 화면</h2>
+      <div class="row"><input type="password" id="pw" placeholder="교사 비밀번호" autocomplete="current-password">
+        <button class="btn" id="loginBtn" type="button">들어가기</button></div>
+      <p class="msg" id="loginMsg" role="status"></p>
+    </section>
+    <div id="adminArea" hidden>
+      <section class="panel">
+        <div class="row" style="justify-content:space-between">
+          <div class="cls" id="tClsBtns"></div>
+          <span class="meta" id="tUpdated"></span>
+        </div>
+        <div class="toggle" style="margin-top:14px">
+          <button class="btn ghost" id="closeBtn" type="button"></button>
+          <button class="btn ghost" id="revealBtn" type="button"></button>
+          <a class="btn ghost" id="sheetHint" style="display:inline-flex;align-items:center;text-decoration:none" href="./" target="_blank" rel="noopener">학생 화면 열기 ↗</a>
+        </div>
+        <p class="msg" id="tMsg" role="status"></p>
+      </section>
+      <section class="panel">
+        <h2 id="tCountTitle">득표 현황</h2>
+        <table class="tbl"><thead><tr><th>순위</th><th>유물</th><th style="width:45%">득표</th></tr></thead><tbody id="tCount"></tbody></table>
+      </section>
+      <section class="panel">
+        <h2>투표한 번호</h2>
+        <div class="nums" id="tNums"></div>
+        <p class="meta" style="margin:8px 0 0">초록색은 투표한 번호입니다. 1~25번을 기준으로 보여 줍니다.</p>
+      </section>
+      <section class="panel">
+        <h2>후보 유물 더하기</h2>
+        <p class="meta" style="margin:-6px 0 12px">구글 시트 「유물 후보」 탭에서 바로 고치거나 지울 수도 있습니다. 표시 칸에 X를 쓰면 학생 화면에서 숨겨집니다.</p>
+        <div class="form">
+          <input type="text" id="fName" placeholder="유물명 (필수)">
+          <input type="text" id="fEra" placeholder="국적 · 시대 (예: 한국 · 고려)">
+          <input type="text" id="fImg" class="full" placeholder="사진 주소 (국립중앙박물관 소장품 사진 주소 붙여넣기)">
+          <input type="text" id="fLink" class="full" placeholder="소장품 링크 (국립중앙박물관 소장품 상세 페이지 주소)">
+          <textarea id="fIntro" class="full" rows="3" placeholder="간략 소개"></textarea>
+          <textarea id="fIntent" class="full" rows="2" placeholder="모둠의 의도 (선정 이유·분장 계획)"></textarea>
+          <select id="fStatus"><option>최종 선정</option><option>후보</option></select>
+          <button class="btn" id="addBtn" type="button">이 반에 더하기</button>
+        </div>
+        <p class="msg" id="addMsg" role="status"></p>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    사진과 소장품 정보: <a href="https://www.museum.go.kr/MUSEUM/contents/M0502000000.do" target="_blank" rel="noopener">국립중앙박물관 소장품 검색</a> (공공누리 제1유형 · 출처표시). 모둠의 의도는 학생 활동지에서 옮겼습니다.<br><a class="backlink" href="../tools/">← 수업 도구로 돌아가기</a>
+  </footer>
+</main>
+
+<div class="dock" id="dock" hidden><div class="wrap">
+  <div class="info"><span id="dockCount">0 / 2개 선택</span><small id="dockNames">마음에 드는 유물을 골라 주세요</small></div>
+  <button class="btn" id="voteBtn" type="button" disabled>투표하기</button>
+</div></div>
+<div class="zoom" id="zoom" role="dialog" aria-label="사진 크게 보기"><img alt=""></div>
+
+<script>
+(function () {
+  'use strict';
+  var API = 'https://script.google.com/macros/s/AKfycbyfpqz_5eEpNHCmJyu6QdyYyYAaOfNnMo9S0Yd94ZBvp32PFutglQ2HU2_71Z4shqvmHw/exec';
+  var CLASSES = ['1', '2', '3', '4', '5'];
+  var MAX_NUM = 25;
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+  function call(payload) {
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var t = setTimeout(function () { if (ctrl) ctrl.abort(); }, 25000);
+    return fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload), signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) { clearTimeout(t); if (!r.ok) throw new Error('status ' + r.status); return r.json(); })
+      .then(function (d) { if (!d.ok && d.error !== 'auth') throw new Error(d.error || '서버 오류'); return d; });
+  }
+  function imgs(item) { return String(item.img || '').split(/\s+/).filter(Boolean); }
+  function msg(el, text, kind) { el.textContent = text || ''; el.className = 'msg' + (kind ? ' ' + kind : ''); }
+
+  /* 화면 밝기 */
+  (function () {
+    var root = document.documentElement, saved = store('av-theme');
+    if (saved) root.setAttribute('data-theme', saved);
+    $('themeBtn').onclick = function () {
+      var dark = root.getAttribute('data-theme') ? root.getAttribute('data-theme') === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+      var next = dark ? 'light' : 'dark'; root.setAttribute('data-theme', next); store('av-theme', next);
+    };
+  })();
+
+  /* 사진 크게 보기 */
+  document.addEventListener('click', function (e) {
+    var im = e.target.closest && e.target.closest('.ph img');
+    if (im) { $('zoom').querySelector('img').src = im.src; $('zoom').querySelector('img').alt = im.alt; $('zoom').classList.add('show'); }
+  });
+  $('zoom').onclick = function () { this.classList.remove('show'); };
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') $('zoom').classList.remove('show'); });
+
+  function clsButtons(box, current, onPick) {
+    box.innerHTML = CLASSES.map(function (c) { return '<button type="button" data-c="' + c + '" aria-pressed="' + (c === current) + '">' + c + '반</button>'; }).join('');
+    box.onclick = function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      Array.prototype.forEach.call(box.children, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      onPick(b.getAttribute('data-c'));
+    };
+  }
+
+  var isTeacher = /[?&]teacher\b/.test(location.search);
+  if (isTeacher) teacherInit(); else studentInit();
+
+  /* ---------------- 학생 ---------------- */
+  function studentInit() {
+    var S = { cls: store('av-cls') || '', num: store('av-num') || '', data: null, picks: [], saved: [] };
+    var sel = $('numSel');
+    for (var n = 1; n <= MAX_NUM; n++) sel.insertAdjacentHTML('beforeend', '<option value="' + n + '">' + n + '번</option>');
+    sel.value = S.num;
+    clsButtons($('clsBtns'), S.cls, function (c) { S.cls = c; });
+    $('enterBtn').onclick = function () {
+      S.num = sel.value;
+      if (!S.cls || !S.num) return msg($('whoMsg'), '반과 번호를 모두 골라 주세요.', 'err');
+      store('av-cls', S.cls); store('av-num', S.num);
+      load(true);
+    };
+    $('reloadBtn').onclick = function () { load(false); };
+    $('voteBtn').onclick = vote;
+    if (S.cls && S.num) load(true);
+
+    function load(first) {
+      msg($('whoMsg'), '후보 유물을 불러오는 중…');
+      $('enterBtn').disabled = true;
+      call({ action: 'artItems', cls: S.cls, num: S.num }).then(function (d) {
+        S.data = d; S.saved = (d.myVote || []).slice();
+        if (first || !S.picks.length) S.picks = S.saved.slice();
+        S.picks = S.picks.filter(function (id) { return d.items.some(function (it) { return it.id === id; }); });
+        msg($('whoMsg'), S.cls + '반 ' + S.num + '번으로 들어왔어요.', 'ok');
+        $('barTitle').textContent = S.cls + '반 유물 고르기';
+        render();
+        if (first) $('listArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }).catch(function (e) {
+        msg($('whoMsg'), '불러오지 못했어요. 잠시 뒤 다시 눌러 주세요. (' + e.message + ')', 'err');
+      }).then(function () { $('enterBtn').disabled = false; });
+    }
+
+    function render() {
+      var d = S.data, items = d.items, st = d.state || {};
+      $('listArea').hidden = false;
+      $('listTitle').textContent = S.cls + '반 후보 유물 ' + items.length + '점';
+      var b = '';
+      if (st.closed) b = '<div class="banner">투표가 마감되었어요. 결과는 선생님이 공개하면 볼 수 있어요.</div>';
+      else if (S.saved.length) b = '<div class="banner ok">투표했어요: ' + esc(names(S.saved)) + ' · 마감 전에는 다시 골라 바꿀 수 있어요.</div>';
+      $('stateBanner').innerHTML = b;
+
+      var res = d.results, max = 0;
+      if (res) items.forEach(function (it) { max = Math.max(max, res.count[it.id] || 0); });
+      $('winnerPanel').hidden = !res;
+      if (res) {
+        var ranked = items.slice().sort(function (a, b) { return (res.count[b.id] || 0) - (res.count[a.id] || 0); });
+        var second = ranked[1] ? (res.count[ranked[1].id] || 0) : -1;
+        var top = ranked.filter(function (it, i) { var c = res.count[it.id] || 0; return c > 0 && (i < 2 || c === second); });
+        $('winners').innerHTML = top.length ? top.map(function (it, i) {
+          return '<div class="winner"><img src="' + esc(imgs(it)[0] || '') + '" alt=""><div><b>' + (i + 1) + '위 · ' + esc(it.name) + '</b><span>' + (res.count[it.id] || 0) + '표</span></div></div>';
+        }).join('') : '<p class="meta">아직 표가 없어요.</p>';
+        $('voterCount').textContent = '투표한 사람 ' + res.voters + '명';
+      }
+
+      if (!items.length) {
+        $('grid').innerHTML = '<div class="empty panel">아직 이 반의 후보 유물이 없어요.<br>모둠 활동지가 모이면 선생님이 후보를 올려 주실 거예요.</div>';
+      } else {
+        $('grid').innerHTML = items.map(function (it) {
+          var on = S.picks.indexOf(it.id) >= 0, mine = S.saved.indexOf(it.id) >= 0;
+          var pics = imgs(it).map(function (src) { return '<img src="' + esc(src) + '" alt="' + esc(it.name) + ' 사진" loading="lazy">'; }).join('');
+          var cnt = res ? (res.count[it.id] || 0) : 0;
+          return '<article class="card' + (on ? ' on' : '') + '" data-id="' + esc(it.id) + '">' +
+            '<div class="ph">' + (pics || '<div class="empty" style="margin:auto">사진 없음</div>') +
+              '<span class="chip' + (it.status === '최종 선정' ? '' : ' cand') + '">' + esc(it.status === '최종 선정' ? '모둠 최종 선정' : (it.status || '후보')) + '</span>' +
+              (mine ? '<span class="mine">내가 투표함</span>' : '') + '</div>' +
+            '<div class="body"><h3>' + esc(it.name) + '</h3>' +
+              '<div class="meta">' + esc([it.era, it.owner].filter(Boolean).join(' · ')) + '</div>' +
+              (it.intro ? '<div class="sec"><b>간략 소개</b>' + esc(it.intro) + '</div>' : '') +
+              (it.intent ? '<div class="sec intent"><b>모둠의 의도</b>' + esc(it.intent) + '</div>' : '') +
+              (it.link ? '<a class="more" href="' + esc(it.link) + '" target="_blank" rel="noopener">국립중앙박물관에서 자세히 보기 ↗</a>' : '') +
+              (res ? '<div class="res"><div class="track"><div class="fill" style="width:' + (max ? Math.round(cnt / max * 100) : 0) + '%"></div></div>' + cnt + '표</div>' : '') +
+              '<button class="pick" type="button"' + (st.closed ? ' disabled' : '') + '>' + (on ? '✓ 고름 (누르면 취소)' : '이 유물 고르기') + '</button>' +
+            '</div></article>';
+        }).join('');
+      }
+      dock();
+    }
+
+    $('grid').onclick = function (e) {
+      var btn = e.target.closest('.pick'); if (!btn || btn.disabled) return;
+      var id = btn.closest('.card').getAttribute('data-id');
+      var i = S.picks.indexOf(id);
+      if (i >= 0) S.picks.splice(i, 1);
+      else if (S.picks.length >= (S.data.maxPicks || 2)) { flash('최대 ' + (S.data.maxPicks || 2) + '개까지 고를 수 있어요. 먼저 하나를 취소해 주세요.'); return; }
+      else S.picks.push(id);
+      render();
+    };
+
+    function names(ids) { return ids.map(function (id) { var it = S.data.items.filter(function (x) { return x.id === id; })[0]; return it ? it.name : id; }).join(', '); }
+    function same(a, b) { return a.length === b.length && a.every(function (x) { return b.indexOf(x) >= 0; }); }
+    function flash(t) { $('dockNames').textContent = t; }
+
+    function dock() {
+      var d = S.data, closed = d.state && d.state.closed;
+      $('dock').hidden = !d.items.length || closed;
+      $('dockCount').textContent = S.picks.length + ' / ' + (d.maxPicks || 2) + '개 선택';
+      $('dockNames').textContent = S.picks.length ? names(S.picks) : '마음에 드는 유물을 골라 주세요';
+      var changed = !same(S.picks, S.saved);
+      $('voteBtn').disabled = !S.picks.length || !changed;
+      $('voteBtn').textContent = S.saved.length ? (changed ? '다시 투표하기' : '투표 완료') : '투표하기';
+    }
+
+    function vote() {
+      $('voteBtn').disabled = true; $('voteBtn').textContent = '보내는 중…';
+      call({ action: 'artVote', cls: S.cls, num: S.num, picks: S.picks }).then(function (d) {
+        S.saved = d.picks.slice(); render(); window.scrollTo({ top: $('listArea').offsetTop - 10, behavior: 'smooth' });
+      }).catch(function (e) { flash('투표를 보내지 못했어요: ' + e.message); dock(); });
+    }
+  }
+
+  /* ---------------- 교사 ---------------- */
+  function teacherInit() {
+    $('studentView').hidden = true; $('teacherView').hidden = false;
+    $('barTitle').textContent = '유물 투표 · 선생님 화면';
+    document.querySelector('.backlink').href = '../teacher/';
+    document.querySelector('.backlink').textContent = '← 교사 화면';
+    var T = { pw: '', cls: '3', data: null, timer: null };
+    try { T.pw = sessionStorage.getItem('av-pw') || ''; } catch (e) {}
+    $('loginBtn').onclick = function () { T.pw = $('pw').value.trim(); login(); };
+    $('pw').onkeydown = function (e) { if (e.key === 'Enter') $('loginBtn').click(); };
+    if (T.pw) login();
+
+    function login() {
+      msg($('loginMsg'), '확인하는 중…');
+      call({ action: 'artAdmin', password: T.pw, cls: T.cls }).then(function (d) {
+        if (!d.ok) { msg($('loginMsg'), '비밀번호가 맞지 않아요.', 'err'); return; }
+        try { sessionStorage.setItem('av-pw', T.pw); } catch (e) {}
+        $('loginPanel').hidden = true; $('adminArea').hidden = false;
+        clsButtons($('tClsBtns'), T.cls, function (c) { T.cls = c; refresh(); });
+        show(d);
+        T.timer = setInterval(function () { if (!document.hidden) refresh(true); }, 8000);
+      }).catch(function (e) { msg($('loginMsg'), '연결하지 못했어요: ' + e.message, 'err'); });
+    }
+    function refresh(quiet) {
+      if (!quiet) msg($('tMsg'), '불러오는 중…');
+      call({ action: 'artAdmin', password: T.pw, cls: T.cls }).then(function (d) { show(d); if (!quiet) msg($('tMsg'), ''); })
+        .catch(function (e) { msg($('tMsg'), '불러오지 못했어요: ' + e.message, 'err'); });
+    }
+    function show(d) {
+      if (d.cls !== T.cls) return;
+      T.data = d;
+      var st = d.state;
+      $('closeBtn').textContent = st.closed ? '🔒 마감됨 · 다시 열기' : '🗳️ 투표 중 · 마감하기';
+      $('revealBtn').textContent = st.reveal ? '👀 결과 공개 중 · 숨기기' : '🙈 결과 숨김 · 학생에게 공개';
+      $('tUpdated').textContent = '자동 새로고침 · ' + new Date().toLocaleTimeString('ko-KR');
+      var ranked = d.items.slice().sort(function (a, b) { return (d.count[b.id] || 0) - (d.count[a.id] || 0); });
+      var max = Math.max.apply(null, [1].concat(ranked.map(function (it) { return d.count[it.id] || 0; })));
+      $('tCountTitle').textContent = d.cls + '반 득표 현황 · 투표 ' + d.voters.length + '명';
+      $('tCount').innerHTML = ranked.length ? ranked.map(function (it, i) {
+        var c = d.count[it.id] || 0;
+        return '<tr><td><b>' + (i + 1) + '</b></td><td><b>' + esc(it.name) + '</b><div class="meta">' + esc(it.status || '') + '</div></td>' +
+          '<td><div class="res"><div class="track"><div class="fill" style="width:' + Math.round(c / max * 100) + '%"></div></div>' + c + '표</div></td></tr>';
+      }).join('') : '<tr><td colspan="3" class="meta">이 반에는 아직 후보 유물이 없어요. 아래에서 더하거나 시트에 적어 주세요.</td></tr>';
+      var voted = {}; d.voters.forEach(function (v) { voted[v.num] = 1; });
+      var html = '';
+      for (var n = 1; n <= MAX_NUM; n++) html += '<span class="' + (voted[n] ? 'v' : '') + '">' + n + '</span>';
+      Object.keys(voted).filter(function (k) { return +k > MAX_NUM; }).forEach(function (k) { html += '<span class="v">' + esc(k) + '</span>'; });
+      $('tNums').innerHTML = html;
+    }
+    function setState(patch) {
+      patch.action = 'artSet'; patch.password = T.pw; patch.cls = T.cls;
+      msg($('tMsg'), '바꾸는 중…');
+      call(patch).then(function () { refresh(); }).catch(function (e) { msg($('tMsg'), '바꾸지 못했어요: ' + e.message, 'err'); });
+    }
+    $('closeBtn').onclick = function () { setState({ closed: !T.data.state.closed }); };
+    $('revealBtn').onclick = function () { setState({ reveal: !T.data.state.reveal }); };
+    $('addBtn').onclick = function () {
+      var name = $('fName').value.trim();
+      if (!name) return msg($('addMsg'), '유물명을 써 주세요.', 'err');
+      $('addBtn').disabled = true; msg($('addMsg'), '더하는 중…');
+      call({ action: 'artAdd', password: T.pw, cls: T.cls, name: name, era: $('fEra').value, img: $('fImg').value.trim(),
+        link: $('fLink').value.trim(), intro: $('fIntro').value, intent: $('fIntent').value, status: $('fStatus').value })
+        .then(function () {
+          msg($('addMsg'), T.cls + '반에 「' + name + '」을(를) 더했어요.', 'ok');
+          ['fName', 'fEra', 'fImg', 'fLink', 'fIntro', 'fIntent'].forEach(function (id) { $(id).value = ''; });
+          refresh();
+        }).catch(function (e) { msg($('addMsg'), '더하지 못했어요: ' + e.message, 'err'); })
+        .then(function () { $('addBtn').disabled = false; });
+    };
+  }
+})();
+</script>
+</body>
+</html>

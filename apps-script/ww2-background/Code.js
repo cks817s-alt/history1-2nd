@@ -12,6 +12,7 @@
  *  - submit1·submit3·submit4·submit7: 1·3·4·7차시 활동 결과를 각 차시 제출 탭에 기록
  *  - rows / grade: 교사 확인·평가 화면(teacher/)에서 차시별 제출 목록 불러오기, 평가·피드백 저장 (비밀번호 필요)
  *  - myFeedback: 학생이 학반·번호·이름으로 자기 평가·피드백 확인
+ *  - artItems·artVote·artAdmin·artSet·artAdd: 국중박 유물분장 대회 반별 유물 투표 (artifact-vote/)
  *
  * 설정은 시트 상단 메뉴 [📚 수업 설정]에서 합니다. (API 키·비밀번호는 코드에 적지 않습니다)
  */
@@ -102,6 +103,11 @@ function doPost(e) {
       case 'rows': return json_(rows_(data));
       case 'grade': return json_(grade_(data));
       case 'myFeedback': return json_(myFeedback_(data));
+      case 'artItems': return json_(artItems_(data));
+      case 'artVote': return json_(artVote_(data));
+      case 'artAdmin': return json_(artAdmin_(data));
+      case 'artSet': return json_(artSet_(data));
+      case 'artAdd': return json_(artAdd_(data));
       default: return json_(submit_(data));
     }
   } catch (err) {
@@ -418,4 +424,220 @@ function clip_(s, n) {
 
 function json_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+
+/* ---------------- 국중박 유물분장 대회: 반별 유물 투표 (artifact-vote/) ----------------
+ * '유물 후보' 탭: 반마다 투표할 유물 목록. 선생님이 시트에서 직접 고치거나 줄을 더해도 됩니다.
+ *   (표시 칸에 X를 쓰면 학생 화면에서 숨김)
+ * '유물 투표' 탭: 학생 한 명당 한 줄(반·번호). 다시 투표하면 그 줄을 고칩니다.
+ * 반별 '투표 마감'·'결과 공개'는 스크립트 속성 ART_STATE에 저장합니다.
+ */
+
+var ART_SHEET = '유물 후보';
+var ART_HEADERS = ['반', 'ID', '유물명', '국적/시대', '소장', '사진 주소', '소장품 링크', '간략 소개', '모둠의 의도', '상태', '표시'];
+var VOTE_SHEET = '유물 투표';
+var VOTE_HEADERS = ['투표일시', '반', '번호', '선택1', '선택2'];
+var ART_CLASSES = ['1', '2', '3', '4', '5'];
+var ART_MAX_NUM = 30;
+var ART_MAX_PICKS = 2;
+var MUSEUM_VIEW = 'https://www.museum.go.kr/MUSEUM/contents/M0502000000.do?schM=view&relicId=';
+
+var ART_SEED = [
+  ['3', 'a301', '복희와 여와', '중앙아시아 투루판 아스타나 무덤 출토', '국립중앙박물관', 'img/fuxi.jpg', MUSEUM_VIEW + '435',
+    '중국 천지창조 신화에 나오는 두 신, 여와(왼쪽)와 복희(오른쪽)가 마주 본 그림이다. 두 신은 컴퍼스와 굽은 자를 들고 있는데, 둥근 하늘과 네모난 땅이라는 우주관을 나타낸다. 윗몸은 사람, 아랫몸은 뱀처럼 서로 꼬여 있다. 마로 짠 천에 그렸고 세로 188.5cm이다.',
+    '분장했을 때 재미있을 것 같아서 골랐다.', '최종 선정', ''],
+  ['3', 'a302', '얼굴모양 조개', '한국 · 신석기 (부산 영도구 출토)', '국립중앙박물관', 'img/shellface.jpg', MUSEUM_VIEW + '4435',
+    '조개껍데기에 두 눈과 입 모양의 구멍을 뚫어 사람 얼굴처럼 만든 신석기 시대 유물이다. 높이 10.7cm, 너비 12cm이다.',
+    '모둠 활동지의 후보 유물 (최종 선정 전)', '후보', ''],
+  ['3', 'a303', '청자 원앙 모양 향로 뚜껑', '한국 · 고려', '국립중앙박물관', 'img/mandarin-lid.jpg', MUSEUM_VIEW + '4219',
+    '연밥 위에 원앙이 앉은 모양의 향로 뚜껑이다. 향 연기가 원앙의 몸을 지나 벌린 입으로 나오도록 만들었다. 깃털을 가는 선으로 새긴 세련된 솜씨와 비색 유약으로 보아 청자가 가장 발달한 12세기 전반의 작품으로 본다.',
+    '모둠 활동지의 후보 유물 (최종 선정 전)', '후보', ''],
+  ['3', 'a304', '금동약사불입상', '한국 · 신라', '국립중앙박물관', 'img/yaksa.jpg', MUSEUM_VIEW + '330',
+    '약그릇(약합)을 든 약사불을 금동으로 만든 작은 불상이다. 불상 높이 11.6cm로, 크고 높은 머리 위 상투(육계)와 대좌에 살짝 끌리는 긴 치마가 특징이다.',
+    '모둠 활동지의 후보 유물 (최종 선정 전)', '후보', ''],
+  ['3', 'a305', '농경문 청동기', '한국 · 초기 철기 (보물)', '국립중앙박물관', 'img/nonggyeong.jpg', MUSEUM_VIEW + '1991',
+    '대전에서 나왔다고 전하는 청동기로 윗부분만 남아 있다. 한쪽 면에는 따비로 밭을 가는 사람, 괭이를 든 사람, 항아리에 무언가를 담는 사람이, 다른 면에는 나뭇가지 끝에 앉은 새가 새겨져 있다. 농경과 관련된 제사에 쓴 의식용 도구로 본다.',
+    '모둠 활동지의 후보 유물 (최종 선정 전)', '후보', ''],
+  ['4', 'a401', '요령식 동검 (비파형 동검)', '한국 · 청동기 (부여 송국리 출토)', '국립중앙박물관', 'img/bipa.jpg', MUSEUM_VIEW + '2040',
+    '중국 악기 비파를 닮아 비파형 동검이라고도 부른다. 칼몸 아래쪽이 넓고 둥글며, 칼몸과 손잡이를 따로 만들어 끼우는 방식이다. 부여 송국리 돌널무덤에서 나왔고 길이 33.4cm이다.',
+    '모둠 활동지의 후보 유물 (최종 선정 전)', '후보', ''],
+  ['4', 'a402', '봉황 장식 비녀', '한국 · 고려', '국립중앙박물관', 'img/phoenix-pin.jpg', MUSEUM_VIEW + '1490',
+    '은으로 만들고 봉황 부분만 금으로 도금한 비녀이다(길이 27.8cm). 봉황의 큰 볏과 긴 깃털을 가는 선으로 정교하게 새겼다. 금·은 비녀는 주로 상류층이, 서민은 나무·뿔·뼈 비녀를 썼다. ※ 활동지에는 대한제국으로 적었지만 국립중앙박물관 소장품 정보는 고려이다.',
+    '왕실의 권위와 좋은 뜻, 황금빛의 화려한 품격을 함께 갖춘 비녀이다. 전통 혼례나 행사에 참가하면서 비녀에 관심이 생겨서 골랐다.', '최종 선정', ''],
+  ['4', 'a403', '나주 신촌리 금동관', '한국 · 삼국 (국보)', '국립중앙박물관', 'img/naju-crown.jpg', MUSEUM_VIEW + '4384',
+    '나주 반남면 신촌리 9호 무덤에서 나온 금동관으로, 안쪽 관과 바깥 관으로 되어 있다. 바깥 관에는 풀꽃 모양 세움 장식과 달개가 달려 있는데, 신라 관의 ‘山’ 자 모양 장식과는 다르다.',
+    '예쁘고 만들기 어렵지 않다. 역사적으로 중요하다.', '후보', ''],
+  ['4', 'a404', '십이지 당삼채 (개 · 호랑이)', '중국 · 당', '국립중앙박물관', 'img/zodiac-dog.jpg img/zodiac-tiger.jpg', MUSEUM_VIEW + '2930',
+    '머리는 동물, 몸은 사람 모습인 당나라의 십이지상으로, 세 가지 색 유약(당삼채)을 입혔다. 열두 띠의 형상을 무덤에 묻는 풍습은 당나라 때 가장 유행했고, 무덤의 작은 감실에 동서남북 방향마다 3개씩 놓았다. 박물관에는 개·호랑이·뱀이 함께 전시되어 있다.',
+    '세 마리 동물이 나란히 서 있는 모습이 관객에게 재미를 줄 것 같다. 당나라에서 십이지신이 나쁜 기운을 몰아낸다는 이유로 유행했다고 한다.', '최종 선정', ''],
+  ['4', 'a405', '청자 석류 모양 주전자', '한국 · 고려', '국립중앙박물관', 'img/pomegranate.jpg', MUSEUM_VIEW + '1124',
+    '석류 네 개를 이어 붙여 만든 청자 주전자이다. 석류 세 개 위에 하나를 올린 안정된 삼각 구도로, 이렇게 만든 주전자는 매우 드물다. 높이 18.3cm이다.',
+    '청자의 아름다운 색을 직접 나타내 볼 수 있다. 청자의 다양한 꽃잎을 표현하며 청자의 아름다움을 깊이 관찰할 수 있다.', '최종 선정', ''],
+  ['4', 'a406', '청자 오리모양 향로', '한국 · 고려', '국립중앙박물관', 'img/duck-censer.jpg', MUSEUM_VIEW + '87091',
+    '뚜껑 위에 오리(원앙)가 앉은 고려 청자 향로로, 세 발 달린 몸체 위에 뚜껑을 덮었다. 전체 높이 23cm이며 박물관 고려실에 ‘청자 원앙모양 향로’라는 이름으로 전시되어 있다. ※ 활동지에 적은 국립해양유산연구소 소장품과는 다른 유물일 수 있다.',
+    '처음 본 유물을 다른 사람에게 소개할 수 있을 것 같다. 유물이지만 고전스럽지 않고 귀엽고 요즘스럽다.', '후보', ''],
+  ['5', 'a501', '농경문 청동기', '한국 · 초기 철기 (보물)', '국립중앙박물관', 'img/nonggyeong.jpg', MUSEUM_VIEW + '1991',
+    '대전에서 나왔다고 전하는 청동기로 윗부분만 남아 있다. 한쪽 면에는 따비로 밭을 가는 사람, 괭이를 든 사람, 항아리에 무언가를 담는 사람이, 다른 면에는 나뭇가지 끝에 앉은 새가 새겨져 있다. 농경과 관련된 제사에 쓴 의식용 도구로 본다.',
+    '농경과 농경 의례의 모습을 구체적으로 보여 주고, 생김새가 멋지다. 판을 이 모양으로 잘라 청색·옥색으로 칠하고 무늬를 그린 뒤, 구멍을 뚫어 얼굴을 넣어 표현하려 한다.', '최종 선정', ''],
+  ['5', 'a502', '백자 청화동정추월문 항아리', '한국 · 조선 (보물)', '국립중앙박물관 (이건희 기증)', 'img/dongjeong-jar.jpg', MUSEUM_VIEW + '36551211',
+    '흰 백자에 푸른 안료(청화)로 ‘동정호의 가을 달(동정추월)’ 풍경을 그린 조선 시대 항아리이다. 높이 32.5cm이며 보물로 지정되어 있다.',
+    '모양이 예쁘고 무늬가 독특하며, 조선 사람들이 쓴 그릇을 알 수 있다. 큰 항아리 모양으로 몸을 만들고 흰 옷에 파란 무늬를 붙여 표현하고, 도자기 장인과 항아리를 쓰는 사람의 이야기를 연기하려 한다.', '최종 선정', '']
+];
+
+function artSheet_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(ART_SHEET);
+  if (!sh) {
+    sh = ss.insertSheet(ART_SHEET);
+    sh.appendRow(ART_HEADERS);
+    sh.setFrozenRows(1);
+    sh.getRange(1, 1, 1, ART_HEADERS.length).setFontWeight('bold').setBackground('#fef3c7');
+    sh.getRange(2, 1, ART_SEED.length, ART_HEADERS.length).setNumberFormat('@').setValues(ART_SEED);
+  }
+  return sh;
+}
+
+function voteSheet_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(VOTE_SHEET);
+  if (!sh) {
+    sh = ss.insertSheet(VOTE_SHEET);
+    sh.appendRow(VOTE_HEADERS);
+    sh.setFrozenRows(1);
+    sh.getRange(1, 1, 1, VOTE_HEADERS.length).setFontWeight('bold').setBackground('#fef3c7');
+    sh.getRange('B:E').setNumberFormat('@');
+  }
+  return sh;
+}
+
+function artCls_(v) {
+  var c = String(v === undefined || v === null ? '' : v).replace(/[^0-9]/g, '');
+  if (ART_CLASSES.indexOf(c) < 0) throw new Error('반을 다시 골라 주세요.');
+  return c;
+}
+
+function artList_(cls) {
+  var vals = artSheet_().getDataRange().getDisplayValues();
+  var out = [];
+  for (var i = 1; i < vals.length; i++) {
+    var r = vals[i];
+    if (String(r[0]).replace(/[^0-9]/g, '') !== cls) continue;
+    if (!r[1] || !r[2]) continue;
+    if (String(r[10]).trim().toUpperCase() === 'X') continue;
+    out.push({ id: String(r[1]).trim(), name: r[2], era: r[3], owner: r[4], img: r[5], link: r[6],
+      intro: r[7], intent: r[8], status: r[9] });
+  }
+  return out;
+}
+
+function artStateAll_() {
+  try { return JSON.parse(PropertiesService.getScriptProperties().getProperty('ART_STATE') || '{}'); }
+  catch (e) { return {}; }
+}
+
+function artState_(cls) {
+  var s = artStateAll_()[cls] || {};
+  return { closed: !!s.closed, reveal: !!s.reveal };
+}
+
+function artVotes_(cls) {
+  var vals = voteSheet_().getDataRange().getDisplayValues();
+  var out = [];
+  for (var i = 1; i < vals.length; i++) {
+    if (vals[i][1] !== cls) continue;
+    out.push({ row: i + 1, time: vals[i][0], num: vals[i][2], picks: [vals[i][3], vals[i][4]].filter(Boolean) });
+  }
+  return out;
+}
+
+function artTally_(items, votes) {
+  var count = {};
+  items.forEach(function (it) { count[it.id] = 0; });
+  votes.forEach(function (v) { v.picks.forEach(function (p) { if (p in count) count[p]++; }); });
+  return count;
+}
+
+function artItems_(data) {
+  var cls = artCls_(data.cls);
+  var items = artList_(cls);
+  var state = artState_(cls);
+  var res = { ok: true, cls: cls, items: items, state: state, maxPicks: ART_MAX_PICKS };
+  var votes = null;
+  if (data.num) {
+    votes = artVotes_(cls);
+    var mine = votes.filter(function (v) { return v.num === String(data.num); })[0];
+    res.myVote = mine ? mine.picks : [];
+  }
+  if (state.reveal) {
+    votes = votes || artVotes_(cls);
+    res.results = { count: artTally_(items, votes), voters: votes.length };
+  }
+  return res;
+}
+
+function artVote_(data) {
+  var cls = artCls_(data.cls);
+  var num = parseInt(data.num, 10);
+  if (!(num >= 1 && num <= ART_MAX_NUM)) throw new Error('번호를 다시 골라 주세요.');
+  var picks = (Array.isArray(data.picks) ? data.picks : []).map(String)
+    .filter(function (p, i, a) { return p && a.indexOf(p) === i; });
+  if (picks.length < 1 || picks.length > ART_MAX_PICKS) throw new Error('유물을 1~' + ART_MAX_PICKS + '개 골라 주세요.');
+  var ids = artList_(cls).map(function (it) { return it.id; });
+  for (var i = 0; i < picks.length; i++) {
+    if (ids.indexOf(picks[i]) < 0) throw new Error('목록에 없는 유물이 있어요. 새로고침해 주세요.');
+  }
+  if (artState_(cls).closed) throw new Error('투표가 마감되었어요.');
+  var lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    var sh = voteSheet_();
+    var mine = artVotes_(cls).filter(function (v) { return v.num === String(num); })[0];
+    var row = [Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss'), cls, String(num), picks[0], picks[1] || ''];
+    if (mine) sh.getRange(mine.row, 1, 1, row.length).setValues([row]);
+    else sh.getRange(sh.getLastRow() + 1, 1, 1, row.length).setNumberFormat('@').setValues([row]);
+  } finally {
+    lock.releaseLock();
+  }
+  return { ok: true, picks: picks };
+}
+
+function artAdmin_(data) {
+  if (!checkPassword_(data.password)) return { ok: false, error: 'auth' };
+  var cls = artCls_(data.cls);
+  var items = artList_(cls);
+  var votes = artVotes_(cls);
+  return { ok: true, cls: cls, items: items, state: artState_(cls),
+    count: artTally_(items, votes),
+    voters: votes.map(function (v) { return { num: v.num, picks: v.picks, time: v.time }; }) };
+}
+
+function artSet_(data) {
+  if (!checkPassword_(data.password)) return { ok: false, error: 'auth' };
+  var cls = artCls_(data.cls);
+  var lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    var all = artStateAll_();
+    var s = all[cls] || {};
+    if (typeof data.closed === 'boolean') s.closed = data.closed;
+    if (typeof data.reveal === 'boolean') s.reveal = data.reveal;
+    all[cls] = s;
+    PropertiesService.getScriptProperties().setProperty('ART_STATE', JSON.stringify(all));
+  } finally {
+    lock.releaseLock();
+  }
+  return { ok: true, state: artState_(cls) };
+}
+
+function artAdd_(data) {
+  if (!checkPassword_(data.password)) return { ok: false, error: 'auth' };
+  var cls = artCls_(data.cls);
+  var name = clip_(data.name, 80).trim();
+  if (!name) throw new Error('유물명을 써 주세요.');
+  var sh = artSheet_();
+  var id = 'a' + cls + Utilities.getUuid().slice(0, 6);
+  var row = [cls, id, name, clip_(data.era, 80), clip_(data.owner, 80) || '국립중앙박물관', clip_(data.img, 500),
+    clip_(data.link, 500), clip_(data.intro, 1000), clip_(data.intent, 1000), clip_(data.status, 20) || '후보', ''];
+  sh.getRange(sh.getLastRow() + 1, 1, 1, row.length).setNumberFormat('@').setValues([row.map(safeCell_)]);
+  return { ok: true, id: id };
 }
