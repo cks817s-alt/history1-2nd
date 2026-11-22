@@ -17,7 +17,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#020617;color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;word-break:keep-all;-webkit-tap-highlight-color:transparent}
 button{font:inherit;cursor:pointer}
-.app{display:grid;grid-template-rows:auto 1fr auto;height:100dvh;height:100vh}
+.app{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr auto;height:100dvh;height:100vh}
 @supports(height:100dvh){.app{height:100dvh}}
 
 /* 상단 */
@@ -71,7 +71,7 @@ button{font:inherit;cursor:pointer}
 .panel .ph{padding:12px 14px 8px;border-bottom:1px solid var(--line)}
 .panel .ph h2{margin:0;font-size:16px;font-weight:900}
 .panel .ph p{margin:4px 0 0;font-size:12.5px;color:var(--muted)}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:0;flex:1;min-height:0;overflow:auto}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;flex:1;min-height:0;overflow:auto}
 .col{padding:8px 8px 12px;min-width:0}
 .col+.col{border-left:1px solid var(--line)}
 .col h3{position:sticky;top:0;margin:0 0 6px;padding:6px 4px;font-size:14px;font-weight:900;background:var(--navy);z-index:1;display:flex;align-items:center;gap:6px}
@@ -189,13 +189,13 @@ button{font:inherit;cursor:pointer}
 
 /* 반응형 */
 @media (max-width:900px){
-  .main{grid-template-columns:1fr;grid-template-rows:minmax(300px,1fr) auto}
+  .main{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(300px,1fr) auto}
   .panel{border-left:0;border-top:1px solid var(--line);max-height:38vh}
   .hud .yr{font-size:30px}
-  .tl{grid-template-columns:1fr;gap:6px}
+  .tl{grid-template-columns:minmax(0,1fr);gap:6px}
   .tl .ctrl{justify-content:center}
   .tl .lanes{display:none}
-  .grid2{grid-template-columns:1fr}
+  .grid2{grid-template-columns:minmax(0,1fr)}
   .mission{grid-template-columns:1fr 1fr}
   .src{display:none}
   .legend{bottom:8px;max-width:calc(100% - 16px)}

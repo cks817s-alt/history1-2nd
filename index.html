@@ -3,244 +3,215 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>역사① 2학기 수업실</title>
+<title>역사 탐구 노트</title>
 <meta name="description" content="중2 역사① 2학기 수업 자료 모음">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#f8fafc; --surface:#ffffff; --surface-2:#f1f5f9; --ink:#0f172a; --ink-2:#475569; --line:#e2e8f0;
-  --accent:#b45309; --amber:#f59e0b; --accent-soft:#fef3c7; --navy:#0f172a;
-  --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.07);
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0b1120; --surface:#111a2e; --surface-2:#1e293b; --ink:#f1f5f9; --ink-2:#94a3b8; --line:#243147;
-    --accent:#fbbf24; --accent-soft:rgba(245,158,11,.14); --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0b1120; --surface:#111a2e; --surface-2:#1e293b; --ink:#f1f5f9; --ink-2:#94a3b8; --line:#243147;
-  --accent:#fbbf24; --accent-soft:rgba(245,158,11,.14); --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
-}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;font-size:17px;line-height:1.7;word-break:keep-all}
-.wrap{max-width:920px;margin:0 auto;padding:0 16px}
-.bar{background:var(--navy);color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.25)}
-.bar .wrap{display:flex;align-items:center;gap:12px;padding-top:12px;padding-bottom:12px}
-.logo{flex:none;width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#ea580c);display:grid;place-items:center;font-size:22px;box-shadow:0 4px 12px rgba(245,158,11,.35)}
-.bar .t{flex:1;min-width:0;line-height:1.35}
-.bar .t small{display:block;font-size:12px;color:#fbbf24;font-weight:700}
-.bar .t b{font-size:17px;font-weight:900}
-.theme{flex:none;border:1px solid #334155;background:#1e293b;color:#e2e8f0;border-radius:10px;height:34px;padding:0 12px;cursor:pointer;font:inherit;font-size:13px;font-weight:700}
-.hero{margin:28px 0 8px;background:radial-gradient(120% 140% at 0% 0%,#1e293b 0%,#0f172a 60%);color:#fff;border-radius:24px;padding:36px 32px;border:1px solid #1e293b;box-shadow:var(--shadow)}
-.hero .unit{display:inline-block;font-size:13px;font-weight:700;color:#fbbf24;border:1px solid rgba(251,191,36,.45);background:rgba(245,158,11,.12);padding:3px 12px;border-radius:999px}
-.hero h1{font-weight:900;font-size:clamp(32px,6vw,48px);line-height:1.3;margin:14px 0 10px}
-.hero h1 em{font-style:normal;color:#fbbf24}
-.hero p{color:#cbd5e1;margin:0;max-width:34em}
-.hero{display:flex;gap:28px;align-items:center}
-.hero-text{flex:1;min-width:0}
-.qr{flex:none;text-align:center;background:#fff;border-radius:18px;padding:12px 12px 10px;box-shadow:0 8px 24px rgba(0,0,0,.35);border:0;cursor:zoom-in;font:inherit;color:#0f172a}
-.qr img{display:block;width:150px;height:150px}
-.qr span{display:block;font-size:12.5px;font-weight:700;margin-top:6px}
-.qr-big{position:fixed;inset:0;z-index:50;background:rgba(15,23,42,.92);display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:16px;cursor:zoom-out;color:#fff;text-align:center}
+body{margin:0;font-size:17px;line-height:1.7;word-break:keep-all;overflow-wrap:break-word}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+a{text-decoration:none;color:inherit}
+.hand{font-family:"Gaegu",cursive;font-weight:700}
+.hl{background:linear-gradient(transparent 55%,var(--nb-hl) 55%)}
+
+/* 머리 */
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:32px 0 20px}
+.head .who{font-size:21px;color:var(--nb-teal)}
+.head h1{margin:2px 0 0;font-size:clamp(40px,8vw,64px);line-height:1.1}
+.head-btns{display:flex;gap:10px;flex-wrap:wrap}
+.nbtn{display:inline-flex;align-items:center;gap:6px;min-height:46px;padding:0 18px;border:2px solid var(--nb-ink);border-radius:10px;background:var(--nb-card);color:var(--nb-ink);font:inherit;font-weight:800;font-size:15px;cursor:pointer;box-shadow:3px 3px 0 var(--nb-sh)}
+.nbtn.teal{background:var(--nb-teal);color:#fff}
+:root[data-theme="dark"] .nbtn.teal{color:#0E1412}
+.nbtn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--nb-sh)}
+
+/* 단원 탭 */
+.binder{margin-top:8px}
+.btabs{display:flex;gap:6px;padding-left:20px;overflow-x:auto;scrollbar-width:none;position:relative;z-index:1;margin-bottom:-2px}
+.btabs::-webkit-scrollbar{display:none}
+.btab{flex:none;border:2px solid var(--nb-ink);border-bottom:0;border-radius:12px 12px 0 0;padding:10px 20px;font:inherit;font-weight:800;font-size:15px;cursor:pointer;color:#1C1C1C;min-height:46px}
+.btab[data-c="1"]{background:#FFFFFF}.btab[data-c="2"]{background:#D7EFEC}.btab[data-c="3"]{background:#FFF3B0}.btab[data-c="4"]{background:#F3E1F7}.btab[data-c="5"]{background:#E3ECFB}
+.btab[aria-selected="true"]{padding-top:14px;font-size:16px}
+.page{background:var(--nb-card);border:2px solid var(--nb-ink);border-radius:0 20px 20px 20px;padding:32px 36px;box-shadow:6px 6px 0 var(--nb-sh)}
+.page[hidden]{display:none}
+.page-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.page-h h2{margin:0;font-size:clamp(26px,4.4vw,34px)}
+.page-h .hand{font-size:21px;color:var(--nb-teal)}
+.page > p.sub{margin:4px 0 20px;color:var(--nb-ink-2);font-size:15.5px}
+
+/* 차시 카드 */
+.cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.lc{position:relative;display:flex;flex-direction:column;gap:8px;height:100%;min-height:210px;border:2px solid var(--nb-ink);border-radius:14px;padding:20px;background:var(--nb-card);transition:transform .12s,box-shadow .12s}
+.lc:hover,.lc:focus-visible{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--nb-sh)}
+.lc .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.lc .no{font-family:"Do Hyeon",sans-serif;font-size:30px;line-height:1;color:var(--nb-teal)}
+.lc .era{font-size:12.5px;font-weight:800;color:var(--nb-ink-2);border:1px solid var(--nb-ink-2);border-radius:6px;padding:1px 8px}
+.lc h3{margin:0;font-size:19px;line-height:1.4}
+.lc p{margin:0;color:var(--nb-ink-2);font-size:14.5px;line-height:1.6}
+.lc .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto;padding-top:6px}
+.lc .tags span{font-size:12px;padding:1px 9px;border-radius:999px;background:var(--surface-2);color:var(--nb-ink)}
+.lc.now{background:var(--nb-hl-soft);border-width:3px}
+.lc .stamp{font-family:"Gaegu",cursive;font-weight:700;font-size:17px;color:#B3261E;border:2px solid #B3261E;border-radius:8px;padding:0 8px;transform:rotate(-5deg)}
+:root[data-theme="dark"] .lc .stamp{color:#FF8A80;border-color:#FF8A80}
+.lc .stamp.here{color:var(--nb-ink);border:0;transform:none}
+.lc.soon{border-style:dashed;color:var(--nb-ink-2)}
+.lc.wide{grid-column:span 3;flex-direction:row;align-items:center;gap:24px;min-height:0}
+.lc.wide .ico{flex:none;width:84px;height:84px;border:2px solid var(--nb-ink);border-radius:16px;display:grid;place-items:center;font-family:"Do Hyeon",sans-serif;font-size:30px;background:var(--nb-hl)}
+.lc.wide .body{display:flex;flex-direction:column;gap:6px;min-width:0}
+.go{margin-top:6px;align-self:flex-start;font-weight:800;font-size:14px;border-bottom:3px solid var(--nb-hl)}
+
+/* 진도 막대 */
+.bar2{height:14px;border:2px solid var(--nb-ink);border-radius:999px;overflow:hidden;background:var(--nb-card);margin:10px 0 22px}
+.bar2 i{display:block;height:100%;background:var(--nb-teal)}
+
+/* 아래 두 칸 */
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:36px}
+.sticky{border:2px solid var(--nb-ink);border-radius:20px;padding:26px 30px;box-shadow:6px 6px 0 var(--nb-sh);display:flex;flex-direction:column;gap:10px;color:#1C1C1C}
+.sticky.y{background:#FFF3B0}.sticky.p{background:#F3E1F7}
+.sticky .hand{font-size:21px}
+.sticky b.big{font-family:"Do Hyeon",sans-serif;font-weight:400;font-size:32px;line-height:1.2}
+.sticky .row{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#fff;border:2px solid #1C1C1C;border-radius:12px;padding:14px 16px;min-height:52px;font-weight:800}
+.sticky p{margin:0;line-height:1.7}
+
+.tip{margin:32px 0 0;padding:16px 20px;border:2px dashed var(--nb-ink-2);border-radius:14px;background:var(--nb-card);color:var(--nb-ink-2);font-size:15px}
+.tip strong{color:var(--nb-ink)}
+footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:28px 0 72px;color:var(--nb-ink-2);font-size:13px}
+footer a{font-weight:800}
+
+/* QR 크게 보기 */
+.qr-big{position:fixed;inset:0;z-index:50;background:rgba(20,20,20,.92);display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:16px;cursor:zoom-out;color:#fff;text-align:center}
 .qr-big.on{display:flex}
 .qr-big img{width:min(78vmin,560px);height:auto;background:#fff;border-radius:20px;padding:14px}
-.qr-big b{font-size:clamp(20px,4vw,30px);font-weight:900}
-.qr-big small{font-size:clamp(14px,2.4vw,18px);color:#cbd5e1;word-break:break-all}
-h2.sec{font-weight:900;font-size:22px;margin:36px 0 4px}
-.sec-sub{color:var(--ink-2);font-size:15px;margin:0 0 18px}
-ol.lessons{list-style:none;margin:0;padding:0;display:grid;gap:14px}
-.lesson{display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;text-decoration:none;color:inherit;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
-.lesson:hover,.lesson:focus-visible{transform:translateY(-2px);border-color:var(--amber);outline:none}
-.num{width:64px;height:64px;border-radius:16px;background:var(--navy);color:#fbbf24;display:grid;place-items:center;font-weight:900;font-size:26px;border:1px solid #1e293b}
-.lesson .era{display:inline-block;font-size:12.5px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:1px 10px;border-radius:6px}
-.lesson h3{font-weight:900;font-size:20px;line-height:1.4;margin:6px 0 4px}
-.lesson p{margin:0;color:var(--ink-2);font-size:15.5px}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.tag{font-size:12.5px;padding:3px 10px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);font-weight:500}
-.go{display:inline-block;margin-top:14px;font-weight:700;font-size:14px;background:var(--amber);color:#0f172a;padding:6px 14px;border-radius:10px}
-.tip{margin:32px 0 0;padding:18px 20px;border-radius:16px;border:1px dashed var(--line);background:var(--surface);color:var(--ink-2);font-size:15px}
-.tip strong{color:var(--ink)}
-footer{padding:36px 0 56px;color:var(--ink-2);font-size:13px}
-@media (max-width:520px){
-  .lesson{grid-template-columns:1fr;gap:12px;padding:18px}
-  .num{width:48px;height:48px;font-size:21px;border-radius:12px}
-  .hero{padding:28px 20px;border-radius:20px;flex-direction:column;align-items:flex-start}
-  .qr{align-self:center}
+.qr-big b{font-family:"Do Hyeon",sans-serif;font-weight:400;font-size:clamp(24px,4vw,34px)}
+.qr-big small{font-size:clamp(14px,2.4vw,18px);color:#ddd;word-break:break-all}
+
+/* 태블릿 */
+@media (max-width:900px){
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lc.wide{grid-column:span 2}
+}
+/* 휴대폰 */
+@media (max-width:600px){
+  .head{padding-top:22px}
+  .head-btns{width:100%}
+  .head-btns .nbtn{flex:1;justify-content:center}
+  .btabs{padding-left:10px}
+  .btab{padding:9px 14px;font-size:14px}
+  .page{padding:22px 16px;border-radius:0 16px 16px 16px;box-shadow:4px 4px 0 var(--nb-sh)}
+  .cards{grid-template-columns:1fr;gap:14px}
+  .lc{min-height:0}
+  .lc.wide{grid-column:auto;flex-direction:column;align-items:flex-start;gap:12px}
+  .lc.wide .ico{width:60px;height:60px;font-size:24px}
+  .duo{grid-template-columns:1fr}
+  .sticky{padding:22px 20px;box-shadow:4px 4px 0 var(--nb-sh)}
 }
 </style>
+<link rel="stylesheet" href="assets/theme.css">
 </head>
 <body>
-<header class="bar"><div class="wrap">
-  <div class="logo" aria-hidden="true">🏛️</div>
-  <div class="t"><small>중2 역사① · 2학기</small><b>역사 수업실</b></div>
-  <button class="theme" id="theme" type="button">◐ 화면</button>
-</div></header>
 <div class="wrap">
-  <section class="hero">
-    <div class="hero-text">
-      <div class="unit">중2 역사① · 2학기</div>
-      <h1>역사 <em>수업실</em></h1>
-      <p>수업 시간에 함께 볼 자료를 모아 두었습니다. 선생님이 안내한 차시를 눌러 들어가세요.</p>
+  <header class="head">
+    <div>
+      <div class="who hand">중2 역사① · 2학기 · 나의 역사 노트</div>
+      <h1><span class="hl">역사 탐구 노트</span></h1>
     </div>
-    <button class="qr" id="qrBtn" type="button" aria-label="QR코드 크게 보기"><img src="qr.svg" alt="이 사이트로 들어오는 QR코드"><span>📱 찍어서 들어오기 · 크게 보기</span></button>
-  </section>
+    <div class="head-btns">
+      <button class="nbtn" id="qrBtn" type="button">QR 크게 보기</button>
+      <button class="nbtn" id="theme" type="button">◐ 화면</button>
+    </div>
+  </header>
 
-  <h2 class="sec">역사① 전체 · 세계사 한눈에 보기</h2>
-  <p class="sec-sub">교과서 Ⅱ~Ⅶ단원의 사건·제국의 영역·교류 경로를 3D 지구본 위에서 시대별로 살펴보고, 나만의 세계사 연표를 만듭니다</p>
+  <div class="binder">
+    <div class="btabs" role="tablist" aria-label="단원 고르기">
+      <button class="btab" role="tab" data-c="1" data-p="p6" aria-selected="true" type="button">Ⅵ 세계 대전</button>
+      <button class="btab" role="tab" data-c="2" data-p="p7" aria-selected="false" type="button">Ⅶ 냉전과 현대</button>
+      <button class="btab" role="tab" data-c="3" data-p="pc" aria-selected="false" type="button">개념 학습</button>
+      <button class="btab" role="tab" data-c="4" data-p="pt" aria-selected="false" type="button">수업 도구</button>
+      <button class="btab" role="tab" data-c="5" data-p="pw" aria-selected="false" type="button">세계사 한눈에</button>
+    </div>
 
-  <ol class="lessons">
-    <li>
-      <a class="lesson" href="world-timeline/">
-        <div class="num">🌏</div>
-        <div>
-          <div class="era">기원전 3500년 – 오늘날</div>
-          <h3>세계사 타임라인 지구본</h3>
-          <p>슬라이더를 움직이면 그 시기의 주요 사건, 제국의 영역, 교류 경로가 지구본에 나타납니다. 같은 시기 동양과 서양에서 무슨 일이 있었는지 비교하고, 사건 카드를 직접 써서 나의 연표를 만들어 제출해요.</p>
-          <div class="tags"><span class="tag">3D 지구본</span><span class="tag">동양 vs 서양</span><span class="tag">비단길·바닷길·신항로</span><span class="tag">사건 카드·나의 연표</span></div>
-          <div class="go">활동 열기 →</div>
-        </div>
-      </a>
-    </li>
-  </ol>
+    <section class="page" id="p6" role="tabpanel">
+      <div class="page-h"><h2>Ⅵ. 세계 대전과 사회 변동</h2><span class="hand">1 ~ 6차시</span></div>
+      <p class="sub">제1차 세계 대전에서 대공황과 제2차 세계 대전, 전쟁 범죄, 평화를 위한 노력, 아시아·아프리카의 민족 운동까지</p>
+      <ol class="cards">
+        <li><a class="lc" href="ww1/"><span class="top"><span class="no">1차시</span><span class="era">1914 – 1918</span></span><h3>참호 속의 기록: 제1차 세계 대전</h3><p>사라예보 사건부터 참호전, 미국의 참전, 베르사유 체제와 국제 연맹까지 시뮬레이션으로 탐구합니다.</p><span class="tags"><span>사라예보 사건</span><span>참호전·총력전</span><span>베르사유 체제</span></span></a></li>
+        <li><a class="lc" href="ww2-background/"><span class="top"><span class="no">2차시</span><span class="era">1929 – 1939</span></span><h3>제2차 세계 대전의 배경</h3><p>대공황이 세계를 어떻게 바꾸었는지, 그리고 전체주의 국가가 어떻게 등장했는지 탐구합니다.</p><span class="tags"><span>대공황</span><span>뉴딜·블록 경제</span><span>전체주의</span></span></a></li>
+        <li><a class="lc" href="ww2-process/"><span class="top"><span class="no">3차시</span><span class="era">1939 – 1945</span></span><h3>한눈에 따라가는 제2차 세계 대전</h3><p>지구본과 지도를 돌려 보며 전쟁이 시작되고 끝나기까지의 주요 사건을 따라갑니다.</p><span class="tags"><span>전쟁의 전개</span><span>지구본 투어</span><span>사건 타임라인</span></span></a></li>
+        <li><a class="lc" href="war-crimes/"><span class="top"><span class="no">4차시</span><span class="era">Ⅵ-02-1</span></span><h3>두 차례 세계 대전 중에 전쟁 범죄가 발생하다</h3><p>민간인의 희생과 전쟁 범죄를 사진 자료로 살펴보고, 왜 기억해야 하는지 생각해 봅니다.</p><span class="tags"><span>홀로코스트</span><span>난징 대학살</span><span>일본군 ‘위안부’</span></span></a></li>
+        <li><a class="lc" href="peace/"><span class="top"><span class="no">5차시</span><span class="era">Ⅵ-02-2</span></span><h3>인권 회복과 평화 실현을 위해 노력하다</h3><p>전후 회담과 국제 연합, 전쟁 범죄자 재판, 반성과 기억의 노력을 살펴보고 다큐멘터리를 기획합니다.</p><span class="tags"><span>대서양 헌장·UN</span><span>뉘른베르크·도쿄 재판</span><span>반성과 기억</span></span></a></li>
+        <li><a class="lc" href="national-movements/"><span class="top"><span class="no">6차시</span><span class="era">Ⅵ-03</span></span><h3>아시아와 아프리카에서 민족 운동이 일어나다</h3><p>3·1 운동과 5·4 운동, 간디·호찌민·수카르노, 튀르키예 공화국과 팔레스타인 갈등, 범아프리카주의를 살펴보고 Ⅵ단원을 마무리합니다.</p><span class="tags"><span>3·1 운동·5·4 운동</span><span>비폭력·불복종</span><span>영국의 두 약속</span></span></a></li>
+      </ol>
+    </section>
 
-  <h2 class="sec">수업 도구</h2>
-  <p class="sec-sub">선생님 화면과 모둠 휴대폰을 연결해 함께 하는 실시간 모둠 활동</p>
+    <section class="page" id="p7" role="tabpanel" hidden>
+      <div class="page-h"><h2>Ⅶ. 현대 세계의 전개와 과제</h2><span class="hand">7차시 ~</span></div>
+      <p class="sub">냉전 체제의 형성부터 제3 세계의 등장, 냉전 이후의 국제 질서까지</p>
+      <ol class="cards">
+        <li><a class="lc now" href="cold-war/"><span class="top"><span class="no">7차시</span><span class="stamp here">← 지금 배우는 곳</span></span><h3>냉전 체제가 형성되다</h3><p>트루먼 독트린·마셜 계획과 코민포름·코메콘으로 갈라선 두 진영, 독일의 분단, 국공 내전·6·25 전쟁·쿠바 미사일 위기·베트남 전쟁을 살펴봅니다.</p><span class="tags"><span>미국 vs 소련</span><span>대립 구도 표</span><span>베를린 봉쇄·장벽</span><span>냉전과 열전</span></span></a></li>
+        <li><div class="lc soon"><span class="top"><span class="no">8차시</span><span class="era">준비 중</span></span><h3>제3 세계가 나타나다</h3><p>아시아·아프리카 나라들의 독립과 비동맹주의, 반둥 회의를 살펴볼 예정이에요.</p></div></li>
+      </ol>
+    </section>
 
-  <ol class="lessons">
-    <li>
-      <a class="lesson" href="tools/">
-        <div class="num">⚖</div>
-        <div>
-          <div class="era">실시간 · 모둠 활동</div>
-          <h3>역사 문장 경매</h3>
-          <p>모둠 예산으로 역사 문장을 사고팝니다. 옳은 문장만 골라 사는 <b>옳은 문장 경매</b>와, 사건 카드를 모아 일어난 순서대로 먼저 맞히는 <b>순서 경매</b>가 있어요.</p>
-          <div class="tags"><span class="tag">① 옳은 문장 경매</span><span class="tag">② 순서 경매</span><span class="tag">입장 코드·QR</span><span class="tag">근거 쓰기·바로잡기</span></div>
-          <div class="go">도구 열기 →</div>
-        </div>
-      </a>
-    </li>
-  </ol>
+    <section class="page" id="pc" role="tabpanel" hidden>
+      <div class="page-h"><h2>개념 학습 · 스스로 복습</h2><span class="hand">시험 전에 꼭!</span></div>
+      <p class="sub">교과서 개념 학습지를 빈칸 채우기와 확인 문제로 풀고, 정답과 해설을 바로 확인합니다</p>
+      <ol class="cards">
+        <li class="lc-li"><a class="lc wide" href="concepts/"><span class="ico">개념</span><span class="body"><span class="era" style="align-self:flex-start;font-size:12.5px;font-weight:800;border:1px solid;border-radius:6px;padding:1px 8px">Ⅵ-01 ~ Ⅶ-01 · 학습지 10개</span><h3 style="margin:0;font-size:21px">개념 학습실</h3><p style="margin:0">제1차 세계 대전부터 냉전 체제와 국제 질서의 변화까지, 학습지의 개념 정리 빈칸을 채우고 용어 카드와 개념 확인 문제로 복습해요.</p><span class="tags"><span>빈칸 59개</span><span>확인 문제 39개</span><span>정답·해설</span><span>풀이 기록 저장</span></span></span></a></li>
+      </ol>
+    </section>
 
-  <h2 class="sec">개념 학습 · 스스로 복습</h2>
-  <p class="sec-sub">교과서 개념 학습지(6-1-1 ~ 7-1-3)를 빈칸 채우기와 확인 문제로 풀고, 정답과 해설을 바로 확인합니다</p>
+    <section class="page" id="pt" role="tabpanel" hidden>
+      <div class="page-h"><h2>수업 도구</h2><span class="hand">모둠 활동</span></div>
+      <p class="sub">선생님 화면과 모둠 휴대폰을 연결해 함께 하는 실시간 모둠 활동</p>
+      <ol class="cards">
+        <li><a class="lc wide" href="tools/"><span class="ico">경매</span><span class="body"><span class="era" style="align-self:flex-start;font-size:12.5px;font-weight:800;border:1px solid;border-radius:6px;padding:1px 8px">실시간 · 모둠 활동</span><h3 style="margin:0;font-size:21px">역사 문장 경매</h3><p style="margin:0">모둠 예산으로 역사 문장을 사고팝니다. 옳은 문장만 골라 사는 옳은 문장 경매와, 사건 카드를 모아 일어난 순서대로 먼저 맞히는 순서 경매가 있어요.</p><span class="tags"><span>① 옳은 문장 경매</span><span>② 순서 경매</span><span>입장 코드·QR</span></span></span></a></li>
+      </ol>
+    </section>
 
-  <ol class="lessons">
-    <li>
-      <a class="lesson" href="concepts/">
-        <div class="num">📘</div>
-        <div>
-          <div class="era">Ⅵ-01 ~ Ⅶ-01 · 학습지 10개</div>
-          <h3>개념 학습실</h3>
-          <p>제1차 세계 대전부터 냉전 체제와 국제 질서의 변화까지, 학습지의 <b>개념 정리 빈칸</b>을 채우고 <b>용어 카드</b>와 <b>개념 확인 문제</b>로 복습해요. 채점하면 정답과 해설이 나옵니다.</p>
-          <div class="tags"><span class="tag">빈칸 59개</span><span class="tag">확인 문제 39개</span><span class="tag">정답·해설</span><span class="tag">풀이 기록 저장</span></div>
-          <div class="go">학습 시작 →</div>
-        </div>
-      </a>
-    </li>
-  </ol>
+    <section class="page" id="pw" role="tabpanel" hidden>
+      <div class="page-h"><h2>역사① 전체 · 세계사 한눈에 보기</h2><span class="hand">Ⅱ ~ Ⅶ단원</span></div>
+      <p class="sub">교과서 Ⅱ~Ⅶ단원의 사건·제국의 영역·교류 경로를 3D 지구본 위에서 시대별로 살펴보고, 나만의 세계사 연표를 만듭니다</p>
+      <ol class="cards">
+        <li><a class="lc wide" href="world-timeline/"><span class="ico">지구</span><span class="body"><span class="era" style="align-self:flex-start;font-size:12.5px;font-weight:800;border:1px solid;border-radius:6px;padding:1px 8px">기원전 3500년 – 오늘날</span><h3 style="margin:0;font-size:21px">세계사 타임라인 지구본</h3><p style="margin:0">슬라이더를 움직이면 그 시기의 주요 사건, 제국의 영역, 교류 경로가 지구본에 나타납니다. 같은 시기 동양과 서양을 비교하고, 사건 카드로 나의 연표를 만들어 제출해요.</p><span class="tags"><span>3D 지구본</span><span>동양 vs 서양</span><span>비단길·바닷길·신항로</span><span>나의 연표</span></span></span></a></li>
+      </ol>
+    </section>
+  </div>
 
-  <h2 class="sec">Ⅵ. 세계 대전과 사회 변동</h2>
-  <p class="sec-sub">제1차 세계 대전에서 대공황과 제2차 세계 대전, 전쟁 범죄, 그리고 평화를 위한 노력까지</p>
+  <div class="duo">
+    <a class="sticky y" href="concepts/">
+      <span class="hand">시험 전에 꼭!</span>
+      <b class="big">개념 학습실</b>
+      <p>학습지 10개 · 빈칸 59개 · 확인 문제 39개<br>채점하면 정답과 해설이 바로 나와요.</p>
+    </a>
+    <div class="sticky p">
+      <span class="hand">바로 가기</span>
+      <a class="row" href="world-timeline/">세계사 타임라인 지구본 <span aria-hidden="true">→</span></a>
+      <a class="row" href="tools/">역사 문장 경매 (모둠) <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
 
-  <ol class="lessons">
-    <li>
-      <a class="lesson" href="ww1/">
-        <div class="num">1</div>
-        <div>
-          <div class="era">1914 – 1918</div>
-          <h3>참호 속의 기록: 제1차 세계 대전</h3>
-          <p>사라예보 사건부터 참호전, 미국의 참전, 베르사유 체제와 국제 연맹까지 시뮬레이션으로 탐구합니다.</p>
-          <div class="tags"><span class="tag">사라예보 사건</span><span class="tag">참호전·총력전</span><span class="tag">베르사유 체제</span><span class="tag">퀴즈</span></div>
-          <div class="go">수업 열기 →</div>
-        </div>
-      </a>
-    </li>
-    <li>
-      <a class="lesson" href="ww2-background/">
-        <div class="num">2</div>
-        <div>
-          <div class="era">1929 – 1939</div>
-          <h3>제2차 세계 대전의 배경</h3>
-          <p>대공황이 세계를 어떻게 바꾸었는지, 그리고 전체주의 국가가 어떻게 등장했는지 탐구합니다.</p>
-          <div class="tags"><span class="tag">대공황</span><span class="tag">뉴딜·블록 경제</span><span class="tag">전체주의</span><span class="tag">탐구 활동</span></div>
-          <div class="go">수업 열기 →</div>
-        </div>
-      </a>
-    </li>
-    <li>
-      <a class="lesson" href="ww2-process/">
-        <div class="num">3</div>
-        <div>
-          <div class="era">1939 – 1945</div>
-          <h3>한눈에 따라가는 제2차 세계 대전</h3>
-          <p>지구본과 지도를 돌려 보며 전쟁이 시작되고 끝나기까지의 주요 사건을 따라갑니다.</p>
-          <div class="tags"><span class="tag">전쟁의 전개</span><span class="tag">지구본 투어</span><span class="tag">사건 타임라인</span></div>
-          <div class="go">수업 열기 →</div>
-        </div>
-      </a>
-    </li>
-    <li>
-      <a class="lesson" href="war-crimes/">
-        <div class="num">4</div>
-        <div>
-          <div class="era">Ⅵ-02-1</div>
-          <h3>두 차례 세계 대전 중에 전쟁 범죄가 발생하다</h3>
-          <p>민간인의 희생과 전쟁 범죄를 사진 자료로 살펴보고, 왜 기억해야 하는지 생각해 봅니다.</p>
-          <div class="tags"><span class="tag">홀로코스트</span><span class="tag">난징 대학살</span><span class="tag">일본군 '위안부'</span><span class="tag">퀴즈·성찰</span></div>
-          <div class="go">수업 열기 →</div>
-        </div>
-      </a>
-    </li>
-    <li>
-      <a class="lesson" href="peace/">
-        <div class="num">5</div>
-        <div>
-          <div class="era">Ⅵ-02-2</div>
-          <h3>인권 회복과 평화 실현을 위해 노력하다</h3>
-          <p>전후 회담과 국제 연합, 전쟁 범죄자 재판, 반성과 기억의 노력을 살펴보고 다큐멘터리를 기획합니다.</p>
-          <div class="tags"><span class="tag">대서양 헌장·UN</span><span class="tag">뉘른베르크·도쿄 재판</span><span class="tag">반성과 기억</span><span class="tag">숨은 숫자 찾기</span></div>
-          <div class="go">수업 열기 →</div>
-        </div>
-      </a>
-    </li>
-    <li>
-      <a class="lesson" href="national-movements/">
-        <div class="num">6</div>
-        <div>
-          <div class="era">Ⅵ-03</div>
-          <h3>아시아와 아프리카에서 민족 운동이 일어나다</h3>
-          <p>3·1 운동과 5·4 운동, 간디·호찌민·수카르노, 튀르키예 공화국과 팔레스타인 갈등, 범아프리카주의를 살펴보고 Ⅵ단원을 마무리합니다.</p>
-          <div class="tags"><span class="tag">3·1 운동·5·4 운동</span><span class="tag">비폭력·불복종</span><span class="tag">영국의 두 약속</span><span class="tag">문자표 찾기</span></div>
-          <div class="go">수업 열기 →</div>
-        </div>
-      </a>
-    </li>
-    <li>
-      <a class="lesson" href="cold-war/">
-        <div class="num">7</div>
-        <div>
-          <div class="era">Ⅶ-01-1</div>
-          <h3>냉전 체제가 형성되다</h3>
-          <p>트루먼 독트린·마셜 계획과 코민포름·코메콘으로 갈라선 두 진영, 독일의 분단, 국공 내전·6·25 전쟁·쿠바 미사일 위기·베트남 전쟁을 살펴봅니다.</p>
-          <div class="tags"><span class="tag">미국 vs 소련</span><span class="tag">대립 구도 표</span><span class="tag">베를린 봉쇄·장벽</span><span class="tag">냉전과 열전</span></div>
-          <div class="go">수업 열기 →</div>
-        </div>
-      </a>
-    </li>
-  </ol>
+  <p class="tip"><strong>사용 방법</strong> · 수업 화면 왼쪽 아래의 <strong>← 수업 목록</strong> 버튼을 누르면 이 페이지로 돌아옵니다. 각 차시의 활동은 <strong>선생님께 제출하기</strong>(또는 오른쪽 아래 <strong>📮 활동 제출</strong>)로 보내고, 같은 곳에서 선생님 피드백을 확인할 수 있어요.</p>
 
-  <p class="tip"><strong>사용 방법</strong> · 수업 화면 왼쪽 아래의 <strong>← 수업 목록</strong> 버튼을 누르면 이 페이지로 돌아옵니다. 새 차시가 추가되면 이 목록에 나타납니다. 각 차시의 활동은 <strong>선생님께 제출하기</strong>(또는 오른쪽 아래 <strong>📮 활동 제출</strong>)로 보내고, 같은 곳에서 선생님 피드백을 확인할 수 있어요.</p>
-
-  <footer><a href="teacher/" style="color:inherit;font-weight:700">교사용 · 학생 제출 확인·평가</a> · 수업 속 사진은 위키미디어 공용 등의 공개 자료를 사용했으며, 출처는 각 수업 페이지에 적혀 있습니다.</footer>
+  <footer><span>사진·그림 출처는 각 수업 페이지에 적혀 있습니다.</span><a href="teacher/">교사용 · 학생 제출 확인·평가</a></footer>
 </div>
 <div class="qr-big" id="qrBig" role="dialog" aria-label="QR코드 크게 보기"><b>휴대폰 카메라로 찍어 들어오세요</b><img src="qr.svg" alt="역사 수업실 QR코드"><small>cks817s-alt.github.io/history1-2nd</small><small>화면을 누르면 닫힙니다</small></div>
 <script>
-(function(){var b=document.getElementById("qrBig");document.getElementById("qrBtn").onclick=function(){b.classList.add("on")};b.onclick=function(){b.classList.remove("on")};document.addEventListener("keydown",function(e){if(e.key==="Escape")b.classList.remove("on")});})();
-</script>
-<script>
+(function(){
+  var b=document.getElementById("qrBig");
+  document.getElementById("qrBtn").onclick=function(){b.classList.add("on")};
+  b.onclick=function(){b.classList.remove("on")};
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")b.classList.remove("on")});
+  var tabs=[].slice.call(document.querySelectorAll('.btab'));
+  function pick(t,save){
+    tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);document.getElementById(x.dataset.p).hidden=!on;});
+    if(save){try{localStorage.setItem('hubTab',t.dataset.p)}catch(e){}}
+  }
+  tabs.forEach(function(t,i){
+    t.onclick=function(){pick(t,true)};
+    t.onkeydown=function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){var n=tabs[(i+d+tabs.length)%tabs.length];n.focus();pick(n,true);}};
+  });
+  try{var s=localStorage.getItem('hubTab');tabs.forEach(function(t){if(t.dataset.p===s)pick(t)})}catch(e){}
+})();
 (function(){
   var root=document.documentElement, btn=document.getElementById('theme');
   try{var s=localStorage.getItem('theme'); if(s) root.setAttribute('data-theme',s);}catch(e){}

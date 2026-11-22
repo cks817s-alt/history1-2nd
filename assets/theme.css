@@ -1,0 +1,128 @@
+/* =====================================================================
+   역사 수업실 공통 디자인 — "탐구 노트" (2026-11 적용)
+   모든 수업 페이지의 <head> 끝에서 불러와 각 페이지 색·글꼴을 덮어씁니다.
+   해마다 디자인을 바꿀 때는 이 파일만 바꾸면 됩니다.
+   이전 디자인(남색·앰버 카드)은 git 태그 design-2026-navy 에 있습니다.
+   ===================================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gaegu:wght@700&family=Nanum+Gothic:wght@400;700;800&display=swap");
+
+:root{
+  --nb-paper:#FBFBF8; --nb-grid:#E6EAF0; --nb-ink:#1C1C1C; --nb-ink-2:#4A4A4A;
+  --nb-teal:#0A6E6A; --nb-teal-soft:#D7EFEC; --nb-hl:#FFE45C; --nb-hl-soft:#FFF3B0; --nb-pink:#F3E1F7;
+  --nb-card:#FFFFFF; --nb-shadow:4px 4px 0 var(--nb-sh);
+  --bg:var(--nb-paper); --surface:#FFFFFF; --surface-2:#F4F4EE; --ink:var(--nb-ink); --ink-2:var(--nb-ink-2); --line:#CFCFC6;
+  --accent:var(--nb-teal); --amber:var(--nb-hl); --accent-soft:var(--nb-hl-soft); --gold:var(--nb-hl);
+  --navy:var(--nb-ink); --navy-2:#2E2E2E;
+  --ok:#0A6E6A; --ok-soft:#D7EFEC; --no:#B3261E; --no-soft:#FBE3E1; --bad:#B3261E; --bad-soft:#FBE3E1;
+  --shadow:var(--nb-shadow);
+}
+/* 어두운 화면 = 칠판 */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --nb-paper:#18211E; --nb-grid:#24312C; --nb-ink:#EDEDE4; --nb-ink-2:#B9C3BD; --nb-card:#1F2B27;
+    --nb-teal:#6FD3C9; --nb-teal-soft:rgba(111,211,201,.16); --nb-hl:#FFD93D; --nb-hl-soft:rgba(255,217,61,.16); --nb-pink:rgba(214,170,224,.16);
+    --nb-sh:#000; --nb-shadow:4px 4px 0 #000;
+    --surface:#1F2B27; --surface-2:#26352F; --line:#3A4A44; --navy:#0E1412; --navy-2:#26352F;
+    --ok:#6FD3C9; --ok-soft:rgba(111,211,201,.16); --no:#FF8A80; --no-soft:rgba(255,138,128,.14); --bad:#FF8A80; --bad-soft:rgba(255,138,128,.14);
+  }
+}
+:root[data-theme="dark"]{
+  --nb-paper:#18211E; --nb-grid:#24312C; --nb-ink:#EDEDE4; --nb-ink-2:#B9C3BD; --nb-card:#1F2B27;
+  --nb-teal:#6FD3C9; --nb-teal-soft:rgba(111,211,201,.16); --nb-hl:#FFD93D; --nb-hl-soft:rgba(255,217,61,.16); --nb-pink:rgba(214,170,224,.16);
+  --nb-sh:#000; --nb-shadow:4px 4px 0 #000;
+  --surface:#1F2B27; --surface-2:#26352F; --line:#3A4A44; --navy:#0E1412; --navy-2:#26352F;
+  --ok:#6FD3C9; --ok-soft:rgba(111,211,201,.16); --no:#FF8A80; --no-soft:rgba(255,138,128,.14); --bad:#FF8A80; --bad-soft:rgba(255,138,128,.14);
+}
+
+/* ---------- 바탕·글꼴 ---------- */
+body{
+  font-family:"Nanum Gothic",system-ui,sans-serif !important;
+  background-color:var(--nb-paper) !important;
+  background-image:linear-gradient(var(--nb-grid) 1px,transparent 1px),linear-gradient(90deg,var(--nb-grid) 1px,transparent 1px) !important;
+  background-size:24px 24px !important;
+  color:var(--nb-ink);
+}
+h1,h2,.hero h1,section h2,h2.sec{font-family:"Do Hyeon","Nanum Gothic",sans-serif !important;font-weight:400 !important;letter-spacing:0 !important}
+h3{font-weight:800}
+.hand{font-family:"Gaegu",cursive;font-weight:700}
+.hl,.hero h1 em,h1 em{font-style:normal;color:inherit !important;background:linear-gradient(transparent 55%,var(--nb-hl) 55%)}
+:root[data-theme="dark"] .hl,:root[data-theme="dark"] h1 em{background:linear-gradient(transparent 60%,rgba(255,217,61,.45) 60%)}
+a{color:var(--nb-teal)}
+::selection{background:var(--nb-hl);color:#1C1C1C}
+:focus-visible{outline:3px solid var(--nb-teal) !important;outline-offset:2px}
+
+/* ---------- 위쪽 바 ---------- */
+.bar{background:var(--nb-card) !important;color:var(--nb-ink) !important;box-shadow:none !important;border-bottom:2px solid var(--nb-ink)}
+.bar .t small,.ttl .badges,.ttl .sub{color:var(--nb-teal) !important;font-family:"Gaegu",cursive;font-size:15px !important}
+.bar .t b,.ttl .name{color:var(--nb-ink) !important;font-family:"Do Hyeon",sans-serif;font-weight:400 !important;font-size:20px !important}
+.badge{background:var(--nb-teal) !important;color:#fff !important;font-family:"Nanum Gothic",sans-serif;font-size:12px}
+.logo{background:var(--nb-hl) !important;border:2px solid var(--nb-ink);border-radius:10px !important;box-shadow:none !important}
+.theme,.tbtn{background:var(--nb-card) !important;color:var(--nb-ink) !important;border:2px solid var(--nb-ink) !important;border-radius:10px !important;min-height:38px}
+.steps a{background:var(--nb-card) !important;color:var(--nb-ink) !important;border:2px solid var(--nb-ink) !important;border-radius:10px !important}
+.steps a b{background:var(--nb-ink) !important;color:var(--nb-card) !important}
+.steps a.on{background:var(--nb-hl) !important;color:#1C1C1C !important;box-shadow:2px 2px 0 var(--nb-sh)}
+.steps a.on b{background:#1C1C1C !important;color:var(--nb-hl) !important}
+.progress{background:var(--nb-teal) !important;height:4px}
+
+/* ---------- 머리 카드 ---------- */
+.hero-card,.hero:not(:has(.hero-card)){
+  background:var(--nb-card) !important;color:var(--nb-ink) !important;
+  border:2px solid var(--nb-ink) !important;box-shadow:6px 6px 0 var(--nb-sh) !important;border-radius:20px !important;
+}
+.hero .unit{color:var(--nb-teal) !important;background:transparent !important;border:2px solid var(--nb-teal) !important;font-weight:800}
+.hero p,.hero p.lead,.hero-text p{color:var(--nb-ink-2) !important}
+.hero-card .chip,.hero .chip,.hero .how span{background:var(--surface-2) !important;color:var(--nb-ink) !important;border:1px solid var(--nb-ink) !important}
+
+/* ---------- 카드·제목표·칩 ---------- */
+.card,.tool,.panel.card,.submit-card{background:var(--nb-card) !important;border:2px solid var(--nb-ink) !important;border-radius:16px !important;box-shadow:var(--nb-shadow) !important}
+.kicker{background:transparent !important;color:var(--nb-teal) !important;font-family:"Gaegu",cursive;font-weight:700;font-size:19px !important;padding:0 !important}
+.goals-card .kicker{background:transparent !important}
+.goals .n,.num:not(.lesson .num){background:var(--nb-teal) !important;color:#fff !important}
+.chip{background:var(--surface-2);color:var(--nb-ink);border:1px solid var(--line)}
+section + section{border-top:2px dashed var(--line) !important}
+.diary{border:2px solid var(--nb-ink) !important;border-left:8px solid var(--nb-teal) !important;border-radius:6px 16px 16px 6px !important;box-shadow:var(--nb-shadow) !important;background:var(--nb-card) !important}
+.ask{background:var(--nb-hl-soft) !important;border:2px solid var(--nb-ink) !important}
+.ask::before{background:var(--nb-ink) !important;color:var(--nb-hl) !important}
+.cause span{border:2px solid var(--nb-ink) !important}
+.cause span:last-child{background:var(--nb-hl) !important;color:#1C1C1C !important}
+.tl li::before{border-color:var(--nb-teal) !important}
+.vlink{border:2px solid var(--nb-ink) !important;box-shadow:3px 3px 0 var(--nb-sh) !important;background:var(--nb-card) !important}
+.vlink .ic{background:var(--nb-hl) !important;color:#1C1C1C !important;border:2px solid #1C1C1C}
+.photo img,.person img{filter:none !important;border:2px solid var(--nb-ink)}
+
+/* ---------- 버튼·탭·입력 ---------- */
+.btn,.btn.main{background:var(--nb-teal) !important;color:#fff !important;border:2px solid var(--nb-ink) !important;border-radius:10px !important;box-shadow:3px 3px 0 var(--nb-sh) !important;font-weight:800 !important}
+:root[data-theme="dark"] .btn,:root[data-theme="dark"] .btn.main{color:#0E1412 !important}
+.btn.ghost,.btn:not(.main):not([class*="ghost"])[data-act],.btn[data-qa]:not(.main),.btn[data-go]:not(.main){background:var(--nb-card) !important;color:var(--nb-ink) !important;box-shadow:none !important}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--nb-sh) !important}
+.tabs button,.tab{border:2px solid var(--nb-ink) !important;background:var(--nb-card) !important;color:var(--nb-ink) !important;border-radius:12px !important;box-shadow:none !important}
+.tabs button[aria-selected="true"],.tab[aria-selected="true"]{background:var(--nb-hl) !important;color:#1C1C1C !important;box-shadow:3px 3px 0 var(--nb-sh) !important;outline:none !important}
+.tab[aria-selected="true"] b,.tab[aria-selected="true"] i{color:#1C1C1C !important}
+.tab .meter{border:1px solid var(--nb-ink);background:var(--nb-card) !important}
+.tab .meter div{background:var(--nb-teal) !important}
+.opt{border:2px solid var(--nb-ink) !important;background:var(--nb-card) !important;border-radius:12px !important}
+.opt[aria-pressed="true"]{background:var(--nb-hl-soft) !important}
+.opt.ok{background:var(--nb-teal-soft) !important;border-color:var(--nb-teal) !important;color:var(--nb-ink) !important}
+.opt.bad{background:var(--no-soft) !important;border-color:var(--no) !important}
+.q .qt .no{background:var(--nb-ink) !important;color:var(--nb-hl) !important}
+.blank input,.bl input{border-bottom:3px solid var(--nb-ink) !important;background:var(--nb-hl-soft) !important}
+.blank.ok input,.bl.ok input{background:var(--nb-teal-soft) !important;border-color:var(--nb-teal) !important}
+.blank.no input,.bl.bad input{background:var(--no-soft) !important;border-color:var(--no) !important}
+.term{border:2px solid var(--nb-ink) !important;background:var(--nb-card) !important}
+.term .hint{color:var(--nb-teal) !important;font-family:"Gaegu",cursive;font-size:15px !important}
+textarea,input[type="text"],input[type="password"],input:not([type]),select{border-color:var(--nb-ink)}
+.fix{background:var(--nb-hl-soft) !important;border-left-color:var(--nb-ink) !important}
+
+/* ---------- 휴대폰·태블릿 ---------- */
+img,video,iframe,svg{max-width:100%}
+@media (max-width:820px){
+  .hero-card,.hero:not(:has(.hero-card)){box-shadow:4px 4px 0 var(--nb-sh) !important}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  .card,.tool{box-shadow:3px 3px 0 var(--nb-sh) !important}
+  .bar .t b,.ttl .name{font-size:18px !important}
+}
+@media (pointer:coarse){
+  .btn,.tabs button,.opt,.steps a,.theme{min-height:44px}
+}
