@@ -102,12 +102,15 @@
   var tm = document.createElement('div'); tm.className='lv-timer'; tm.setAttribute('role','timer'); tm.setAttribute('aria-live','off');
   tm.innerHTML='<span class="t">0:00</span><small></small><span class="bar"></span>';
   function mount(){ document.body.appendChild(chip); document.body.appendChild(hand); document.body.appendChild(tm); place(); }
-  // 「← 수업 목록」 버튼 위에 쌓기
+  // 「← 수업 목록」 버튼 옆(같은 줄)에 두기. 아래 고정 막대(data-live-above)가 있으면 그 위로, ="right" 면 오른쪽에
   function place(){
-    var back = document.querySelector('a[aria-label="수업 목록으로"]'), base = 12;
-    if (back) { var r = back.getBoundingClientRect(); base = Math.max(12, innerHeight - r.top + 8); }
-    chip.style.bottom = base+'px';
-    hand.style.bottom = (base + 48)+'px';
+    var back = document.querySelector('a[aria-label="수업 목록으로"]'), left = 12, bottom = 12, right = null;
+    if (back) { var r = back.getBoundingClientRect(); if (r.width) { left = r.right + 8; bottom = Math.max(12, innerHeight - r.bottom); } }
+    [].forEach.call(document.querySelectorAll('[data-live-above]'), function(el){ var q = el.getBoundingClientRect(); if (q.height) { bottom = Math.max(bottom, innerHeight - q.top + 8); if (el.getAttribute('data-live-above') === 'right') right = 12; } });
+    if (right != null) { chip.style.left = 'auto'; chip.style.right = right+'px'; hand.style.left = 'auto'; hand.style.right = right+'px'; }
+    else { chip.style.right = 'auto'; chip.style.left = left+'px'; hand.style.right = 'auto'; hand.style.left = left+'px'; }
+    chip.style.bottom = bottom+'px';
+    hand.style.bottom = (bottom + 48)+'px';
   }
   addEventListener('resize', place);
 
@@ -261,7 +264,7 @@
 
   /* ---------- 시작 ---------- */
   function boot(){
-    mount();
+    mount(); setTimeout(place, 1500); addEventListener("load", place);
     if (DEMO) chip.classList.add('demo');
     if (sess){ join(sess.code, {cls:sess.cls, num:sess.num, name:sess.name}).catch(function(){ ss('live-sess',null); }); }
     else if (urlCode){ setTimeout(function(){ openJoin(urlCode); }, window.__lessonStartDelay || 600); }

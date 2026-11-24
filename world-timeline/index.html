@@ -94,6 +94,8 @@ button{font:inherit;cursor:pointer}
 .tl .ctrl{display:flex;gap:6px}
 .tl .ctrl button{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--navy2);color:var(--ink);font-size:16px;font-weight:900}
 .tl .ctrl button.play{background:var(--amber);border-color:var(--amber);color:var(--navy)}
+.tl .ctrl button.wide{width:auto;padding:0 10px;font-size:13.5px;white-space:nowrap}
+.tl .ctrl button[aria-pressed="false"].music{opacity:.6}
 .track{position:relative;height:58px;user-select:none;touch-action:none}
 .track .bar{position:absolute;left:0;right:0;top:24px;height:10px;border-radius:6px;background:linear-gradient(90deg,#334155,#475569)}
 .track .unit{position:absolute;top:24px;height:10px;border-radius:0;opacity:.55}
@@ -206,6 +208,7 @@ button{font:inherit;cursor:pointer}
   .mybtn{margin-left:auto;padding:7px 12px;font-size:13px}
   .track .tick.mi{display:none}
   .layers button .t{display:none}
+  .tl .ctrl button.wide .t{display:none}
   .chron::before{left:12px}
   .chron .heads{display:none}
   .crow{grid-template-columns:1fr;padding-left:26px}
@@ -248,7 +251,7 @@ button{font:inherit;cursor:pointer}
         <button type="button" id="spin" aria-pressed="false">🌏 <span class="t">자동 회전</span></button>
       </div>
       <div class="legend" id="legend" aria-label="지금 지도에 보이는 나라와 교류 경로"></div>
-      <div class="src">영역은 대략적인 범위입니다(원자료: historical-basemaps, GPL-3.0 — 교과서 연표에 맞춰 이름·시기 조정). 사건·경로: 비상교육 중학교 역사① 교과서.</div>
+      <div class="src">영역은 대략적인 범위입니다(원자료: historical-basemaps, GPL-3.0 — 교과서 연표에 맞춰 이름·시기 조정). 사건·경로: 비상교육 중학교 역사① 교과서. 배경 음악: 파헬벨 「캐논」, 연주 미국 공군 군악대 Strolling Strings(2004, 미국 연방 정부 저작물 · 퍼블릭 도메인, 위키미디어 공용).</div>
       <div class="pickbar" id="pickbar">🌏 지구본에서 사건이 일어난 곳을 눌러 주세요 <button type="button" id="pickCancel">취소</button></div>
     </section>
 
@@ -262,11 +265,13 @@ button{font:inherit;cursor:pointer}
     </aside>
   </main>
 
-  <footer class="tl">
+  <footer class="tl" data-live-above="right">
     <div class="ctrl">
       <button type="button" id="prev" aria-label="이전 사건으로">◀</button>
       <button type="button" id="play" class="play" aria-label="재생">▶</button>
       <button type="button" id="next" aria-label="다음 사건으로">▶|</button>
+      <button type="button" id="speed" class="wide" title="자동 재생 속도 바꾸기">🚶 <span class="t">보통</span></button>
+      <button type="button" id="music" class="music" aria-pressed="true" title="자동 재생할 때 배경 음악">🎵</button>
     </div>
     <div class="track" id="track" tabindex="0" role="slider" aria-label="연도 선택 슬라이더" aria-valuemin="-3500" aria-valuemax="2025">
       <div class="bar"></div><div id="marks"></div><div class="knob" id="knob"></div>
@@ -593,12 +598,34 @@ function jump(d){
 }
 $('prev').onclick=function(){stopPlay();jump(-1);};
 $('next').onclick=function(){stopPlay();jump(1);};
-function stopPlay(){if(S.playing){clearInterval(S.playing);S.playing=null;$('play').textContent='▶';$('play').setAttribute('aria-label','재생');}}
+function stopPlay(){if(S.playing){clearInterval(S.playing);S.playing=null;if(typeof musicStop==='function')musicStop();$('play').textContent='▶';$('play').setAttribute('aria-label','재생');}}
+/* 자동 재생: 속도 3단계 + 사건마다 잠깐 멈춤 + 배경 음악 */
+var SPEEDS=[{ic:'🐢',n:'천천히',step:0.0008,hold:1800},{ic:'🚶',n:'보통',step:0.0015,hold:1000},{ic:'🐇',n:'빠르게',step:0.0025,hold:0}];
+var spd=+(store('wt-speed')||1);if(!SPEEDS[spd])spd=1;
+function showSpeed(){var v=SPEEDS[spd];$('speed').innerHTML=v.ic+' <span class="t">'+v.n+'</span>';$('speed').setAttribute('aria-label','재생 속도: '+v.n);}
+showSpeed();
+$('speed').onclick=function(){spd=(spd+1)%SPEEDS.length;store('wt-speed',String(spd));showSpeed();};
+var bgm=null,musicOn=store('wt-music')!=='0',fadeT=null;
+function fade(to,done){clearInterval(fadeT);fadeT=setInterval(function(){var v=bgm.volume+(to>bgm.volume?0.03:-0.03);if(Math.abs(to-bgm.volume)<=0.03){bgm.volume=to;clearInterval(fadeT);if(done)done();}else bgm.volume=Math.max(0,Math.min(1,v));},60);}
+function musicStart(){if(!musicOn)return;if(!bgm){bgm=new Audio('audio/canon.mp3');bgm.loop=true;bgm.volume=0;}var pr=bgm.play();if(pr&&pr.catch)pr.catch(function(){});fade(0.35);}
+function musicStop(){if(bgm&&!bgm.paused)fade(0,function(){bgm.pause();});}
+$('music').setAttribute('aria-pressed',musicOn);$('music').textContent=musicOn?'🎵':'🔇';
+$('music').onclick=function(){musicOn=!musicOn;store('wt-music',musicOn?'1':'0');this.setAttribute('aria-pressed',musicOn);this.textContent=musicOn?'🎵':'🔇';if(musicOn&&S.playing)musicStart();else musicStop();};
+var holdUntil=0;
 $('play').onclick=function(){
   if(S.playing)return stopPlay();
   if(S.year>=2025)S.year=-3500;
   $('play').textContent='❚❚';$('play').setAttribute('aria-label','멈춤');
-  S.playing=setInterval(function(){var p=y2p(S.year)+0.0025;var y=p2y(p);if(y<=S.year)y=S.year+1;if(y===0)y=1;if(y>=2025){y=2025;stopPlay();}S.year=y;S.sel=null;render();},90);
+  musicStart();holdUntil=0;
+  S.playing=setInterval(function(){
+    if(Date.now()<holdUntil)return;
+    var v=SPEEDS[spd],p=y2p(S.year)+v.step,y=p2y(p);if(y<=S.year)y=S.year+1;if(y===0)y=1;
+    if(v.hold){ // 지나가는 사건이 있으면 그 해에서 잠깐 멈춰 보여 주기
+      var hit=null;for(var i=0;i<EV.length;i++){var e=EV[i];if(e.y>S.year&&e.y<=y&&(S.show.korea||!e.k)){hit=e;break;}}
+      if(hit){S.year=hit.y;S.sel=hit;render();if(hit.lat!=null)G.pointOfView({lat:hit.lat,lng:hit.lng,altitude:2},800);holdUntil=Date.now()+v.hold;return;}
+    }
+    if(y>=2025){y=2025;stopPlay();}S.year=y;S.sel=null;render();
+  },90);
 };
 
 /* ======================= 나의 연표 ======================= */
