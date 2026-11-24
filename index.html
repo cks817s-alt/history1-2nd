@@ -193,7 +193,7 @@ footer a{font-weight:800}
 
   <p class="tip"><strong>사용 방법</strong> · 수업 화면 왼쪽 아래의 <strong>← 수업 목록</strong> 버튼을 누르면 이 페이지로 돌아옵니다. 각 차시의 활동은 <strong>선생님께 제출하기</strong>(또는 오른쪽 아래 <strong>📮 활동 제출</strong>)로 보내고, 같은 곳에서 선생님 피드백을 확인할 수 있어요.</p>
 
-  <footer><span>사진·그림 출처는 각 수업 페이지에 적혀 있습니다.</span><a href="teacher/">교사용 · 학생 제출 확인·평가</a></footer>
+  <footer><span>사진·그림 출처는 각 수업 페이지에 적혀 있습니다. · <a href="about/">이 사이트 소개</a></span><a href="teacher/">교사용 · 학생 제출 확인·평가</a></footer>
 </div>
 <div class="qr-big" id="qrBig" role="dialog" aria-label="QR코드 크게 보기"><b>휴대폰 카메라로 찍어 들어오세요</b><img src="qr.svg" alt="역사 수업실 QR코드"><small>cks817s-alt.github.io/history1-2nd</small><small>화면을 누르면 닫힙니다</small></div>
 <script>
@@ -212,6 +212,8 @@ footer a{font-weight:800}
     t.onkeydown=function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){var n=tabs[(i+d+tabs.length)%tabs.length];n.focus();pick(n,true);}};
   });
   try{var s=localStorage.getItem('hubTab');tabs.forEach(function(t){if(t.dataset.p===s)pick(t)})}catch(e){}
+  // 안내 페이지 등에서 #p7 처럼 단원을 지정해 들어오면 그 탭을 연다
+  var h=location.hash.slice(1);tabs.forEach(function(t){if(t.dataset.p===h)pick(t)});
 })();
 (function(){
   var root=document.documentElement, btn=document.getElementById('theme');

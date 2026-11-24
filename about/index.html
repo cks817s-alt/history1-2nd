@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>역사 탐구 노트 소개</title>
+<meta name="description" content="중2 역사① 2학기 수업 사이트 「역사 탐구 노트」의 목적, 만든 의도, 구성과 쓰는 방법을 소개합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-size:17px;line-height:1.75;word-break:keep-all;overflow-wrap:break-word}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+a{color:inherit}
+.hand{font-family:"Gaegu",cursive;font-weight:700}
+.hl{background:linear-gradient(transparent 55%,var(--nb-hl) 55%)}
+
+/* 머리 (첫 화면과 같은 모양) */
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:32px 0 20px}
+.head .who{font-size:21px;color:var(--nb-teal)}
+.head h1{margin:2px 0 0;font-size:clamp(40px,8vw,64px);line-height:1.1}
+.head-btns{display:flex;gap:10px;flex-wrap:wrap}
+.nbtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:0 18px;border:2px solid var(--nb-ink);border-radius:10px;background:var(--nb-card);color:var(--nb-ink);font:inherit;font-weight:800;font-size:15px;cursor:pointer;box-shadow:3px 3px 0 var(--nb-sh);text-decoration:none}
+.nbtn.teal{background:var(--nb-teal);color:#fff}
+:root[data-theme="dark"] .nbtn.teal{color:#0E1412}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .nbtn.teal{color:#0E1412}}
+.nbtn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--nb-sh)}
+
+/* 목차 바인더 탭 */
+.btabs{display:flex;gap:6px;padding-left:20px;overflow-x:auto;scrollbar-width:none;position:sticky;top:0;z-index:5;margin-bottom:-2px;padding-top:8px;background:linear-gradient(var(--nb-paper) 70%,transparent)}
+.btabs::-webkit-scrollbar{display:none}
+.btab{flex:none;border:2px solid var(--nb-ink);border-bottom:0;border-radius:12px 12px 0 0;padding:10px 18px;font-weight:800;font-size:15px;color:#1C1C1C;min-height:46px;display:inline-flex;align-items:center;text-decoration:none}
+.btab:nth-child(1){background:#FFFFFF}.btab:nth-child(2){background:#D7EFEC}.btab:nth-child(3){background:#FFF3B0}.btab:nth-child(4){background:#F3E1F7}.btab:nth-child(5){background:#E3ECFB}.btab:nth-child(6){background:#FFFFFF}
+.btab.on{padding-top:14px;font-size:16px}
+
+.page{background:var(--nb-card);border:2px solid var(--nb-ink);border-radius:0 20px 20px 20px;padding:36px;box-shadow:6px 6px 0 var(--nb-sh)}
+.blk{scroll-margin-top:72px;padding:8px 0 40px}
+.blk + .blk{border-top:2px dashed var(--line);padding-top:36px}
+.blk:last-child{padding-bottom:0}
+.blk-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.blk-h h2{margin:0;font-size:clamp(26px,4.4vw,36px);line-height:1.25}
+.blk-h .hand{font-size:21px;color:var(--nb-teal)}
+.lead{margin:4px 0 22px;color:var(--nb-ink-2);font-size:16.5px;max-width:46em}
+
+/* 한 문장 소개 */
+.intro{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:center}
+.intro .say{font-family:"Do Hyeon",sans-serif;font-size:clamp(26px,3.8vw,38px);line-height:1.35;margin:0 0 14px}
+.intro p{margin:0 0 10px;color:var(--nb-ink-2)}
+.nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.num-c{border:2px solid var(--nb-ink);border-radius:14px;padding:14px 16px;background:var(--surface-2)}
+.num-c b{display:block;font-family:"Do Hyeon",sans-serif;font-weight:400;font-size:34px;line-height:1.1;color:var(--nb-teal)}
+.num-c span{font-size:14px;color:var(--nb-ink-2);line-height:1.5;display:block;margin-top:4px}
+.num-c:nth-child(1){background:#FFF3B0;color:#1C1C1C}.num-c:nth-child(1) span{color:#4A4A4A}.num-c:nth-child(1) b{color:#0A6E6A}
+
+/* 목적·의도 */
+.why{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.why li{border:2px solid var(--nb-ink);border-radius:14px;padding:22px;background:var(--nb-card);display:flex;flex-direction:column;gap:8px;transition:transform .12s,box-shadow .12s}
+.why li:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--nb-sh)}
+.why .top{display:flex;align-items:center;gap:12px}
+.why .ic{flex:none;width:52px;height:52px;border:2px solid var(--nb-ink);border-radius:12px;display:grid;place-items:center;font-size:24px;background:var(--nb-hl)}
+.why li:nth-child(2) .ic{background:#D7EFEC}.why li:nth-child(3) .ic{background:#F3E1F7}.why li:nth-child(4) .ic{background:#E3ECFB}.why li:nth-child(5) .ic{background:#FFF3B0}
+.why h3{margin:0;font-size:20px;line-height:1.35}
+.why .tag{font-family:"Gaegu",cursive;font-weight:700;font-size:17px;color:var(--nb-teal);display:block;line-height:1.2}
+.why p{margin:0;color:var(--nb-ink-2);font-size:15.5px}
+.why .ev{margin-top:auto;padding-top:8px;font-size:13.5px;color:var(--nb-ink);border-top:1px dashed var(--line)}
+.why li.full{grid-column:1/-1}
+
+/* 사이트 지도 */
+.map{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.room{position:relative;display:flex;flex-direction:column;gap:6px;border:2px solid var(--nb-ink);border-radius:14px;padding:18px 20px;background:var(--nb-card);text-decoration:none;color:inherit;min-height:170px;transition:transform .12s,box-shadow .12s}
+.room:hover,.room:focus-visible{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--nb-sh)}
+.room .lbl{align-self:flex-start;font-size:12.5px;font-weight:800;border:2px solid var(--nb-ink);border-radius:8px 8px 0 0;padding:2px 10px;color:#1C1C1C}
+.room h3{margin:0;font-size:19px}
+.room p{margin:0;font-size:14.5px;color:var(--nb-ink-2);line-height:1.6}
+.room .go{margin-top:auto;padding-top:6px;font-weight:800;font-size:14px;align-self:flex-start;border-bottom:3px solid var(--nb-hl)}
+.room.t{background:repeating-linear-gradient(-45deg,var(--nb-card) 0 14px,var(--surface-2) 14px 16px)}
+
+/* 한 차시의 흐름 */
+.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;counter-reset:s}
+.flow li{position:relative;border:2px solid var(--nb-ink);margin-left:-2px;padding:20px 18px 18px;background:var(--nb-card);display:flex;flex-direction:column;gap:6px}
+.flow li:first-child{margin-left:0;border-radius:14px 0 0 14px}
+.flow li:last-child{border-radius:0 14px 14px 0;background:#FFF3B0;color:#1C1C1C}
+.flow li:last-child p{color:#4A4A4A}
+.flow .st{font-family:"Do Hyeon",sans-serif;font-size:15px;color:var(--nb-teal);letter-spacing:.02em}
+.flow li:last-child .st{color:#0A6E6A}
+.flow h3{margin:0;font-size:19px}
+.flow p{margin:0;font-size:14.5px;color:var(--nb-ink-2);line-height:1.6}
+.flow li:not(:last-child)::after{content:"→";position:absolute;right:-15px;top:50%;transform:translateY(-50%);z-index:1;width:26px;height:26px;border-radius:50%;background:var(--nb-ink);color:var(--nb-hl);display:grid;place-items:center;font-weight:900;font-size:14px}
+.flow-note{margin:14px 0 0;font-size:14.5px;color:var(--nb-ink-2)}
+
+/* 누가 어떻게 */
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.sticky{border:2px solid var(--nb-ink);border-radius:20px;padding:26px 28px;box-shadow:6px 6px 0 var(--nb-sh);display:flex;flex-direction:column;gap:12px;color:#1C1C1C}
+.sticky.y{background:#FFF3B0}.sticky.p{background:#F3E1F7}
+.sticky .hand{font-size:21px}
+.sticky b.big{font-family:"Do Hyeon",sans-serif;font-weight:400;font-size:30px;line-height:1.2}
+.sticky ol{margin:0;padding:0;list-style:none;display:grid;gap:8px;counter-reset:k}
+.sticky ol li{counter-increment:k;display:flex;gap:10px;align-items:flex-start;background:#fff;border:2px solid #1C1C1C;border-radius:12px;padding:10px 14px;font-size:15.5px;line-height:1.55}
+.sticky ol li::before{content:counter(k);flex:none;width:24px;height:24px;border-radius:50%;background:#1C1C1C;color:#FFE45C;display:grid;place-items:center;font-weight:900;font-size:13px;margin-top:1px}
+.sticky .row{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#1C1C1C;color:#fff;border:2px solid #1C1C1C;border-radius:12px;padding:12px 16px;min-height:50px;font-weight:800;text-decoration:none}
+
+/* 약속 */
+.promise{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.pr{border:2px solid var(--nb-ink);border-radius:14px;padding:18px;background:var(--nb-card)}
+.pr b{display:flex;align-items:center;gap:8px;font-size:17px;margin-bottom:4px}
+.pr b i{font-style:normal;width:30px;height:30px;border-radius:8px;border:2px solid var(--nb-ink);display:grid;place-items:center;background:var(--nb-teal-soft);font-size:15px}
+.pr p{margin:0;font-size:14.5px;color:var(--nb-ink-2);line-height:1.6}
+
+/* 앞으로 */
+.next{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.next li{display:flex;gap:14px;align-items:flex-start;border:2px dashed var(--nb-ink-2);border-radius:14px;padding:14px 18px;background:var(--nb-card)}
+.next .stamp{flex:none;font-family:"Gaegu",cursive;font-weight:700;font-size:16px;color:#B3261E;border:2px solid #B3261E;border-radius:8px;padding:0 8px;transform:rotate(-4deg);margin-top:2px}
+:root[data-theme="dark"] .next .stamp{color:#FF8A80;border-color:#FF8A80}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .next .stamp{color:#FF8A80;border-color:#FF8A80}}
+.next b{display:block;font-size:16.5px}
+.next span{font-size:14.5px;color:var(--nb-ink-2)}
+
+footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:28px 0 72px;color:var(--nb-ink-2);font-size:13px}
+footer a{font-weight:800}
+
+/* 나타나기 */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}}
+
+/* 태블릿 */
+@media (max-width:900px){
+  .intro{grid-template-columns:1fr}
+  .map{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .flow{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .flow li,.flow li:first-child,.flow li:last-child{margin-left:0;border-radius:14px}
+  .flow li::after{display:none}
+  .promise{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* 휴대폰 */
+@media (max-width:600px){
+  .head{padding-top:22px}
+  .head-btns{width:100%}
+  .head-btns .nbtn{flex:1}
+  .btabs{padding-left:10px}
+  .btab{padding:9px 13px;font-size:14px}
+  .page{padding:24px 16px;border-radius:0 16px 16px 16px;box-shadow:4px 4px 0 var(--nb-sh)}
+  .why,.map,.flow,.duo,.promise{grid-template-columns:1fr}
+  .sticky{padding:22px 18px;box-shadow:4px 4px 0 var(--nb-sh)}
+  .num-c b{font-size:24px}
+}
+</style>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <div>
+      <div class="who hand">중2 역사① · 2학기 · 사이트 안내</div>
+      <h1><span class="hl">역사 탐구 노트</span>를<br>소개합니다</h1>
+    </div>
+    <div class="head-btns">
+      <a class="nbtn teal" href="../">수업 목록으로 →</a>
+      <button class="nbtn" id="theme" type="button">◐ 화면</button>
+    </div>
+  </header>
+
+  <nav class="btabs" aria-label="안내 목차">
+    <a class="btab" href="#what">한눈에</a>
+    <a class="btab" href="#why">만든 목적</a>
+    <a class="btab" href="#map">사이트 지도</a>
+    <a class="btab" href="#flow">한 차시 흐름</a>
+    <a class="btab" href="#how">쓰는 방법</a>
+    <a class="btab" href="#rule">지킨 약속</a>
+  </nav>
+
+  <main class="page">
+    <!-- 한눈에 -->
+    <section class="blk" id="what">
+      <div class="intro">
+        <div class="rv">
+          <p class="say">교과서를 펼치듯 들어와서,<br><span class="hl">탐구하고 · 제출하고 · 피드백 받는</span><br>2학기 역사 수업 노트</p>
+          <p>「역사 탐구 노트」는 중학교 2학년 <b>역사①</b> 2학기 수업을 한 곳에 모은 수업 사이트입니다. 차시마다 따로 흩어져 있던 수업 자료, 활동, 복습 문제를 모눈 노트 한 권처럼 엮었습니다.</p>
+          <p>학생은 QR 하나로 들어와 수업 시간에 탐구 활동을 하고, 결과를 선생님께 바로 보냅니다. 선생님은 그 자리에서 확인하고 평가합니다.</p>
+        </div>
+        <div class="nums rv">
+          <div class="num-c"><b>8개</b><span>수업 페이지<br>(1~7차시 + 1차시+)</span></div>
+          <div class="num-c"><b>2개 단원</b><span>Ⅵ 세계 대전과 사회 변동<br>Ⅶ 현대 세계의 전개와 과제</span></div>
+          <div class="num-c"><b>10 · 59 · 39</b><span>개념 학습지 10개<br>빈칸 59개 · 확인 문제 39개</span></div>
+          <div class="num-c"><b>모든 차시</b><span>선생님이 바로 확인·평가하는<br>제출 활동이 들어 있어요</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 만든 목적 -->
+    <section class="blk" id="why">
+      <div class="blk-h"><h2>왜 만들었나요?</h2><span class="hand">목적과 의도</span></div>
+      <p class="lead">수업을 준비하며 늘 품었던 다섯 가지 바람이 이 사이트의 뼈대가 되었습니다.</p>
+      <ul class="why">
+        <li class="rv">
+          <div class="top"><span class="ic" aria-hidden="true">📒</span><div><span class="tag">한 곳에서</span><h3>흩어진 수업을 노트 한 권으로</h3></div></div>
+          <p>차시마다 주소가 다르면 학생도 선생님도 길을 잃습니다. 모든 수업을 단원별 바인더 탭으로 묶고, 어느 수업 화면에서든 「← 수업 목록」 한 번이면 처음으로 돌아오게 했습니다.</p>
+          <div class="ev">첫 화면 단원 탭 · QR 크게 보기 · 모든 페이지의 「← 수업 목록」 버튼</div>
+        </li>
+        <li class="rv">
+          <div class="top"><span class="ic" aria-hidden="true">📮</span><div><span class="tag">바로 확인</span><h3>활동하고, 보내고, 바로 피드백</h3></div></div>
+          <p>활동지를 걷어 채점하면 피드백이 며칠 늦습니다. 그래서 <b>모든 차시에 선생님이 그 자리에서 확인하고 평가할 수 있는 활동</b>을 넣었습니다. 학생이 보낸 결과는 교사 화면에 바로 나타나고, 선생님이 남긴 평가는 학생이 「선생님 피드백 확인」으로 다시 봅니다.</p>
+          <div class="ev">차시별 제출 → 교사 확인·평가 화면(잘함·보통·노력 필요 + 한 줄 피드백)</div>
+        </li>
+        <li class="rv">
+          <div class="top"><span class="ic" aria-hidden="true">📖</span><div><span class="tag">교과서와 똑같이</span><h3>재미보다 정확함이 먼저</h3></div></div>
+          <p>화면이 아무리 재미있어도 내용이 틀리면 안 됩니다. 모든 수업은 교과서 쪽수를 밝히고 교과서 본문과 한 줄씩 맞춰 보았습니다. 학습지에서 틀린 내용을 찾으면 교과서대로 고친 뒤 고친 까닭을 함께 적었습니다.</p>
+          <div class="ev">각 페이지의 「교과서 ○○쪽」 표시 · 개념 학습실의 「학습지 바로잡기」</div>
+        </li>
+        <li class="rv">
+          <div class="top"><span class="ic" aria-hidden="true">✏️</span><div><span class="tag">스스로 복습</span><h3>시험 전에, 내 속도로</h3></div></div>
+          <p>수업이 끝나도 노트는 남습니다. 개념 학습실에서 빈칸을 채우고 확인 문제를 풀면 정답과 해설이 바로 나옵니다. 풀이 기록은 학생 기기에만 저장되어 부담 없이 몇 번이고 다시 풀 수 있습니다.</p>
+          <div class="ev">개념 학습실 · 학습지 10개, 빈칸 59개, 확인 문제 39개</div>
+        </li>
+        <li class="rv full">
+          <div class="top"><span class="ic" aria-hidden="true">🤝</span><div><span class="tag">함께 움직이는 수업</span><h3>보는 수업에서 참여하는 수업으로</h3></div></div>
+          <p>지도를 누르고, 카드를 순서대로 놓고, 독재자 역할의 AI 챗봇에게 반박하고, 모둠이 함께 역사 문장을 사고팝니다. 학생이 손을 움직여야 생각도 움직인다고 믿기 때문입니다. 세계사 타임라인 지구본에서는 같은 시기의 동양과 서양을 나란히 놓고 비교합니다.</p>
+          <div class="ev">분류·순서 맞추기 활동 · 2차시 반박 토론 챗봇 · 역사 문장 경매(실시간 모둠) · 3D 세계사 지구본</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 사이트 지도 -->
+    <section class="blk" id="map">
+      <div class="blk-h"><h2>무엇이 들어 있나요?</h2><span class="hand">사이트 지도</span></div>
+      <p class="lead">첫 화면의 바인더 탭과 같은 순서입니다. 카드를 누르면 그곳으로 갑니다.</p>
+      <div class="map">
+        <a class="room rv" href="../#p6"><span class="lbl" style="background:#FFFFFF">Ⅵ 세계 대전</span><h3>1 ~ 6차시 (+ 1차시+)</h3><p>제1차 세계 대전, 러시아 혁명과 민주주의의 확대, 대공황과 전체주의, 제2차 세계 대전, 전쟁 범죄와 평화를 위한 노력, 아시아·아프리카의 민족 운동</p><span class="go">수업 목록 보기 →</span></a>
+        <a class="room rv" href="../#p7"><span class="lbl" style="background:#D7EFEC">Ⅶ 냉전과 현대</span><h3>7차시 ~</h3><p>냉전 체제의 형성부터 제3 세계의 등장, 냉전 이후의 국제 질서까지. 진도에 맞춰 한 차시씩 늘어납니다.</p><span class="go">수업 목록 보기 →</span></a>
+        <a class="room rv" href="../concepts/"><span class="lbl" style="background:#FFF3B0">개념 학습</span><h3>개념 학습실</h3><p>교과서 개념 학습지를 빈칸 채우기와 확인 문제로 풀고, 정답과 해설을 바로 확인하는 복습 공간</p><span class="go">들어가기 →</span></a>
+        <a class="room rv" href="../tools/"><span class="lbl" style="background:#F3E1F7">수업 도구</span><h3>역사 문장 경매 · 반별 투표</h3><p>선생님 화면과 모둠 휴대폰을 연결해 함께 하는 실시간 모둠 활동과 행사용 투표</p><span class="go">들어가기 →</span></a>
+        <a class="room rv" href="../world-timeline/"><span class="lbl" style="background:#E3ECFB">세계사 한눈에</span><h3>세계사 타임라인 지구본</h3><p>Ⅱ~Ⅶ단원의 사건·제국의 영역·교류 경로를 3D 지구본에서 시대별로 보고, 나만의 세계사 연표를 만들어 제출</p><span class="go">들어가기 →</span></a>
+        <a class="room t rv" href="../teacher/"><span class="lbl" style="background:#FFE45C">선생님 전용</span><h3>교사 확인·평가</h3><p>비밀번호로 들어가 차시별 제출을 보고 평가·피드백을 남깁니다. 15초 자동 새로 고침, 화면 공유용 이름 가리기</p><span class="go">교사 화면 →</span></a>
+      </div>
+    </section>
+
+    <!-- 한 차시 흐름 -->
+    <section class="blk" id="flow">
+      <div class="blk-h"><h2>한 차시는 이렇게 흘러가요</h2><span class="hand">45분 수업 설계</span></div>
+      <p class="lead">4차시부터의 수업 페이지는 같은 틀을 따릅니다. 화면 위쪽 단계 버튼이 지금 어디쯤인지 알려 줍니다.</p>
+      <ol class="flow">
+        <li class="rv"><span class="st">STEP 1</span><h3>도입</h3><p>그림·만화·장면 하나로 궁금증을 열고, 내 생각을 먼저 써 봅니다.</p></li>
+        <li class="rv"><span class="st">STEP 2 ~ 4</span><h3>탐구 활동</h3><p>교과서 내용을 사진·지도·연표로 살펴보고 분류·순서 맞추기 활동으로 정리합니다.</p></li>
+        <li class="rv"><span class="st">STEP 5</span><h3>확인</h3><p>빈칸 채우기와 O/X 퀴즈로 바로 점검합니다. 처음 고른 답으로 점수를 셉니다.</p></li>
+        <li class="rv"><span class="st">STEP 6</span><h3>정리 · 제출</h3><p>서술형으로 내 말로 정리하고, 스스로 점검한 뒤 선생님께 한 번에 보냅니다.</p></li>
+      </ol>
+      <p class="flow-note">1~3차시는 시뮬레이션·지구본 투어·AI 토론처럼 차시마다 모양이 다른 탐구 앱이고, 마지막에 같은 방식으로 결과를 제출합니다.</p>
+    </section>
+
+    <!-- 쓰는 방법 -->
+    <section class="blk" id="how">
+      <div class="blk-h"><h2>누가, 어떻게 쓰나요?</h2><span class="hand">학생과 선생님</span></div>
+      <div class="duo">
+        <div class="sticky y rv">
+          <span class="hand">학생이라면</span>
+          <b class="big">QR 찍고, 탐구하고, 보내기</b>
+          <ol>
+            <li>칠판의 QR을 휴대폰이나 태블릿으로 찍어 들어와요.</li>
+            <li>오늘 배우는 차시 카드(「지금 배우는 곳」)를 눌러요.</li>
+            <li>STEP 순서대로 활동하고, 쓴 글은 기기에 저절로 저장돼요.</li>
+            <li>학반·번호·이름을 쓰고 「제출하기」를 눌러요. 고쳐서 다시 보내도 돼요.</li>
+            <li>「선생님 피드백 확인」으로 평가와 한 줄 피드백을 봐요. (1·3·4·7차시, 1차시+, 세계사 연표)</li>
+          </ol>
+          <a class="row" href="../">수업 목록 열기 <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="sticky p rv">
+          <span class="hand">선생님이라면</span>
+          <b class="big">수업하면서 바로 확인·평가</b>
+          <ol>
+            <li>교사 화면에 비밀번호로 들어가요. (비밀번호는 구글 시트 메뉴 [📚 수업 설정]에서 정해요)</li>
+            <li>위쪽에서 차시를 고르면 그 차시 제출이 학생별 카드로 나와요.</li>
+            <li>15초마다 새로 고침을 켜 두면 수업 중 제출이 바로바로 들어와요.</li>
+            <li>잘함·보통·노력 필요와 한 줄 피드백을 저장하면 학생이 곧바로 확인해요.</li>
+            <li>화면을 띄울 때는 「이름 가리기」를 켜요.</li>
+          </ol>
+          <a class="row" href="../teacher/">교사 화면 열기 <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 지킨 약속 -->
+    <section class="blk" id="rule">
+      <div class="blk-h"><h2>만들면서 지킨 약속</h2><span class="hand">믿고 쓸 수 있도록</span></div>
+      <div class="promise">
+        <div class="pr rv"><b><i>📖</i>교과서와 일치</b><p>교과서에 없는 내용을 사실처럼 넣지 않고, 쪽수를 밝힙니다.</p></div>
+        <div class="pr rv"><b><i>🔒</i>개인정보는 최소로</b><p>제출에는 학반·번호·이름만 씁니다. 사이트에는 학교나 교사 이름을 싣지 않습니다.</p></div>
+        <div class="pr rv"><b><i>🔑</i>키는 서버에만</b><p>AI(Gemini) 키와 교사 비밀번호는 화면 파일이 아니라 서버(Apps Script)에만 보관합니다.</p></div>
+        <div class="pr rv"><b><i>🖼️</i>출처 밝히기</b><p>사진·그림·영상의 출처를 각 수업 페이지 아래에 적습니다.</p></div>
+        <div class="pr rv"><b><i>📱</i>어느 기기에서나</b><p>휴대폰·태블릿·교실 PC에서 모두 쓸 수 있게 화면 크기에 맞춥니다.</p></div>
+        <div class="pr rv"><b><i>🌙</i>눈이 편하게</b><p>「◐ 화면」을 누르면 모눈 노트가 칠판처럼 어두운 화면으로 바뀝니다.</p></div>
+      </div>
+
+      <h3 style="margin:34px 0 12px;font-size:21px">앞으로 더할 것</h3>
+      <ul class="next">
+        <li class="rv"><span class="stamp">준비 중</span><div><b>실시간 수업 연결</b><span>손 들기(질문 있어요), 선생님만 조작하는 타이머, 수업 페이지를 따라오고 있는지 보는 활동 현황</span></div></li>
+        <li class="rv"><span class="stamp">준비 중</span><div><b>교사 기기 2대 수업</b><span>노트북은 수업 진행판, 태블릿은 학생 시연 화면으로</span></div></li>
+        <li class="rv"><span class="stamp">준비 중</span><div><b>수업 성찰 노트</b><span>수업이 끝난 뒤 좋았던 점·아쉬운 점·아이디어를 기록하고, 다음 수업 개선안을 정리</span></div></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <span>중학교 역사①(2022 개정) 2학기 수업 사이트 「역사 탐구 노트」 안내</span>
+    <a href="../">← 수업 목록으로</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  function store(k,v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v); }catch(e){ return null; } }
+  // 화면 밝기 (첫 화면과 같은 저장 키)
+  var root=document.documentElement, KEY='theme', t=store(KEY);
+  if(t) root.setAttribute('data-theme',t);
+  document.getElementById('theme').addEventListener('click',function(){
+    var dark=root.getAttribute('data-theme') ? root.getAttribute('data-theme')==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    var next=dark?'light':'dark'; root.setAttribute('data-theme',next); store(KEY,next);
+  });
+  // 목차 탭: 지금 읽는 곳 표시
+  var tabs=[].slice.call(document.querySelectorAll('.btab'));
+  var secs=tabs.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  function onScroll(){
+    var cur=0; secs.forEach(function(s,i){ if(s.getBoundingClientRect().top<140) cur=i; });
+    tabs.forEach(function(a,i){ a.classList.toggle('on',i===cur); });
+  }
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  // 스크롤하면 하나씩 나타나기
+  var items=[].slice.call(document.querySelectorAll('.rv'));
+  if(!('IntersectionObserver' in window)){ items.forEach(function(e){ e.classList.add('in'); }); return; }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{rootMargin:'0px 0px -8% 0px'});
+  items.forEach(function(e,i){ e.style.transitionDelay=(i%4)*60+'ms'; io.observe(e); });
+})();
+</script>
+</body>
+</html>
