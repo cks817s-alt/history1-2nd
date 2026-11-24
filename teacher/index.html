@@ -78,6 +78,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-o
 .blur .nm{filter:blur(6px)}
 .empty-state{text-align:center;color:var(--ink-2);padding:40px 16px}
 .hint{font-size:13px;color:var(--ink-2)}
+.modes{display:flex;gap:8px;padding:0 16px 10px;max-width:1200px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+.modes button{flex:none;font:inherit;font-size:15px;font-weight:800;padding:8px 16px;border-radius:12px;border:2px solid var(--nb-ink,#334155);background:var(--nb-card,#1e293b);color:var(--nb-ink,#e2e8f0);cursor:pointer;min-height:42px}
+.modes button[aria-selected="true"]{background:var(--nb-hl,#f59e0b);color:#1C1C1C;box-shadow:3px 3px 0 var(--nb-sh,#000)}
+.modes .n{display:inline-grid;place-items:center;min-width:22px;height:22px;border-radius:999px;background:#B3261E;color:#fff;font-size:12px;margin-left:6px;padding:0 6px}
 @media (max-width:560px){.stat{min-width:0;flex:1}}
 </style>
 <link rel="stylesheet" href="../assets/theme.css">
@@ -90,6 +94,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-o
     <button class="tbtn" id="theme" type="button" aria-label="화면 밝기 전환">◐ 화면</button>
     <button class="tbtn" id="logout" type="button" hidden>잠금</button>
   </div>
+  <nav class="modes" id="modes" role="tablist" aria-label="교사 화면 고르기" hidden>
+    <button type="button" role="tab" data-mode="grade">📋 제출 확인·평가</button>
+    <button type="button" role="tab" data-mode="live">🎛 수업 진행판</button>
+  </nav>
   <nav class="lessons" id="lessons" aria-label="차시 선택" hidden></nav>
 </header>
 
@@ -121,6 +129,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-o
     <div class="list" id="list"></div>
     <p class="hint" style="margin-top:20px">평가와 피드백은 구글 시트 「역사① 2학기 수업 제출」의 각 차시 탭 맨 오른쪽(평가·피드백·평가일시) 칸에 저장되고, 학생은 수업 페이지의 [선생님 피드백 확인] 버튼으로 바로 볼 수 있습니다.</p>
   </div>
+
+  <div id="livePanel" hidden></div>
 </main>
 
 <script>
@@ -158,7 +168,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-o
   $('logout').onclick=function(){ ss('t-pw',null); location.reload(); };
 
   function start(){
-    $('login').hidden=true; $('app').hidden=false; $('lessons').hidden=false; $('logout').hidden=false;
+    $('login').hidden=true; $('logout').hidden=false; $('modes').hidden=false;
+    setMode(ls('t-mode')||'grade');
     var nav=$('lessons'); nav.innerHTML='';
     LESSONS.forEach(function(l){
       var b=document.createElement('button'); b.type='button'; b.innerHTML='<b>'+(typeof l[0]==='number'?l[0]+'차시':'🌏 활동')+'</b>'+l[1];
@@ -167,10 +178,22 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-o
     });
     load(); setAuto();
   }
+  // 화면 고르기: 제출 확인·평가 / 수업 진행판
+  var mode='grade', liveLoaded=false;
+  function loadJs(src){ return new Promise(function(res,rej){ var s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=rej; document.body.appendChild(s); }); }
+  function setMode(m){
+    mode=m; ls('t-mode',m);
+    [].forEach.call($('modes').children,function(b){ b.setAttribute('aria-selected',b.dataset.mode===m); });
+    $('app').hidden=m!=='grade'; $('lessons').hidden=m!=='grade'; $('livePanel').hidden=m!=='live';
+    if(m==='grade' && data) load(true);
+    if(m==='live' && !liveLoaded){ liveLoaded=true; window.LIVE_TEACHER=true; $('livePanel').innerHTML='<div class="empty-state">실시간 서버에 연결하는 중…</div>';
+      loadJs('../assets/live.js').then(function(){ return loadJs('live-panel.js'); }).catch(function(){ $('livePanel').innerHTML='<div class="empty-state">수업 진행판을 불러오지 못했어요. 새로 고침해 주세요.</div>'; liveLoaded=false; }); }
+  }
+  $('modes').onclick=function(e){ var b=e.target.closest('[data-mode]'); if(b) setMode(b.dataset.mode); };
   function setAuto(){
     if(timer){ clearInterval(timer); timer=null; }
     var on=$('auto').checked; $('live').classList.toggle('on',on);
-    if(on) timer=setInterval(function(){ if(!document.hidden) load(true); },15000);
+    if(on) timer=setInterval(function(){ if(!document.hidden && mode==='grade') load(true); },15000);
     $('liveTxt').textContent=on?'실시간 확인 중':'자동 새로 고침 꺼짐';
   }
   $('auto').onchange=setAuto;
