@@ -39,6 +39,7 @@ function onOpen() {
     .addItem('① 제미나이 API 키 입력', 'menuSetApiKey')
     .addItem('② 교사 비밀번호 설정', 'menuSetPassword')
     .addItem('③ 연결 상태 점검', 'menuCheck')
+    .addItem('④ 나이스 API 키 입력', 'menuSetNeisKey')
     .addToUi();
 }
 
@@ -72,7 +73,8 @@ function menuCheck() {
   var lines = [
     '제출 시트: 준비됨',
     '제미나이 API 키: ' + (p.getProperty('GEMINI_API_KEY') ? '입력됨' : '❌ 없음 (① 메뉴에서 입력)'),
-    '교사 비밀번호: ' + (p.getProperty('TEACHER_PASSWORD') ? '설정됨' : '❌ 없음 (② 메뉴에서 설정)')
+    '교사 비밀번호: ' + (p.getProperty('TEACHER_PASSWORD') ? '설정됨' : '❌ 없음 (② 메뉴에서 설정)'),
+    '나이스 API 키: ' + (p.getProperty('NEIS_API_KEY') ? '입력됨' : '❌ 없음 (④ 메뉴에서 입력)')
   ];
   SpreadsheetApp.getUi().alert(lines.join('\n'));
 }
@@ -109,6 +111,13 @@ function doPost(e) {
       case 'artAdmin': return json_(artAdmin_(data));
       case 'artSet': return json_(artSet_(data));
       case 'artAdd': return json_(artAdd_(data));
+      case 'bootKeys': return json_(bootKeys_(data));
+      case 'keyStatus': return json_(keyStatus_(data));
+      case 'neisToday': return json_(neisToday_(data));
+      case 'reflect': return json_(reflect_(data));
+      case 'reflections': return json_(reflections_(data));
+      case 'reflectAI': return json_(reflectAI_(data));
+      case 'ideaAI': return json_(ideaAI_(data));
       default: return json_(submit_(data));
     }
   } catch (err) {
@@ -646,4 +655,164 @@ function artAdd_(data) {
     clip_(data.link, 500), clip_(data.intro, 1000), clip_(data.intent, 1000), clip_(data.status, 20) || '후보', ''];
   sh.getRange(sh.getLastRow() + 1, 1, 1, row.length).setNumberFormat('@').setValues([row.map(safeCell_)]);
   return { ok: true, id: id };
+}
+
+
+/* ---------------- 수업 성찰 · 나이스 · 아이디어 (교사 화면 「수업 성찰」 탭) ---------------- */
+// 키는 코드에 적지 않고 스크립트 속성(NEIS_API_KEY, GEMINI_API_KEY)에만 둡니다.
+
+var NEIS_SCHOOL = { OFFICE: 'E10', SCHOOL: '7341084', SUBJECT: '역사' };
+var REFLECT_SHEET = '수업 성찰';
+var REFLECT_HEADERS = ['기록일시', '수업한 날', '반', '교시', '수업(차시)', '좋았던 점', '부족한 점', '다음에 바꿀 것', '수업 아이디어'];
+var REFLECT_FIELDS = ['timestamp', 'date', 'cls', 'period', 'lesson', 'good', 'weak', 'change', 'idea'];
+
+function menuSetNeisKey() {
+  var ui = SpreadsheetApp.getUi();
+  var r = ui.prompt('나이스 API 키 입력', 'open.neis.go.kr 에서 발급한 인증키를 붙여 넣으세요.\n(키는 이 스크립트의 속성에만 저장되고 화면 파일에는 들어가지 않습니다)', ui.ButtonSet.OK_CANCEL);
+  if (r.getSelectedButton() !== ui.Button.OK) return;
+  var key = r.getResponseText().trim();
+  if (!key) return;
+  PropertiesService.getScriptProperties().setProperty('NEIS_API_KEY', key);
+  ui.alert('나이스 API 키를 저장했습니다.');
+}
+
+// 한 번만 쓰는 키 옮기기: 코드에는 무작위 토큰의 해시만 있고, 한 번 쓰면 잠깁니다.
+var BOOT_HASH = '845ce3b01e3aeb793f730c7aabd844fa46ffa13e85570b2516d9493b133a884c';
+function bootKeys_(data) {
+  var props = PropertiesService.getScriptProperties();
+  if (props.getProperty('BOOT_USED_' + BOOT_HASH.slice(0, 8))) return { ok: false, error: 'used' };
+  var h = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, String(data.token || ''), Utilities.Charset.UTF_8)
+    .map(function (b) { return ('0' + (b & 255).toString(16)).slice(-2); }).join('');
+  if (h !== BOOT_HASH) return { ok: false, error: 'unauthorized' };
+  var neis = String(data.neis || '').trim(), gem = String(data.gemini || '').trim();
+  if (neis) props.setProperty('NEIS_API_KEY', neis);
+  if (gem) props.setProperty('GEMINI_API_KEY', gem);
+  props.setProperty('BOOT_USED_' + BOOT_HASH.slice(0, 8), new Date().toISOString());
+  return { ok: true, neis: !!neis, gemini: !!gem };
+}
+
+function keyStatus_(data) {
+  if (!checkPassword_(data.password)) return { ok: false, error: 'unauthorized' };
+  var p = PropertiesService.getScriptProperties();
+  return { ok: true, neis: !!p.getProperty('NEIS_API_KEY'), gemini: !!p.getProperty('GEMINI_API_KEY') };
+}
+
+function neisGet_(service, params) {
+  var key = PropertiesService.getScriptProperties().getProperty('NEIS_API_KEY');
+  if (!key) throw new Error('no_neis_key');
+  var q = Object.keys(params).map(function (k) { return k + '=' + encodeURIComponent(params[k]); }).join('&');
+  var url = 'https://open.neis.go.kr/hub/' + service + '?KEY=' + encodeURIComponent(key) + '&Type=json&pIndex=1&pSize=1000'
+    + '&ATPT_OFCDC_SC_CODE=' + NEIS_SCHOOL.OFFICE + '&SD_SCHUL_CODE=' + NEIS_SCHOOL.SCHOOL + '&' + q;
+  var res = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+  if (res.getResponseCode() !== 200) throw new Error('neis_http_' + res.getResponseCode());
+  var json = JSON.parse(res.getContentText());
+  if (json[service]) return json[service][1].row || [];
+  if (json.RESULT && json.RESULT.CODE === 'INFO-200') return []; // 자료 없음
+  throw new Error('neis_' + (json.RESULT ? json.RESULT.CODE : 'unknown'));
+}
+
+// 고른 날(기본 오늘)의 역사 수업 시간표 + 그날부터 3주 학사 일정
+function neisToday_(data) {
+  if (!checkPassword_(data.password)) return { ok: false, error: 'unauthorized' };
+  var tz = 'Asia/Seoul';
+  var ymd = /^\d{8}$/.test(String(data.ymd || '')) ? String(data.ymd) : Utilities.formatDate(new Date(), tz, 'yyyyMMdd');
+  var cache = CacheService.getScriptCache(), ck = 'neis_' + ymd, hit = cache.get(ck);
+  if (hit) return JSON.parse(hit);
+  var out = { ok: true, ymd: ymd, lessons: [], events: [] };
+  try {
+    var rows = neisGet_('misTimetable', { ALL_TI_YMD: ymd });
+    var seen = {};
+    rows.forEach(function (r) {
+      var sub = String(r.ITRT_CNTNT || '').trim();
+      if (sub.indexOf(NEIS_SCHOOL.SUBJECT) === -1) return;
+      var k = r.GRADE + '-' + r.CLASS_NM + '_' + r.PERIO;
+      if (seen[k]) return; seen[k] = 1;
+      out.lessons.push({ cls: r.GRADE + '-' + r.CLASS_NM, period: Number(r.PERIO), subject: sub });
+    });
+    out.lessons.sort(function (a, b) { return a.period - b.period || a.cls.localeCompare(b.cls); });
+    var from = new Date(+ymd.slice(0, 4), +ymd.slice(4, 6) - 1, +ymd.slice(6, 8));
+    var to = new Date(from.getTime() + 21 * 864e5);
+    var ev = neisGet_('SchoolSchedule', { AA_FROM_YMD: ymd, AA_TO_YMD: Utilities.formatDate(to, tz, 'yyyyMMdd') });
+    var es = {};
+    ev.forEach(function (r) {
+      var name = String(r.EVENT_NM || '').trim();
+      if (!name || name === '토요휴업일') return;
+      var k = r.AA_YMD + name; if (es[k]) return; es[k] = 1;
+      out.events.push({ ymd: String(r.AA_YMD), name: name });
+    });
+    out.events.sort(function (a, b) { return a.ymd.localeCompare(b.ymd); });
+  } catch (e) {
+    return { ok: false, error: String(e.message || e) };
+  }
+  cache.put(ck, JSON.stringify(out), 1800);
+  return out;
+}
+
+function reflectSheet_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(REFLECT_SHEET);
+  if (!sh) {
+    sh = ss.insertSheet(REFLECT_SHEET);
+    sh.appendRow(REFLECT_HEADERS); sh.setFrozenRows(1);
+    sh.getRange(1, 1, 1, REFLECT_HEADERS.length).setFontWeight('bold').setBackground('#FFF3B0');
+  }
+  return sh;
+}
+
+function reflect_(data) {
+  if (!checkPassword_(data.password)) return { ok: false, error: 'unauthorized' };
+  if (![data.good, data.weak, data.change, data.idea].some(function (v) { return String(v || '').trim(); })) return { ok: false, error: 'empty' };
+  data.timestamp = Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
+  var row = REFLECT_FIELDS.map(function (f) { return safeCell_(clip_(data[f], 2000)); });
+  if (/^[0-9]/.test(row[2])) row[2] = "'" + row[2];
+  if (/^[0-9]{4}-/.test(row[1])) row[1] = "'" + row[1];
+  var lock = LockService.getScriptLock(); lock.waitLock(20000);
+  try { reflectSheet_().appendRow(row); } finally { lock.releaseLock(); }
+  return { ok: true, timestamp: data.timestamp };
+}
+
+function reflectRows_(n) {
+  var sh = reflectSheet_(), last = sh.getLastRow();
+  if (last < 2) return [];
+  var start = Math.max(2, last - n + 1);
+  return sh.getRange(start, 1, last - start + 1, REFLECT_HEADERS.length).getDisplayValues().reverse().map(function (v) {
+    var o = {}; REFLECT_FIELDS.forEach(function (f, i) { o[f] = v[i]; }); return o;
+  });
+}
+
+function reflections_(data) {
+  if (!checkPassword_(data.password)) return { ok: false, error: 'unauthorized' };
+  return { ok: true, rows: reflectRows_(60) };
+}
+
+var AI_TEACHER_SYS = '너는 대한민국 중학교 역사 교사의 수업 개선을 돕는 동료 교사다. 2022 개정 교육과정 중학교 역사①(비상교육 교과서)을 가르친다. ' +
+  '교과서에 없는 역사적 사실을 새로 만들어 내지 말고, 수업 방법·활동 구성·평가에 대해서만 제안한다. 한국어로, 짧고 구체적으로 쓴다.';
+
+function reflectAI_(data) {
+  if (!checkPassword_(data.password)) return { ok: false, error: 'unauthorized' };
+  var rows = reflectRows_(15);
+  if (data.lesson) rows = rows.filter(function (r) { return r.lesson === data.lesson; }).concat(rows.filter(function (r) { return r.lesson !== data.lesson; })).slice(0, 15);
+  if (!rows.length) return { ok: false, error: 'no_rows' };
+  var notes = rows.map(function (r, i) {
+    return '기록 ' + (i + 1) + ') ' + r.date + ' ' + r.cls + ' ' + r.lesson + '\n좋았던 점: ' + r.good + '\n부족한 점: ' + r.weak + '\n바꿀 것: ' + r.change + '\n아이디어: ' + r.idea;
+  }).join('\n\n');
+  var prompt = '아래는 내가 최근에 쓴 수업 성찰 기록이다.' + (data.lesson ? ' 특히 「' + data.lesson + '」 수업을 중심으로 본다.' : '') + '\n\n' + notes +
+    '\n\n기록에서 되풀이되는 문제와 좋았던 점을 짚고, 다음 수업에서 바로 해 볼 수 있는 개선안 3가지를 제안해 줘. ' +
+    '형식: 먼저 "한 줄 진단:" 한 줄, 그다음 "1." "2." "3." 번호마다 제안 제목 한 줄 + 어떻게 하는지 2문장 + 어느 기록에서 나온 제안인지(예: 기록 2·5). 마크다운 기호(** 등)는 쓰지 마.';
+  var text = callGemini_([{ role: 'user', parts: [{ text: prompt }] }], AI_TEACHER_SYS);
+  if (!text) return { ok: false, error: 'ai_unavailable' };
+  return { ok: true, text: text.trim(), count: rows.length };
+}
+
+function ideaAI_(data) {
+  if (!checkPassword_(data.password)) return { ok: false, error: 'unauthorized' };
+  var idea = clip_(data.idea, 1500).trim();
+  if (!idea) return { ok: false, error: 'empty' };
+  var prompt = '수업 아이디어 메모: ' + idea + (data.lesson ? '\n적용할 수업: ' + data.lesson : '') +
+    '\n\n이 메모를 45분 수업 안에서 쓸 수 있는 활동으로 다듬어 줘. 형식(마크다운 기호 없이): ' +
+    '"활동 이름:" 한 줄 / "목표:" 한 줄 / "진행(시간):" 3~4단계 / "준비물:" 한 줄 / "바로 평가할 점:" 한 줄 / "주의할 점:" 한 줄. ' +
+    '역사적 사실은 교과서에서 확인하라고 덧붙이고, 새 사실을 지어내지 마.';
+  var text = callGemini_([{ role: 'user', parts: [{ text: prompt }] }], AI_TEACHER_SYS);
+  if (!text) return { ok: false, error: 'ai_unavailable' };
+  return { ok: true, text: text.trim() };
 }
