@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>유럽의 정치 체제 변화</title>
+<meta name="description" content="중학교 역사① Ⅵ-01-2. 유럽 각국의 정치 체제가 변화하다 (수업 자료)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* 1~3차시(Tailwind slate + amber)와 같은 분위기로 맞춘 색 */
+:root{
+  --bg:#f8fafc; --surface:#ffffff; --surface-2:#f1f5f9; --ink:#0f172a; --ink-2:#475569; --line:#e2e8f0;
+  --accent:#b45309; --amber:#f59e0b; --accent-soft:#fef3c7; --ok:#047857; --ok-soft:#d1fae5; --no:#be123c; --no-soft:#ffe4e6;
+  --gold:#f59e0b; --navy:#0f172a; --navy-2:#1e293b;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1120; --surface:#111a2e; --surface-2:#1e293b; --ink:#f1f5f9; --ink-2:#94a3b8; --line:#243147;
+    --accent:#fbbf24; --accent-soft:rgba(245,158,11,.14); --ok:#34d399; --ok-soft:rgba(16,185,129,.15); --no:#fb7185; --no-soft:rgba(244,63,94,.15);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1120; --surface:#111a2e; --surface-2:#1e293b; --ink:#f1f5f9; --ink-2:#94a3b8; --line:#243147;
+  --accent:#fbbf24; --accent-soft:rgba(245,158,11,.14); --ok:#34d399; --ok-soft:rgba(16,185,129,.15); --no:#fb7185; --no-soft:rgba(244,63,94,.15);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;font-size:18px;line-height:1.75;word-break:keep-all;overflow-wrap:break-word}
+h1,h2,h3{font-weight:900;line-height:1.35;margin:0 0 .5em;letter-spacing:-.01em}
+a{color:var(--accent)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+
+/* top bar (1~3차시처럼 남색 바 + 앰버 아이콘) */
+.bar{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.bar .top{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.logo{flex:none;width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#ea580c);display:grid;place-items:center;font-size:22px;box-shadow:0 4px 12px rgba(245,158,11,.35)}
+.ttl{flex:1;min-width:0}
+.ttl .badges{display:flex;align-items:center;gap:8px;font-size:12px;color:#fbbf24;white-space:nowrap;overflow:hidden}
+.badge{background:#059669;color:#fff;font-weight:700;padding:1px 8px;border-radius:6px}
+.ttl .name{font-weight:900;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.theme{flex:none;border:1px solid #334155;background:#1e293b;color:#e2e8f0;border-radius:10px;height:34px;padding:0 12px;cursor:pointer;font:inherit;font-size:13px;font-weight:700}
+.steps{display:flex;gap:6px;padding:0 16px 10px;overflow-x:auto;scrollbar-width:none}
+.steps::-webkit-scrollbar{display:none}
+.steps a{flex:none;display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:10px;color:#cbd5e1;text-decoration:none;font-size:14px;font-weight:700;background:#1e293b;border:1px solid #334155}
+.steps a b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#334155;color:#fff;font-size:12px}
+.steps a.on{background:var(--amber);border-color:var(--amber);color:#0f172a}
+.steps a.on b{background:#0f172a;color:#fbbf24}
+.progress{height:3px;background:var(--amber);width:0;transition:width .15s}
+
+/* hero (1~3차시의 남색 시뮬레이션 패널 느낌) */
+.hero{padding:32px 0 8px}
+.hero-card{background:radial-gradient(120% 140% at 0% 0%,#1e293b 0%,#0f172a 60%);color:#fff;border-radius:24px;padding:40px 32px;box-shadow:var(--shadow);border:1px solid #1e293b}
+.hero .unit{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#fbbf24;border:1px solid rgba(251,191,36,.45);background:rgba(245,158,11,.12);padding:3px 12px;border-radius:999px;margin-bottom:16px}
+.hero h1{font-size:clamp(28px,5vw,46px)}
+.hero h1 em{font-style:normal;color:#fbbf24}
+.hero p.lead{font-size:clamp(16px,2.1vw,19px);color:#cbd5e1;max-width:42em;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-size:13px;padding:4px 12px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);font-weight:500}
+.hero-card .chip{background:rgba(255,255,255,.08);color:#e2e8f0;border:1px solid rgba(255,255,255,.12)}
+
+section{padding:48px 0;scroll-margin-top:120px}
+section + section{border-top:1px solid var(--line)}
+.kicker{display:inline-block;font-size:13px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:2px 10px;border-radius:6px;margin-bottom:10px}
+section h2{font-size:clamp(24px,4vw,32px)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:16px}
+@media(min-width:720px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
+
+/* goals */
+.goals-card{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.goals-card .kicker{background:#d1fae5;color:#047857;margin:0}
+:root[data-theme="dark"] .goals-card .kicker{background:rgba(16,185,129,.15);color:#34d399}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .goals-card .kicker{background:rgba(16,185,129,.15);color:#34d399}}
+.goals{list-style:none;padding:0;margin:0;display:grid;gap:10px;flex:1;min-width:240px}
+.goals li{display:flex;gap:12px;align-items:flex-start}
+.goals .n{flex:none;width:28px;height:28px;border-radius:8px;background:var(--navy);color:#fbbf24;display:grid;place-items:center;font-weight:900;font-size:15px;margin-top:2px}
+
+/* hook */
+.diary{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--amber);border-radius:6px 20px 20px 6px;padding:24px 28px;font-size:19px;font-weight:500;box-shadow:var(--shadow)}
+.diary small{display:block;margin-top:12px;font-size:14px;font-weight:400;color:var(--ink-2)}
+.ask{margin-top:20px;display:flex;gap:12px;align-items:flex-start;background:var(--accent-soft);border:1px solid rgba(245,158,11,.35);border-radius:14px;padding:16px 20px;font-weight:700}
+.ask::before{content:"Q";flex:none;width:28px;height:28px;border-radius:50%;background:var(--amber);color:#0f172a;display:grid;place-items:center;font-size:15px;font-weight:900}
+details.reveal{margin-top:12px}
+details.reveal summary{cursor:pointer;color:var(--accent);font-weight:700;font-size:15px}
+details.reveal div{padding:10px 0 0;color:var(--ink-2)}
+
+/* stat */
+.stat{display:flex;flex-direction:column;gap:4px}
+.stat .big{font-size:clamp(30px,4.6vw,40px);font-weight:900;color:var(--accent);line-height:1.15}
+.stat .lbl{color:var(--ink-2);font-size:15px}
+.cause{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:20px 0}
+.cause span{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px 12px;font-weight:700;font-size:16px}
+.cause span:last-child{background:var(--navy);color:#fbbf24;border-color:var(--navy)}
+.cause b{color:var(--amber)}
+
+/* crime tabs (2차시 상단 탭처럼 앰버 알약) */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tabs button{font:inherit;font-size:16px;font-weight:700;padding:10px 20px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--amber);color:#0f172a;border-color:var(--amber);box-shadow:0 4px 12px rgba(245,158,11,.3)}
+.panel{display:none}
+.panel.on{display:block}
+.panel .row{display:grid;gap:8px;padding:14px 0;border-top:1px dashed var(--line)}
+.panel .row:first-of-type{border-top:0}
+@media(min-width:720px){.panel .row{grid-template-columns:110px 1fr;gap:16px}}
+.panel .row dt{font-weight:900;color:var(--accent)}
+.panel .row dd{margin:0}
+.panel ul{margin:0;padding-left:1.2em}
+.where{display:inline-block;font-size:13px;font-weight:700;color:var(--ink-2);background:var(--surface-2);padding:2px 10px;border-radius:6px;vertical-align:middle;margin-left:4px}
+
+/* timeline */
+.tl{position:relative;padding-left:28px;margin:0;list-style:none}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl li{position:relative;padding-bottom:18px}
+.tl li::before{content:"";position:absolute;left:-26px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:3px solid var(--amber)}
+.tl .y{font-weight:900;color:var(--accent);margin-right:8px}
+
+/* fill-in */
+.fill p{margin:0 0 14px}
+.blank{display:inline-flex;align-items:center;gap:4px;vertical-align:baseline}
+.blank input{font:inherit;font-weight:700;width:9em;max-width:60vw;padding:2px 8px;border:0;border-bottom:2px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:8px 8px 0 0;text-align:center}
+.blank input:focus{outline:2px solid var(--amber);outline-offset:1px}
+.blank.ok input{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.blank.no input{border-color:var(--no);background:var(--no-soft)}
+.num{font-weight:900;color:var(--accent)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.btn{font:inherit;font-weight:700;font-size:16px;padding:10px 20px;border-radius:12px;border:1px solid var(--amber);background:var(--amber);color:#0f172a;cursor:pointer}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn.ghost{background:transparent;color:var(--accent)}
+.result{margin-top:10px;font-weight:700;min-height:1.6em}
+
+/* quiz */
+.q{margin-bottom:22px}
+.q .opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.q .opts button{font:inherit;font-size:17px;font-weight:700;padding:10px 22px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;min-width:96px}
+.q .opts button.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.q .opts button.no{border-color:var(--no);background:var(--no-soft);color:var(--no)}
+.q .fb{font-size:15px;color:var(--ink-2);margin-top:6px;min-height:1.5em}
+
+/* reflect */
+textarea{width:100%;min-height:150px;font:inherit;padding:14px;border-radius:16px;border:1px solid var(--line);background:var(--surface);color:var(--ink);resize:vertical}
+textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
+.hint{font-size:14px;color:var(--ink-2)}
+.submit-card{margin-top:24px;border:2px solid var(--amber)}
+.who{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0}
+.who label{display:flex;flex-direction:column;gap:4px;font-size:14px;font-weight:700;color:var(--ink-2)}
+.who input{font:inherit;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);color:var(--ink);min-width:0}
+.who input:focus{outline:2px solid var(--amber);outline-offset:1px}
+.sendmsg{margin-top:8px;font-weight:700}.sendmsg.ok{color:#15803d}.sendmsg.err{color:#b91c1c}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sendmsg.ok{color:#4ade80}:root:not([data-theme="light"]) .sendmsg.err{color:#f87171}}
+:root[data-theme="dark"] .sendmsg.ok{color:#4ade80}:root[data-theme="dark"] .sendmsg.err{color:#f87171}
+@media (max-width:560px){.who{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.who label:last-child{grid-column:1/-1}}
+
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.checks label{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.checks input{width:20px;height:20px;margin-top:5px;accent-color:var(--amber);flex:none}
+
+/* historical photos */
+.photo{margin:0;display:flex;flex-direction:column}
+.photo img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;background:var(--surface-2);cursor:zoom-in;filter:grayscale(.15)}
+.photo figcaption{padding:10px 2px 0;font-size:15px;line-height:1.6;color:var(--ink-2)}
+.photo figcaption b{display:block;color:var(--ink);font-size:16px}
+.photo figcaption b::before{content:"▲ ";color:var(--amber);font-size:12px}
+.photo .credit{display:block;font-size:12px;opacity:.75;margin-top:4px}
+.photo.mid{max-width:620px;margin:4px 0 20px}
+.photo.mid img{aspect-ratio:auto}
+.photo.portrait img{aspect-ratio:auto;max-height:420px;object-fit:contain;background:transparent}
+.strip{display:grid;gap:24px;margin:24px 0}
+@media(min-width:720px){.strip.two{grid-template-columns:1fr 1fr}.strip.three{grid-template-columns:repeat(3,1fr)}}
+.anne{display:grid;gap:24px;align-items:center;margin-bottom:8px}
+@media(min-width:720px){.anne{grid-template-columns:260px 1fr}}
+/* click-to-enlarge */
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(2,6,23,.9);display:none;align-items:center;justify-content:center;padding:16px;cursor:zoom-out;flex-direction:column;gap:12px}
+.lightbox.on{display:flex}
+.lightbox img{max-width:100%;max-height:85vh;border-radius:8px}
+.lightbox p{color:#eee;margin:0;font-size:15px;text-align:center;max-width:800px}
+.credits{list-style:none;padding:0;margin:12px 0 0;font-size:12px;line-height:1.7}
+.credits a{color:inherit}
+.note{font-size:14px;color:var(--ink-2);background:var(--surface-2);border-radius:14px;padding:12px 16px}
+footer{padding:32px 0 72px;color:var(--ink-2);font-size:14px;border-top:1px solid var(--line);background:var(--surface)}
+
+@media (max-width:560px){.hero-card{padding:28px 20px;border-radius:20px}.ttl .badges .sub{display:none}.card{padding:20px}}
+@media print{.bar,.btns,.theme{display:none}section{break-inside:avoid;padding:24px 0}body{font-size:14px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* ---- 5차시 추가 요소 ---- */
+.testi{display:grid;gap:16px}
+@media(min-width:720px){.testi{grid-template-columns:repeat(3,1fr)}}
+.testi .card{display:flex;flex-direction:column;gap:8px}
+.testi .who{font-size:13px;font-weight:700;color:var(--accent)}
+.testi q{font-weight:500;quotes:"“" "”"}
+.testi small{color:var(--ink-2);font-size:14px;line-height:1.6}
+
+.confs{display:grid;gap:12px}
+.conf{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:start;text-align:left;font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px 20px;box-shadow:var(--shadow);cursor:pointer;width:100%}
+.conf:hover{border-color:var(--amber)}
+.conf .yr{font-weight:900;color:var(--accent);font-size:17px;line-height:1.3}
+.conf .yr small{display:block;font-size:12px;color:var(--ink-2);font-weight:500}
+.conf h3{font-size:19px;margin:0}
+.conf .who{font-size:14px;color:var(--ink-2)}
+.conf .more{display:none;margin-top:10px}
+.conf.open .more{display:block}
+.conf .tap{font-size:13px;font-weight:700;color:var(--accent);margin-top:4px}
+.conf.open .tap{display:none}
+.conf .more img{width:100%;max-width:520px;border-radius:12px;display:block;margin-top:10px;cursor:zoom-in}
+.conf .more .cap{font-size:13px;color:var(--ink-2);margin-top:6px}
+@media(max-width:560px){.conf{grid-template-columns:1fr;gap:6px}}
+
+table.cmp{width:100%;border-collapse:separate;border-spacing:0;font-size:16px;overflow:hidden;border-radius:16px;border:1px solid var(--line)}
+table.cmp th,table.cmp td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.cmp tr:last-child td{border-bottom:0}
+table.cmp thead th{background:var(--navy);color:#fff;font-weight:900}
+table.cmp thead th:last-child{color:#fbbf24}
+table.cmp tbody th{background:var(--surface-2);font-weight:700;width:24%}
+table.cmp td{background:var(--surface)}
+.scroll-x{overflow-x:auto}
+
+.sort .item{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:12px 0;border-top:1px dashed var(--line)}
+.sort .item:first-of-type{border-top:0}
+.sort .item p{margin:0;flex:1;min-width:220px}
+.sort .item .pick{display:flex;gap:8px}
+.sort .item button{font:inherit;font-size:15px;font-weight:700;padding:6px 14px;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.sort .item button.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.sort .item button.no{border-color:var(--no);background:var(--no-soft);color:var(--no)}
+
+.trial-hl{display:grid;gap:12px;margin:16px 0}
+@media(min-width:720px){.trial-hl{grid-template-columns:repeat(3,1fr)}}
+.trial-hl div{background:var(--surface-2);border-radius:14px;padding:14px 16px}
+.trial-hl b{display:block;font-size:24px;font-weight:900;color:var(--accent);line-height:1.2}
+.trial-hl span{font-size:14px;color:var(--ink-2)}
+.limit{border-left:5px solid var(--no);background:var(--no-soft);border-radius:6px 14px 14px 6px;padding:12px 16px;margin-top:12px}
+.limit b{color:var(--no)}
+
+.speech{display:flex;gap:14px;align-items:flex-start;background:var(--navy);color:#e2e8f0;border-radius:20px;padding:20px 22px;margin:16px 0}
+.speech .av{flex:none;width:44px;height:44px;border-radius:50%;background:#334155;display:grid;place-items:center;font-weight:900;color:#fbbf24}
+.speech q{display:block;font-size:18px;font-weight:700;color:#fff;margin-top:4px}
+
+.pz{display:grid;gap:16px}
+@media(min-width:820px){.pz{grid-template-columns:1.2fr 1fr}}
+.pz .st{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-top:1px dashed var(--line)}
+.pz .st:first-child{border-top:0}
+.pz .sym{flex:none;width:34px;height:34px;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;font-size:18px}
+.pz .st p{margin:0 0 6px}
+.pz .st .opts{display:flex;gap:8px}
+.pz .st button{font:inherit;font-weight:900;font-size:15px;width:52px;padding:4px 0;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.pz .st button.sel{background:var(--navy);color:#fbbf24;border-color:var(--navy)}
+.grid7{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;max-width:360px;margin:0 auto}
+.grid7 span{aspect-ratio:1;display:grid;place-items:center;border-radius:8px;background:var(--surface-2);font-size:18px;color:var(--ink-2);transition:background .2s,color .2s}
+.grid7 span.on{background:var(--amber);color:#0f172a}
+.pz .ans{text-align:center;font-weight:900;margin-top:12px;min-height:1.6em}
+
+.topics{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px}
+.topics button{font:inherit;font-size:15px;font-weight:700;padding:8px 16px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer}
+.topics button[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:#0f172a}
+.scene{display:grid;gap:10px;margin-top:10px}
+.scene label{font-weight:700;font-size:15px}
+.scene textarea{min-height:90px}
+.memo{font-size:15px;color:var(--ink-2);background:var(--surface-2);border-radius:14px;padding:12px 16px;min-height:1.6em}
+
+/* ---- 6차시 추가 요소 ---- */
+.person{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:start}
+.person img{width:120px;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:14px;cursor:zoom-in;filter:grayscale(.15);background:var(--surface-2)}
+.person h3{font-size:20px;margin:0 0 4px}.person p{margin:0;font-size:16px}
+.person .kicker{margin-bottom:6px}.person .credit{display:block;font-size:12px;color:var(--ink-2);margin-top:6px}
+@media(max-width:480px){.person{grid-template-columns:90px 1fr}.person img{width:90px}}
+.sort .item .pick{flex-wrap:wrap}
+.ws{display:grid;gap:20px;align-items:start}
+@media(min-width:760px){.ws{grid-template-columns:auto 1fr}}
+.wsg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;width:min(100%,380px);margin:0 auto}
+.wsg button{aspect-ratio:1;border:0;border-radius:8px;background:var(--surface-2);color:var(--ink);font:inherit;font-size:clamp(15px,4.4vw,20px);font-weight:700;cursor:pointer;padding:0}
+.wsg button.sel{background:var(--navy);color:#fbbf24}
+.wsg button.hit{color:#0f172a}
+.wsg button.f0{background:#fcd34d}.wsg button.f1{background:#93c5fd}.wsg button.f2{background:#86efac}
+.wsg button.f3{background:#f9a8d4}.wsg button.f4{background:#c4b5fd}.wsg button.f5{background:#fdba74}
+.wsl{margin:0;padding-left:1.4em;display:grid;gap:6px;font-size:16px}
+.wsl li.done{color:var(--ok);text-decoration:line-through}
+.wsl li.done::after{content:" ✓";font-weight:900}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 12px}
+.flow span{background:var(--surface-2);border-radius:10px;padding:6px 12px;font-size:15px}
+.card > label{display:block;margin:4px 0 8px}
+.flow span+span::before{content:"→ ";color:var(--amber);font-weight:900}
+
+/* ---- 7차시 추가 요소 ---- */
+.meet{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.meet p{margin:0;font-weight:700}
+.race{list-style:none;padding:0;margin:0;display:grid;gap:16px}
+.race li{display:grid;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+@media(min-width:720px){.race li{grid-template-columns:260px 1fr}.race li:nth-child(2) .race-t{grid-column:1/-1}}
+.race .photo img{aspect-ratio:4/3}
+.race .photo img.contain{object-fit:contain;background:#000}
+.race .yr{display:inline-block;font-weight:900;color:#0f172a;background:var(--amber);border-radius:8px;padding:1px 10px;font-size:15px;margin-bottom:6px}
+.race p{margin:0 0 8px}
+.race q{display:block;font-size:16px;color:var(--ink-2);border-left:3px solid var(--line);padding-left:12px;quotes:"“" "”"}
+.race q small{font-size:13px}
+.def{background:var(--navy);color:#e2e8f0;border-radius:16px;padding:16px 20px;margin:8px 0 20px;font-size:17px}
+.def b{color:#fbbf24;margin-right:8px;font-size:19px}
+.def .where{background:#1e293b;color:#cbd5e1}
+.duel{display:grid;gap:12px;align-items:stretch}
+@media(min-width:820px){.duel{grid-template-columns:1fr 56px 1fr}}
+.side{border-radius:20px;padding:20px;border:2px solid;background:var(--surface)}
+.side.us{border-color:var(--c-us)}.side.su{border-color:var(--c-su)}
+.side-h{font-size:17px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.side.us .side-h b{color:var(--c-us)}.side.su .side-h b{color:var(--c-su)}
+.flagdot{width:14px;height:14px;border-radius:50%;display:inline-block}
+.side.us .flagdot{background:var(--c-us)}.side.su .flagdot{background:var(--c-su)}
+.side ol{margin:0;padding-left:1.3em;display:grid;gap:10px;font-size:16px}
+.side ol b{display:block}
+.side small{display:block;color:var(--ink-2);font-size:14px}
+.vs{display:grid;place-items:center;font-weight:900;font-size:22px;color:var(--accent)}
+.bloc{margin-top:24px;border:2px solid var(--amber)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px;min-height:44px}
+.chips button{font:inherit;font-size:15px;font-weight:700;padding:8px 14px;border-radius:12px;border:2px solid var(--line);background:var(--surface-2);color:var(--ink);cursor:pointer}
+.chips button.pick{border-color:var(--amber);background:var(--accent-soft);box-shadow:0 0 0 3px rgba(245,158,11,.25)}
+table.bt{width:100%;border-collapse:separate;border-spacing:6px;min-width:420px}
+table.bt th{font-size:15px;padding:6px;text-align:center}
+table.bt thead th{background:var(--navy);color:#fff;border-radius:10px}
+table.bt thead th:nth-child(2){color:#93c5fd}table.bt thead th:nth-child(3){color:#fca5a5}
+table.bt tbody th{background:var(--surface-2);border-radius:10px;width:64px}
+.slot{width:100%;min-height:52px;font:inherit;font-size:15px;font-weight:700;border-radius:12px;border:2px dashed var(--line);background:var(--surface);color:var(--ink);cursor:pointer;padding:6px}
+.slot.filled{border-style:solid;border-color:var(--ink-2)}
+.slot.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.slot.no{border-color:var(--no);background:var(--no-soft);color:var(--no)}
+.slot.wait{border-color:var(--amber)}
+.ord{display:flex;flex-wrap:wrap;gap:8px}
+.ord button{font:inherit;font-size:15px;font-weight:700;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;text-align:left;max-width:100%}
+.ord button:hover{border-color:var(--amber)}
+.ord button.shake{animation:shake .4s;border-color:var(--no);background:var(--no-soft)}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.ord-done{margin:12px 0 0;padding-left:1.6em;display:grid;gap:6px}
+.ord-done li{color:var(--ok);font-weight:700}
+.case{display:grid;gap:20px;align-items:start}
+@media(min-width:760px){.case{grid-template-columns:minmax(0,380px) 1fr}}
+.case h3{font-size:21px}
+.case p{margin:0 0 10px}
+.flowlist{margin:0 0 10px;padding-left:1.2em;display:grid;gap:4px}
+.sidebox{background:var(--surface-2);border-radius:14px;padding:12px 16px;font-size:15.5px;margin:8px 0 12px}
+.sidebox b:first-child{display:block;color:var(--accent);margin-bottom:2px}
+.photo.small{max-width:360px}
+.photo.small img{aspect-ratio:auto}
+.iron{margin-top:12px}
+#sortCH{margin-top:16px;border:2px solid var(--amber)}
+.sort .item .why{flex-basis:100%;font-size:14.5px;color:var(--ink-2);min-height:0}
+.sort .item .why:empty{display:none}
+.q .fb b{color:var(--ink)}
+.fbbox{margin-top:12px;background:var(--surface-2);border-radius:14px;padding:14px 16px;font-size:16px}
+.fbbox .g{display:inline-block;font-weight:900;color:#0f172a;background:var(--amber);border-radius:8px;padding:1px 10px;margin-right:6px}
+/* ---- Ⅵ-01-2 추가 요소 ---- */
+.sort .item .pick button{min-width:84px}
+.sort .item .why{flex-basis:100%;font-size:14.5px;color:var(--ink-2)}
+.sort .item .why:empty{display:none}
+.pickset{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.pickset button{font:inherit;font-size:15.5px;font-weight:700;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;text-align:left;max-width:100%}
+.pickset button[aria-pressed="true"]{border-color:var(--amber);background:var(--accent-soft)}
+.pickset button.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.pickset button.no{border-color:var(--no);background:var(--no-soft);color:var(--no)}
+.pickset button.miss{border-style:dashed;border-color:var(--ok)}
+.vote{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:12px 0 4px}
+.vote div{background:var(--surface-2);border-radius:12px;padding:8px 12px;font-size:15px}
+.vote b{display:block;color:var(--accent);font-size:18px;font-weight:900}
+.vote small{color:var(--ink-2)}
+.three{display:grid;gap:12px}
+@media(min-width:760px){.three{grid-template-columns:repeat(3,1fr)}}
+.three .card h3{font-size:19px;margin:0 0 6px}
+.three .card p{margin:0;font-size:16px}
+.linkbtn{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:15px;padding:8px 14px;border-radius:12px;border:1px solid var(--amber);color:var(--accent);text-decoration:none;margin-top:8px}
+</style>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<header class="bar">
+  <div class="top">
+    <div class="logo" aria-hidden="true">🗳️</div>
+    <div class="ttl">
+      <div class="badges"><span class="badge">중학교 역사① Ⅵ-01-2</span><span class="sub">세계 대전과 국제 질서의 변화</span></div>
+      <div class="name">유럽 각국의 정치 체제가 변화하다</div>
+    </div>
+    <button class="theme" id="theme" type="button" aria-label="화면 밝기 전환">◐ 화면</button>
+  </div>
+  <nav class="steps" aria-label="수업 단계">
+    <a href="#s1"><b>1</b>도입</a><a href="#s2"><b>2</b>러시아 혁명</a><a href="#s3"><b>3</b>소련</a><a href="#s4"><b>4</b>민주주의·참정권</a><a href="#s5"><b>5</b>확인</a><a href="#s6"><b>6</b>정리·제출</a>
+  </nav>
+  <div class="progress" id="progress"></div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-card">
+        <div class="unit">Ⅵ. 세계 대전과 사회 변동 · 01. 세계 대전과 국제 질서의 변화</div>
+        <h1>유럽 각국의 <em>정치 체제</em>가<br>변화하다</h1>
+        <p class="lead">제1차 세계 대전은 전쟁터만 바꾼 것이 아니었습니다. 러시아에서는 황제가 쫓겨나고 세계 최초의 사회주의 국가가 세워졌고, 유럽 곳곳에서는 민주주의와 참정권이 넓어졌습니다. 전쟁은 사람들이 나라를 다스리는 방식을 어떻게 바꾸었을까요?</p>
+        <div class="meta"><span class="chip">중학교 2학년</span><span class="chip">역사① (2022 개정)</span><span class="chip">45분</span><span class="chip">교과서 189~190쪽</span></div>
+      </div>
+
+      <div class="grid g2" style="margin-top:16px">
+        <div class="card goals-card">
+          <div class="kicker">◎ 오늘의 학습 목표</div>
+          <ul class="goals">
+            <li><span class="n">1</span><span><b>러시아 혁명의 전개 과정</b>을 설명할 수 있다.</span></li>
+            <li><span class="n">2</span><span>제1차 세계 대전 이후 <b>유럽의 정치적 변화</b>를 파악할 수 있다.</span></li>
+          </ul>
+        </div>
+        <div class="card meet">
+          <div><div class="kicker">찾아갈 나라</div><p>러시아, 독일</p></div>
+          <div><div class="kicker">살펴볼 사건</div><p>러시아 혁명, 바이마르 공화국 수립</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 도입 -->
+  <section id="s1">
+    <div class="wrap">
+      <div class="kicker">STEP 1 · 도입 (5분)</div>
+      <h2>1905년 1월, 눈 내린 광장에서</h2>
+      <div class="anne">
+        <figure class="photo"><img src="img/tb-bloody-sunday.jpg" alt="눈 덮인 광장에서 군대의 총격에 쓰러지는 시위대를 그린 그림"><figcaption><b>피의 일요일 사건</b><span class="credit">교과서 189쪽</span></figcaption></figure>
+        <div>
+          <p style="margin-top:0">19세기 무렵 러시아는 <b>차르(황제)</b>가 다스리는 나라였습니다. 농업 중심의 경제 체제를 유지하면서 급속한 산업화를 겪고 있었지요. 그런데 <b>러일 전쟁</b>으로 생활이 어려워진 노동자들이 개혁을 요구하는 시위를 벌이자, 정부군이 총을 쏘아 많은 사람이 목숨을 잃었습니다.</p>
+          <div class="diary" style="font-size:17px">이 사건을 <b>피의 일요일 사건</b>(1905)이라고 합니다. <small>교과서 189쪽</small></div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <div class="ask" style="margin-top:0">개혁을 요구하던 노동자들에게 정부군이 총을 쏘았습니다. 이 사건을 본 러시아 사람들은 차르(황제)를 어떻게 생각하게 되었을까요? 한두 문장으로 써 보세요.</div>
+        <textarea id="introWhy" data-save="rr-intro" placeholder="예) 러시아 사람들은 차르가 …" style="margin-top:12px;min-height:100px"></textarea>
+        <details class="reveal">
+          <summary>생각을 쓴 뒤 열어 보기</summary>
+          <div>이후 차르 니콜라이 2세가 개혁을 약속했지만 별 성과를 거두지 못했습니다. 게다가 <b>제1차 세계 대전에 참전</b>하여 많은 인명 피해와 경제적 어려움이 생기자 국민의 불만은 더욱 커졌습니다. 이 불만이 결국 <b>1917년의 혁명</b>으로 터져 나옵니다.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 러시아 혁명 -->
+  <section id="s2">
+    <div class="wrap">
+      <div class="kicker">STEP 2 · 러시아 혁명의 전개 (12분)</div>
+      <h2>두 번의 혁명, 1917년 3월과 11월</h2>
+      <div class="grid g2">
+        <div class="card">
+          <div class="kicker">3월 혁명 (1917)</div>
+          <dl class="panel on" style="margin:0">
+            <div class="row"><dt>배경</dt><dd>제1차 세계 대전으로 인한 인명 피해와 경제난</dd></div>
+            <div class="row"><dt>과정</dt><dd>노동자들이 식량 배급, 전쟁 중지, 차르 타도 등을 외치며 시위 → 노동자와 군인들이 <b>소비에트</b>를 결성 → 차르를 몰아내고 <b>임시 정부</b> 수립</dd></div>
+          </dl>
+        </div>
+        <div class="card">
+          <div class="kicker">11월 혁명 (1917)</div>
+          <dl class="panel on" style="margin:0">
+            <div class="row"><dt>배경</dt><dd>임시 정부가 전쟁을 계속하고 개혁을 진행하지 않음</dd></div>
+            <div class="row"><dt>과정</dt><dd><b>레닌</b>이 이끄는 <b>볼셰비키</b>가 임시 정부를 무너뜨림 → <b>소비에트 정부</b> 수립</dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="grid g2" style="margin-top:12px">
+        <div class="def" style="margin:0"><b>소비에트</b>노동자와 군인들로 이루어진 대표자 회의 <span class="where">교과서 189쪽</span></div>
+        <div class="def" style="margin:0"><b>볼셰비키</b>러시아 사회주의 노동당의 급진파 <span class="where">교과서 189쪽</span></div>
+      </div>
+
+      <div class="card bloc" id="month">
+        <div class="kicker">활동 1 · 3월 혁명일까, 11월 혁명일까?</div>
+        <p class="hint" style="margin-top:0">문장을 읽고 어느 혁명에 해당하는지 고르세요. 처음 고른 답으로 점수를 셉니다.</p>
+        <div class="sort">
+          <div class="item" data-a="3"><p>노동자들이 식량 배급, 전쟁 중지, 차르 타도를 외치며 시위를 벌였다.</p><div class="pick"><button type="button" data-v="3">3월 혁명</button><button type="button" data-v="11">11월 혁명</button></div><div class="why"></div></div>
+          <div class="item" data-a="11"><p>레닌이 이끄는 볼셰비키가 정부를 무너뜨렸다.</p><div class="pick"><button type="button" data-v="3">3월 혁명</button><button type="button" data-v="11">11월 혁명</button></div><div class="why"></div></div>
+          <div class="item" data-a="3"><p>차르가 쫓겨나고 임시 정부가 세워졌다.</p><div class="pick"><button type="button" data-v="3">3월 혁명</button><button type="button" data-v="11">11월 혁명</button></div><div class="why"></div></div>
+          <div class="item" data-a="11"><p>임시 정부가 전쟁을 계속하고 개혁을 미룬 것에 반발하여 일어났다.</p><div class="pick"><button type="button" data-v="3">3월 혁명</button><button type="button" data-v="11">11월 혁명</button></div><div class="why"></div></div>
+          <div class="item" data-a="3"><p>노동자와 군인들이 소비에트를 결성하여 차르를 몰아냈다.</p><div class="pick"><button type="button" data-v="3">3월 혁명</button><button type="button" data-v="11">11월 혁명</button></div><div class="why"></div></div>
+          <div class="item" data-a="11"><p>그 결과 소비에트 정부가 세워졌다.</p><div class="pick"><button type="button" data-v="3">3월 혁명</button><button type="button" data-v="11">11월 혁명</button></div><div class="why"></div></div>
+        </div>
+        <div class="result" id="monthMsg" aria-live="polite"></div>
+      </div>
+
+      <div class="card" style="margin-top:16px" id="order">
+        <div class="kicker">활동 2 · 일어난 순서대로 누르기</div>
+        <p class="hint" style="margin-top:0">가장 먼저 일어난 일부터 차례로 누르세요. 틀리면 카드가 흔들립니다.</p>
+        <div class="ord" id="ordBox"></div>
+        <ol class="ord-done" id="ordDone"></ol>
+        <div class="result" id="ordMsg" aria-live="polite"></div>
+        <div class="btns"><button class="btn ghost" type="button" id="ordReset">다시 하기</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 소련 -->
+  <section id="s3">
+    <div class="wrap">
+      <div class="kicker">STEP 3 · 소련의 수립과 발전 (8분)</div>
+      <h2>레닌과 스탈린, 소련을 만들다</h2>
+      <div class="anne">
+        <figure class="photo"><img src="img/lenin-1920.jpg" alt="연단 위에서 군중에게 연설하는 레닌"><figcaption><b>군중 앞에서 연설하는 레닌(1920)</b><span class="credit">G. P. 골드시테인 촬영 · 퍼블릭 도메인 (선생님 수업 PPT 사진)</span></figcaption></figure>
+        <div>
+          <ol class="tl">
+            <li><span class="y">레닌</span>소비에트 정부는 독일과 서로 공격하지 않겠다는 조약을 맺고 <b>전쟁을 멈추었다</b>.</li>
+            <li><span class="y">레닌</span>토지와 산업을 국가가 직접 소유하고 관리하는 <b>사회주의 개혁</b>(국유화)을 추진하였다.</li>
+            <li><span class="y">레닌</span>경제적 어려움이 심해지자 자본주의 요소를 일부 도입한 <b>신경제 정책(NEP)</b>을 펼쳤다.</li>
+            <li><span class="y">1922</span>여러 소비에트 정부를 묶어 <b>소비에트 사회주의 공화국 연방(소련)</b>을 세웠다.</li>
+            <li><span class="y">스탈린</span>레닌의 뒤를 이어 <b>농업의 집단화</b>, <b>중공업 중심의 경제 개발 5개년 계획</b>을 추진하였다. 또한 반대파를 탄압하며 <b>공산당 독재 체제</b>를 강화하였다.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="card bloc" id="leader">
+        <div class="kicker">활동 3 · 누구의 정책일까?</div>
+        <p class="hint" style="margin-top:0">각 정책을 추진한 지도자를 고르세요. 처음 고른 답으로 점수를 셉니다.</p>
+        <div class="sort">
+          <div class="item" data-a="L"><p>자본주의 요소를 일부 도입한 신경제 정책(NEP)</p><div class="pick"><button type="button" data-v="L">레닌</button><button type="button" data-v="S">스탈린</button></div><div class="why"></div></div>
+          <div class="item" data-a="S"><p>농업의 집단화</p><div class="pick"><button type="button" data-v="L">레닌</button><button type="button" data-v="S">스탈린</button></div><div class="why"></div></div>
+          <div class="item" data-a="L"><p>여러 소비에트 정부를 묶어 소련 수립(1922)</p><div class="pick"><button type="button" data-v="L">레닌</button><button type="button" data-v="S">스탈린</button></div><div class="why"></div></div>
+          <div class="item" data-a="S"><p>중공업 중심의 경제 개발 5개년 계획</p><div class="pick"><button type="button" data-v="L">레닌</button><button type="button" data-v="S">스탈린</button></div><div class="why"></div></div>
+          <div class="item" data-a="L"><p>토지와 산업을 국가가 직접 소유하고 관리하는 사회주의 개혁</p><div class="pick"><button type="button" data-v="L">레닌</button><button type="button" data-v="S">스탈린</button></div><div class="why"></div></div>
+          <div class="item" data-a="S"><p>반대파를 탄압하며 공산당 독재 체제 강화</p><div class="pick"><button type="button" data-v="L">레닌</button><button type="button" data-v="S">스탈린</button></div><div class="why"></div></div>
+        </div>
+        <div class="result" id="leaderMsg" aria-live="polite"></div>
+      </div>
+
+      <figure class="photo mid" style="margin-top:24px;max-width:760px"><img src="img/tb-revolution-map.jpg" alt="러시아 혁명 이후 영국·독일·프랑스·이탈리아·몽골·한국·일본·중국·베트남에 공산당이 결성되거나 정권이 성립한 시기를 표시한 지도"><figcaption><b>러시아 혁명의 영향</b>레닌은 국제 공산당 연합 조직인 <strong>코민테른</strong>을 만들어 사회주의 혁명을 전 세계로 확산하고자 하였다. 코민테른은 여러 나라의 혁명과 식민지 해방 운동을 지원하였다. 그 결과 사회주의 사상이 널리 전파되어 여러 나라에서 공산당이 조직되고, 노동 운동과 민족 해방 운동이 활발해졌다.<span class="credit">교과서 189쪽</span></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 4. 민주주의와 참정권 -->
+  <section id="s4">
+    <div class="wrap">
+      <div class="kicker">STEP 4 · 민주주의 발전과 참정권의 확대 (10분)</div>
+      <h2>황제 대신 헌법, 소수 대신 모두의 투표</h2>
+      <div class="three">
+        <div class="card"><div class="kicker">독일</div><h3>바이마르 공화국 수립(1919)</h3><p>제1차 세계 대전이 끝나기 직전 혁명이 일어나 <b>독일 제국이 무너졌다</b>. 이후 독일 의회는 <b>바이마르 헌법</b>을 만들고 바이마르 공화국 수립을 널리 알렸다.</p></div>
+        <div class="card"><div class="kicker">오스트리아·헝가리 제국</div><h3>해체 → 여러 민주 공화국</h3><p>제1차 세계 대전 이후 해체된 오스트리아·헝가리 제국에서는 <b>여러 민주 공화국</b>이 탄생하였다.</p></div>
+        <div class="card"><div class="kicker">패전국의 식민지</div><h3>폴란드, 체코슬로바키아 등</h3><p><b>민족 자결주의</b> 원칙에 따라 독립하였다. 새롭게 등장한 독립국은 대부분 <b>민주주의 헌법</b>을 채택하였다.</p></div>
+      </div>
+      <figure class="photo portrait" style="max-width:300px;margin:20px 0"><img src="img/tb-weimar.jpg" alt="독일 국장인 독수리 문장이 그려진 바이마르 헌법 책 표지"><figcaption><b>바이마르 헌법</b>노동자의 권리와 여성의 참정권을 보장하였다.<span class="credit">교과서 190쪽</span></figcaption></figure>
+
+      <h3 style="margin-top:28px">참정권이 넓어지다</h3>
+      <p>제1차 세계 대전에 참여한 사람들은 전쟁이 끝난 뒤 자신들의 정치적 권리를 요구하였습니다. 또한 새로 생긴 나라들이 대부분 민주주의를 택하면서 <b>재산이나 성별에 따른 선거권 제한</b>이 점차 사라지고, 세계 각국에 <b>보통 선거</b>가 자리를 잡게 되었습니다.</p>
+      <div class="def"><b>보통 선거</b>재산이나 성별에 관계없이 일정한 나이가 되면 누구나 참여하는 선거</div>
+
+      <div class="card">
+        <div class="kicker">세계 각국의 여성 참정권 획득 시기 <span class="where">교과서 190쪽</span></div>
+        <div class="vote">
+          <div><b>1893</b>뉴질랜드</div><div><b>1913</b>노르웨이</div><div><b>1915</b>덴마크</div>
+          <div><b>1918</b>영국 <small>(30세 이상)</small></div><div><b>1919</b>독일</div><div><b>1920</b>미국</div>
+          <div><b>1921</b>스웨덴</div><div><b>1928</b>영국 <small>(21세 이상)</small></div><div><b>1945</b>이탈리아, 일본</div><div><b>1946</b>프랑스</div>
+        </div>
+        <p class="hint" style="margin-bottom:0">제1차 세계 대전(1914~1918)이 끝날 무렵과 그 뒤에 여성 참정권을 인정한 나라가 많다는 점을 살펴보세요.</p>
+      </div>
+
+      <div class="card bloc" id="why">
+        <div class="kicker">활동 4 · 여성 참정권이 확대된 배경 고르기</div>
+        <p style="margin-top:0">교과서에 나온 <b>여성 참정권이 확대된 배경</b>을 <b>모두</b> 고른 뒤 확인하기를 누르세요.</p>
+        <div class="pickset" id="whySet">
+          <button type="button" data-ok="1">여성들이 전쟁터에서 간호사로 일하거나 공장에서 무기를 만드는 등 전쟁에 참여하였다.</button>
+          <button type="button" data-ok="0">국제 연맹이 모든 회원국에 여성 참정권을 인정하라고 명령하였다.</button>
+          <button type="button" data-ok="1">전쟁 전후 자본주의가 확대되면서 여성 노동자의 수가 늘었다.</button>
+          <button type="button" data-ok="1">여성들이 19세기 전반부터 꾸준히 참정권을 요구하는 운동을 벌였다.</button>
+          <button type="button" data-ok="0">전쟁이 끝난 뒤 여성들이 모든 나라의 군대를 지휘하게 되었다.</button>
+          <button type="button" data-ok="0">바이마르 헌법이 노동자의 권리를 없애고 여성만 투표하게 하였다.</button>
+        </div>
+        <div class="btns"><button class="btn" type="button" id="whyCheck">확인하기</button><button class="btn ghost" type="button" id="whyReset">다시 고르기</button></div>
+        <div class="result" id="whyMsg" aria-live="polite"></div>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="kicker">영화와 손잡고 · 「서프러제트」로 본 여성 참정권 운동</div>
+        <div class="anne">
+          <figure class="photo"><img src="img/tb-suffragettes.jpg" alt="'VOTES FOR WOMEN'이라고 적힌 현수막을 든 여성들"><figcaption><b>실제 서프러제트 운동 모습</b><span class="credit">교과서 190쪽</span></figcaption></figure>
+          <div>
+            <p style="margin-top:0">영국 영화 「서프러제트」는 20세기 초 영국에서 여성 참정권을 얻으려고 노력한 ‘서프러제트’ 집단의 이야기입니다. 이들은 언론 이용, 선전, 시위, 단식 농성 등으로 여성 참정권을 요구하였습니다.</p>
+            <p>영화에서 지도자로 나오는 <b>팽크허스트</b>는 실제로 여성 참정권 운동을 이끌었던 인물입니다. 의회에 청원하고 연설 활동을 하였으며, 집회를 주도하고 무력 시위를 하여 정부의 탄압을 받기도 하였습니다.</p>
+            <a class="linkbtn" href="https://viewer.vivasam.com/VS/MS/HIS/106428/document/contents/%5b%EB%B9%84%EC%83%81%EA%B5%90%EC%9C%A1%5d%20%EC%A4%91%ED%95%99_%EC%97%AD%EC%82%AC%20%E2%91%A0_%EC%B9%B4%EB%93%9C%EB%89%B4%EC%8A%A4_6-1_190p_%EC%A0%9C1%EC%B0%A8%20%EC%84%B8%EA%B3%84%20%EB%8C%80%EC%A0%84%EA%B3%BC%20%EC%97%AC%EC%84%B1%20%EC%B0%B8%EC%A0%95%EA%B6%8C/index.html" target="_blank" rel="noopener">📰 카드 뉴스: 제1차 세계 대전과 여성 참정권 (비바샘)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 확인 -->
+  <section id="s5">
+    <div class="wrap">
+      <div class="kicker">STEP 5 · 확인 (5분)</div>
+      <h2>배운 내용을 확인해요</h2>
+      <div class="card fill" id="fill">
+        <p><span class="num">1.</span> 1905년 개혁을 요구하는 노동자들에게 정부군이 발포하여 많은 사람이 목숨을 잃은 사건은 <span class="blank" data-a="피의일요일사건|피의일요일"><input aria-label="빈칸 1" placeholder="❶"></span>이다.</p>
+        <p><span class="num">2.</span> 3월 혁명 때 노동자와 군인들은 대표자 회의인 <span class="blank" data-a="소비에트"><input aria-label="빈칸 2" placeholder="❷"></span>을/를 결성하여 차르를 몰아냈다.</p>
+        <p><span class="num">3.</span> 볼셰비키가 임시 정부를 무너뜨리고 소비에트 정부를 세운 혁명은 <span class="blank" data-a="11월혁명"><input aria-label="빈칸 3" placeholder="❸"></span>이다.</p>
+        <p><span class="num">4.</span> 레닌의 뒤를 이은 <span class="blank" data-a="스탈린"><input aria-label="빈칸 4" placeholder="❹"></span>은/는 농업의 집단화, 중공업 중심의 경제 개발 5개년 계획을 추진하였다.</p>
+        <p><span class="num">5.</span> 1919년에 제정된 것으로 노동자의 권리와 여성의 참정권을 보장한 독일의 헌법은 <span class="blank" data-a="바이마르헌법"><input aria-label="빈칸 5" placeholder="❺"></span>이다.</p>
+        <p><span class="num">6.</span> 폴란드, 체코슬로바키아 등은 <span class="blank" data-a="민족자결주의|민족자결"><input aria-label="빈칸 6" placeholder="❻"></span> 원칙에 따라 독립하였다.</p>
+        <div class="btns">
+          <button class="btn" type="button" id="checkFill">확인하기</button>
+          <button class="btn ghost" type="button" id="showFill">정답 보기</button>
+          <button class="btn ghost" type="button" id="resetFill">다시 하기</button>
+        </div>
+        <div class="result" id="fillResult" aria-live="polite"></div>
+      </div>
+
+      <div class="card" style="margin-top:16px" id="ox">
+        <div class="kicker">O / X 퀴즈</div>
+        <div class="q" data-a="O" data-why="3월 혁명으로 차르가 쫓겨나고 임시 정부가 세워졌다."><p style="margin:0"><b>1.</b> 3월 혁명으로 차르가 물러나고 임시 정부가 세워졌다.</p><div class="opts"><button type="button">O</button><button type="button">X</button></div><div class="fb"></div></div>
+        <div class="q" data-a="X" data-why="신경제 정책(NEP)은 자본주의 요소를 일부 ‘도입’한 정책이다."><p style="margin:0"><b>2.</b> 레닌은 경제가 어려워지자 자본주의 요소를 모두 없앤 신경제 정책(NEP)을 펼쳤다.</p><div class="opts"><button type="button">O</button><button type="button">X</button></div><div class="fb"></div></div>
+        <div class="q" data-a="O" data-why="1922년 여러 소비에트 정부를 묶어 소비에트 사회주의 공화국 연방(소련)을 세웠다."><p style="margin:0"><b>3.</b> 1922년 여러 소비에트 정부를 묶어 소련이 세워졌다.</p><div class="opts"><button type="button">O</button><button type="button">X</button></div><div class="fb"></div></div>
+        <div class="q" data-a="X" data-why="새롭게 등장한 독립국은 대부분 민주주의 헌법을 채택하였다."><p style="margin:0"><b>4.</b> 제1차 세계 대전 후 새로 독립한 나라들은 대부분 사회주의 헌법을 채택하였다.</p><div class="opts"><button type="button">O</button><button type="button">X</button></div><div class="fb"></div></div>
+        <div class="q" data-a="O" data-why="여성의 사회적·경제적 역할이 커지면서 제1차 세계 대전 이후 많은 국가가 여성 참정권을 인정하기 시작하였다."><p style="margin:0"><b>5.</b> 제1차 세계 대전 이후 많은 국가가 여성 참정권을 인정하기 시작하였다.</p><div class="opts"><button type="button">O</button><button type="button">X</button></div><div class="fb"></div></div>
+        <div class="result" id="oxMsg" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 정리·제출 -->
+  <section id="s6">
+    <div class="wrap">
+      <div class="kicker">STEP 6 · 정리하고 제출하기 (5분)</div>
+      <h2>오늘 배운 변화, 내 말로 정리하기</h2>
+      <div class="card">
+        <div class="kicker">서술형 ①</div>
+        <label for="rev" style="font-weight:700">3월 혁명과 11월 혁명은 각각 <b>무엇을 무너뜨리고 무엇을 세웠는지</b> 비교하여 써 보세요.</label>
+        <textarea id="rev" data-save="rr-rev" placeholder="예) 3월 혁명은 … 를 몰아내고 … 를 세웠고, 11월 혁명은 …"></textarea>
+        <details class="reveal"><summary>예시 답안 보기</summary><div><b>3월 혁명</b>(1917)은 노동자와 군인들이 소비에트를 결성하여 <b>차르를 몰아내고 임시 정부</b>를 세운 혁명이다. <b>11월 혁명</b>(1917)은 임시 정부가 전쟁을 계속하고 개혁을 진행하지 않자, 레닌이 이끄는 볼셰비키가 <b>임시 정부를 무너뜨리고 소비에트 정부</b>를 세운 혁명이다.</div></details>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <div class="kicker">서술형 ②</div>
+        <label for="suf" style="font-weight:700">제1차 세계 대전 이후 많은 나라에서 <b>여성 참정권</b>이 인정된 까닭을 두 가지 이상 들어 써 보세요.</label>
+        <textarea id="suf" data-save="rr-suf" placeholder="예) 여성들이 전쟁 중에 … 했고, …" style="min-height:110px"></textarea>
+        <details class="reveal"><summary>예시 답안 보기</summary><div>여성들은 19세기 전반부터 꾸준히 참정권을 요구하였다. 제1차 세계 대전 중에는 간호사로 일하거나 공장에서 무기를 만드는 등 <b>직간접적으로 전쟁에 참여</b>하였고, 전쟁 전후 자본주의가 확대되면서 <b>여성 노동자의 수도 늘었다</b>. 이처럼 여성의 사회적·경제적 역할이 커지면서 참정권 요구가 힘을 얻었기 때문이다.</div></details>
+      </div>
+
+      <div class="grid g2" style="margin-top:16px">
+        <div class="card">
+          <div class="kicker">스스로 점검하기</div>
+          <ul class="checks">
+            <li><label><input type="checkbox"> 피의 일요일 사건부터 11월 혁명까지 순서대로 말할 수 있다.</label></li>
+            <li><label><input type="checkbox"> 레닌과 스탈린의 정책을 구분할 수 있다.</label></li>
+            <li><label><input type="checkbox"> 제1차 세계 대전 이후 독일과 신생 독립국의 정치 변화를 설명할 수 있다.</label></li>
+            <li><label><input type="checkbox"> 여성 참정권이 확대된 배경을 말할 수 있다.</label></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="kicker">다음 시간 예고</div>
+          <p style="margin:0;font-size:16px">1929년, 미국 뉴욕에서 시작된 경제 위기가 세계를 뒤흔듭니다. 다음 시간에는 <a href="../ww2-background/"><b>제2차 세계 대전의 배경</b></a>(대공황과 전체주의, 교과서 191~192쪽)을 배웁니다.</p>
+        </div>
+      </div>
+
+      <div class="card submit-card" id="submitCard">
+        <div class="kicker">📮 선생님께 제출하기</div>
+        <p class="hint">도입 생각(STEP 1), 활동 1~4 결과, 빈칸·O/X 점수, 서술형 두 개가 한 번에 제출됩니다. 선생님 화면에 바로 나타나요. 고쳐서 다시 제출해도 괜찮아요(마지막 제출을 기준으로 봅니다).</p>
+        <div class="who">
+          <label>학반 <input id="stClass" data-keep="pc-class" placeholder="예) 2-3" autocomplete="off"></label>
+          <label>번호 <input id="stNum" data-keep="pc-num" inputmode="numeric" placeholder="예) 15" autocomplete="off"></label>
+          <label>이름 <input id="stName" data-keep="pc-name" placeholder="이름" autocomplete="off"></label>
+        </div>
+        <div class="btns"><button class="btn" type="button" id="sendBtn">제출하기</button><button class="btn ghost" type="button" id="fbBtn">선생님 피드백 확인</button></div>
+        <div class="sendmsg" id="sendMsg" role="status" aria-live="polite"></div>
+        <div class="fbbox" id="fbBox" hidden></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">중학교 역사①(2022 개정) Ⅵ-01-2 수업 자료 · 교과서 189~190쪽과 선생님 수업 PPT(4차시 「유럽 각국의 정치 체제가 변화하다」)를 바탕으로 수업용으로 재구성했습니다.
+    <ul class="credits">
+      <li>그림·지도 출처: 피의 일요일 사건, 러시아 혁명의 영향 지도, 바이마르 헌법, 실제 서프러제트 운동 모습 — 비상교육 『중학교 역사①』 189~190쪽</li>
+      <li>레닌 연설 사진(1920) — G. P. 골드시테인 촬영, 퍼블릭 도메인</li>
+    </ul>
+  </div>
+  <div class="lightbox" id="lightbox" role="dialog" aria-label="사진 크게 보기"><img alt=""><p></p></div>
+</footer>
+
+<script>
+(function(){
+  function store(k,v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v); }catch(e){ return null; } }
+  function $(id){ return document.getElementById(id); }
+  function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+  function norm(s){ return String(s).replace(/[\s·()（）]/g,''); }
+
+  // 화면 밝기
+  var root=document.documentElement, KEY='wc-theme';
+  var t=store(KEY); if(t) root.setAttribute('data-theme',t);
+  $('theme').addEventListener('click',function(){
+    var dark = root.getAttribute('data-theme') ? root.getAttribute('data-theme')==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    var next = dark?'light':'dark'; root.setAttribute('data-theme',next); store(KEY,next);
+  });
+
+  // 진행 막대 + 단계 표시
+  var bar=$('progress'), links=[].slice.call(document.querySelectorAll('.steps a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  function onScroll(){
+    var h=document.documentElement; bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+    var cur=-1; secs.forEach(function(s,i){ if(s.getBoundingClientRect().top<160) cur=i; });
+    links.forEach(function(a,i){a.classList.toggle('on',i===cur);});
+  }
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // ===== 분류 활동 (활동 1·3): 처음 고른 답으로 점수 =====
+  var WHY={
+    month:['3월 혁명 때 노동자들이 외친 구호예요.','11월 혁명: 볼셰비키가 임시 정부를 무너뜨렸어요.','3월 혁명으로 차르가 쫓겨나고 임시 정부가 섰어요.','11월 혁명의 배경이에요.','3월 혁명 때 소비에트가 결성되어 차르를 몰아냈어요.','11월 혁명의 결과예요.'],
+    leader:['레닌은 경제가 어려워지자 신경제 정책을 펼쳤어요.','스탈린의 정책이에요.','1922년, 레닌 때 소련이 세워졌어요.','스탈린의 정책이에요.','레닌이 이끈 소비에트 정부의 개혁이에요.','스탈린은 반대파를 탄압하며 독재를 강화했어요.']
+  };
+  function sortScore(id){ return [].slice.call(document.querySelectorAll('#'+id+' .item')).filter(function(it){ return it.dataset.first==='ok'; }).length; }
+  ['month','leader'].forEach(function(id){
+    var items=[].slice.call(document.querySelectorAll('#'+id+' .item'));
+    items.forEach(function(it,k){
+      [].forEach.call(it.querySelectorAll('button'),function(b){
+        b.addEventListener('click',function(){
+          var right=b.dataset.v===it.dataset.a;
+          if(!it.dataset.first) it.dataset.first=right?'ok':'no';
+          [].forEach.call(it.querySelectorAll('button'),function(x){ x.classList.remove('ok','no'); });
+          b.classList.add(right?'ok':'no');
+          it.querySelector('.why').textContent=right?WHY[id][k]:'다시 생각해 보세요.';
+          var done=items.filter(function(x){ return x.dataset.first; }).length;
+          if(done===items.length) $(id+'Msg').textContent='처음 고른 답 기준 '+items.length+'개 중 '+sortScore(id)+'개를 맞혔어요.';
+        });
+      });
+    });
+  });
+
+  // ===== 활동 2: 순서대로 누르기 =====
+  var ORD=['피의 일요일 사건 (1905)','러시아가 제1차 세계 대전에 참전','3월 혁명: 차르를 몰아내고 임시 정부 수립','11월 혁명: 볼셰비키가 소비에트 정부 수립','여러 소비에트 정부를 묶어 소련 수립 (1922)'];
+  var ordPos=0, ordMiss=0, ordDone=false;
+  function ordRender(){
+    var box=$('ordBox'); box.innerHTML=''; $('ordDone').innerHTML='';
+    ORD.slice(0,ordPos).forEach(function(s){ var li=document.createElement('li'); li.textContent=s; $('ordDone').appendChild(li); });
+    shuffle(ORD.map(function(s,i){return i;})).forEach(function(i){
+      if(i<ordPos) return;
+      var b=document.createElement('button'); b.type='button'; b.textContent=ORD[i];
+      b.addEventListener('click',function(){
+        if(i===ordPos){ ordPos++; if(ordPos===ORD.length){ ordDone=true; $('ordMsg').textContent='완성! 틀린 횟수 '+ordMiss+'번'; } ordRender(); }
+        else { ordMiss++; b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake'); $('ordMsg').textContent='그보다 먼저 일어난 일이 있어요.'; }
+      });
+      box.appendChild(b);
+    });
+  }
+  $('ordReset').onclick=function(){ ordPos=0; ordMiss=0; ordDone=false; $('ordMsg').textContent=''; ordRender(); };
+  ordRender();
+
+  // ===== 활동 4: 배경 고르기 =====
+  var whyBtns=[].slice.call(document.querySelectorAll('#whySet button')), whyResult='확인 안 함', whyTries=0;
+  whyBtns.forEach(function(b){ b.setAttribute('aria-pressed','false'); b.addEventListener('click',function(){
+    b.classList.remove('ok','no','miss'); b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true');
+  });});
+  $('whyCheck').onclick=function(){
+    var sel=whyBtns.filter(function(b){ return b.getAttribute('aria-pressed')==='true'; });
+    if(!sel.length){ $('whyMsg').textContent='먼저 하나 이상 골라 주세요.'; return; }
+    whyTries++; var right=0, wrong=0, total=whyBtns.filter(function(b){ return b.dataset.ok==='1'; }).length;
+    whyBtns.forEach(function(b){
+      var on=b.getAttribute('aria-pressed')==='true', ok=b.dataset.ok==='1';
+      b.classList.remove('ok','no','miss');
+      if(on&&ok){ b.classList.add('ok'); right++; } else if(on&&!ok){ b.classList.add('no'); wrong++; } else if(!on&&ok){ b.classList.add('miss'); }
+    });
+    if(whyTries===1) whyResult='바른 배경 '+total+'개 중 '+right+'개, 틀린 선택 '+wrong+'개 (첫 확인)';
+    $('whyMsg').textContent = (right===total&&!wrong) ? '모두 맞았어요! 🎉 여성의 사회적·경제적 역할이 커지면서 참정권 요구가 힘을 얻었어요.'
+      : '바른 배경 '+total+'개 중 '+right+'개를 골랐고, 틀린 선택이 '+wrong+'개예요. 점선 칸은 놓친 배경이에요.';
+  };
+  $('whyReset').onclick=function(){ whyBtns.forEach(function(b){ b.classList.remove('ok','no','miss'); b.setAttribute('aria-pressed','false'); }); $('whyMsg').textContent=''; };
+
+  // ===== 빈칸 =====
+  var blanks=[].slice.call(document.querySelectorAll('#fill .blank'));
+  function ok(b){ var v=norm(b.querySelector('input').value); return v && b.dataset.a.split('|').indexOf(v)>-1; }
+  blanks.forEach(function(b,k){ var inp=b.querySelector('input'); inp.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); if(blanks[k+1]) blanks[k+1].querySelector('input').focus(); else $('checkFill').click(); } }); });
+  $('checkFill').onclick=function(){
+    var n=0; blanks.forEach(function(b){ var r=ok(b); n+=r; b.classList.toggle('ok',r); b.classList.toggle('no',!r); });
+    $('fillResult').textContent = n===blanks.length ? '모두 맞았어요! 🎉' : blanks.length+'개 중 '+n+'개를 맞혔어요. 빨간 칸을 다시 생각해 보세요.';
+  };
+  var fillShown=false;
+  $('showFill').onclick=function(){
+    var show={'피의일요일사건':'피의 일요일 사건','11월혁명':'11월 혁명','바이마르헌법':'바이마르 헌법','민족자결주의':'민족 자결주의'};
+    blanks.forEach(function(b){ var a=b.dataset.a.split('|')[0]; b.querySelector('input').value=show[a]||a; b.classList.add('ok'); b.classList.remove('no'); });
+    $('fillResult').textContent='정답을 확인하고 공책에 정리해 보세요.'; fillShown=true;
+  };
+  $('resetFill').onclick=function(){ blanks.forEach(function(b){ b.querySelector('input').value=''; b.classList.remove('ok','no'); }); $('fillResult').textContent=''; fillShown=false; };
+
+  // ===== O/X =====
+  function oxScore(){ return [].slice.call(document.querySelectorAll('#ox .q')).filter(function(q){return q.dataset.first==='ok';}).length; }
+  [].forEach.call(document.querySelectorAll('#ox .q'),function(q){
+    [].forEach.call(q.querySelectorAll('.opts button'),function(b){
+      b.addEventListener('click',function(){
+        var right=b.textContent===q.dataset.a;
+        if(!q.dataset.first) q.dataset.first=right?'ok':'no';
+        [].forEach.call(q.querySelectorAll('.opts button'),function(x){ x.classList.remove('ok','no'); });
+        b.classList.add(right?'ok':'no');
+        var fb=q.querySelector('.fb'); fb.innerHTML=''; var s=document.createElement('b'); s.textContent=right?'정답! ':'다시 생각해 보세요. '; fb.appendChild(s); if(right) fb.appendChild(document.createTextNode(q.dataset.why));
+        var done=[].slice.call(document.querySelectorAll('#ox .q')).filter(function(x){return x.dataset.first;}).length;
+        if(done===5) $('oxMsg').textContent='처음 고른 답 기준 5개 중 '+oxScore()+'개를 맞혔어요.';
+      });
+    });
+  });
+
+  // 글 자동 저장
+  [].forEach.call(document.querySelectorAll('textarea[data-save]'),function(ta){
+    ta.value=store(ta.dataset.save)||'';
+    ta.addEventListener('input',function(){ store(ta.dataset.save,ta.value); });
+  });
+
+  // 사진 크게 보기
+  var lb=$('lightbox'), lbImg=lb.querySelector('img'), lbP=lb.querySelector('p');
+  [].forEach.call(document.querySelectorAll('.photo img'),function(img){
+    img.addEventListener('click',function(e){
+      e.stopPropagation(); lbImg.src=img.src; lbImg.alt=img.alt;
+      var b=img.parentNode.querySelector('figcaption b'); lbP.textContent=b?b.textContent:img.alt;
+      lb.classList.add('on');
+    });
+  });
+  lb.addEventListener('click',function(){lb.classList.remove('on');});
+  addEventListener('keydown',function(e){ if(e.key==='Escape') lb.classList.remove('on'); });
+
+  // ===== 제출 (다른 차시와 같은 Apps Script 웹 앱) =====
+  var SHEET_API_URL='https://script.google.com/macros/s/AKfycbyfpqz_5eEpNHCmJyu6QdyYyYAaOfNnMo9S0Yd94ZBvp32PFutglQ2HU2_71Z4shqvmHw/exec';
+  [].forEach.call(document.querySelectorAll('input[data-keep]'),function(i){ i.value=store(i.dataset.keep)||''; i.addEventListener('input',function(){ store(i.dataset.keep,i.value); }); });
+  function v(id){ return $(id).value.trim(); }
+  function post(payload){
+    var ctrl=window.AbortController?new AbortController():null, timer=setTimeout(function(){ if(ctrl) ctrl.abort(); },30000);
+    return fetch(SHEET_API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload),signal:ctrl?ctrl.signal:undefined})
+      .then(function(r){ clearTimeout(timer); if(!r.ok) throw new Error('status '+r.status); return r.json(); });
+  }
+  $('sendBtn').onclick=function(){
+    var btn=this, msg=$('sendMsg');
+    msg.className='sendmsg';
+    if(!v('stClass')||!v('stNum')||!v('stName')){ msg.className='sendmsg err'; msg.textContent='학반, 번호, 이름을 모두 써 주세요.'; return; }
+    if(!v('introWhy')&&!v('rev')&&!v('suf')){ msg.className='sendmsg err'; msg.textContent='아직 쓴 글이 없어요. STEP 1과 STEP 6의 글쓰기 칸을 먼저 채워 주세요.'; return; }
+    var checks=[].slice.call(document.querySelectorAll('.checks input'));
+    var payload={action:'submitru',className:v('stClass'),studentNumber:v('stNum'),studentName:v('stName'),
+      introWhy:v('introWhy'),
+      monthScore:'6개 중 '+sortScore('month')+'개 (처음 고른 답)',
+      orderResult:ordDone?('완성 · 틀린 횟수 '+ordMiss+'번'):('미완성 ('+ordPos+'단계까지)'),
+      leaderScore:'6개 중 '+sortScore('leader')+'개 (처음 고른 답)',
+      suffrageWhy:whyResult,
+      fillScore:'6개 중 '+blanks.filter(ok).length+'개'+(fillShown?' (정답 보기 누름)':''),
+      oxScore:'5개 중 '+oxScore()+'개 (처음 고른 답)',
+      revolution:v('rev'),suffrage:v('suf'),
+      selfCheck:checks.length+'개 중 '+checks.filter(function(c){return c.checked;}).length+'개'};
+    btn.disabled=true; btn.textContent='제출 중…'; msg.textContent='';
+    post(payload)
+      .then(function(d){ if(!d||!d.ok) throw new Error(d&&d.error||'server'); msg.className='sendmsg ok'; msg.textContent='제출했어요! ('+d.timestamp+') 선생님 화면에 바로 나타납니다. 고친 뒤 다시 제출해도 됩니다.'; })
+      .catch(function(){ msg.className='sendmsg err'; msg.textContent='제출하지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요. (쓴 글은 그대로 남아 있어요)'; })
+      .then(function(){ btn.disabled=false; btn.textContent='제출하기'; });
+  };
+  $('fbBtn').onclick=function(){
+    var btn=this, box=$('fbBox'), msg=$('sendMsg');
+    if(!v('stClass')||!v('stNum')||!v('stName')){ msg.className='sendmsg err'; msg.textContent='학반, 번호, 이름을 먼저 써 주세요.'; return; }
+    btn.disabled=true; box.hidden=false; box.textContent='불러오는 중…';
+    post({action:'myFeedback',lesson:'ru',className:v('stClass'),studentNumber:v('stNum'),studentName:v('stName')})
+      .then(function(d){
+        if(!d||!d.ok) throw new Error('server');
+        if(!d.found){ box.textContent='아직 제출 기록이 없어요. 먼저 제출해 주세요.'; return; }
+        if(!d.grade && !d.feedback){ box.textContent='제출은 확인되었어요('+d.timestamp+'). 선생님이 아직 평가하지 않았어요. 잠시 뒤 다시 눌러 보세요.'; return; }
+        box.innerHTML='';
+        if(d.grade){ var g=document.createElement('span'); g.className='g'; g.textContent=d.grade; box.appendChild(g); }
+        box.appendChild(document.createTextNode(d.feedback||''));
+      })
+      .catch(function(){ box.textContent='불러오지 못했어요. 잠시 뒤 다시 눌러 주세요.'; })
+      .then(function(){ btn.disabled=false; });
+  };
+})();
+</script>
+<a href="../" aria-label="수업 목록으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483000;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:rgba(15,23,42,.92);color:#fff;border:1px solid rgba(245,158,11,.55);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.2;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)">← 수업 목록</a>
+</body>
+</html>

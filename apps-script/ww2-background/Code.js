@@ -9,6 +9,7 @@
  *  - list   : 교사 화면에 제출 현황 불러오기 (비밀번호 필요)
  *  - submit5: 5차시 「인권 회복과 평화 실현」 활동 결과를 '5차시 제출' 시트에 기록
  *  - submit6: 6차시 「아시아와 아프리카의 민족 운동」 활동 결과를 '6차시 제출' 시트에 기록
+ *  - submitru: Ⅵ-01-2 「유럽 각국의 정치 체제가 변화하다」 활동 결과를 '1차시+ 정치 체제 변화 제출' 시트에 기록
  *  - submit1·submit3·submit4·submit7: 1·3·4·7차시 활동 결과를 각 차시 제출 탭에 기록
  *  - rows / grade: 교사 확인·평가 화면(teacher/)에서 차시별 제출 목록 불러오기, 평가·피드백 저장 (비밀번호 필요)
  *  - myFeedback: 학생이 학반·번호·이름으로 자기 평가·피드백 확인
@@ -97,7 +98,7 @@ function doPost(e) {
       case 'list': return json_(list_(data));
       case 'submit5': return json_(submit5_(data));
       case 'submit6': return json_(submit6_(data));
-      case 'submit1': case 'submit3': case 'submit4': case 'submit7': case 'submittl':
+      case 'submit1': case 'submit3': case 'submit4': case 'submit7': case 'submittl': case 'submitru':
         var L = LESSONS[data.action.slice(6)];
         return json_(appendLesson_(data, L.sheet, L.headers, L.fields));
       case 'rows': return json_(rows_(data));
@@ -165,6 +166,11 @@ function submit6_(data) {
 var LESSONS = {
   1: { sheet: '1차시 제출', headers: ['제출일시', '학반', '번호', '이름', '마스터 퀴즈', '사료 배지', '베르사유 조약 생각 쓰기'],
        fields: ['timestamp', 'className', 'studentNumber', 'studentName', 'quizScore', 'badges', 'essay'] },
+  // Ⅵ-01-2 유럽 각국의 정치 체제가 변화하다 (러시아 혁명·민주주의·참정권, russian-revolution/)
+  ru: { sheet: '1차시+ 정치 체제 변화 제출', headers: ['제출일시', '학반', '번호', '이름', '피의 일요일 생각(도입)', '3월/11월 혁명 분류', '혁명 순서',
+         '레닌/스탈린 분류', '여성 참정권 배경 고르기', '빈칸(맞힌 수)', 'O/X 퀴즈', '3월·11월 혁명 비교', '여성 참정권 확대 까닭', '스스로 점검'],
+       fields: ['timestamp', 'className', 'studentNumber', 'studentName', 'introWhy', 'monthScore', 'orderResult',
+         'leaderScore', 'suffrageWhy', 'fillScore', 'oxScore', 'revolution', 'suffrage', 'selfCheck'] },
   2: { sheet: SHEET_NAME, headers: HEADERS, fields: FIELDS },
   3: { sheet: '3차시 제출', headers: ['제출일시', '학반', '번호', '이름', '핵심 정리 퀴즈', '둘러본 사건 수', '가장 중요한 사건과 까닭'],
        fields: ['timestamp', 'className', 'studentNumber', 'studentName', 'quizScore', 'visited', 'essay'] },
