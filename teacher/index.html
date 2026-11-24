@@ -20,6 +20,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",s
 .logo{flex:none;width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#f59e0b,#ea580c);display:grid;place-items:center;font-size:20px}
 .ttl{flex:1;min-width:0}.ttl small{display:block;color:#fbbf24;font-size:12px;font-weight:700}.ttl b{font-size:17px;font-weight:900}
 .tbtn{flex:none;border:1px solid #334155;background:#1e293b;color:#e2e8f0;border-radius:10px;height:34px;padding:0 12px;cursor:pointer;font:inherit;font-size:13px;font-weight:700}
+.lessons[hidden],.modes[hidden]{display:none!important}
 .lessons{display:flex;gap:6px;padding:0 16px 10px;overflow-x:auto;max-width:1200px;margin:0 auto;scrollbar-width:none}
 .lessons button{flex:none;font:inherit;font-size:14px;font-weight:700;padding:6px 12px;border-radius:10px;color:#cbd5e1;background:#1e293b;border:1px solid #334155;cursor:pointer}
 .lessons button b{color:#fbbf24;margin-right:4px}
@@ -97,6 +98,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-o
   <nav class="modes" id="modes" role="tablist" aria-label="교사 화면 고르기" hidden>
     <button type="button" role="tab" data-mode="grade">📋 제출 확인·평가</button>
     <button type="button" role="tab" data-mode="live">🎛 수업 진행판</button>
+    <button type="button" role="tab" data-mode="reflect">📝 수업 성찰</button>
   </nav>
   <nav class="lessons" id="lessons" aria-label="차시 선택" hidden></nav>
 </header>
@@ -131,6 +133,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-o
   </div>
 
   <div id="livePanel" hidden></div>
+  <div id="reflectPanel" hidden></div>
 </main>
 
 <script>
@@ -179,12 +182,14 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-o
     load(); setAuto();
   }
   // 화면 고르기: 제출 확인·평가 / 수업 진행판
-  var mode='grade', liveLoaded=false;
+  var mode='grade', liveLoaded=false, reflectLoaded=false;
   function loadJs(src){ return new Promise(function(res,rej){ var s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=rej; document.body.appendChild(s); }); }
   function setMode(m){
     mode=m; ls('t-mode',m);
     [].forEach.call($('modes').children,function(b){ b.setAttribute('aria-selected',b.dataset.mode===m); });
-    $('app').hidden=m!=='grade'; $('lessons').hidden=m!=='grade'; $('livePanel').hidden=m!=='live';
+    $('app').hidden=m!=='grade'; $('lessons').hidden=m!=='grade'; $('livePanel').hidden=m!=='live'; $('reflectPanel').hidden=m!=='reflect';
+    if(m==='reflect' && !reflectLoaded){ reflectLoaded=true; window.TEACHER_API=API; window.TEACHER_PW=function(){ return pw; }; $('reflectPanel').innerHTML='<div class="empty-state">불러오는 중…</div>';
+      loadJs('reflect-panel.js').catch(function(){ $('reflectPanel').innerHTML='<div class="empty-state">수업 성찰 화면을 불러오지 못했어요. 새로 고침해 주세요.</div>'; reflectLoaded=false; }); }
     if(m==='grade' && data) load(true);
     if(m==='live' && !liveLoaded){ liveLoaded=true; window.LIVE_TEACHER=true; $('livePanel').innerHTML='<div class="empty-state">실시간 서버에 연결하는 중…</div>';
       loadJs('../assets/live.js').then(function(){ return loadJs('live-panel.js'); }).catch(function(){ $('livePanel').innerHTML='<div class="empty-state">수업 진행판을 불러오지 못했어요. 새로 고침해 주세요.</div>'; liveLoaded=false; }); }
