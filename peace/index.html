@@ -260,6 +260,21 @@ table.cmp td{background:var(--surface)}
 .scene label{font-weight:700;font-size:15px}
 .scene textarea{min-height:90px}
 .memo{font-size:15px;color:var(--ink-2);background:var(--surface-2);border-radius:14px;padding:12px 16px;min-height:1.6em}
+
+/* 악의 평범성 · 알쓸신잡 영상 */
+.yt-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
+.yt{margin:0}
+.yt-play,.yt iframe{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0;padding:0;border-radius:12px;overflow:hidden;background:#000;cursor:pointer}
+.yt-play img{width:100%;height:100%;object-fit:cover;display:block;opacity:.88;transition:opacity .2s}
+.yt-play:hover img,.yt-play:focus-visible img{opacity:1}
+.yt-btn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:68px;height:48px;border-radius:14px;background:#e11d1d;color:#fff;font-size:22px;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.yt-len{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.8);color:#fff;font-size:12px;padding:1px 6px;border-radius:4px}
+.yt figcaption{font-size:14px;line-height:1.55;margin-top:8px;color:var(--ink-2,#475569)}
+.yt figcaption b{display:block;color:var(--ink,#0f172a);font-size:16px}
+.banal-q{background:var(--accent-soft,#fef3c7);border-radius:12px;padding:14px 18px;margin:6px 0 12px}
+.banal-q ol{margin:8px 0 0;padding-left:1.3em}
+.banal-q li{margin:4px 0}
+@media (max-width:640px){.yt-grid{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="../assets/theme.css">
 </head>
@@ -479,6 +494,42 @@ table.cmp td{background:var(--surface)}
           <div>
             <p style="margin:0 0 8px"><b>예시</b> · 아이히만은 수용소로 보낸 유대인들이 어떻게 되는지 알면서도 그 일을 했다. 직접 죽이지 않았더라도 학살을 가능하게 한 것이므로 홀로코스트에 참여한 것과 다름없다. 명령이라는 이유로 사람의 생명을 빼앗는 일을 따른 책임은 사라지지 않는다.</p>
             <p style="margin:0"><b>다른 사례</b> · 아우슈비츠 수용소의 회계 담당 경비병이었던 오스카 그뢰닝은 2015년, 94세의 나이로 재판을 받아 징역 4년을 선고받았다. 시간이 오래 지나도 전쟁 범죄의 책임은 끝나지 않는다는 것을 보여 준다.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="card banal" id="banality" style="margin-top:20px">
+        <div class="kicker">함께 생각해 보기 · 악의 평범성</div>
+        <h3 style="font-size:20px">아이히만은 괴물이었을까, 평범한 사람이었을까?</h3>
+        <p style="margin:0 0 6px">독일 출신 유대인 철학자 <b>한나 아렌트</b>는 예루살렘에서 열린 아이히만 재판을 직접 지켜보고 『예루살렘의 아이히만』(1963)을 썼습니다. 그녀가 본 아이히만은 피에 굶주린 괴물이 아니라, 명령을 성실히 따르고 승진에 신경 쓰던 <b>평범한 관료</b>였습니다. 아렌트는 그가 자기 일이 다른 사람에게 어떤 의미인지 <b>스스로 생각하지 않은 것</b>이 끔찍한 악으로 이어졌다고 보고, 이를 <b>‘악의 평범성’</b>이라고 불렀습니다.</p>
+        <div class="yt-grid">
+          <figure class="yt" data-yt="_IyCIMi5o0A">
+            <button type="button" class="yt-play" aria-label="영상 재생: 질서 정연한 독일인, 왜 학살을 저질렀을까">
+              <img src="https://i.ytimg.com/vi/_IyCIMi5o0A/hqdefault.jpg" alt="" loading="lazy"><span class="yt-btn">▶</span><span class="yt-len">3:56</span>
+            </button>
+            <figcaption><b>① 질서 정연한 독일인, 왜 학살을 저질렀을까</b>tvN 「알쓸신잡3」 · ‘악의 평범성’ 이야기(1) · <a href="https://www.youtube.com/watch?v=_IyCIMi5o0A" target="_blank" rel="noopener">유튜브에서 보기 ↗</a></figcaption>
+          </figure>
+          <figure class="yt" data-yt="led0AxnyLRY">
+            <button type="button" class="yt-play" aria-label="영상 재생: 순종적이고 착한 사람이 더 쉽게 악해진다?">
+              <img src="https://i.ytimg.com/vi/led0AxnyLRY/hqdefault.jpg" alt="" loading="lazy"><span class="yt-btn">▶</span><span class="yt-len">3:58</span>
+            </button>
+            <figcaption><b>② 순종적이고 착한 사람이 더 쉽게 악해진다?</b>tvN 「알쓸신잡3」 · ‘악의 평범성’ 이야기(2) · <a href="https://www.youtube.com/watch?v=led0AxnyLRY" target="_blank" rel="noopener">유튜브에서 보기 ↗</a></figcaption>
+          </figure>
+        </div>
+        <div class="banal-q">
+          <b>영상을 보고 모둠에서 이야기해 봐요</b>
+          <ol>
+            <li>영상 속 아이히만은 ‘괴물’과 ‘평범한 사람’ 중 어느 쪽에 더 가까워 보이나요? 그렇게 생각한 까닭은?</li>
+            <li>“명령을 따랐을 뿐”이라는 말은 책임을 덜어 줄 수 있을까요?</li>
+            <li>학교나 일상에서 ‘다들 하니까’, ‘시키니까’ 깊이 생각하지 않고 따른 적은 없나요? 그때 스스로에게 어떤 질문을 던져야 할까요?</li>
+            <li>평범한 사람이 악에 가담하지 않으려면 무엇이 필요할까요?</li>
+          </ol>
+        </div>
+        <details class="reveal">
+          <summary>더 생각해 보기: ‘악의 평범성’을 오해하지 않으려면</summary>
+          <div>
+            <p style="margin:0 0 8px">· ‘악의 평범성’은 <b>“누구나 다 악하다”</b>거나 <b>“시킨 대로 했으니 책임이 없다”</b>는 뜻이 아닙니다. 아렌트도 아이히만이 사형을 받아야 한다고 보았습니다. 생각하지 않고 따르는 것 자체가 큰 악을 가능하게 한다는 경고입니다.</p>
+            <p style="margin:0">· 뒤에 발견된 자료(아이히만이 도피 중 남긴 인터뷰 기록 등)를 보면, 그는 단순히 명령만 따른 사람이 아니라 <b>반유대주의 신념을 가지고 학살에 앞장선 사람</b>이었다는 연구도 있습니다. 법정에서 보인 ‘평범한 모습’이 자신을 지키기 위한 연기였을 수도 있다는 것이지요. 역사적 인물을 볼 때는 여러 자료를 함께 살펴보아야 합니다.</p>
           </div>
         </details>
       </div>
@@ -792,6 +843,12 @@ table.cmp td{background:var(--surface)}
 })();
 </script>
 <a href="../" aria-label="수업 목록으로" style="position:fixed;left:12px;bottom:12px;z-index:2147483000;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:rgba(15,23,42,.92);color:#fff;border:1px solid rgba(245,158,11,.55);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.2;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)">← 수업 목록</a>
+<script>
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.yt-play');if(!b)return;
+  var id=b.parentNode.getAttribute('data-yt'),f=document.createElement('iframe');
+  f.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';f.title=b.getAttribute('aria-label');
+  f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;b.replaceWith(f);});
+</script>
 <script src="../assets/live.js" defer></script>
 </body>
 </html>
