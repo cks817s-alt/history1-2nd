@@ -73,6 +73,9 @@
       ] }
   };
   var VID = {
+    space: { title: '미국과 소련의 우주 경쟁', kicker: '비바샘 영상 · 교과서 216쪽', src: 'https://www.vivasam.com/viewer/share/contentViewer?contentId=453634&contentGubun=CN030' },
+    coldwar: { title: '개념 애니메이션 「냉전」', kicker: '비바샘 영상 · 교과서 217쪽', src: 'https://www.vivasam.com/viewer/share/contentViewer?contentId=469479&contentGubun=CN030' },
+    truman: { title: '트루먼 독트린과 마셜 계획', kicker: '교과서 217쪽 QR 영상', src: 'https://viewer.vivasam.com/qrviewer/viewer.html?qrcode=106428_217p_34_ST' },
     kmt: { title: '국공 내전', kicker: '교과서 218쪽 QR 영상', src: 'https://viewer.vivasam.com/qrviewer/viewer.html?qrcode=106428_218p_56_ST' },
     vn: { title: '베트남 전쟁', kicker: '비바샘 영상 · 교과서 218~219쪽', src: 'https://www.vivasam.com/viewer/share/contentViewer?contentId=453635&contentGubun=CN030' }
   };
