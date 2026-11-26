@@ -1,0 +1,128 @@
+/* 교과서 218~219쪽 펼침면 + 그림 장면 재생기 (cold-war STEP 4) */
+.tbx{margin:20px 0 8px}
+.tbx .tbx-help{margin:6px 0 14px;color:var(--ink-2);font-size:16px}
+.tb-spread{--tb-bg:#35403a;--tb-ink:#e8ece6;--tb-soft:#c9d1ca;--tb-red:#ea6550;
+  display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--tb-bg);border-radius:14px;overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+  width:min(1400px,calc(100vw - 32px));position:relative;left:50%;transform:translateX(-50%)}
+.tb-spread::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:28px;margin-left:-14px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(0,0,0,.28) 48%,rgba(255,255,255,.05) 52%,transparent)}
+.tb-page{position:relative;aspect-ratio:953/1213;container-type:inline-size;color:var(--tb-ink);
+  font-family:"Noto Serif KR","Batang",serif}
+.tb-page > *{position:absolute;left:calc(var(--x)*1%);top:calc(var(--y)*1%);width:calc(var(--w,auto)*1%);margin:0}
+.tb-line{inset:0;width:100%;height:100%;pointer-events:none}
+.tb-line path{fill:none;stroke:var(--tb-red);stroke-width:1.6}
+
+.tb-text h3{font-family:"Noto Sans KR",sans-serif;font-size:1.75cqw;font-weight:700;margin:0 0 1.4cqw;color:#fff}
+.tb-text p{font-size:1.72cqw;line-height:1.85;text-indent:1em;margin:0 0 .6em;word-break:keep-all;text-align:justify}
+.tb-text b{font-family:"Noto Sans KR",sans-serif;font-weight:700;color:#fff}
+.tb-cap{font-family:"Noto Sans KR",sans-serif;font-size:1.3cqw;line-height:1.55;color:var(--tb-soft)}
+.tb-cap b{color:#fff}
+.tb-cap b::before{content:"△ ";color:#3cc6b4}
+.tb-lab{font-family:"Noto Sans KR",sans-serif;font-size:1.25cqw;color:var(--tb-soft);text-align:center;line-height:1.35}
+.tb-foot{font-family:"Noto Sans KR",sans-serif;font-size:1.4cqw;color:var(--tb-soft)}
+.tb-foot b{font-size:1.9cqw;color:#fff;margin:0 .6em}
+
+.tb-year{font-family:"Noto Sans KR",sans-serif;color:var(--tb-red);line-height:1}
+.tb-year .yr{display:block;font-size:6.6cqw;font-weight:200;letter-spacing:-.04em}
+.tb-year .yr em{font-style:normal;font-weight:500}
+.tb-year .ev{display:block;font-size:1.9cqw;font-weight:700;margin-top:1.1cqw}
+
+/* 그림·지도 버튼 */
+.tb-fig{padding:0;border:0;background:#222;cursor:pointer;height:calc(var(--h)*1%);border-radius:.6cqw;overflow:hidden;
+  box-shadow:0 0 0 0 rgba(255,228,92,0);transition:box-shadow .25s,transform .25s}
+.tb-fig img{display:block;width:100%;height:100%;object-fit:cover}
+.tb-fig::after{content:"▶ 눌러서 보기";position:absolute;right:.8cqw;bottom:.8cqw;font:700 1.2cqw "Noto Sans KR",sans-serif;
+  color:#14201c;background:#ffe45c;padding:.35cqw .8cqw;border-radius:99px;opacity:.92;transition:transform .25s}
+.tb-fig:hover,.tb-fig:focus-visible{box-shadow:0 0 0 .35cqw #ffe45c;transform:translateY(-.3cqw);outline:none}
+.tb-fig:hover::after{transform:scale(1.08)}
+.tb-map{height:calc(var(--h)*1%)}
+.tb-map img{display:block;width:100%;height:100%}
+.tb-map .hot{position:absolute;left:calc(var(--hx)*1%);top:calc(var(--hy)*1%);width:calc(var(--hw)*1%);height:calc(var(--hh)*1%);
+  border:0;padding:0;background:transparent;cursor:pointer;border-radius:.5cqw;box-shadow:0 0 0 .25cqw rgba(255,228,92,.0);
+  animation:tbPulse 2.4s ease-in-out infinite}
+.tb-map .hot:hover,.tb-map .hot:focus-visible{box-shadow:0 0 0 .35cqw #ffe45c;outline:none;animation:none}
+@keyframes tbPulse{0%,100%{box-shadow:0 0 0 .1cqw rgba(255,228,92,.25)}50%{box-shadow:0 0 0 .45cqw rgba(255,228,92,.85)}}
+.tb-qr{display:flex;align-items:flex-start;gap:1cqw;padding:0;border:0;background:none;cursor:pointer;color:var(--tb-ink);text-align:left}
+.tb-qr img{width:6.6cqw;height:6.6cqw;background:#fff;padding:.4cqw;border-radius:.5cqw;image-rendering:pixelated}
+.tb-qr span{font:700 1.35cqw "Noto Sans KR",sans-serif;margin-top:2.3cqw;display:inline-flex;align-items:center;gap:.4cqw}
+.tb-qr span i{font-style:normal;background:var(--tb-red);color:#fff;border-radius:.3cqw;padding:0 .4cqw;font-size:1.1cqw}
+.tb-qr:hover span,.tb-qr:focus-visible span{color:#ffe45c;text-decoration:underline}
+.tb-vbtn{font:700 1.35cqw "Noto Sans KR",sans-serif;border:.15cqw solid #ffe45c;background:rgba(255,228,92,.12);color:#ffe45c;
+  border-radius:99px;padding:.6cqw 1.4cqw;cursor:pointer;width:auto!important}
+.tb-vbtn:hover{background:#ffe45c;color:#14201c}
+.tb-bubble{font-family:"Noto Sans KR",sans-serif;font-size:1.35cqw;line-height:1.45;color:#1d2622;background:#fff;
+  border-radius:3cqw;padding:1.2cqw 1.4cqw;text-align:center}
+.tb-bubble::after{content:"";position:absolute;right:16%;bottom:-1.2cqw;border:1.2cqw solid transparent;border-top-color:#fff;border-bottom:0}
+.tb-ann{font-family:"Noto Sans KR",sans-serif;font-size:1.25cqw;color:var(--tb-soft);line-height:1.45}
+.tb-onimg{font-family:"Noto Sans KR",sans-serif;font-size:1.25cqw;color:#7a4a3a;text-align:center;line-height:1.3;pointer-events:none}
+
+/* 좁은 화면: 쪽마다 위아래로 */
+@media (max-width:980px){
+  .tb-spread{grid-template-columns:1fr;width:100%;left:0;transform:none}
+  .tb-spread::after{display:none}
+  .tb-page + .tb-page{border-top:2px dashed rgba(255,255,255,.15)}
+}
+/* 휴대폰: 교과서 배치를 풀고 차례대로 */
+@media (max-width:640px){
+  .tb-page{aspect-ratio:auto;padding:18px 16px 22px;display:flex;flex-direction:column;gap:12px;container-type:normal}
+  .tb-page > *{position:relative;left:auto;top:auto;width:auto;height:auto}
+  .tb-line,.tb-lab,.tb-onimg,.tb-foot{display:none}
+  .tb-text h3{font-size:17px}.tb-text p{font-size:16px;line-height:1.85;text-align:left}
+  .tb-cap,.tb-ann{font-size:14px}
+  .tb-fig{height:auto;border-radius:10px}.tb-fig img{height:auto}
+  .tb-fig::after{font-size:13px;padding:3px 10px;right:8px;bottom:8px}
+  .tb-map{height:auto}.tb-map img{height:auto}
+  .tb-map .hot{border-radius:4px}
+  .tb-year .yr{font-size:44px}.tb-year .ev{font-size:17px;margin-top:6px}
+  .tb-qr img{width:56px;height:56px}.tb-qr span{font-size:15px;margin-top:16px}.tb-qr span i{font-size:12px}
+  .tb-vbtn{font-size:15px;padding:6px 14px;align-self:flex-start}
+  .tb-bubble{font-size:15px;border-radius:18px;padding:10px 14px;align-self:center}
+  .tb-bubble::after{bottom:-10px;border-width:10px}
+}
+
+/* ── 장면 재생기 ── */
+.scp{position:fixed;inset:0;z-index:2147483000;background:rgba(10,14,13,.92);display:none;align-items:center;justify-content:center;padding:16px}
+.scp.on{display:flex}
+.scp-box{width:min(1180px,100%);max-height:100%;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:20px;
+  background:#1d2522;color:#eef2ee;border-radius:18px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.5);font-family:"Noto Sans KR",sans-serif}
+.scp-stage{position:relative;overflow:hidden;border-radius:12px;background:#0d1110;align-self:center;cursor:pointer;max-height:calc(100vh - 80px)}
+.scp-layer{position:absolute;inset:0;transform-origin:0 0;transition:transform 1.9s cubic-bezier(.45,.05,.25,1);will-change:transform}
+.scp-layer img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;user-select:none;-webkit-user-drag:none}
+.scp-layer .col{opacity:0;transition:opacity 1.4s ease}
+.scp.color .scp-layer .col{opacity:1}
+.scp-mark{position:absolute;border-radius:50%;transform:translate(-50%,-50%);
+  border:calc(4px / var(--z,1)) solid #ffe45c;box-shadow:0 0 0 calc(3px / var(--z,1)) rgba(0,0,0,.45),0 0 calc(24px / var(--z,1)) rgba(255,228,92,.7);
+  opacity:0;transition:opacity .5s ease .9s;animation:scpRing 1.6s ease-in-out infinite}
+.scp-mark.on{opacity:1}
+@keyframes scpRing{0%,100%{scale:1}50%{scale:1.08}}
+.scp-badge{position:absolute;left:10px;top:10px;font-size:12px;background:rgba(0,0,0,.6);color:#fff;padding:3px 10px;border-radius:99px;pointer-events:none;opacity:0;transition:opacity .4s}
+.scp.color .scp-badge{opacity:1}
+.scp-side{display:flex;flex-direction:column;min-height:0}
+.scp-top{display:flex;align-items:flex-start;gap:10px}
+.scp-top h3{flex:1;font-size:21px;margin:0;color:#fff;line-height:1.4}
+.scp-top small{display:block;font-size:13px;color:#ffe45c;font-weight:700;margin-bottom:2px}
+.scp-x{flex:none;width:40px;height:40px;border-radius:12px;border:1px solid #3a4743;background:#26302d;color:#fff;font-size:20px;cursor:pointer}
+.scp-text{flex:1;margin:16px 0;font-size:18px;line-height:1.8;min-height:9em;overflow:auto}
+.scp-text p{margin:0;animation:scpIn .6s ease both}
+.scp-text b{color:#ffe45c}
+@keyframes scpIn{from{opacity:0;transform:translateY(10px)}}
+.scp-dots{display:flex;gap:6px;margin-bottom:12px}
+.scp-dots button{width:26px;height:8px;border-radius:99px;border:0;background:#3a4743;cursor:pointer;padding:0}
+.scp-dots button.on{background:#ffe45c}
+.scp-ctl{display:flex;flex-wrap:wrap;gap:8px}
+.scp-ctl button,.scp-ctl a{font:inherit;font-size:15px;font-weight:700;border-radius:10px;padding:8px 14px;cursor:pointer;
+  border:1px solid #3a4743;background:#26302d;color:#eef2ee;text-decoration:none}
+.scp-ctl .pri{background:#ffe45c;border-color:#ffe45c;color:#1a1f1d}
+.scp-ctl button[hidden]{display:none}
+.scp-note{font-size:12px;color:#9fb0aa;margin-top:10px}
+.scp-video{display:none;width:100%;aspect-ratio:16/9;border:0;border-radius:12px;background:#000}
+.scp.vid .scp-video{display:block}
+.scp.vid .scp-stage,.scp.vid .scp-dots,.scp.vid .scp-step{display:none}
+@media (max-width:820px){
+  .scp{padding:0;align-items:stretch}
+  .scp-box{grid-template-columns:1fr;border-radius:0;padding:12px;gap:10px;overflow:auto;align-content:start}
+  .scp-text{min-height:0;font-size:16px;margin:8px 0}
+  .scp-top h3{font-size:18px}
+}
+@media (prefers-reduced-motion:reduce){.scp-layer{transition:none}.scp-mark{animation:none}}
