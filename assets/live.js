@@ -45,7 +45,7 @@
       ['ww1/','1차시 · 제1차 세계 대전'], ['russian-revolution/','1차시+ · 유럽의 정치 체제 변화'],
       ['ww2-background/','2차시 · 제2차 세계 대전의 배경'], ['ww2-process/','3차시 · 제2차 세계 대전의 전개'],
       ['war-crimes/','4차시 · 전쟁 범죄'], ['peace/','5차시 · 인권 회복과 평화'],
-      ['national-movements/','6차시 · 민족 운동'], ['cold-war/','7차시 · 냉전 체제의 형성'],
+      ['national-movements/','6차시 · 민족 운동'], ['cold-war/','7차시 · 냉전 체제의 형성'], ['third-world/','8차시 · 제3 세계의 등장'],
       ['concepts/','개념 학습실'], ['world-timeline/','세계사 타임라인 지구본']
     ],
     pageKey: function(){ var m = location.pathname.match(/\/([a-z0-9-]+)\/(index\.html)?$/); return m ? m[1]+'/' : ''; },

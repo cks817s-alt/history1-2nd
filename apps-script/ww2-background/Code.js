@@ -10,7 +10,7 @@
  *  - submit5: 5차시 「인권 회복과 평화 실현」 활동 결과를 '5차시 제출' 시트에 기록
  *  - submit6: 6차시 「아시아와 아프리카의 민족 운동」 활동 결과를 '6차시 제출' 시트에 기록
  *  - submitru: Ⅵ-01-2 「유럽 각국의 정치 체제가 변화하다」 활동 결과를 '1차시+ 정치 체제 변화 제출' 시트에 기록
- *  - submit1·submit3·submit4·submit7: 1·3·4·7차시 활동 결과를 각 차시 제출 탭에 기록
+ *  - submit1·submit3·submit4·submit7·submit8: 1·3·4·7·8차시 활동 결과를 각 차시 제출 탭에 기록
  *  - rows / grade: 교사 확인·평가 화면(teacher/)에서 차시별 제출 목록 불러오기, 평가·피드백 저장 (비밀번호 필요)
  *  - myFeedback: 학생이 학반·번호·이름으로 자기 평가·피드백 확인
  *  - artItems·artVote·artAdmin·artSet·artAdd: 국중박 유물분장 대회 반별 유물 투표 (artifact-vote/)
@@ -100,7 +100,7 @@ function doPost(e) {
       case 'list': return json_(list_(data));
       case 'submit5': return json_(submit5_(data));
       case 'submit6': return json_(submit6_(data));
-      case 'submit1': case 'submit3': case 'submit4': case 'submit7': case 'submittl': case 'submitru':
+      case 'submit1': case 'submit3': case 'submit4': case 'submit7': case 'submit8': case 'submittl': case 'submitru':
         var L = LESSONS[data.action.slice(6)];
         return json_(appendLesson_(data, L.sheet, L.headers, L.fields));
       case 'rows': return json_(rows_(data));
@@ -191,6 +191,10 @@ var LESSONS = {
          '빈칸(맞힌 수)', 'O/X 퀴즈', '아시아의 냉전 서술', '한 줄 성찰', '스스로 점검'],
        fields: ['timestamp', 'className', 'studentNumber', 'studentName', 'spaceWhy', 'blocScore', 'orderResult', 'coldHot',
          'fillScore', 'oxScore', 'asia', 'reflection', 'selfCheck'] },
+  8: { sheet: '8차시 제출', headers: ['제출일시', '학반', '번호', '이름', '독립 후 예상(도입)', '독립 순서', '세계 분류', '자료1 우리는?', '가장 중요한 조항', '조항을 고른 까닭',
+         '평화를 강조한 까닭(모둠)', '빈칸(맞힌 수)', 'O/X 퀴즈', '제3 세계 등장의 영향', '한 줄 성찰', '스스로 점검'],
+       fields: ['timestamp', 'className', 'studentNumber', 'studentName', 'introGuess', 'orderResult', 'worldScore', 'weAnswer', 'article', 'articleWhy',
+         'peaceWhy', 'fillScore', 'oxScore', 'impact', 'reflection', 'selfCheck'] },
   // 세계사 타임라인 지구본 — 나의 세계사 연표 만들기 (차시와 별도인 단원 공통 활동)
   tl: { sheet: '세계사 연표 제출', headers: ['제출일시', '학반', '번호', '이름', '카드 수', '동양·서양 카드', '미션', '나의 연표(카드)', '동서 비교 글', '새롭게 알게 된 점'],
         fields: ['timestamp', 'className', 'studentNumber', 'studentName', 'cardCount', 'laneCount', 'mission', 'cards', 'compare', 'reflection'] }
