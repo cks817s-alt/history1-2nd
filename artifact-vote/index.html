@@ -111,6 +111,18 @@ footer a{color:inherit}
 .form{display:grid;gap:8px;grid-template-columns:1fr 1fr}
 .form .full{grid-column:1/-1}
 .form input{width:100%}
+.tbl .th{width:52px;height:52px;object-fit:cover;border-radius:8px;background:#e9edf2;display:block}
+.tbl .th.none{display:grid;place-items:center;font-size:11px;color:var(--ink-2);font-weight:700}
+.tbl .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.tbl .acts button{border:1px solid var(--line);background:var(--surface-2);border-radius:8px;font-size:12px;font-weight:700;padding:2px 8px;cursor:pointer}
+.sync{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.sync .btn{display:inline-flex;align-items:center;gap:6px}
+.sync .btn.busy::before{content:"";width:14px;height:14px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.syncres{margin:10px 0 0;padding:0;list-style:none;font-size:13.5px;display:grid;gap:4px}
+.syncres li{background:var(--surface-2);border-radius:10px;padding:6px 10px}
+.syncres li b{margin-right:6px}
+.syncres .warn{color:var(--accent)}
 @media (max-width:560px){.form{grid-template-columns:1fr}.hero{padding:22px}.grid{grid-template-columns:1fr}}
 [hidden]{display:none!important}
 </style>
@@ -167,6 +179,17 @@ footer a{color:inherit}
       <p class="msg" id="loginMsg" role="status"></p>
     </section>
     <div id="adminArea" hidden>
+      <section class="panel" id="syncPanel">
+        <h2>패들렛에서 업데이트</h2>
+        <p class="meta" style="margin:-6px 0 12px">패들렛 「국중박 유물분장」 반별 게시물 댓글에 달린 모둠 활동지를 다시 읽어 후보 유물과 사진을 새로 고칩니다. 학생이 활동지를 고치거나 새로 올렸을 때 누르세요. 이미 받은 투표는 그대로 남습니다.</p>
+        <div class="sync">
+          <button class="btn" id="syncBtn" type="button">🔄 패들렛에서 업데이트</button>
+          <a class="btn ghost" style="display:inline-flex;align-items:center;text-decoration:none" href="https://padlet.com/cks817s/padlet-s025co7mer40byf1wwuz" target="_blank" rel="noopener">패들렛 열기 ↗</a>
+          <span class="meta" id="syncAt"></span>
+        </div>
+        <ul class="syncres" id="syncRes"></ul>
+        <p class="msg" id="syncMsg" role="status"></p>
+      </section>
       <section class="panel">
         <div class="row" style="justify-content:space-between">
           <div class="cls" id="tClsBtns"></div>
@@ -181,7 +204,8 @@ footer a{color:inherit}
       </section>
       <section class="panel">
         <h2 id="tCountTitle">득표 현황</h2>
-        <table class="tbl"><thead><tr><th>순위</th><th>유물</th><th style="width:45%">득표</th></tr></thead><tbody id="tCount"></tbody></table>
+        <table class="tbl"><thead><tr><th>순위</th><th>사진</th><th>유물</th><th style="width:38%">득표</th></tr></thead><tbody id="tCount"></tbody></table>
+        <p class="meta" style="margin:8px 0 0">사진이 틀리거나 없으면 「사진 바꾸기」를 누르세요. 사진 주소나 검색어를 넣으면 바꿔 주고, 비워 두면 국립중앙박물관에서 다시 찾아 줍니다. 겹치거나 필요 없는 후보는 「숨기기」를 누르면 학생 화면에서 빠집니다.</p>
       </section>
       <section class="panel">
         <h2>투표한 번호</h2>
@@ -316,7 +340,7 @@ footer a{color:inherit}
         var second = ranked[1] ? (res.count[ranked[1].id] || 0) : -1;
         var top = ranked.filter(function (it, i) { var c = res.count[it.id] || 0; return c > 0 && (i < 2 || c === second); });
         $('winners').innerHTML = top.length ? top.map(function (it, i) {
-          return '<div class="winner"><img src="' + esc(imgs(it)[0] || '') + '" alt=""><div><b>' + (i + 1) + '위 · ' + esc(it.name) + '</b><span>' + (res.count[it.id] || 0) + '표</span></div></div>';
+          return '<div class="winner"><img src="' + esc(imgs(it)[0] || '') + '" alt="" referrerpolicy="no-referrer"><div><b>' + (i + 1) + '위 · ' + esc(it.name) + '</b><span>' + (res.count[it.id] || 0) + '표</span></div></div>';
         }).join('') : '<p class="meta">아직 표가 없어요.</p>';
         $('voterCount').textContent = '투표한 사람 ' + res.voters + '명';
       }
@@ -326,7 +350,7 @@ footer a{color:inherit}
       } else {
         $('grid').innerHTML = items.map(function (it) {
           var on = S.picks.indexOf(it.id) >= 0, mine = S.saved.indexOf(it.id) >= 0;
-          var pics = imgs(it).map(function (src) { return '<img src="' + esc(src) + '" alt="' + esc(it.name) + ' 사진" loading="lazy">'; }).join('');
+          var pics = imgs(it).map(function (src) { return '<img src="' + esc(src) + '" alt="' + esc(it.name) + ' 사진" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement(\'div\'),{className:\'empty\',style:\'margin:auto\',textContent:\'사진을 불러오지 못했어요\'}))">'; }).join('');
           var cnt = res ? (res.count[it.id] || 0) : 0;
           return '<article class="card' + (on ? ' on' : '') + '" data-id="' + esc(it.id) + '">' +
             '<div class="ph">' + (pics || '<div class="empty" style="margin:auto">사진 없음</div>') +
@@ -416,10 +440,14 @@ footer a{color:inherit}
       var max = Math.max.apply(null, [1].concat(ranked.map(function (it) { return d.count[it.id] || 0; })));
       $('tCountTitle').textContent = d.cls + '반 득표 현황 · 투표 ' + d.voters.length + '명';
       $('tCount').innerHTML = ranked.length ? ranked.map(function (it, i) {
-        var c = d.count[it.id] || 0;
-        return '<tr><td><b>' + (i + 1) + '</b></td><td><b>' + esc(it.name) + '</b><div class="meta">' + esc(it.status || '') + '</div></td>' +
+        var c = d.count[it.id] || 0, src = imgs(it)[0];
+        return '<tr data-id="' + esc(it.id) + '"><td><b>' + (i + 1) + '</b></td>' +
+          '<td>' + (src ? '<img class="th" src="' + esc(src) + '" alt="" referrerpolicy="no-referrer">' : '<span class="th none">사진 없음</span>') + '</td>' +
+          '<td><b>' + esc(it.name) + '</b><div class="meta">' + esc([it.status, it.owner].filter(Boolean).join(' · ')) + '</div>' +
+          '<div class="acts"><button type="button" data-act="img">사진 바꾸기</button><button type="button" data-act="hide">숨기기</button></div></td>' +
           '<td><div class="res"><div class="track"><div class="fill" style="width:' + Math.round(c / max * 100) + '%"></div></div>' + c + '표</div></td></tr>';
-      }).join('') : '<tr><td colspan="3" class="meta">이 반에는 아직 후보 유물이 없어요. 아래에서 더하거나 시트에 적어 주세요.</td></tr>';
+      }).join('') : '<tr><td colspan="4" class="meta">이 반에는 아직 후보 유물이 없어요. 위의 「패들렛에서 업데이트」를 누르거나 아래에서 더해 주세요.</td></tr>';
+      syncInfo(d.sync);
       var voted = {}; d.voters.forEach(function (v) { voted[v.num] = 1; });
       var html = '';
       for (var n = 1; n <= MAX_NUM; n++) html += '<span class="' + (voted[n] ? 'v' : '') + '">' + n + '</span>';
@@ -431,6 +459,67 @@ footer a{color:inherit}
       msg($('tMsg'), '바꾸는 중…');
       call(patch).then(function () { refresh(); }).catch(function (e) { msg($('tMsg'), '바꾸지 못했어요: ' + e.message, 'err'); });
     }
+    /* 패들렛에서 업데이트 */
+    function syncInfo(s) {
+      if (!s || !s.at) { $('syncAt').textContent = '아직 업데이트한 적이 없어요'; return; }
+      $('syncAt').textContent = '마지막 업데이트 · ' + s.at;
+    }
+    function syncReport(r) {
+      var rows = Object.keys(r.classes).map(function (c) {
+        var k = r.classes[c];
+        var parts = ['활동지 ' + k.docs + '개'];
+        if (k.added) parts.push('새로 더함 ' + k.added);
+        if (k.updated) parts.push('고침 ' + k.updated);
+        if (k.same) parts.push('이미 있음 ' + k.same);
+        var warn = [];
+        if (k.locked) warn.push('못 읽은 활동지 ' + k.locked + '개 (공유가 「제한됨」인지 확인)');
+        if (k.empty) warn.push('최종 유물 빈칸 ' + k.empty + '개');
+        if (k.noPhoto.length) warn.push('사진 못 찾음: ' + k.noPhoto.join(', '));
+        return '<li><b>' + c + '반</b>' + esc(parts.join(' · ')) + (warn.length ? '<br><span class="warn">⚠ ' + esc(warn.join(' · ')) + '</span>' : '') + '</li>';
+      });
+      if (r.known) rows.push('<li class="meta">이미 정리해 둔 활동지 ' + r.known + '개는 그대로 두었어요.</li>');
+      if (r.fileOnly) rows.push('<li class="meta">파일 이름만 적힌 댓글 ' + r.fileOnly + '개는 내용을 읽을 수 없어 건너뛰었어요.</li>');
+      $('syncRes').innerHTML = rows.join('');
+    }
+    $('syncBtn').onclick = function () {
+      var b = $('syncBtn');
+      b.disabled = true; b.classList.add('busy'); b.textContent = ' 패들렛 읽는 중… (30초~1분)';
+      msg($('syncMsg'), '');
+      var ctrl = window.AbortController ? new AbortController() : null;
+      var t = setTimeout(function () { if (ctrl) ctrl.abort(); }, 300000);
+      fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'artSync', password: T.pw }), signal: ctrl ? ctrl.signal : undefined })
+        .then(function (r) { clearTimeout(t); return r.json(); })
+        .then(function (d) {
+          if (!d.ok) throw new Error(d.error === 'auth' ? '비밀번호를 다시 확인해 주세요' : (d.error || '서버 오류'));
+          syncInfo(d); syncReport(d);
+          msg($('syncMsg'), '업데이트했어요. 학생 화면은 「새로고침」을 누르면 바뀐 목록이 보여요.', 'ok');
+          refresh(true);
+        })
+        .catch(function (e) { msg($('syncMsg'), '업데이트하지 못했어요: ' + (e.name === 'AbortError' ? '시간이 너무 오래 걸렸어요' : e.message), 'err'); })
+        .then(function () { b.disabled = false; b.classList.remove('busy'); b.textContent = '🔄 패들렛에서 업데이트'; });
+    };
+
+    /* 후보별 사진 바꾸기 · 숨기기 */
+    $('tCount').onclick = function (e) {
+      var btn = e.target.closest('button[data-act]'); if (!btn) return;
+      var id = btn.closest('tr').getAttribute('data-id');
+      var it = T.data.items.filter(function (x) { return x.id === id; })[0]; if (!it) return;
+      var payload = { action: 'artEdit', password: T.pw, cls: T.cls, id: id };
+      if (btn.getAttribute('data-act') === 'hide') {
+        if (!confirm('「' + it.name + '」을(를) 학생 화면에서 숨길까요?\n(구글 시트 「유물 후보」 탭 표시 칸의 X를 지우면 다시 보여요)')) return;
+        payload.hide = true;
+      } else {
+        var v = prompt('「' + it.name + '」 사진을 바꿉니다.\n· 사진 주소(https://…)를 붙여 넣거나\n· 국립중앙박물관에서 찾을 검색어(예: 토우)를 쓰거나\n· 비워 두면 유물 이름으로 다시 찾아요.', '');
+        if (v === null) return;
+        payload.img = v.trim();
+      }
+      btn.disabled = true; msg($('tMsg'), '바꾸는 중…');
+      call(payload).then(function (d) {
+        if (!d.ok) throw new Error('비밀번호를 다시 확인해 주세요');
+        msg($('tMsg'), payload.hide ? '숨겼어요.' : '사진을 바꿨어요.', 'ok'); refresh(true);
+      }).catch(function (e) { msg($('tMsg'), '바꾸지 못했어요: ' + e.message, 'err'); btn.disabled = false; });
+    };
+
     $('closeBtn').onclick = function () { setState({ closed: !T.data.state.closed }); };
     $('revealBtn').onclick = function () { setState({ reveal: !T.data.state.reveal }); };
     $('addBtn').onclick = function () {
