@@ -207,7 +207,16 @@ input[type=text],input[type=number],select{border:2px solid var(--ink);border-ra
 
 <!-- ================= 교사 화면 ================= -->
 <main id="host" class="wrap" hidden>
-  <section id="hSetup">
+  <section id="hLogin" hidden>
+    <div class="card" style="max-width:520px;margin:40px auto">
+      <span class="hand" style="color:var(--teal);font-size:18px">선생님 전용</span>
+      <h1 style="margin:4px 0 6px;font-size:36px">퀴즈 방 열기</h1>
+      <p class="muted" style="margin:0 0 12px">교사 화면과 같은 <b>교사 비밀번호</b>를 넣어 주세요. 학생은 <a href="./">학생 입장 화면</a>에서 입장 코드로 들어와요.</p>
+      <form id="pwForm"><input type="password" id="pwIn" autocomplete="current-password" placeholder="교사 비밀번호" aria-label="교사 비밀번호"><button class="btn go big" type="submit" id="pwBtn" style="width:100%;margin-top:10px">들어가기</button></form>
+      <p class="msg" id="pwMsg" role="alert"></p>
+    </div>
+  </section>
+  <section id="hSetup" hidden>
     <div class="setup">
       <div class="card">
         <span class="hand" style="color:var(--teal);font-size:18px">선생님 화면 · 프로젝터에 띄우세요</span>
@@ -461,7 +470,31 @@ input[type=text],input[type=number],select{border:2px solid var(--ink);border-ra
   function qHtml(text) { return esc(text).replace('@@BLANK@@', '<span class="blank">&nbsp;</span>'); }
 
   /* ================= 교사 ================= */
+  // 교사 비밀번호 확인 (교사 화면 teacher/ 와 같은 서버·같은 비밀번호, 이 탭에서 한 번 맞히면 다시 묻지 않음)
+  var API = 'https://script.google.com/macros/s/AKfycbyfpqz_5eEpNHCmJyu6QdyYyYAaOfNnMo9S0Yd94ZBvp32PFutglQ2HU2_71Z4shqvmHw/exec';
+  function checkPw(pw) {
+    return fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'auth', password: pw }) })
+      .then(function (r) { return r.json(); }).then(function (d) { return !!(d && d.ok); });
+  }
   function hostInit() {
+    $('host').hidden = false; $('hSetup').hidden = true; $('hLogin').hidden = false;
+    function pm(t, k) { $('pwMsg').textContent = t || ''; $('pwMsg').className = 'msg' + (k ? ' ' + k : ''); }
+    function pass(pw) { ss('t-pw', pw); $('hLogin').hidden = true; $('hSetup').hidden = false; hostStart(); }
+    var saved = ss('t-pw');
+    if (saved) {
+      pm('교사 비밀번호를 확인하는 중…');
+      checkPw(saved).then(function (ok) { if (ok) pass(saved); else { ss('t-pw', null); pm(''); } }).catch(function () { pm('서버에 연결하지 못했어요. 비밀번호를 넣어 주세요.', 'err'); });
+    }
+    $('pwForm').onsubmit = function (e) {
+      e.preventDefault();
+      var v = $('pwIn').value.trim(); if (!v) return;
+      $('pwBtn').disabled = true; pm('확인하는 중…');
+      checkPw(v).then(function (ok) { if (ok) { pm(''); pass(v); } else pm('비밀번호가 맞지 않아요.', 'err'); })
+        .catch(function () { pm('서버에 연결하지 못했어요. 잠시 뒤 다시 해 주세요.', 'err'); })
+        .then(function () { $('pwBtn').disabled = false; });
+    };
+  }
+  function hostStart() {
     $('host').hidden = false;
     var cfg = { n: ls('quiz-n') || '10', dur: ls('quiz-dur') || '20', mode: ls('quiz-mode') || 'mix', auto: ls('quiz-auto') || '1' };
     var picked = (ls('quiz-sets') || '').split(',').filter(Boolean);
