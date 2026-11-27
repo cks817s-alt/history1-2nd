@@ -14,6 +14,7 @@
  *  - rows / grade: 교사 확인·평가 화면(teacher/)에서 차시별 제출 목록 불러오기, 평가·피드백 저장 (비밀번호 필요)
  *  - myFeedback: 학생이 학반·번호·이름으로 자기 평가·피드백 확인
  *  - artItems·artVote·artAdmin·artSet·artAdd: 국중박 유물분장 대회 반별 유물 투표 (artifact-vote/)
+ *  - artSync·artEdit: 패들렛 모둠 활동지를 읽어 유물 후보·사진 업데이트, 후보 사진 고치기 (비밀번호 필요)
  *
  * 설정은 시트 상단 메뉴 [📚 수업 설정]에서 합니다. (API 키·비밀번호는 코드에 적지 않습니다)
  */
@@ -40,6 +41,7 @@ function onOpen() {
     .addItem('② 교사 비밀번호 설정', 'menuSetPassword')
     .addItem('③ 연결 상태 점검', 'menuCheck')
     .addItem('④ 나이스 API 키 입력', 'menuSetNeisKey')
+    .addItem('⑤ 패들렛에서 유물 후보 업데이트', 'menuArtSync')
     .addToUi();
 }
 
@@ -111,6 +113,8 @@ function doPost(e) {
       case 'artAdmin': return json_(artAdmin_(data));
       case 'artSet': return json_(artSet_(data));
       case 'artAdd': return json_(artAdd_(data));
+      case 'artSync': return json_(artSync_(data));
+      case 'artEdit': return json_(artEdit_(data));
       case 'bootKeys': return json_(bootKeys_(data));
       case 'keyStatus': return json_(keyStatus_(data));
       case 'neisToday': return json_(neisToday_(data));
@@ -626,6 +630,7 @@ function artAdmin_(data) {
   var items = artList_(cls);
   var votes = artVotes_(cls);
   return { ok: true, cls: cls, items: items, state: artState_(cls),
+    sync: artSyncInfo_(),
     count: artTally_(items, votes),
     voters: votes.map(function (v) { return { num: v.num, picks: v.picks, time: v.time }; }) };
 }
@@ -659,6 +664,331 @@ function artAdd_(data) {
     clip_(data.link, 500), clip_(data.intro, 1000), clip_(data.intent, 1000), clip_(data.status, 20) || '후보', ''];
   sh.getRange(sh.getLastRow() + 1, 1, 1, row.length).setNumberFormat('@').setValues([row.map(safeCell_)]);
   return { ok: true, id: id };
+}
+
+/* ---------------- 패들렛 → 유물 후보 업데이트 (선생님 화면 「패들렛에서 업데이트」 버튼) ----------------
+ * 패들렛 「국중박 유물분장」의 '링크 제출하세요 N반' 게시물 댓글에 달린 모둠 활동지(구글 문서)를 읽어
+ * 최종 선정 유물을 '유물 후보' 탭에 더하거나 고칩니다. 사진은 국립중앙박물관 소장품 검색에서 찾습니다.
+ *  - 활동지가 '링크가 있는 모든 사용자'로 공유되어 있어야 읽을 수 있습니다(제한됨이면 '못 읽음'으로 알려 줌).
+ *  - 자동으로 더한 줄은 L열(출처)에 문서 ID가 있습니다. 다시 업데이트하면 그 줄의 이름·소개·의도를 활동지 내용으로 고칩니다.
+ *  - 사진 칸을 선생님이 직접 고친 경우에는 유물명이 바뀌지 않는 한 그대로 둡니다. 표시 칸 X(숨김)도 그대로 둡니다.
+ *  - 이미 손으로 넣어 둔 유물과 이름이 같으면 새로 더하지 않습니다.
+ */
+var PADLET_URL = 'https://padlet.com/cks817s/padlet-s025co7mer40byf1wwuz';
+var PADLET_WALL = 'board_q8WbyNrzG0aPyPjd';
+var ART_SRC_HEADER = '출처(자동)';
+var MUSEUM_LIST = 'https://www.museum.go.kr/MUSEUM/contents/M0502000000.do?checkedLeft=separateseparateseparate' +
+  '&checkedRight=*separateseparateseparate&searchId=search&startCount=0&pageSize=12&siteId=MUSEUM&sc=TITLE_KOR&query=';
+
+function menuArtSync() {
+  var r = artSyncRun_();
+  SpreadsheetApp.getUi().alert(artSyncText_(r));
+}
+
+function artSync_(data) {
+  if (!checkPassword_(data.password)) return { ok: false, error: 'auth' };
+  var lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    return artSyncRun_();
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function artSyncInfo_() {
+  try { return JSON.parse(PropertiesService.getScriptProperties().getProperty('ART_SYNC') || 'null'); }
+  catch (e) { return null; }
+}
+
+function artSyncText_(r) {
+  var lines = ['패들렛 업데이트 결과 (' + r.at + ')'];
+  Object.keys(r.classes).forEach(function (c) {
+    var k = r.classes[c];
+    lines.push(c + '반: 활동지 ' + k.docs + ' · 새로 더함 ' + k.added + ' · 고침 ' + k.updated +
+      (k.same ? ' · 이미 있음 ' + k.same : '') + (k.locked ? ' · 못 읽음(공유 제한) ' + k.locked : '') +
+      (k.empty ? ' · 최종 유물 빈칸 ' + k.empty : '') + (k.noPhoto.length ? ' · 사진 못 찾음: ' + k.noPhoto.join(', ') : ''));
+  });
+  if (r.known) lines.push('이미 정리해 둔 활동지 ' + r.known + '개는 그대로 둠');
+  if (r.fileOnly) lines.push('파일 이름만 적힌 댓글 ' + r.fileOnly + '개는 읽을 수 없어 건너뜀');
+  return lines.join('\n');
+}
+
+function padletGet_(path) {
+  var res = UrlFetchApp.fetch('https://padlet.com' + path, { muteHttpExceptions: true, headers: { Accept: 'application/json' } });
+  if (res.getResponseCode() !== 200) throw new Error('패들렛을 읽지 못했어요 (' + res.getResponseCode() + ')');
+  return JSON.parse(res.getContentText());
+}
+
+function padletAll_(kind) {
+  var out = [], start = '', guard = 0;
+  do {
+    var d = padletGet_('/api/' + (kind === 'wishes' ? '10' : '9') + '/' + kind + '?wall_hashid=' + PADLET_WALL + '&page_start=' + encodeURIComponent(start));
+    out = out.concat(d.data || []);
+    var nx = d.meta && d.meta.next;
+    start = nx ? String(nx).replace(/^.*[?&]page_start=([^&]*).*$/, function (m, p) { return decodeURIComponent(p); }) : '';
+  } while (start && ++guard < 30);
+  return out;
+}
+
+// 활동지 글에서 항목 뽑기 (구글 문서 txt 내보내기 기준, 표 칸은 탭·줄바꿈으로 나옴)
+function artParseSheet_(text) {
+  var t = String(text || '').replace(/\r/g, '').replace(/ /g, ' ');
+  function between(startRe, endRe) {
+    var m = t.match(startRe);
+    if (!m) return '';
+    var rest = t.slice(m.index + m[0].length);
+    var e = rest.search(endRe);
+    return e >= 0 ? rest.slice(0, e) : rest.slice(0, 600);
+  }
+  function clean(s) {
+    return String(s || '')
+      .replace(/[\u{1F000}-\u{1FAFF}☀-➿⬀-⯿️‍]/gu, '')
+      .replace(/^\s*\([^)]{0,60}\)/, '')
+      .split('\n').map(function (l) { return l.replace(/^[\s\t•*·\-]+/, '').replace(/_{3,}/g, '').trim(); })
+      .filter(function (l) { return l && !/^\d\.\s*$/.test(l); })
+      .join(' ').replace(/\s+/g, ' ').trim();
+  }
+  var final = clean(between(/최종\s*선정\s*유물/, /선정\s*이유|STEP\s*3/));
+  var reason = clean(between(/선정\s*이유/, /STEP\s*3|역사적\s*의미|_{5,}/));
+  var meaning = clean(between(/역사적\s*의미\s*도출/, /시각적\s*포인트|스토리텔링|모둠원\s*역할/));
+  var visual = clean(between(/시각적\s*포인트/, /스토리텔링|모둠원\s*역할/));
+  var story = clean(between(/스토리텔링\s*아이디어/, /모둠원\s*역할|패들렛|_{5,}/));
+  var cands = [];
+  var cb = between(/후보\s*1(?!\d)/, /2\.\s*최종|최종\s*유물\s*선정/);
+  if (cb) {
+    var parts = ('후보 1\n' + cb).split(/후보\s*\d\s*\n?/).slice(1);
+    parts.forEach(function (p) {
+      var ls = p.split(/\n|\t/).map(function (l) { return l.trim(); }).filter(Boolean);
+      if (ls[0]) cands.push({ name: ls[0], era: ls[1] || '' });
+    });
+  }
+  // 칸 설명 문구만 남은 경우는 빈칸으로 봄
+  if (/^(작성 내용|항목|유물)$/.test(final)) final = '';
+  // 유물 이름 칸에 이유 문장을 쓴 경우 (예: '예쁘고 만들기 어렵지 않다')
+  if (final && final.length > 8 && /(다|요|음)\.?$/.test(final) &&
+      !cands.some(function (c) { return artNorm_(c.name) === artNorm_(final); })) {
+    reason = (final + ' ' + reason).trim();
+    final = '';
+  }
+  var era = '';
+  var nf = artNorm_(final);
+  cands.forEach(function (c) { if (!era && nf && (artNorm_(c.name).indexOf(nf) >= 0 || nf.indexOf(artNorm_(c.name)) >= 0)) era = c.era; });
+  return { name: final.slice(0, 80), era: era.slice(0, 80), reason: reason, meaning: meaning, visual: visual, story: story, cands: cands };
+}
+
+function artNorm_(s) {
+  return String(s || '').replace(/\([^)]*\)/g, '').replace(/[\s·.,'"‘’“”<>「」\-_/]/g, '').replace(/모양/g, '').toLowerCase();
+}
+
+// 국립중앙박물관 소장품 검색에서 첫 번째 사진 찾기
+function artMuseumFind_(name) {
+  var base = String(name || '').split(/\s+[-–—:]\s+/)[0].replace(/\([^)]*\)/g, ' ').replace(/[「」<>"']/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!base) return null;
+  var words = base.split(' ').filter(function (w) { return w.length >= 2; });
+  var tries = [base, base.replace(/\s+/g, ''), base.replace(/모양/g, '').replace(/\s+/g, ' ').trim(),
+    base.replace(/\s*모양\s*/g, '형 ').replace(/\s+/g, ' ').trim()];
+  if (words.length > 1) {
+    tries.push(words.slice().sort(function (a, b) { return b.length - a.length; }).slice(0, 2).join(' '));
+    tries.push(words[words.length - 1]);
+  }
+  var seen = {};
+  for (var i = 0; i < tries.length; i++) {
+    var q = tries[i];
+    if (!q || seen[q]) continue;
+    seen[q] = 1;
+    var res;
+    try { res = UrlFetchApp.fetch(MUSEUM_LIST + encodeURIComponent(q), { muteHttpExceptions: true }); } catch (e) { continue; }
+    if (res.getResponseCode() !== 200) continue;
+    var html = res.getContentText();
+    var re = /relicId=(\d+)"\s*class="(?:img-box|thum_box)">\s*<img\s+src="([^"]+)"\s*alt="([^"]*)"/g, m, n = 0;
+    while ((m = re.exec(html)) && n++ < 12) {
+      if (/onerror\.png/.test(m[2])) continue;
+      var title = m[3].replace(/<!H[SE]>|&lt;!H[SE]&gt;/g, '').replace(/\s*대표이미지\s*$/, '').trim();
+      if (!artRelevant_(base, title)) continue;   // 검색 결과가 없을 때 나오는 엉뚱한 목록 거르기
+      return { relicId: m[1], img: 'https://www.museum.go.kr' + m[2].replace(/\/\/+/g, '/').replace(/ /g, '%20'), title: title, query: q };
+    }
+  }
+  return null;
+}
+
+// 박물관 유물명에 학생이 쓴 이름의 핵심 낱말(흔한 말 제외)이 들어 있는지
+var ART_COMMON_WORDS = ['청자', '백자', '분청', '분청사기', '금동', '청동', '모양', '무늬', '장식', '상감', '유물', '국보', '보물'];
+function artRelevant_(name, title) {
+  var t = artNorm_(title);
+  var words = String(name).replace(/\([^)]*\)/g, ' ').split(/[\s,·\-_/]+/).map(artNorm_)
+    .filter(function (w) { return w.length >= 2 && ART_COMMON_WORDS.indexOf(w) < 0; });
+  if (!words.length) return t.indexOf(artNorm_(name)) >= 0;
+  return words.some(function (w) { return t.indexOf(w) >= 0 || (w.length >= 4 && t.indexOf(w.slice(0, 3)) >= 0); });
+}
+
+// 손으로 정리해 둔 후보(ART_SEED)에 이미 반영된 활동지: 업데이트할 때 건너뜀
+var ART_KNOWN_DOCS = [
+  '1RRxXhCf0MVb-VyrfN2HhZg9bjV0lJB1QhktulfdqcNk', '1y_x_d-G6Sx3aUfa5Xq8qk1fH6fwB_KscZIzOBsRX9Xg', '1ejkXqW9rp11v3d7h43QGhhBWkOlVXyGHWAP0rPmFAF0', // 3반
+  '1Q5-7oZsg2A2mBQoWnxPqHblvFKgZAyYgDvGV15w8bOo', '1sG91izTDpvpwBAwCeVku3Bv4yPyrhhPa6gqtgHxD9Yw', '1MQNmovRTQutk48uy8MzxgUEYGi7KC98sVFloZJ2eyCU',
+  '1cPYOfnR5RMVsdRZFREyO1zFY5Vvnsf14hD8ta3LHTMY', '1heiU3UeC6I-a2qFaiwKI7ToGPIBK4XkrprZdWFUzN-U',                                              // 4반
+  '1enZnK5eaE4-OvpkLibODfRuMDwRzH-LaEoMhPQeeplk', '1ztp1Hs-X7kpm0qPV7ZntW-cqu6fQX7ICvBQnKkLu5nk'                                               // 5반
+];
+
+function artFetchText_(ids) {
+  var resps = ids.length ? UrlFetchApp.fetchAll(ids.map(function (id) {
+    return { url: 'https://docs.google.com/document/d/' + id + '/export?format=txt', muteHttpExceptions: true, followRedirects: true };
+  })) : [];
+  return resps.map(function (res) {
+    var body = res && res.getResponseCode() === 200 ? res.getContentText('UTF-8') : '';
+    return (!body || /^\s*<!DOCTYPE|<html/i.test(body.slice(0, 300))) ? null : body;
+  });
+}
+
+function artSyncRun_() {
+  var wishes = padletAll_('wishes');
+  var comments = padletAll_('comments');
+  var wishCls = {}, templates = [];
+  wishes.forEach(function (w) {
+    var a = w.attributes || w;
+    var m = String(a.subject || a.headline || '').match(/([1-5])\s*반/);
+    if (m) wishCls[a.id] = m[1];
+    var att = String(a.attachment || '').match(/document\/d\/([\w-]+)/);
+    if (att && !m) templates.push(att[1]);   // 선생님이 올린 빈 활동지 원본
+  });
+
+  var docs = [], seenDoc = {}, fileOnly = 0, known = 0;
+  comments.forEach(function (c) {
+    var a = c.attributes || c;
+    var cls = wishCls[a.wish_id];
+    if (!cls) return;
+    var m = String(a.body || '').match(/docs\.google\.com\/document\/d\/([\w-]+)/) || String(a.html_body || '').match(/docs\.google\.com\/document\/d\/([\w-]+)/);
+    if (!m) { if (/\.(docx?|hwpx?|pdf)\s*$/i.test(String(a.body || '').trim())) fileOnly++; return; }
+    var id = m[1];
+    if (templates.indexOf(id) >= 0 || seenDoc[cls + id]) return;
+    seenDoc[cls + id] = 1;
+    if (ART_KNOWN_DOCS.indexOf(id) >= 0) { known++; return; }
+    docs.push({ cls: cls, id: id });
+  });
+  // 오래된 댓글부터 처리해서, 같은 유물을 고른 모둠이 여럿이면 먼저 낸 모둠 것을 씀
+  docs.reverse();
+
+  var texts = artFetchText_(templates.concat(docs.map(function (d) { return d.id; })));
+  var tpl = templates.map(function (id, i) { return texts[i] ? artParseSheet_(texts[i]) : null; }).filter(Boolean);
+  texts = texts.slice(templates.length);
+  function isExample(field, v) { return v && tpl.some(function (p) { return p[field] === v; }); }
+  function isExampleCand(c) { return tpl.some(function (p) { return p.cands.some(function (x) { return x.name === c.name && x.era === c.era; }); }); }
+
+  var classes = {};
+  ART_CLASSES.forEach(function (c) { classes[c] = { docs: 0, added: 0, updated: 0, same: 0, locked: 0, empty: 0, noPhoto: [] }; });
+
+  var sh = artSheet_();
+  if (sh.getLastColumn() < 12 || !sh.getRange(1, 12).getValue()) sh.getRange(1, 12).setValue(ART_SRC_HEADER).setFontWeight('bold').setBackground('#fef3c7');
+  var vals = sh.getRange(1, 1, Math.max(sh.getLastRow(), 1), 12).getDisplayValues();
+  var bySrc = {}, names = {}, relics = {};
+  function remember(cls, name, link) {
+    (names[cls] = names[cls] || []).push(artNorm_(name));
+    var r = String(link || '').match(/relicId=(\d+)/);
+    if (r) (relics[cls] = relics[cls] || {})[r[1]] = 1;
+  }
+  for (var i = 1; i < vals.length; i++) {
+    var r = vals[i], rc = String(r[0]).replace(/[^0-9]/g, '');
+    if (r[11]) bySrc[r[11]] = i + 1;
+    if (r[2] && String(r[10]).trim().toUpperCase() !== 'X') remember(rc, r[2], r[6]);
+  }
+  function isDup(cls, name, relicId) {
+    var nn = artNorm_(name);
+    if ((names[cls] || []).some(function (m) { return m && (m === nn || (nn.length >= 3 && m.indexOf(nn) >= 0) || (m.length >= 3 && nn.indexOf(m) >= 0)); })) return true;
+    return !!(relicId && relics[cls] && relics[cls][relicId]);
+  }
+
+  var append = [], writes = [];
+  function upsert(cls, src, idBase, it, K) {
+    var rowNo = bySrc[src];
+    if (rowNo) {
+      var cur = vals[rowNo - 1];
+      var nameChanged = artNorm_(cur[2]) !== artNorm_(it.name);
+      var img = cur[5], link = cur[6], owner = cur[4];
+      if (nameChanged || !img) {
+        var f = artMuseumFind_(it.name);
+        img = f ? f.img : (nameChanged ? '' : img);
+        link = f ? MUSEUM_VIEW + f.relicId : (nameChanged ? '' : link);
+        owner = f ? '국립중앙박물관 「' + f.title + '」' : (nameChanged ? '' : owner);
+      }
+      if (!img) K.noPhoto.push(it.name);
+      writes.push([rowNo, [cls, cur[1], it.name, it.era || cur[3], owner, img, link, clip_(it.intro, 1000), clip_(it.intent, 1000), it.status, cur[10], src]]);
+      K.updated++;
+      return;
+    }
+    var found = artMuseumFind_(it.name);
+    if (isDup(cls, it.name, found && found.relicId)) { K.same++; return; }
+    if (!found) K.noPhoto.push(it.name);
+    append.push([cls, idBase, it.name, it.era, found ? '국립중앙박물관 「' + found.title + '」' : '',
+      found ? found.img : '', found ? MUSEUM_VIEW + found.relicId : '', clip_(it.intro, 1000), clip_(it.intent, 1000), it.status, '', src]);
+    remember(cls, it.name, found ? MUSEUM_VIEW + found.relicId : '');
+    K.added++;
+  }
+
+  docs.forEach(function (d, k) {
+    var K = classes[d.cls];
+    K.docs++;
+    if (!texts[k]) { K.locked++; return; }
+    var p = artParseSheet_(texts[k]);
+    ['reason', 'meaning', 'visual', 'story'].forEach(function (f) { if (isExample(f, p[f])) p[f] = ''; });
+    var tail = d.id.slice(-5);
+    if (p.name) {
+      var intent = [p.reason, p.visual ? '분장 계획: ' + p.visual : '', p.story ? '발표 이야기: ' + p.story : ''].filter(Boolean).join(' / ');
+      upsert(d.cls, d.id + '|final', 'p' + d.cls + tail, {
+        name: p.name, era: p.era, status: '최종 선정',
+        intro: p.meaning ? '모둠이 정리한 역사적 의미: ' + p.meaning : '', intent: intent || '모둠 활동지의 최종 선정 유물'
+      }, K);
+      // 이 활동지에서 예전에 '후보'로 올린 줄은 숨김
+      Object.keys(bySrc).forEach(function (s) {
+        if (s.indexOf(d.id + '|c|') === 0) writes.push([bySrc[s], null]);
+      });
+      return;
+    }
+    var cands = p.cands.filter(function (c) { return !isExampleCand(c); });
+    if (!cands.length) { K.empty++; return; }
+    cands.forEach(function (c, j) {
+      upsert(d.cls, d.id + '|c|' + artNorm_(c.name), 'p' + d.cls + tail + 'c' + (j + 1), {
+        name: c.name.slice(0, 80), era: c.era.slice(0, 80), status: '후보',
+        intro: '', intent: '모둠 활동지의 후보 유물 (최종 선정 전)' + (p.reason ? ' / ' + p.reason : '')
+      }, K);
+    });
+  });
+
+  writes.forEach(function (w) {
+    if (w[1]) sh.getRange(w[0], 1, 1, 12).setNumberFormat('@').setValues([w[1].map(safeCell_)]);
+    else sh.getRange(w[0], 11).setValue('X');
+  });
+  if (append.length) {
+    sh.getRange(sh.getLastRow() + 1, 1, append.length, 12).setNumberFormat('@').setValues(append.map(function (r) { return r.map(safeCell_); }));
+  }
+  var out = { ok: true, at: Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyy-MM-dd HH:mm'), classes: classes,
+    fileOnly: fileOnly, known: known, padlet: PADLET_URL };
+  PropertiesService.getScriptProperties().setProperty('ART_SYNC', JSON.stringify(out));
+  return out;
+}
+
+// 선생님 화면에서 후보 사진 주소 고치기 (빈칸이면 박물관 검색으로 다시 찾기)
+function artEdit_(data) {
+  if (!checkPassword_(data.password)) return { ok: false, error: 'auth' };
+  var cls = artCls_(data.cls);
+  var id = String(data.id || '').trim();
+  var sh = artSheet_();
+  var vals = sh.getDataRange().getDisplayValues();
+  for (var i = 1; i < vals.length; i++) {
+    if (String(vals[i][0]).replace(/[^0-9]/g, '') !== cls || String(vals[i][1]).trim() !== id) continue;
+    if (data.hide === true) { sh.getRange(i + 1, 11).setValue('X'); return { ok: true, hidden: true }; }
+    var img = clip_(data.img, 500).trim(), link = vals[i][6], owner = vals[i][4];
+    var query = vals[i][2];
+    if (img && !/^(https?:\/\/|img\/)/i.test(img)) { query = img; img = ''; }   // 주소가 아니면 검색어로 봄
+    if (img) { link = ''; owner = ''; }
+    if (!img) {
+      var f = artMuseumFind_(query);
+      if (!f) throw new Error('국립중앙박물관에서 사진을 찾지 못했어요. 사진 주소를 직접 붙여 넣어 주세요.');
+      img = f.img; link = MUSEUM_VIEW + f.relicId; owner = '국립중앙박물관 「' + f.title + '」';
+    }
+    sh.getRange(i + 1, 5, 1, 3).setNumberFormat('@').setValues([[owner, img, link].map(safeCell_)]);
+    return { ok: true, img: img };
+  }
+  throw new Error('그 유물을 찾지 못했어요. 새로고침해 주세요.');
 }
 
 
