@@ -83,6 +83,11 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-o
 .modes button{flex:none;font:inherit;font-size:15px;font-weight:800;padding:8px 16px;border-radius:12px;border:2px solid var(--nb-ink,#334155);background:var(--nb-card,#1e293b);color:var(--nb-ink,#e2e8f0);cursor:pointer;min-height:42px}
 .modes button[aria-selected="true"]{background:var(--nb-hl,#f59e0b);color:#1C1C1C;box-shadow:3px 3px 0 var(--nb-sh,#000)}
 .modes .n{display:inline-grid;place-items:center;min-width:22px;height:22px;border-radius:999px;background:#B3261E;color:#fff;font-size:12px;margin-left:6px;padding:0 6px}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.tcard{display:flex;flex-direction:column;gap:8px}
+.tcard .ti{font-size:19px;font-weight:900}
+.tcard p{margin:0;color:var(--ink-2);font-size:14.5px;flex:1}
+.tcard .btn{display:inline-block;text-decoration:none;text-align:center;margin-top:4px}
 @media (max-width:560px){.stat{min-width:0;flex:1}}
 </style>
 <link rel="stylesheet" href="../assets/theme.css">
@@ -99,6 +104,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-o
     <button type="button" role="tab" data-mode="grade">📋 제출 확인·평가</button>
     <button type="button" role="tab" data-mode="live">🎛 수업 진행판</button>
     <button type="button" role="tab" data-mode="reflect">📝 수업 성찰</button>
+    <button type="button" role="tab" data-mode="tools">🧰 수업 도구</button>
   </nav>
   <nav class="lessons" id="lessons" aria-label="차시 선택" hidden></nav>
 </header>
@@ -134,6 +140,14 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-o
 
   <div id="livePanel" hidden></div>
   <div id="reflectPanel" hidden></div>
+  <div id="toolsPanel" hidden>
+    <p class="hint" style="margin:0 0 12px">학생 화면(수업 도구 탭)에는 학생 입장 버튼만 있습니다. 선생님용 화면은 여기서 여세요.</p>
+    <div class="tgrid">
+      <div class="card tcard"><b class="ti">⚡ 역사 용어 스피드 퀴즈</b><p>문제 범위·문제 수·시간을 고르고 방을 열면 입장 코드와 QR이 나와요. 프로젝터에 띄우세요.</p><a class="btn" href="../quiz/?host" target="_blank" rel="noopener">퀴즈 방 열기 ↗</a></div>
+      <div class="card tcard"><b class="ti">⚖ 역사 문장 경매</b><p>문장 세트와 규칙을 고르고 경매장을 엽니다.</p><a class="btn" href="https://yeoksa-auction-2611.web.app/teacher.html" target="_blank" rel="noopener">① 옳은 문장 경매 ↗</a> <a class="btn ghost" href="https://yeoksa-auction-2611.web.app/teacher.html?mode=order" target="_blank" rel="noopener">② 순서 경매 ↗</a></div>
+      <div class="card tcard"><b class="ti">🏛 유물 분장 투표</b><p>반별 득표·투표한 번호, 마감·결과 공개, 패들렛에서 업데이트.</p><a class="btn" href="../artifact-vote/?teacher" target="_blank" rel="noopener">득표 현황 열기 ↗</a></div>
+    </div>
+  </div>
 </main>
 
 <script>
@@ -187,7 +201,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--amber);outline-o
   function setMode(m){
     mode=m; ls('t-mode',m);
     [].forEach.call($('modes').children,function(b){ b.setAttribute('aria-selected',b.dataset.mode===m); });
-    $('app').hidden=m!=='grade'; $('lessons').hidden=m!=='grade'; $('livePanel').hidden=m!=='live'; $('reflectPanel').hidden=m!=='reflect';
+    $('app').hidden=m!=='grade'; $('lessons').hidden=m!=='grade'; $('livePanel').hidden=m!=='live'; $('reflectPanel').hidden=m!=='reflect'; $('toolsPanel').hidden=m!=='tools';
     if(m==='reflect' && !reflectLoaded){ reflectLoaded=true; window.TEACHER_API=API; window.TEACHER_PW=function(){ return pw; }; $('reflectPanel').innerHTML='<div class="empty-state">불러오는 중…</div>';
       loadJs('reflect-panel.js').catch(function(){ $('reflectPanel').innerHTML='<div class="empty-state">수업 성찰 화면을 불러오지 못했어요. 새로 고침해 주세요.</div>'; reflectLoaded=false; }); }
     if(m==='grade' && data) load(true);
