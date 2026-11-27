@@ -56,7 +56,7 @@ h2.sec{font-weight:900;font-size:22px;margin:36px 0 4px}
 .mode .set{font-size:13px;color:var(--ink-2)}
 .mode .set strong{color:var(--ink)}
 
-.go-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:20px}
+.go-row{display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px}
 .btn{display:flex;flex-direction:column;gap:2px;text-decoration:none;border-radius:16px;padding:16px 18px;font-weight:900;font-size:19px;line-height:1.35;transition:transform .15s,box-shadow .15s}
 .btn small{font-weight:500;font-size:13.5px}
 .btn:hover,.btn:focus-visible{transform:translateY(-2px);outline:none;box-shadow:var(--shadow)}
@@ -128,10 +128,6 @@ footer{padding:36px 0 72px;color:var(--ink-2);font-size:13px}
         학생 · 퀴즈 들어가기 →
         <small>입장 코드 4자리와 별명만 넣어요 (실명·학번은 받지 않아요)</small>
       </a>
-      <a class="btn teacher" href="../quiz/?host">
-        선생님 · 퀴즈 방 열기 →
-        <small>문제 범위·문제 수·시간을 고르고 입장 코드·QR을 띄웁니다</small>
-      </a>
     </div>
     <ol class="steps">
       <li><b>입장</b> · 선생님 화면의 QR을 찍고 별명을 써요.</li>
@@ -171,12 +167,7 @@ footer{padding:36px 0 72px;color:var(--ink-2);font-size:13px}
         학생 · 경매장 들어가기 →
         <small>입장 코드 4자리와 학년·반·번호·이름을 넣어요</small>
       </a>
-      <a class="btn teacher" href="https://yeoksa-auction-2611.web.app/teacher.html" target="_blank" rel="noopener">
-        선생님 · 경매장 열기 →
-        <small>문장 세트와 규칙을 고르고 입장 코드·QR을 띄웁니다</small>
-      </a>
     </div>
-    <p class="teacher-links">선생님 바로 가기: <a href="https://yeoksa-auction-2611.web.app/teacher.html" target="_blank" rel="noopener">① 옳은 문장 경매로 열기</a> · <a href="https://yeoksa-auction-2611.web.app/teacher.html?mode=order" target="_blank" rel="noopener">② 순서 경매로 열기</a></p>
 
     <ol class="steps">
       <li><b>입장</b> · 선생님 화면의 QR을 찍거나 위 학생 버튼을 누르고 입장 코드를 넣어요.</li>
@@ -201,10 +192,6 @@ footer{padding:36px 0 72px;color:var(--ink-2);font-size:13px}
       <a class="btn student" href="../artifact-vote/">
         학생 · 투표하러 가기 →
         <small>반과 번호를 고르면 우리 반 후보 유물이 나와요</small>
-      </a>
-      <a class="btn teacher" href="../artifact-vote/?teacher">
-        선생님 · 득표 현황 보기 →
-        <small>반별 득표·투표한 번호 확인, 마감·결과 공개, 후보 더하기</small>
       </a>
     </div>
   </article>
